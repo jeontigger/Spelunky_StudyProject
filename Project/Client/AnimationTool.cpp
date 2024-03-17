@@ -196,6 +196,8 @@ void AnimationTool::render_update()
     ButtonTitle("Select Atlas");
 
     VecCombo("## combo1", m_vecAtlasPaths, m_iComboIdx);
+    if (m_vecAtlasPaths.size() == 0)
+        return;
 
     static bool use_text_color_for_tint = false;
     // Atlas ±×¸®±â

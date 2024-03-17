@@ -212,9 +212,15 @@ void MenuUI::Level()
 void MenuUI::Animation()
 {
     UI* aniTool = UIMGR->FindUI(UIAnimationToolName);
-    if (aniTool && ImGui::MenuItem("AnimationTool", nullptr, nullptr, !aniTool->IsActivate()))
+    if (aniTool && ImGui::MenuItem("AnimationTool", nullptr, nullptr, true))
     {
-        UIMGR->UIActivate(UIAnimationToolName);
+        if (aniTool->IsActivate()) {
+            UIMGR->UIDeactivate(UIAnimationToolName);
+        }
+        else {
+            UIMGR->UIActivate(UIAnimationToolName);
+        }
+        
     }
 }
 
