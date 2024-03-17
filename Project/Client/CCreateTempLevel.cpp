@@ -54,12 +54,12 @@ void CCreateTempLevel::Init()
 	*/
 
 	// 임시 FSM 객체 에셋 하나 생성하기
-	Ptr<CFSM>	pFSM = new CFSM(true);
+	//Ptr<CFSM>	pFSM = new CFSM(true);
 
-	pFSM->AddState(L"IdleState", new CIdleState);
-	pFSM->AddState(L"TraceState", new CTraceState);
+	//pFSM->AddState(L"IdleState", new CIdleState);
+	//pFSM->AddState(L"TraceState", new CTraceState);
 
-	CAssetMgr::GetInst()->AddAsset<CFSM>(L"NormalMonsterFSM", pFSM.Get());
+	//CAssetMgr::GetInst()->AddAsset<CFSM>(L"NormalMonsterFSM", pFSM.Get());
 }
 
 void CCreateTempLevel::CreateTempLevel()
@@ -88,47 +88,47 @@ void CCreateTempLevel::CreateTempLevel()
 
 	// ComputeShader 테스트
 	// 사용할 텍스쳐 생성
-	Ptr<CTexture> pTestTex = CAssetMgr::GetInst()->CreateTexture(L"TestTex"
-		, 1024, 1024, DXGI_FORMAT_R8G8B8A8_UNORM
-		, D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_UNORDERED_ACCESS);
+	//Ptr<CTexture> pTestTex = CAssetMgr::GetInst()->CreateTexture(L"TestTex"
+	//	, 1024, 1024, DXGI_FORMAT_R8G8B8A8_UNORM
+	//	, D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_UNORDERED_ACCESS);
 
-	Ptr<CSetColorShader> pCS = (CSetColorShader*)CAssetMgr::GetInst()->FindAsset<CComputeShader>(L"SetColorShader").Get();
-	pCS->SetColor(Vec3(1.f, 0.f, 0.f));
-	pCS->SetTargetTexture(pTestTex);
-	pCS->Execute();
+	//Ptr<CSetColorShader> pCS = (CSetColorShader*)CAssetMgr::GetInst()->FindAsset<CComputeShader>(L"SetColorShader").Get();
+	//pCS->SetColor(Vec3(1.f, 0.f, 0.f));
+	//pCS->SetTargetTexture(pTestTex);
+	//pCS->Execute();
 
-	tPixel* pPixel = pTestTex->GetPixels();
-	tPixel pixel = pPixel[pTestTex->GetWidth() * 1 + 5];
+	//tPixel* pPixel = pTestTex->GetPixels();
+	//tPixel pixel = pPixel[pTestTex->GetWidth() * 1 + 5];
 
 	// Main Camera Object 생성
-	CGameObject* pCamObj = new CGameObject;
-	pCamObj->SetName(L"MainCamera");
-	pCamObj->AddComponent(new CTransform);
-	pCamObj->AddComponent(new CCamera);
+	//CGameObject* pCamObj = new CGameObject;
+	//pCamObj->SetName(L"MainCamera");
+	//pCamObj->AddComponent(new CTransform);
+	//pCamObj->AddComponent(new CCamera);
 
-	pCamObj->Transform()->SetRelativePos(Vec3(0.5f, 0.f, 0.f));
-	pCamObj->Transform()->SetRelativeRotation(Vec3(0.f, 0.f, 0.f));
+	//pCamObj->Transform()->SetRelativePos(Vec3(0.5f, 0.f, 0.f));
+	//pCamObj->Transform()->SetRelativeRotation(Vec3(0.f, 0.f, 0.f));
 
-	pCamObj->Camera()->SetProjType(PROJ_TYPE::PERSPECTIVE);
-	pCamObj->Camera()->SetCameraPriority(0);
-	pCamObj->Camera()->LayerCheckAll();
-	pCamObj->Camera()->LayerCheck(31, false);
+	//pCamObj->Camera()->SetProjType(PROJ_TYPE::PERSPECTIVE);
+	//pCamObj->Camera()->SetCameraPriority(0);
+	//pCamObj->Camera()->LayerCheckAll();
+	//pCamObj->Camera()->LayerCheck(31, false);
 
-	pTempLevel->AddObject(pCamObj, 0);
+	//pTempLevel->AddObject(pCamObj, 0);
 
 	// UI 카메라 생성
-	pCamObj = new CGameObject;
-	pCamObj->SetName(L"UICamera");
-	pCamObj->AddComponent(new CTransform);
-	pCamObj->AddComponent(new CCamera);
+	//pCamObj = new CGameObject;
+	//pCamObj->SetName(L"UICamera");
+	//pCamObj->AddComponent(new CTransform);
+	//pCamObj->AddComponent(new CCamera);
 
-	pCamObj->Transform()->SetRelativePos(Vec3(0.5f, 0.f, 0.f));
-	pCamObj->Transform()->SetRelativeRotation(Vec3(0.f, 0.f, 0.f));
+	//pCamObj->Transform()->SetRelativePos(Vec3(0.5f, 0.f, 0.f));
+	//pCamObj->Transform()->SetRelativeRotation(Vec3(0.f, 0.f, 0.f));
 
-	pCamObj->Camera()->SetCameraPriority(1);
-	pCamObj->Camera()->LayerCheck(31, true);
+	//pCamObj->Camera()->SetCameraPriority(1);
+	//pCamObj->Camera()->LayerCheck(31, true);
 
-	pTempLevel->AddObject(pCamObj, 0);
+	//pTempLevel->AddObject(pCamObj, 0);
 
 	// 전역 광원 추가
 	CGameObject* pLight = new CGameObject;
@@ -144,23 +144,23 @@ void CCreateTempLevel::CreateTempLevel()
 	CGameObject* pObj = nullptr;
 
 	// Backgruond Object 생성
-	pObj = new CGameObject;
-	pObj->SetName(L"Background");
+	//pObj = new CGameObject;
+	//pObj->SetName(L"Background");
 
-	pObj->AddComponent(new CTransform);
-	pObj->AddComponent(new CMeshRender);
-	pObj->AddComponent(new CBackgroundScript);
+	//pObj->AddComponent(new CTransform);
+	//pObj->AddComponent(new CMeshRender);
+	//pObj->AddComponent(new CBackgroundScript);
 
-	pObj->Transform()->SetRelativePos(Vec3(0.f, 0.f, 600.f));
-	pObj->Transform()->SetRelativeScale(Vec3(1600.f, 800.f, 1.f));
+	//pObj->Transform()->SetRelativePos(Vec3(0.f, 0.f, 600.f));
+	//pObj->Transform()->SetRelativeScale(Vec3(1600.f, 800.f, 1.f));
 
-	pObj->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
-	pObj->MeshRender()->SetMaterial(CAssetMgr::GetInst()->FindAsset<CMaterial>(L"BackgroundMtrl"));
+	//pObj->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
+	//pObj->MeshRender()->SetMaterial(CAssetMgr::GetInst()->FindAsset<CMaterial>(L"BackgroundMtrl"));
 
-	Ptr<CTexture> pTex = CAssetMgr::GetInst()->Load<CTexture>(L"texture\\Background.jpg", L"texture\\Background.jpg");
-	pObj->MeshRender()->GetMaterial()->SetTexParam(TEX_PARAM::TEX_0, pTex);
+	//Ptr<CTexture> pTex = CAssetMgr::GetInst()->Load<CTexture>(L"texture\\Background.jpg", L"texture\\Background.jpg");
+	//pObj->MeshRender()->GetMaterial()->SetTexParam(TEX_PARAM::TEX_0, pTex);
 
-	pTempLevel->AddObject(pObj, L"Background", false);
+	//pTempLevel->AddObject(pObj, L"Background", false);
 
 	// Player Object 생성
 	pObj = new CGameObject;
@@ -173,7 +173,7 @@ void CCreateTempLevel::CreateTempLevel()
 	pObj->AddComponent(new CPlayerScript);
 	pObj->AddComponent(new CMissileScript);
 
-	pObj->Transform()->SetRelativePos(Vec3(0.f, 0.f, 500.f));
+	pObj->Transform()->SetRelativePos(Vec3(-9000.f, 0.f, 500.f));
 	pObj->Transform()->SetRelativeScale(Vec3(200.f, 200.f, 1.f));
 
 	pObj->Collider2D()->SetAbsolute(true);
@@ -182,13 +182,13 @@ void CCreateTempLevel::CreateTempLevel()
 
 	pObj->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
 	pObj->MeshRender()->SetMaterial(CAssetMgr::GetInst()->FindAsset<CMaterial>(L"Std2DMtrl"));
-	pObj->MeshRender()->GetMaterial()->SetTexParam(TEX_PARAM::TEX_0, CAssetMgr::GetInst()->Load<CTexture>(L"texture\\Fighter.bmp", L"texture\\Fighter.bmp"));
+	//pObj->MeshRender()->GetMaterial()->SetTexParam(TEX_PARAM::TEX_0, CAssetMgr::GetInst()->Load<CTexture>(L"texture\\Fighter.bmp", L"texture\\Fighter.bmp"));
 
 	pTempLevel->AddObject(pObj, L"Player", false);
 
 
 	// Monster Object 생성
-	pObj = new CGameObject;
+	/*pObj = new CGameObject;
 	pObj->SetName(L"Monster");
 
 	pObj->AddComponent(new CTransform);
@@ -210,12 +210,12 @@ void CCreateTempLevel::CreateTempLevel()
 
 	pObj->StateMachine()->SetFSM(CAssetMgr::GetInst()->FindAsset<CFSM>(L"NormalMonsterFSM"));
 
-	pTempLevel->AddObject(pObj, L"Monster", false);
+	pTempLevel->AddObject(pObj, L"Monster", false);*/
 
 
 	// 충돌 설정
-	CCollisionMgr::GetInst()->LayerCheck(3, 4);
-	CCollisionMgr::GetInst()->LayerCheck(4, 4);
+	//CCollisionMgr::GetInst()->LayerCheck(3, 4);
+	//CCollisionMgr::GetInst()->LayerCheck(4, 4);
 
 	CLevelMgr::GetInst()->ChangeLevel(pTempLevel, LEVEL_STATE::STOP);
 
