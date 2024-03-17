@@ -1,0 +1,6 @@
+##AnimationTool 1
+##Content 0
+##Inspector 0
+##List 0
+##Menu 1
+##Outliner 0

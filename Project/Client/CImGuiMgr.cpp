@@ -20,6 +20,7 @@
 
 #include "ParamUI.h"
 
+
 CImGuiMgr::CImGuiMgr()
     : m_bDemoUI(false)
     , m_hNotify(nullptr)
@@ -29,6 +30,8 @@ CImGuiMgr::CImGuiMgr()
 
 CImGuiMgr::~CImGuiMgr()
 {
+    SaveUIActivate();
+
     // ImGui Clear       
     ImGui_ImplDX11_Shutdown();
     ImGui_ImplWin32_Shutdown();
@@ -101,11 +104,7 @@ void CImGuiMgr::init(HWND _hMainWnd, ComPtr<ID3D11Device> _Device
                                         , FILE_NOTIFY_CHANGE_FILE_NAME | FILE_NOTIFY_CHANGE_DIR_NAME 
                                         | FILE_ACTION_ADDED | FILE_ACTION_REMOVED);
 
-    UIDeactivate(UIContentName);
-    UIDeactivate(UIInspectorName);
-    UIDeactivate(UIOutlinerName);
-    UIDeactivate(UIAnimationToolName);
-
+    LoadUIActivate();
 }
 
 void CImGuiMgr::progress()
@@ -230,6 +229,56 @@ void CImGuiMgr::observe_content()
         Content* pContentUI = (Content*)FindUI("##Content");
         pContentUI->ReloadContent();
     }
+}
+
+bool CImGuiMgr::LoadUIActivate()
+{
+    wstring absPath = CPathMgr::GetContentPath();
+    absPath += L"..";
+    absPath += L"\\imgui.txt";
+
+    std::ifstream pfile;
+    pfile.open(absPath);
+    if (pfile.is_open()) {
+        while (!pfile.eof()) {
+            string key;
+            bool active;
+            pfile >> key >> active;
+            if (active) {
+                UIActivate(key);
+            }
+            else {
+                UIDeactivate(key);
+            }
+        }
+        
+    }
+    else {
+        return false;
+    }
+
+    return false;
+}
+
+bool CImGuiMgr::SaveUIActivate()
+{
+    wstring absPath = CPathMgr::GetContentPath();
+    absPath += L"..";
+    absPath += L"\\imgui.txt";
+
+    std::ofstream pfile;
+    pfile.open(absPath);
+    if (pfile.is_open()) {
+        for (auto iter = m_mapUI.begin(); iter != m_mapUI.end(); ++iter) {
+            pfile << iter->first << " " << iter->second->IsActivate() << endl;
+        }
+
+    }
+    else {
+        return false;
+    }
+
+    return true;
 }
 
 

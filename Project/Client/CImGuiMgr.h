@@ -32,6 +32,9 @@ private:
     void create_ui();
     void observe_content();
 
+private:
+    bool LoadUIActivate();
+    bool SaveUIActivate();
 
 public:
     void UIDeactivate(const string& _strUIName);

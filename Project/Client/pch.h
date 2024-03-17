@@ -9,3 +9,7 @@
 #include <string.h>
 using std::string;
 using std::wstring;
+
+
+#include <fstream>
+using std::endl;
