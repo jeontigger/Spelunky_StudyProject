@@ -99,6 +99,11 @@ void CImGuiMgr::init(HWND _hMainWnd, ComPtr<ID3D11Device> _Device
     m_hNotify = FindFirstChangeNotification(strContentPath.c_str(), true
                                         , FILE_NOTIFY_CHANGE_FILE_NAME | FILE_NOTIFY_CHANGE_DIR_NAME 
                                         | FILE_ACTION_ADDED | FILE_ACTION_REMOVED);
+
+    UIDeactivate(UIContentName);
+    UIDeactivate(UIInspectorName);
+    UIDeactivate(UIOutlinerName);
+
 }
 
 void CImGuiMgr::progress()
@@ -149,6 +154,19 @@ void CImGuiMgr::render()
     }
 }
 
+void CImGuiMgr::UIDeactivate(const string& _strUIName)
+{
+    UI* ui = FindUI(_strUIName);
+    if (ui)
+        ui->Deactivate();
+}
+
+void CImGuiMgr::UIActivate(const string& _strUIName)
+{
+    UI* ui = FindUI(_strUIName);
+    if (ui)
+        ui->Activate();
+}
 
 UI* CImGuiMgr::FindUI(const string& _strUIName)
 {

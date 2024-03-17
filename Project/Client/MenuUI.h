@@ -11,6 +11,7 @@ public:
 
 private:
     void File();
+    void Window();
     void Level();
     void GameObject();
     void Asset();

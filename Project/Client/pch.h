@@ -1,6 +1,6 @@
 #pragma once
 #include "macro.h"
-
+#include "strings.h"
 
 #define IMGUI_DEFINE_MATH_OPERATORS
 

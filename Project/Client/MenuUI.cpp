@@ -44,6 +44,8 @@ void MenuUI::render_update()
 {
     File();
 
+    Window();
+
     Level();
 
     GameObject();
@@ -116,6 +118,32 @@ void MenuUI::File()
                 Inspector* pInspector = (Inspector*)CImGuiMgr::GetInst()->FindUI("##Inspector");
                 pInspector->SetTargetObject(nullptr);
             }
+        }
+
+        ImGui::EndMenu();
+    }
+}
+
+void MenuUI::Window()
+{
+    if (ImGui::BeginMenu("Window"))
+    {
+        UI* content = UIMGR->FindUI(UIContentName);
+        UI* inspector = UIMGR->FindUI(UIInspectorName);
+        UI* outliner = UIMGR->FindUI(UIOutlinerName);
+        if (ImGui::MenuItem("Content", nullptr, nullptr, !content->IsActivate()))
+        {
+            content->Activate();
+        }
+
+        if (ImGui::MenuItem("Inspector", nullptr, nullptr, !inspector->IsActivate()))
+        {
+            inspector->Activate();
+        }
+
+        if (ImGui::MenuItem("Outliner", nullptr, nullptr, !outliner->IsActivate()))
+        {
+            outliner->Activate();
         }
 
         ImGui::EndMenu();

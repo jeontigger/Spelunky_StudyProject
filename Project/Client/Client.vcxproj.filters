@@ -271,6 +271,9 @@
     <ClInclude Include="macro.h">
       <Filter>00. Define</Filter>
     </ClInclude>
+    <ClInclude Include="strings.h">
+      <Filter>00. Define</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">

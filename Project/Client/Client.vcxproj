@@ -192,6 +192,7 @@
     <ClInclude Include="PrefabUI.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="SoundUI.h" />
+    <ClInclude Include="strings.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="TextureUI.h" />
     <ClInclude Include="TransformUI.h" />
