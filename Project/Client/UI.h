@@ -34,6 +34,7 @@ public:
 	UI* GetParentUI() { return m_Parent; }
 	virtual void Activate()  { m_bActive = true; }
 	virtual void Deactivate() { m_bActive = false; }
+	virtual void begin() {}
 	bool IsActivate() { return m_bActive; }
 	void SetModal(bool _Modal) { m_bModal = _Modal; }
 

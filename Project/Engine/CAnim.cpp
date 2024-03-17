@@ -96,6 +96,14 @@ void CAnim::Create(CAnimator2D* _Animator, Ptr<CTexture> _Atlas, Vec2 _vLeftTop
 	}
 }
 
+void CAnim::Create(CAnimator2D* _Animator, Ptr<CTexture> _Atlas, const vector<tAnimFrm>& _frms)
+{
+	m_Animator = _Animator;
+	m_AtlasTex = _Atlas;
+
+	m_vecFrm = _frms;
+}
+
 void CAnim::SaveToFile(FILE* _File)
 {
 	// 애니메이션 이름 저장

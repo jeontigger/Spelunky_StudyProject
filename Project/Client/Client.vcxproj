@@ -150,6 +150,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="AnimationTool.h" />
     <ClInclude Include="Animator2DUI.h" />
     <ClInclude Include="AssetUI.h" />
     <ClInclude Include="CCameraMoveScript.h" />
@@ -200,6 +201,7 @@
     <ClInclude Include="UI.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AnimationTool.cpp" />
     <ClCompile Include="Animator2DUI.cpp" />
     <ClCompile Include="AssetUI.cpp" />
     <ClCompile Include="CCameraMoveScript.cpp" />

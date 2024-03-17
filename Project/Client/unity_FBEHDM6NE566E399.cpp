@@ -1,5 +1,8 @@
 #include "pch.h"
 
+#include "C:\Portfolio\Spelunky2\Project\Client\AnimationTool.cpp"
+
+
 #include "C:\Portfolio\Spelunky2\Project\Client\Animator2DUI.cpp"
 
 

@@ -48,9 +48,11 @@ void MenuUI::render_update()
 
     Level();
 
-    GameObject();
+    Animation();
+
+    //GameObject();
     
-    Asset();
+    //Asset();
 }
 
 void MenuUI::File()
@@ -207,6 +209,16 @@ void MenuUI::Level()
     }
 }
 
+void MenuUI::Animation()
+{
+    UI* aniTool = UIMGR->FindUI(UIAnimationToolName);
+    if (aniTool && ImGui::MenuItem("AnimationTool", nullptr, nullptr, !aniTool->IsActivate()))
+    {
+        UIMGR->UIActivate(UIAnimationToolName);
+    }
+}
+
+
 void MenuUI::GameObject()
 {
     if (ImGui::BeginMenu("GameObject"))
@@ -280,3 +292,4 @@ void MenuUI::Asset()
         ImGui::EndMenu();
     }
 }
+

@@ -15,6 +15,7 @@
 #include "Content.h"
 #include "Outliner.h"
 #include "MenuUI.h"
+#include "AnimationTool.h"
 #include "ListUI.h"
 
 #include "ParamUI.h"
@@ -103,6 +104,7 @@ void CImGuiMgr::init(HWND _hMainWnd, ComPtr<ID3D11Device> _Device
     UIDeactivate(UIContentName);
     UIDeactivate(UIInspectorName);
     UIDeactivate(UIOutlinerName);
+    UIDeactivate(UIAnimationToolName);
 
 }
 
@@ -209,6 +211,9 @@ void CImGuiMgr::create_ui()
 
     // List
     pUI = new ListUI;
+    AddUI(pUI->GetID(), pUI);
+
+    pUI = new AnimationTool;
     AddUI(pUI->GetID(), pUI);
 }
 
