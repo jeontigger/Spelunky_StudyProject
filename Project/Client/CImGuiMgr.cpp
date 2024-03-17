@@ -20,7 +20,7 @@
 #include "ParamUI.h"
 
 CImGuiMgr::CImGuiMgr()
-    : m_bDemoUI(true)
+    : m_bDemoUI(false)
     , m_hNotify(nullptr)
 {
 
