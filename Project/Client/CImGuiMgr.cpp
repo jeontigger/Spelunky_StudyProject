@@ -237,7 +237,7 @@ bool CImGuiMgr::LoadUIActivate()
     absPath += L"..";
     absPath += L"\\imgui.txt";
 
-    std::ifstream pfile;
+    ifstream pfile;
     pfile.open(absPath);
     if (pfile.is_open()) {
         while (!pfile.eof()) {
@@ -251,7 +251,6 @@ bool CImGuiMgr::LoadUIActivate()
                 UIDeactivate(key);
             }
         }
-        
     }
     else {
         return false;
@@ -266,13 +265,12 @@ bool CImGuiMgr::SaveUIActivate()
     absPath += L"..";
     absPath += L"\\imgui.txt";
 
-    std::ofstream pfile;
+    ofstream pfile;
     pfile.open(absPath);
     if (pfile.is_open()) {
         for (auto iter = m_mapUI.begin(); iter != m_mapUI.end(); ++iter) {
             pfile << iter->first << " " << iter->second->IsActivate() << endl;
         }
-
     }
     else {
         return false;

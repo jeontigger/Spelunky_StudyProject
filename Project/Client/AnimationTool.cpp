@@ -91,6 +91,21 @@ void AnimationTool::MakeFrms()
     }
 }
 
+bool AnimationTool::MakeAnim()
+{
+
+    CGameObject* obj = CLevelMgr::GetInst()->GetCurrentLevel()->FindObjectByName(L"Player");
+    MakeFrms();
+    if (m_Frms.size() != 0) {
+        obj->Animator2D()->AddAnim(ToWString(m_nameBuffer), m_Atlas, m_Frms);
+        obj->Animator2D()->Play(ToWString(m_nameBuffer));
+    }
+    else {
+        return false;
+    }
+    return true;
+}
+
 void AnimationTool::PlayButton()
 {
     ImGui::PushID(0);
@@ -126,27 +141,41 @@ void AnimationTool::SaveButton()
 
         CGameObject* obj = CLevelMgr::GetInst()->GetCurrentLevel()->FindObjectByName(L"Player");
 
-        wstring strLevelPath = CPathMgr::GetContentPath();
-        strLevelPath += L"anim\\";
-        strLevelPath += ToWString(m_nameBuffer);
-        strLevelPath += L".anim";
+        wstring animPath = CPathMgr::GetContentPath();
+        animPath += L"anim\\";
+        animPath += ToWString(m_nameBuffer);
+        animPath += L".anim";
 
-        FILE* pFile = nullptr;
-        _wfopen_s(&pFile, strLevelPath.c_str(), L"wb");
+        if (m_vecLeftTops.size() == 0) {
+            MessageBox(nullptr, L"프레임을 등록해주세요", L"애니메이션 저장", MB_OK);
 
-        //SaveWString(nameBuffer, pFile);
+            ImGui::PopStyleColor(3);
+            ImGui::PopID();
+            return;
+        }
 
-        // 모든 프레임 정보 저장
-        size_t FrmSize = m_Frms.size();
-        fwrite(&FrmSize, sizeof(size_t), 1, pFile);
-        fwrite(m_Frms.data(), sizeof(tAnimFrm), m_Frms.size(), pFile);
+        if (m_nameBuffer[0] == '\0') {
+            ImGui::PopStyleColor(3);
+            ImGui::PopID();
+            MessageBox(nullptr, L"애니메이션 이름을 지정해주세요", L"애니메이션 저장", MB_OK);
+            return;
+        }
 
-        //SaveAssetRef(pTex, pFile);
-        fclose(pFile);
+        ofstream pFile;
+        pFile.open(animPath);
 
-        obj->Animator2D()->AddAnim(strLevelPath, m_Atlas, m_Frms);
-        auto anim = obj->Animator2D()->FindAnim(strLevelPath);
-        //anim->SaveToFile(pFile);
+        if (!pFile.is_open()) {
+            MessageBox(nullptr, L"파일 열기 실패!", L"애니메이션 저장", MB_OK);
+            assert(nullptr);
+        }
+        MakeAnim();
+        CAnim* pAnim = obj->Animator2D()->GetCurAnim();
+        pAnim->SetName(ToWString(m_nameBuffer));
+        pAnim->SaveToFile(pFile);
+        //m_Atlas->save
+        MessageBox(nullptr, L"저장 완료!", L"애니메이션 저장", MB_OK);
+
+        SaveAssetRef(m_Atlas, pFile);
     }
 
     ImGui::PopStyleColor(3);

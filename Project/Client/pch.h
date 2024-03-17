@@ -13,3 +13,5 @@ using std::wstring;
 
 #include <fstream>
 using std::endl;
+using std::ifstream;
+using std::ofstream;

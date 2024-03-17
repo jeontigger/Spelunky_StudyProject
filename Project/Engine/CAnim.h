@@ -48,6 +48,7 @@ public:
     tAnimFrm GetCurFrm() { return m_vecFrm[m_CurFrmIdx]; }
 
     void SaveToFile(FILE* _File);
+    void SaveToFile(ofstream& _File);
     void LoadFromFile(FILE* _File);
     CLONE(CAnim);
 public:

@@ -27,6 +27,10 @@ using namespace Microsoft::WRL;
 using namespace std::experimental;
 using namespace std::experimental::filesystem;
 using std::experimental::filesystem::path;
+#include <fstream>
+using std::ifstream;
+using std::ofstream;
+using std::endl;
 
 
 // Directx 11 헤더 및 라이브러리 참조

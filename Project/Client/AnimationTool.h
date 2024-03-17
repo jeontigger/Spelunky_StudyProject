@@ -37,6 +37,7 @@ private:
     void VecCombo(const char* ID, const vector<string>& vec, int& i);
     void LoadAtlasPath(vector<string>& vec);
     void MakeFrms();
+    bool MakeAnim();
 
     void ClearButton();
     void PlayButton();

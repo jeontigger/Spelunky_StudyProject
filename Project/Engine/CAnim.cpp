@@ -118,6 +118,18 @@ void CAnim::SaveToFile(FILE* _File)
 	SaveAssetRef(m_AtlasTex, _File);
 }
 
+void CAnim::SaveToFile(ofstream& _File)
+{
+	_File << GetName() << endl;
+	_File << m_vecFrm.size() << endl;
+	for (int i = 0; i < m_vecFrm.size(); i++) {
+		auto data = m_vecFrm[i];
+		_File << data.vSlice.x << " " << data.vSlice.y << " " << " " << data.vLeftTop.x << " " << data.vLeftTop.y << " " 
+			<< data.vOffset.x << " " << data.vOffset.y << " " << data.vBackground.x << " " << data.vBackground.y << " " << 
+			data.Duration << endl;
+	}
+}
+
 void CAnim::LoadFromFile(FILE* _File)
 {
 	// 애니메이션 이름 로드
