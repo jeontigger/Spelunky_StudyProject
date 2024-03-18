@@ -31,6 +31,7 @@
     <ClInclude Include="math.h">
       <Filter>00. Default</Filter>
     </ClInclude>
+    <ClInclude Include="CStage.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -57,6 +58,7 @@
     <ClCompile Include="CPlayerScript.cpp">
       <Filter>02. Scripts\new</Filter>
     </ClCompile>
+    <ClCompile Include="CStage.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="00. Default">
@@ -76,6 +78,9 @@
     </Filter>
     <Filter Include="02. Scripts\new">
       <UniqueIdentifier>{985cb4da-0df5-4ac6-903c-d0ce4c0fe9be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Level">
+      <UniqueIdentifier>{f840e35f-e86f-44e6-ba41-afc9556001be}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
