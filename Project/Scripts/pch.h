@@ -11,6 +11,8 @@
 #include "framework.h"
 
 #include <Engine/global.h>
+#include "define.h"
+#include "math.h"
 
 #ifdef _DEBUG
 #pragma comment(lib, "Engine\\Engine_d.lib")

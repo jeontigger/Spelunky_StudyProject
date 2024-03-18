@@ -53,20 +53,6 @@ void SaveAssetRef(Ptr<T> _Asset, FILE* _File)
 }
 
 template<typename T>
-void SaveAssetRef(Ptr<T> _Asset, ofstream& _File)
-{
-	bool bAssetExist = false;
-	_Asset == nullptr ? bAssetExist = false : bAssetExist = true;
-
-	_File << bAssetExist << endl;
-
-	if (bAssetExist)
-	{
-		_File << _Asset->GetKey() << " " << _Asset->GetRelativePath() << endl;
-	}
-}
-
-template<typename T>
 void LoadAssetRef(Ptr<T>& _Asset, FILE* _File)
 {	
 	bool bAssetExist = false;

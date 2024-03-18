@@ -1,7 +1,45 @@
 ﻿#include "pch.h"
 #include "PathMgr.h"
 
+#include <fstream>
+#include <iostream>
+using std::ofstream;
 vector<wstring> g_vecName;
+
+void NameInput() {
+	wstring solPath = CPathMgr::GetProjectPath();
+	wstring filterPath = solPath + L"..\\Project\\Scripts\\Scripts.vcxproj.filters";
+
+	wifstream fin;
+	fin.open(filterPath);
+	wstring line;
+	wstring header;
+	bool isheader = false;
+	while (getline(fin, line))
+	{
+
+		if (line.find(L".cpp") != string::npos) {
+			isheader = false;
+			continue;
+		}
+
+		if (line.find(L".h") != string::npos) {
+			int start = line.find(L"\"");
+			int end = line.find(L".");
+
+			header = line.substr(start + 1, end - start - 1);
+			isheader = true;
+		}
+
+		if (line.find(L"<Filter>02. Scripts") != string::npos) {
+			if (isheader) {
+				wcout << header << endl;
+				g_vecName.push_back(header);
+			}
+		}
+
+	}
+}
 
 int main()
 {
@@ -17,6 +55,11 @@ int main()
 	WIN32_FIND_DATA tData = {};
 	HANDLE handle = FindFirstFile(wstring(strScriptCode + L"\\*.h").c_str(), &tData);
 
+
+	NameInput();
+	for (auto str : g_vecName) {
+		wcout << str << endl;
+	}
 	if (INVALID_HANDLE_VALUE == handle)
 		return 0;
 
@@ -41,67 +84,68 @@ int main()
 		fclose(pExeptList);
 	}
 
-	while (true)
-	{
-		// 예외가 아닌경우, 스크립트 이름으로 본다.
-		bool bExeption = false;
-		for (size_t i = 0; i < strExept.size(); ++i)
-		{
-			if (!wcscmp(tData.cFileName, strExept[i].c_str()))
-			{
-				bExeption = true;
-				break;
-			}
-		}
 
-		if (!bExeption)
-		{
-			g_vecName.push_back(wstring(tData.cFileName).substr(0, wcslen(tData.cFileName) - 2));
-		}		
-				
-		if (!FindNextFile(handle, &tData))
-			break;
-	}
+	//while (true)
+	//{
+	//	// 예외가 아닌경우, 스크립트 이름으로 본다.
+	//	bool bExeption = false;
+	//	for (size_t i = 0; i < strExept.size(); ++i)
+	//	{
+	//		if (!wcscmp(tData.cFileName, strExept[i].c_str()))
+	//		{
+	//			bExeption = true;
+	//			break;
+	//		}
+	//	}
+
+	//	if (!bExeption)
+	//	{
+	//		g_vecName.push_back(wstring(tData.cFileName).substr(0, wcslen(tData.cFileName) - 2));
+	//	}		
+	//			
+	//	if (!FindNextFile(handle, &tData))
+	//		break;
+	//}
 
 	FindClose(handle);
 
 	// 이전에 CodeGen 이 실행할때 체크해둔 스크립트 목록
-	FILE* pScriptListFile = nullptr;
-	_wfopen_s(&pScriptListFile, L"ScriptList.txt", L"r");
+	//FILE* pScriptListFile = nullptr;
+	//_wfopen_s(&pScriptListFile, L"ScriptList.txt", L"r");
 
-	if (nullptr != pScriptListFile)
-	{
-		wchar_t szScriptName[50] = L"";
-		vector<wstring> strCurScriptList;
-		while (true)
-		{
-			int iLen = fwscanf_s(pScriptListFile, L"%s", szScriptName, 50);
-			if (iLen == -1)
-				break;
+	//if (nullptr != pScriptListFile)
+	//{
+	//	wchar_t szScriptName[50] = L"";
+	//	vector<wstring> strCurScriptList;
+	//	while (true)
+	//	{
+	//		int iLen = fwscanf_s(pScriptListFile, L"%s", szScriptName, 50);
+	//		if (iLen == -1)
+	//			break;
 
-			strCurScriptList.push_back(szScriptName);
-		}
-		fclose(pScriptListFile);
+	//		strCurScriptList.push_back(szScriptName);
+	//	}
+	//	fclose(pScriptListFile);
 
 
-		if (g_vecName.size() == strCurScriptList.size())
-		{
-			bool bSame = true;
-			for (UINT i = 0; i < g_vecName.size(); ++i)
-			{
-				if (g_vecName[i] != strCurScriptList[i])
-				{
-					// 같지 않은게 1개이상 있다
-					bSame = false;
-					break;
-				}
-			}
+	//	if (g_vecName.size() == strCurScriptList.size())
+	//	{
+	//		bool bSame = true;
+	//		for (UINT i = 0; i < g_vecName.size(); ++i)
+	//		{
+	//			if (g_vecName[i] != strCurScriptList[i])
+	//			{
+	//				// 같지 않은게 1개이상 있다
+	//				bSame = false;
+	//				break;
+	//			}
+	//		}
 
-			// 이전 목록과, 현재 스크립트 목록이 완전 일치한다(변경사항 없다)
-			if (bSame)
-				return 0;
-		}
-	}
+	//		// 이전 목록과, 현재 스크립트 목록이 완전 일치한다(변경사항 없다)
+	//		if (bSame)
+	//			return 0;
+	//	}
+	//}
 
 
 	FILE* pFile = NULL;
