@@ -34,7 +34,10 @@ private:
 	BlockTileType m_Tiles[TILEBLOCKSIZE][TILEBLOCKSIZE];
 
 public:
+	void Save(ofstream& fout);
+	void Load(ifstream& fin);
 
+public:
 	CTileBlock();
 	~CTileBlock();
 };
