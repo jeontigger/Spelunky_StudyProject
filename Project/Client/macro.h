@@ -6,3 +6,6 @@
 #define RESOLUTION Vec2(RESOLUTIONX, RESOLUTIONY)
 
 #define UIMGR CImGuiMgr::GetInst()
+
+#define BLOCKTILEX 4
+#define BLOCKTILEY 4
