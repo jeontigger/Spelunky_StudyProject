@@ -31,7 +31,12 @@
     <ClInclude Include="math.h">
       <Filter>00. Default</Filter>
     </ClInclude>
-    <ClInclude Include="CStage.h" />
+    <ClInclude Include="CStage.h">
+      <Filter>04. Level</Filter>
+    </ClInclude>
+    <ClInclude Include="global.h">
+      <Filter>00. Default</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -58,7 +63,9 @@
     <ClCompile Include="CPlayerScript.cpp">
       <Filter>02. Scripts\new</Filter>
     </ClCompile>
-    <ClCompile Include="CStage.cpp" />
+    <ClCompile Include="CStage.cpp">
+      <Filter>04. Level</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="00. Default">
@@ -70,17 +77,17 @@
     <Filter Include="02. Scripts">
       <UniqueIdentifier>{af5c3808-4d30-476b-b2ab-d844558017d2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="03. Tile">
-      <UniqueIdentifier>{90b95b58-1b95-4ee3-8e57-36f10c253b79}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="03. Tile\TileBlock">
-      <UniqueIdentifier>{9959df6f-d7a5-4c33-894b-f2001fead0ec}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02. Scripts\new">
       <UniqueIdentifier>{985cb4da-0df5-4ac6-903c-d0ce4c0fe9be}</UniqueIdentifier>
     </Filter>
     <Filter Include="04. Level">
       <UniqueIdentifier>{f840e35f-e86f-44e6-ba41-afc9556001be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Tile">
+      <UniqueIdentifier>{90b95b58-1b95-4ee3-8e57-36f10c253b79}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Tile\TileBlock">
+      <UniqueIdentifier>{9959df6f-d7a5-4c33-894b-f2001fead0ec}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

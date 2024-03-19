@@ -171,6 +171,7 @@ call CodeGen.exe</Command>
     <ClInclude Include="CTileBlock.h" />
     <ClInclude Include="define.h" />
     <ClInclude Include="framework.h" />
+    <ClInclude Include="global.h" />
     <ClInclude Include="math.h" />
     <ClInclude Include="pch.h" />
   </ItemGroup>
