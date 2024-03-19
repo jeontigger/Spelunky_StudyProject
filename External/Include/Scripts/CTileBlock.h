@@ -34,6 +34,10 @@ private:
 	BlockTileType m_Tiles[TILEBLOCKSIZE][TILEBLOCKSIZE];
 
 public:
+	inline void SetTileType(BlockTileType _type, int _row, int _col) { m_Tiles[_row][_col] = _type; }
+	inline BlockTileType GetTileType(int _row, int _col) { return m_Tiles[_row][_col]; }
+
+public:
 	void Save(ofstream& fout);
 	void Load(ifstream& fin);
 

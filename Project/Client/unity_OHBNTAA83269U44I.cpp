@@ -54,6 +54,9 @@
 #include "C:\Portfolio\Spelunky2\Project\Client\TextureUI.cpp"
 
 
+#include "C:\Portfolio\Spelunky2\Project\Client\TileMaker.cpp"
+
+
 #include "C:\Portfolio\Spelunky2\Project\Client\TransformUI.cpp"
 
 
