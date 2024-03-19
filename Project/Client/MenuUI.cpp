@@ -50,8 +50,6 @@ void MenuUI::render_update()
 
     Animation();
 
-    TileMaker();
-
     //GameObject();
     
     //Asset();
@@ -223,21 +221,6 @@ void MenuUI::Animation()
             UIMGR->UIActivate(UIAnimationToolName);
         }
         
-    }
-}
-
-void MenuUI::TileMaker()
-{
-    UI* tilemaker = UIMGR->FindUI(UITileMakerName);
-    if (tilemaker && ImGui::MenuItem("TileMaker", nullptr, nullptr, true))
-    {
-        if (tilemaker->IsActivate()) {
-            UIMGR->UIDeactivate(UITileMakerName);
-        }
-        else {
-            UIMGR->UIActivate(UITileMakerName);
-        }
-
     }
 }
 

@@ -16,7 +16,6 @@ private:
     void GameObject();
     void Asset();
     void Animation();
-    void TileMaker();
 
 
 public:

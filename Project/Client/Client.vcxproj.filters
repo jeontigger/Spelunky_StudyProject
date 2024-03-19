@@ -131,9 +131,6 @@
     <Filter Include="02. UI\7. AnimationTool">
       <UniqueIdentifier>{7134de27-7187-4bda-a05a-7344de3281be}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. UI\8. TileMaker">
-      <UniqueIdentifier>{aeacd850-0b9e-4771-8fce-5516fe4486a1}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -283,9 +280,6 @@
     <ClInclude Include="AnimationTool.h">
       <Filter>02. UI\7. AnimationTool</Filter>
     </ClInclude>
-    <ClInclude Include="TileMaker.h">
-      <Filter>02. UI\8. TileMaker</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -430,9 +424,6 @@
     </ClCompile>
     <ClCompile Include="AnimationTool.cpp">
       <Filter>02. UI\7. AnimationTool</Filter>
-    </ClCompile>
-    <ClCompile Include="TileMaker.cpp">
-      <Filter>02. UI\8. TileMaker</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

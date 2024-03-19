@@ -197,7 +197,6 @@
     <ClInclude Include="strings.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="TextureUI.h" />
-    <ClInclude Include="TileMaker.h" />
     <ClInclude Include="TransformUI.h" />
     <ClInclude Include="TreeUI.h" />
     <ClInclude Include="UI.h" />
@@ -247,7 +246,6 @@
     <ClCompile Include="PrefabUI.cpp" />
     <ClCompile Include="SoundUI.cpp" />
     <ClCompile Include="TextureUI.cpp" />
-    <ClCompile Include="TileMaker.cpp" />
     <ClCompile Include="TransformUI.cpp" />
     <ClCompile Include="TreeUI.cpp" />
     <ClCompile Include="UI.cpp" />
