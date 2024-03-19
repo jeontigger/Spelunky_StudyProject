@@ -15,7 +15,11 @@ private:
 	UI*				m_Parent;
 	vector<UI*>		m_vecChildUI;
 
-	
+protected:
+	void ButtonTitle(const char* Content);
+	void LoadAllPath(string _strDirectoryPath, vector<string>& vec);
+
+	void VecCombo(const char* ID, const vector<string>& vec, int& i);
 
 public:
 	void SetName(const string& _name) { m_strName = _name; }

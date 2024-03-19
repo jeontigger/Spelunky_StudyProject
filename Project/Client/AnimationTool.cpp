@@ -31,39 +31,6 @@ AnimationTool::~AnimationTool()
 {
 }
 
-void AnimationTool::ButtonTitle(const char* Content)
-{
-    ImGui::PushID(0);
-    ImGui::PushStyleColor(ImGuiCol_Button, (ImVec4)ImColor::HSV(0.f, 0.6f, 0.6f));
-    ImGui::PushStyleColor(ImGuiCol_ButtonHovered, (ImVec4)ImColor::HSV(0.f, 0.6f, 0.6f));
-    ImGui::PushStyleColor(ImGuiCol_ButtonActive, (ImVec4)ImColor::HSV(0.f, 0.6f, 0.6f));
-
-    ImGui::Button(Content);
-
-    ImGui::PopStyleColor(3);
-    ImGui::PopID();
-    ImGui::SameLine();
-}
-
-void AnimationTool::VecCombo(const char* ID, const vector<string>& vec, int& item_current_idx)
-{
-    const char* combo_preview_value = vec[item_current_idx].c_str();
-
-    if (ImGui::BeginCombo(ID, combo_preview_value, 0))
-    {
-        for (int n = 0; n < vec.size(); n++)
-        {
-            const bool is_selected = (item_current_idx == n);
-            if (ImGui::Selectable(vec[n].c_str(), is_selected))
-                item_current_idx = n;
-
-            // Set the initial focus when opening the combo (scrolling + keyboard navigation focus)
-            if (is_selected)
-                ImGui::SetItemDefaultFocus();
-        }
-        ImGui::EndCombo();
-    }
-}
 #include <filesystem>
 
 void AnimationTool::LoadAtlasPath(vector<string>& vec)

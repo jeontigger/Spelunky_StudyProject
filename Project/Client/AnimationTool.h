@@ -33,8 +33,7 @@ public:
     ~AnimationTool();
 
 private:
-    void ButtonTitle(const char* Content);
-    void VecCombo(const char* ID, const vector<string>& vec, int& i);
+    
     void LoadAtlasPath(vector<string>& vec);
     void MakeFrms();
     bool MakeAnim();
