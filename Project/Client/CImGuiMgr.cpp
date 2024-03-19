@@ -16,6 +16,7 @@
 #include "Outliner.h"
 #include "MenuUI.h"
 #include "AnimationTool.h"
+#include "TileMaker.h"
 #include "ListUI.h"
 
 #include "ParamUI.h"
@@ -213,6 +214,9 @@ void CImGuiMgr::create_ui()
     AddUI(pUI->GetID(), pUI);
 
     pUI = new AnimationTool;
+    AddUI(pUI->GetID(), pUI);
+
+    pUI = new TileMaker;
     AddUI(pUI->GetID(), pUI);
 }
 
