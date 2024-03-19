@@ -67,8 +67,6 @@ void SaveAssetRef(Ptr<T> _Asset, ofstream& _File)
 }
 
 template<typename T>
-
-template<typename T>
 void LoadAssetRef(Ptr<T>& _Asset, FILE* _File)
 {	
 	bool bAssetExist = false;
@@ -84,9 +82,6 @@ void LoadAssetRef(Ptr<T>& _Asset, FILE* _File)
 		_Asset = CAssetMgr::GetInst()->Load<T>(strKey, strRelativePath);
 	}
 }
-
-
-
 
 template<typename T, UINT SIZE>
 void Delete_Array(T* (&Arr)[SIZE])
