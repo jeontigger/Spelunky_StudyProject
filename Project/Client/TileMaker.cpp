@@ -226,7 +226,7 @@ void TileMaker::PrintStageBlocks()
 			ImGui::Dummy(ImVec2(5.0f, 0.0f));
 			ImGui::SameLine();
 			if (ImGui::Button(key.c_str())) {
-				//LoadStageBlock(type, idx);
+				LoadStageBlock(type, idx);
 			}
 
 			string deletekey = "X##";
@@ -237,6 +237,11 @@ void TileMaker::PrintStageBlocks()
 			}
 		}
 	}
+}
+
+void TileMaker::LoadStageBlock(int type, int idx)
+{
+	m_curTileBlock = m_vecTileBlocks[type][idx];
 }
 
 void TileMaker::DeleteStageBlock(int type, int idx)
