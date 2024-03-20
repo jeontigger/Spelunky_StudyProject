@@ -17,11 +17,11 @@ private:
     /// <summary>
     /// 생성시키기 위한 타일 리스트
     /// </summary>
-    map<TileBlockType, vector<CTileBlock*>> m_mapBlockList;
+    map<TileBlockType, vector<CTileBlock>> m_mapBlockList;
 
 public:
-    void AddTileBlock(TileBlockType _type, CTileBlock* _block);
-    inline map<TileBlockType, vector<CTileBlock*>> GetList() { return m_mapBlockList; }
+    void AddTileBlock(TileBlockType _type, CTileBlock _block);
+    inline map<TileBlockType, vector<CTileBlock>> GetList() { return m_mapBlockList; }
 
     friend ifstream& operator>>(ifstream& fin, CStage& stage);
     friend ofstream& operator<<(ofstream& fout, const CStage& stage);

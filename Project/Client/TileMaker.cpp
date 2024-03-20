@@ -10,7 +10,6 @@
 TileMaker::TileMaker()
 	: UI("TileMaker", UITileMakerName)
 	, m_curStage(nullptr)
-	, m_curTileBlock(nullptr)
 	, m_state(TileMakerState::NONE)
 {
 	wstring blocktilepath = L"texture\\tilemap\\blocktile.png";
@@ -23,15 +22,6 @@ TileMaker::~TileMaker()
 {
 	if (m_newStage)
 		delete m_newStage;
-	if (m_newTileBlock)
-		delete m_newTileBlock;
-
-	for (int i = 0; i < m_vecTileBlocks.size(); i++) {
-		for (int j = 0; j < m_vecTileBlocks[i].size(); j++) {
-			if (m_vecTileBlocks[i][j])
-				delete m_vecTileBlocks[i][j];
-		}
-	}
 
 	Delete_Vec(m_vecStages);
 }
@@ -42,12 +32,15 @@ void TileMaker::render_update()
 		if (ImGui::Button("Make New Stage")) {
 			m_state = TileMakerState::New;
 			m_curStage = m_newStage;
+			m_vecNewTileBlocks.clear();
+			m_vecNewTileBlocks.resize((int)TileBlockType::END);
 		}
 		if (ImGui::Button("Stage Modify")) {
 			m_state = TileMakerState::Modify;
 			m_StageNames.clear();
 			LoadAllPath("stage", m_StageNames);
 			LoadAllStages();
+			SortTileBlocks(m_vecStages[0]);
 		}
 	}
 
@@ -67,7 +60,7 @@ void TileMaker::render_update()
 			else {
 				MessageBox(nullptr, L"스테이지가 저장되었습니다", L"타일메이커", MB_OK);
 
-				SaveStage(m_curStage);
+				SaveStage(m_newStage, m_vecNewTileBlocks);
 
 				ClearStage();
 
@@ -77,12 +70,12 @@ void TileMaker::render_update()
 
 		ButtonTitle("Stage Name");
 		ImGui::InputText("##stagename", m_StageName, 32);
-		TileBlockMenu();
+		TileBlockMenu(m_vecNewTileBlocks);
 		ImGui::EndChild();
 		ImGui::SameLine();
 
 		ImGui::BeginChild("BlockMaps", ImVec2(200, 800), true, 0);
-		PrintStageBlocks();
+		PrintStageBlocks(m_vecNewTileBlocks);
 		ImGui::EndChild();
 		ImGui::SameLine();
 
@@ -94,15 +87,42 @@ void TileMaker::render_update()
 
 	// 기존 스테이지 변경
 	if (m_state == TileMakerState::Modify) {
+		ImGui::BeginChild("LeftTops", ImVec2(320, 800), true, 0);
 		ReturnButton();
+		ImGui::SameLine();
+		if (ImGui::Button("Stage Save")) {
+			MessageBox(nullptr, L"스테이지가 저장되었습니다", L"타일메이커", MB_OK);
+
+			SaveStage(m_curStage, m_vecTileBlocks);
+
+			ClearStage();
+
+			m_state = TileMakerState::NONE;
+		}
+
 		ButtonTitle("Select Stage");
 
 		static int comboidx = 0;
 		int prev = comboidx;
 		VecCombo("##tilemaker1", m_StageNames, comboidx);
 		if (prev != comboidx) {
-
+			SortTileBlocks(m_vecStages[comboidx]);
 		}
+
+		TileBlockMenu(m_vecTileBlocks);
+
+		ImGui::EndChild();
+		ImGui::SameLine();
+
+		ImGui::BeginChild("BlockMaps", ImVec2(200, 800), true, 0);
+		PrintStageBlocks(m_vecTileBlocks);
+		ImGui::EndChild();
+		ImGui::SameLine();
+
+
+		ImGui::BeginChild("BlockTiles", ImVec2(1000, 800), true, 0);
+		PrintTileBlock(m_curTileBlock);
+		ImGui::EndChild();
 	}
 }
 
@@ -136,14 +156,14 @@ void TileMaker::LoadAllStages()
 	
 }
 
-void TileMaker::TileBlockMenu()
+void TileMaker::TileBlockMenu(vector<vector<CTileBlock>>& vvec)
 {
 	ImGui::BeginChild("LeftTops", ImVec2(305, 450), true, 0);
 
 
 	static int item_current_1 = -1; // If the selection isn't within 0..count, Combo won't display a preview
 	if (ImGui::Button("Create New TileBlock")) {
-		ClearBlockTile();
+		m_curTileBlock = m_newTileBlock;
 	}
 	if (ImGui::Button("TileBlock Save")) {
 		if (item_current_1 == -1) {
@@ -151,8 +171,8 @@ void TileMaker::TileBlockMenu()
 		}
 		else {
 			MessageBox(nullptr, L"타일블록을 저장했습니다.", L"타일메이커", MB_OK);
-			m_vecTileBlocks[(int)item_current_1].push_back(m_newTileBlock);
-			m_newTileBlock = new CTileBlock;
+			vvec[(int)item_current_1].push_back(m_curTileBlock);
+			m_curTileBlock = m_newTileBlock;
 		}
 	}
 
@@ -209,11 +229,11 @@ void TileMaker::TileBlockMenu()
 	ImGui::EndChild();
 }
 
-void TileMaker::PrintTileBlock(CTileBlock* _tileblock)
+void TileMaker::PrintTileBlock(CTileBlock& _tileblock)
 {
 	for (int row = 0; row < TILEBLOCKSIZE; row++) {
 		for (int col = 0; col < TILEBLOCKSIZE; col++) {
-			BlockTileType curType = _tileblock->GetTileType(row, col);
+			BlockTileType curType = _tileblock.GetTileType(row, col);
 			Vec2 idx = math::IdxToRowCol((int)curType, Vec2(BLOCKTILEX, BLOCKTILEY));
 
 			ImVec2 ImgSize = ImVec2(70, 70); // 이미지 크기
@@ -231,7 +251,7 @@ void TileMaker::PrintTileBlock(CTileBlock* _tileblock)
 			static int i = 0;
 			string key = std::to_string(row * TILEBLOCKSIZE + col);
 			if (ImGui::ImageButton(key.c_str(), m_texBlockTile->GetSRV().Get(), ImgSize, uv0, uv1, bg_col, tint_col)) {
-				_tileblock->SetTileType(m_curType, row, col);
+				_tileblock.SetTileType(m_curType, row, col);
 			}
 
 			// 스타일 색상 복원
@@ -242,11 +262,11 @@ void TileMaker::PrintTileBlock(CTileBlock* _tileblock)
 	}
 }
 
-void TileMaker::PrintStageBlocks()
+void TileMaker::PrintStageBlocks(vector<vector<CTileBlock>>& vvec)
 {
 
-	for (int type = 0; type < m_vecTileBlocks.size(); type++) {
-		auto tileblocks = m_vecTileBlocks[type];
+	for (int type = 0; type < vvec.size(); type++) {
+		auto tileblocks = vvec[type];
 		if (tileblocks.size() == 0) continue;
 
 		string strType = TileBlockTypeStrings[type];
@@ -258,36 +278,48 @@ void TileMaker::PrintStageBlocks()
 			ImGui::Dummy(ImVec2(5.0f, 0.0f));
 			ImGui::SameLine();
 			if (ImGui::Button(key.c_str())) {
-				LoadStageBlock(type, idx);
+				LoadStageBlock(vvec, type, idx);
 			}
 
 			string deletekey = "X##";
 			deletekey += key;
 			ImGui::SameLine();
 			if (ImGui::Button(deletekey.c_str())) {
-				DeleteStageBlock(type, idx);
+				DeleteStageBlock(vvec, type, idx);
 			}
 		}
 	}
 }
 
-void TileMaker::LoadStageBlock(int type, int idx)
+void TileMaker::LoadStageBlock(vector<vector<CTileBlock>> vvec, int type, int idx)
 {
-	m_curTileBlock = m_vecTileBlocks[type][idx];
+	m_curTileBlock = vvec[type][idx];
 }
 
-void TileMaker::DeleteStageBlock(int type, int idx)
+void TileMaker::DeleteStageBlock(vector<vector<CTileBlock>>& vvec, int type, int idx)
 {
-	auto del = m_vecTileBlocks[type].begin() + idx;
-	if (*del == m_curTileBlock) {
-		m_curTileBlock = m_newTileBlock;
-	}
-	if (*del) delete* del;
-	m_vecTileBlocks[type].erase(m_vecTileBlocks[type].begin() + idx);
+	auto del = vvec[type].begin() + idx;
+
+	vvec[type].erase(vvec[type].begin() + idx);
+
+	m_curTileBlock = m_newTileBlock;
 	MessageBox(nullptr, L"타일블록 타입을 제거했습니다", L"타일메이커", MB_OK);
 }
 
-void TileMaker::SaveStage(CStage* _stage)
+void TileMaker::SortTileBlocks(CStage* _stage)
+{
+	auto map = _stage->GetList();
+	m_vecTileBlocks.clear();
+	m_vecTileBlocks.resize((int)TileBlockType::END);
+	for (auto iter = map.begin(); iter != map.end(); ++iter) {
+		auto vec = iter->second;
+		for (auto tileblock : vec) {
+			m_vecTileBlocks[(int)iter->first].push_back(tileblock);
+		}
+	}
+}
+
+void TileMaker::SaveStage(CStage* _stage, vector<vector<CTileBlock>> _vvec)
 {
 	ofstream fout;
 	string filename = ToString(CPathMgr::GetContentPath()) + "stage\\";
@@ -295,18 +327,33 @@ void TileMaker::SaveStage(CStage* _stage)
 	filename += ".st";
 	fout.open(filename);
 
-	FillTileBlocks(_stage);
+	FillTileBlocks(_stage, _vvec);
 
 	if (fout.is_open()) {
 		fout << *_stage;
 	}
 }
 
-void TileMaker::FillTileBlocks(CStage* _stage)
+void TileMaker::SaveStage(CStage* _stage, vector<vector<CTileBlock>> _vvec, int _num)
 {
-	for (int type = 0; type < m_vecTileBlocks.size(); type++) {
-		for (int i = 0; i < m_vecTileBlocks[type].size(); i++) {
-			_stage->AddTileBlock((TileBlockType)type, m_vecTileBlocks[type][i]);
+	ofstream fout;
+	string filename = ToString(CPathMgr::GetContentPath()) + "stage\\";
+	filename += m_StageNames[_num];
+	filename += ".st";
+	fout.open(filename);
+
+	FillTileBlocks(_stage, _vvec);
+
+	if (fout.is_open()) {
+		fout << *_stage;
+	}
+}
+
+void TileMaker::FillTileBlocks(CStage* _stage, vector<vector<CTileBlock>> _vvec)
+{
+	for (int type = 0; type < _vvec.size(); type++) {
+		for (int i = 0; i < _vvec[type].size(); i++) {
+			_stage->AddTileBlock((TileBlockType)type, _vvec[type][i]);
 		}
 	}
 }
@@ -319,12 +366,6 @@ void TileMaker::ClearStage()
 	m_vecTileBlocks.clear();
 	m_vecTileBlocks.resize((int)TileBlockType::END);
 
-	ClearBlockTile();
 }
 
-void TileMaker::ClearBlockTile()
-{
-	if (m_newTileBlock) delete m_newTileBlock;
-	m_curTileBlock = m_newTileBlock = new CTileBlock;
-}
 
