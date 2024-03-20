@@ -54,45 +54,13 @@ void TileMaker::render_update()
 		}
 
 		ButtonTitle("Stage Name");
-
 		ImGui::InputText("##stagename", m_StageName, 32);
-
 		TileBlockMenu();
-		
 		ImGui::EndChild();
 		ImGui::SameLine();
 
 		ImGui::BeginChild("BlockTiles", ImVec2(1000,800), true, 0);
-
-		for (int row = 0; row < TILEBLOCKSIZE; row++) {
-			for (int col = 0; col < TILEBLOCKSIZE; col++) {
-				BlockTileType curType = m_newTileBlock->GetTileType(row, col);
-				Vec2 idx = math::IdxToRowCol((int)curType, Vec2(BLOCKTILEX, BLOCKTILEY));
-
-				ImVec2 ImgSize = ImVec2(70, 70); // 이미지 크기
-				ImVec2 uv0 = ImVec2((float)idx.y * 70.f / 280.f, (float)idx.x * 70.f / 280.f); // 텍스처의 좌측 상단 UV 좌표
-				ImVec2 uv1 = ImVec2(uv0.x + 67.f/280.f, uv0.y + 67.f / 280.f); // 텍스처의 우측 하단 UV 좌표
-				ImVec4 bg_col = ImVec4(0.0f, 0.0f, 0.0f, 0.0f); // 버튼 배경색 (투명)
-				ImVec4 tint_col = ImVec4(1.0f, 1.0f, 1.0f, 1.0f);
-
-				// 투명 버튼 설정
-				ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0)); // 버튼 배경을 투명하게
-				ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(1, 1, 1, 0.1f)); // 호버 시 약간의 색상 변경
-				ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(1, 1, 1, 0.2f)); // 클릭 시 약간 더 진한 색상 변경
-
-				// 이미지 위에 투명 버튼 오버레이
-				static int i = 0;
-				string key = std::to_string(row * TILEBLOCKSIZE + col);
-				if (ImGui::ImageButton(key.c_str(), m_texBlockTile->GetSRV().Get(), ImgSize, uv0, uv1, bg_col, tint_col)) {
-					m_newTileBlock->SetTileType(m_curType, row, col);
-				}
-
-				// 스타일 색상 복원
-				ImGui::PopStyleColor(3);
-				ImGui::SameLine();
-			}
-			ImGui::NewLine();
-		}
+		PrintTileBlock();
 		ImGui::EndChild();
 		
 	}
@@ -179,4 +147,37 @@ void TileMaker::TileBlockMenu()
 
 
 	ImGui::EndChild();
+}
+
+void TileMaker::PrintTileBlock()
+{
+	for (int row = 0; row < TILEBLOCKSIZE; row++) {
+		for (int col = 0; col < TILEBLOCKSIZE; col++) {
+			BlockTileType curType = m_newTileBlock->GetTileType(row, col);
+			Vec2 idx = math::IdxToRowCol((int)curType, Vec2(BLOCKTILEX, BLOCKTILEY));
+
+			ImVec2 ImgSize = ImVec2(70, 70); // 이미지 크기
+			ImVec2 uv0 = ImVec2((float)idx.y * 70.f / 280.f, (float)idx.x * 70.f / 280.f); // 텍스처의 좌측 상단 UV 좌표
+			ImVec2 uv1 = ImVec2(uv0.x + 67.f / 280.f, uv0.y + 67.f / 280.f); // 텍스처의 우측 하단 UV 좌표
+			ImVec4 bg_col = ImVec4(0.0f, 0.0f, 0.0f, 0.0f); // 버튼 배경색 (투명)
+			ImVec4 tint_col = ImVec4(1.0f, 1.0f, 1.0f, 1.0f);
+
+			// 투명 버튼 설정
+			ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0)); // 버튼 배경을 투명하게
+			ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(1, 1, 1, 0.1f)); // 호버 시 약간의 색상 변경
+			ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(1, 1, 1, 0.2f)); // 클릭 시 약간 더 진한 색상 변경
+
+			// 이미지 위에 투명 버튼 오버레이
+			static int i = 0;
+			string key = std::to_string(row * TILEBLOCKSIZE + col);
+			if (ImGui::ImageButton(key.c_str(), m_texBlockTile->GetSRV().Get(), ImgSize, uv0, uv1, bg_col, tint_col)) {
+				m_newTileBlock->SetTileType(m_curType, row, col);
+			}
+
+			// 스타일 색상 복원
+			ImGui::PopStyleColor(3);
+			ImGui::SameLine();
+		}
+		ImGui::NewLine();
+	}
 }

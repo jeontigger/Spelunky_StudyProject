@@ -34,6 +34,7 @@ private:
     void LoadAllStages();
 
     void TileBlockMenu();
+    void PrintTileBlock();
 
 public:
     virtual void render_update() override;
