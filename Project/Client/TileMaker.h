@@ -16,6 +16,7 @@ class TileMaker :
 private:
     class CStage* m_newStage;
     class CTileBlock* m_newTileBlock;
+    vector<vector<CTileBlock*>> m_vecTileBlocks;
     BlockTileType m_curType;
 
     class CStage* m_curStage;
@@ -35,6 +36,9 @@ private:
 
     void TileBlockMenu();
     void PrintTileBlock();
+    void PrintStageBlocks();
+
+    void SortTileBlocks(CStage* _stage);
 
 public:
     virtual void render_update() override;

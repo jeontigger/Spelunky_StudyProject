@@ -1,7 +1,6 @@
 #include "pch.h"
 #include "CStage.h"
 
-#include "CTileBlock.h"
 
 CStage::CStage()
 {
@@ -13,4 +12,10 @@ CStage::CStage()
 
 CStage::~CStage()
 {
+	Delete_Map(m_mapBlockList);
+}
+
+void CStage::AddTileBlock(TileBlockType _type, CTileBlock* _block)
+{
+	m_mapBlockList[_type] = _block;
 }

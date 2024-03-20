@@ -19,6 +19,7 @@ TileMaker::TileMaker()
 
 	wstring blocktilepath = L"texture\\tilemap\\blocktile.png";
 	m_texBlockTile = ASSET_LOAD(CTexture, blocktilepath);
+
 }
 
 TileMaker::~TileMaker()
@@ -59,6 +60,11 @@ void TileMaker::render_update()
 		ImGui::EndChild();
 		ImGui::SameLine();
 
+		ImGui::BeginChild("BlockMaps", ImVec2(200, 800), true, 0);
+		PrintStageBlocks();
+		ImGui::EndChild();
+		ImGui::SameLine();
+
 		ImGui::BeginChild("BlockTiles", ImVec2(1000,800), true, 0);
 		PrintTileBlock();
 		ImGui::EndChild();
@@ -90,15 +96,25 @@ void TileMaker::LoadAllStages()
 
 void TileMaker::TileBlockMenu()
 {
-	ImGui::BeginChild("LeftTops", ImVec2(305, 600), true, 0);
-	if (ImGui::Button("TileBlock Save")) {
+	ImGui::BeginChild("LeftTops", ImVec2(305, 450), true, 0);
 
+
+	static int item_current_1 = -1; // If the selection isn't within 0..count, Combo won't display a preview
+	if (ImGui::Button("TileBlock Save")) {
+		if (item_current_1 == -1) {
+			MessageBox(nullptr, L"타일블록 타입을 지정해주세요", L"타일메이커", MB_OK);
+		}
+		else {
+			m_newStage->AddTileBlock((TileBlockType)item_current_1, m_newTileBlock);
+			MessageBox(nullptr, L"타일블록을 저장했습니다.", L"타일메이커", MB_OK);
+			m_newTileBlock = new CTileBlock;
+			SortTileBlocks(m_newStage);
+		}
 	}
 
 	// 타일블럭 정보 입력 칸 필요
 	ButtonTitle("Select Type");
 	const char* types[(int)TileBlockType::END] = { "None", "Entrance", "Entrance_Fall", "Exit", "Exit_Drop", "Normal", "Fall", "Drop", "Fall_Drop", "Side" };
-	static int item_current_1 = -1; // If the selection isn't within 0..count, Combo won't display a preview
 	ImGui::Combo("##selecttileblocktype", &item_current_1, types, IM_ARRAYSIZE(types));
 
 
@@ -181,3 +197,34 @@ void TileMaker::PrintTileBlock()
 		ImGui::NewLine();
 	}
 }
+
+void TileMaker::PrintStageBlocks()
+{
+
+	for (int i = 0; i < m_vecTileBlocks.size(); i++) {
+		auto tileblocks = m_vecTileBlocks[i];
+		if (tileblocks.size() == 0) continue;
+		string strType = TileBlockTypeStrings[i];
+		ButtonTitle(strType.c_str());
+		ImGui::NewLine();
+		for (int j = 0; j < tileblocks.size(); j++) {
+			string key = strType + std::to_string(j);
+			ImGui::Dummy(ImVec2(5.0f, 0.0f));
+			ImGui::SameLine();
+			if (ImGui::Button(key.c_str())) {
+
+			}
+		}
+	}
+}
+
+void TileMaker::SortTileBlocks(CStage* _stage)
+{
+	auto map = _stage->GetList();
+	m_vecTileBlocks.clear();
+	m_vecTileBlocks.resize((int)TileBlockType::END);
+	for (auto iter = map.begin(); iter != map.end(); ++iter) {
+		m_vecTileBlocks[(int)iter->first].push_back(iter->second);
+	}
+}
+

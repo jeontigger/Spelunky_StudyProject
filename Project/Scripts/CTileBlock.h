@@ -14,6 +14,8 @@ enum class TileBlockType{
 	END
 };
 
+extern vector<string> TileBlockTypeStrings;
+
 // 타입 - 빈공간, 흙, 흙(50%), 나무, 반벽, 사다리, 가시
 enum class BlockTileType
 {
