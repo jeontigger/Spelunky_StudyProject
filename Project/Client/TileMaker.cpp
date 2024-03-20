@@ -127,7 +127,7 @@ void TileMaker::TileBlockMenu()
 		else {
 			MessageBox(nullptr, L"타일블록을 저장했습니다.", L"타일메이커", MB_OK);
 			m_vecTileBlocks[(int)item_current_1].push_back(m_newTileBlock);
-			ClearBlockTile();
+			m_newTileBlock = new CTileBlock;
 		}
 	}
 
@@ -262,14 +262,6 @@ void TileMaker::DeleteStageBlock(int type, int idx)
 	MessageBox(nullptr, L"타일블록 타입을 제거했습니다", L"타일메이커", MB_OK);
 }
 
-void TileMaker::SortTileBlocks(CStage* _stage)
-{
-	auto map = _stage->GetList();
-	for (auto iter = map.begin(); iter != map.end(); ++iter) {
-		m_vecTileBlocks[(int)iter->first].push_back(iter->second);
-	}
-}
-
 void TileMaker::SaveStage(CStage* _stage)
 {
 	ofstream fout;
@@ -296,12 +288,12 @@ void TileMaker::FillTileBlocks(CStage* _stage)
 
 void TileMaker::ClearStage()
 {
-
 	if (m_newStage) delete m_newStage;
 	m_curStage = m_newStage = new CStage;
-
-	m_vecTileBlocks.resize((int)TileBlockType::END);
 	
+	m_vecTileBlocks.clear();
+	m_vecTileBlocks.resize((int)TileBlockType::END);
+
 	ClearBlockTile();
 }
 

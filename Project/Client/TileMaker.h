@@ -47,7 +47,6 @@ private:
 
     void FillTileBlocks(CStage* _stage);
 
-
 private:
     void ClearStage();
     void ClearBlockTile();
