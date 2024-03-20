@@ -15,7 +15,7 @@ TileMaker::TileMaker()
 	LoadAllPath("stage", m_StageNames);
 	LoadAllStages();
 	m_newStage = new CStage;
-	m_newTileBlock = new CTileBlock;
+	m_curTileBlock = m_newTileBlock = new CTileBlock;
 
 	wstring blocktilepath = L"texture\\tilemap\\blocktile.png";
 	m_texBlockTile = ASSET_LOAD(CTexture, blocktilepath);
@@ -74,7 +74,7 @@ void TileMaker::render_update()
 		ImGui::SameLine();
 
 		ImGui::BeginChild("BlockTiles", ImVec2(1000,800), true, 0);
-		PrintTileBlock();
+		PrintTileBlock(m_curTileBlock);
 		ImGui::EndChild();
 		
 	}
@@ -108,6 +108,11 @@ void TileMaker::TileBlockMenu()
 
 
 	static int item_current_1 = -1; // If the selection isn't within 0..count, Combo won't display a preview
+	if (ImGui::Button("Create New TileBlock")) {
+		if (m_newTileBlock) delete m_newTileBlock;
+		m_newTileBlock = new CTileBlock;
+		m_curTileBlock = m_newTileBlock;
+	}
 	if (ImGui::Button("TileBlock Save")) {
 		if (item_current_1 == -1) {
 			MessageBox(nullptr, L"타일블록 타입을 지정해주세요", L"타일메이커", MB_OK);
@@ -115,7 +120,7 @@ void TileMaker::TileBlockMenu()
 		else {
 			MessageBox(nullptr, L"타일블록을 저장했습니다.", L"타일메이커", MB_OK);
 			m_vecTileBlocks[(int)item_current_1].push_back(m_newTileBlock);
-			m_newTileBlock = new CTileBlock;
+			m_curTileBlock = m_newTileBlock = new CTileBlock;
 		}
 	}
 
@@ -172,11 +177,11 @@ void TileMaker::TileBlockMenu()
 	ImGui::EndChild();
 }
 
-void TileMaker::PrintTileBlock()
+void TileMaker::PrintTileBlock(CTileBlock* _tileblock)
 {
 	for (int row = 0; row < TILEBLOCKSIZE; row++) {
 		for (int col = 0; col < TILEBLOCKSIZE; col++) {
-			BlockTileType curType = m_newTileBlock->GetTileType(row, col);
+			BlockTileType curType = _tileblock->GetTileType(row, col);
 			Vec2 idx = math::IdxToRowCol((int)curType, Vec2(BLOCKTILEX, BLOCKTILEY));
 
 			ImVec2 ImgSize = ImVec2(70, 70); // 이미지 크기
@@ -194,7 +199,7 @@ void TileMaker::PrintTileBlock()
 			static int i = 0;
 			string key = std::to_string(row * TILEBLOCKSIZE + col);
 			if (ImGui::ImageButton(key.c_str(), m_texBlockTile->GetSRV().Get(), ImgSize, uv0, uv1, bg_col, tint_col)) {
-				m_newTileBlock->SetTileType(m_curType, row, col);
+				_tileblock->SetTileType(m_curType, row, col);
 			}
 
 			// 스타일 색상 복원
@@ -221,7 +226,7 @@ void TileMaker::PrintStageBlocks()
 			ImGui::Dummy(ImVec2(5.0f, 0.0f));
 			ImGui::SameLine();
 			if (ImGui::Button(key.c_str())) {
-
+				//LoadStageBlock(type, idx);
 			}
 
 			string deletekey = "X##";
@@ -237,6 +242,9 @@ void TileMaker::PrintStageBlocks()
 void TileMaker::DeleteStageBlock(int type, int idx)
 {
 	auto del = m_vecTileBlocks[type].begin() + idx;
+	if (*del == m_curTileBlock) {
+		m_curTileBlock = m_newTileBlock;
+	}
 	if (*del) delete* del;
 	m_vecTileBlocks[type].erase(m_vecTileBlocks[type].begin() + idx);
 	MessageBox(nullptr, L"타일블록 타입을 제거했습니다", L"타일메이커", MB_OK);

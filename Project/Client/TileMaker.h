@@ -37,7 +37,7 @@ private:
     void LoadAllStages();
 
     void TileBlockMenu();
-    void PrintTileBlock();
+    void PrintTileBlock(CTileBlock* _tileblock);
     void PrintStageBlocks();
     void DeleteStageBlock(int type, int idx);
     void SortTileBlocks(CStage* _stage);
