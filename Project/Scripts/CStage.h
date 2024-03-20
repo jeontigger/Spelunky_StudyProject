@@ -23,8 +23,8 @@ public:
     void AddTileBlock(TileBlockType _type, CTileBlock* _block);
     inline map<TileBlockType, vector<CTileBlock*>> GetList() { return m_mapBlockList; }
 
+    friend ifstream& operator>>(ifstream& fin, CStage& stage);
     friend ofstream& operator<<(ofstream& fout, const CStage& stage);
-
 public:
     CStage();
     ~CStage();

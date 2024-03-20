@@ -17,13 +17,15 @@ private:
     class CStage* m_newStage;
     class CTileBlock* m_newTileBlock;
     vector<vector<CTileBlock*>> m_vecTileBlocks;
+
+
     BlockTileType m_curType;
 
     class CStage* m_curStage;
     class CTileBlock* m_curTileBlock;
 
     vector<string> m_StageNames;
-    vector<class CStage> m_vecStages;
+    vector<class CStage*> m_vecStages;
 
     TileMakerState m_state;
 

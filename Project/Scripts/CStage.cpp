@@ -27,6 +27,18 @@ void CStage::AddTileBlock(TileBlockType _type, CTileBlock* _block)
 	m_mapBlockList[_type].push_back(_block);
 }
 
+ifstream& operator>>(ifstream& fin,  CStage& stage)
+{
+	int type;
+	while (fin >> type) {
+		CTileBlock* tileblock = new CTileBlock;
+		fin >> *tileblock;
+		stage.AddTileBlock((TileBlockType)type, tileblock);
+	}
+
+	return fin;
+}
+
 ofstream& operator<<(ofstream& fout, const CStage& stage)
 {
 	auto map = stage.m_mapBlockList;
@@ -34,7 +46,7 @@ ofstream& operator<<(ofstream& fout, const CStage& stage)
 		
 		auto vec = iter->second;
 		for (int i = 0; i < vec.size(); i++) {
-			fout << TileBlockTypeStrings[(int)iter->first] << endl;
+			fout <<(int)iter->first << endl;
 			fout << *vec[i] << endl << endl;
 		}
 	}

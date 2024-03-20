@@ -16,6 +16,18 @@ CTileBlock::~CTileBlock()
 {
 }
 
+ifstream& operator>>(ifstream& fin, CTileBlock& tileblock)
+{
+	int num;
+	for (int row = 0; row < TILEBLOCKSIZE; row++) {
+		for (int col = 0; col < TILEBLOCKSIZE; col++) {
+			fin >> num;
+			tileblock.SetTileType((BlockTileType)num, row, col);
+		}
+	}
+	return fin;
+}
+
 ofstream& operator<<(ofstream& fout, const CTileBlock& tileblock)
 {
 	for (int row = 0; row < TILEBLOCKSIZE; row++) {

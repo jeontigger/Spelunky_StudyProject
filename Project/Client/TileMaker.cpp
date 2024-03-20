@@ -11,11 +11,8 @@ TileMaker::TileMaker()
 	: UI("TileMaker", UITileMakerName)
 	, m_curStage(nullptr)
 	, m_curTileBlock(nullptr)
-	, m_state(TileMakerState::New)
+	, m_state(TileMakerState::NONE)
 {
-	LoadAllPath("stage", m_StageNames);
-	LoadAllStages();
-
 	wstring blocktilepath = L"texture\\tilemap\\blocktile.png";
 	m_texBlockTile = ASSET_LOAD(CTexture, blocktilepath);
 
@@ -35,6 +32,8 @@ TileMaker::~TileMaker()
 				delete m_vecTileBlocks[i][j];
 		}
 	}
+
+	Delete_Vec(m_vecStages);
 }
 
 void TileMaker::render_update()
@@ -46,6 +45,9 @@ void TileMaker::render_update()
 		}
 		if (ImGui::Button("Stage Modify")) {
 			m_state = TileMakerState::Modify;
+			m_StageNames.clear();
+			LoadAllPath("stage", m_StageNames);
+			LoadAllStages();
 		}
 	}
 
@@ -68,6 +70,8 @@ void TileMaker::render_update()
 				SaveStage(m_curStage);
 
 				ClearStage();
+
+				m_state = TileMakerState::NONE;
 			}
 		}
 
@@ -94,9 +98,12 @@ void TileMaker::render_update()
 		ButtonTitle("Select Stage");
 
 		static int comboidx = 0;
+		int prev = comboidx;
 		VecCombo("##tilemaker1", m_StageNames, comboidx);
-	}
+		if (prev != comboidx) {
 
+		}
+	}
 }
 
 void TileMaker::ReturnButton()
@@ -108,7 +115,25 @@ void TileMaker::ReturnButton()
 
 void TileMaker::LoadAllStages()
 {
+	Delete_Vec(m_vecStages);
+	m_vecStages.clear();
 
+	for (int i = 0; i < m_StageNames.size(); i++) {
+		string path = ToString(CPathMgr::GetContentPath());
+		path += m_StageNames[i];
+
+		CStage* stage = new CStage;
+		ifstream fin;
+		fin.open(path.c_str());
+		if (fin.is_open()) {
+			fin >> (*stage);
+			m_vecStages.push_back(stage);
+		}
+		else {
+			delete stage;
+		}
+	}
+	
 }
 
 void TileMaker::TileBlockMenu()
@@ -265,9 +290,9 @@ void TileMaker::DeleteStageBlock(int type, int idx)
 void TileMaker::SaveStage(CStage* _stage)
 {
 	ofstream fout;
-	string filename = ToString(CPathMgr::GetContentPath()) + "level\\";
+	string filename = ToString(CPathMgr::GetContentPath()) + "stage\\";
 	filename += m_StageName;
-	filename += ".lv";
+	filename += ".st";
 	fout.open(filename);
 
 	FillTileBlocks(_stage);

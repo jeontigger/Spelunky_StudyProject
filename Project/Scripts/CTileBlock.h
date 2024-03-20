@@ -40,6 +40,7 @@ public:
 	inline BlockTileType GetTileType(int _row, int _col) const { return m_Tiles[_row][_col]; }
 
 public:
+	friend ifstream& operator>>(ifstream& fin, CTileBlock& tileblock);
 	friend ofstream& operator<<(ofstream& fout, const CTileBlock& tileblock);
 
 public:
