@@ -43,6 +43,15 @@ private:
     void DeleteStageBlock(int type, int idx);
     void SortTileBlocks(CStage* _stage);
 
+    void SaveStage(CStage* _stage);
+
+    void FillTileBlocks(CStage* _stage);
+
+
+private:
+    void ClearStage();
+    void ClearBlockTile();
+
 public:
     virtual void render_update() override;
 

@@ -2,6 +2,7 @@
 #include "TileMaker.h"
 
 #include <Engine/CAssetMgr.h>
+#include <Engine/CPathMgr.h>
 
 #include <Scripts/CStage.h>
 #include <Scripts/CTileBlock.h>
@@ -14,13 +15,11 @@ TileMaker::TileMaker()
 {
 	LoadAllPath("stage", m_StageNames);
 	LoadAllStages();
-	m_newStage = new CStage;
-	m_curTileBlock = m_newTileBlock = new CTileBlock;
 
 	wstring blocktilepath = L"texture\\tilemap\\blocktile.png";
 	m_texBlockTile = ASSET_LOAD(CTexture, blocktilepath);
 
-	m_vecTileBlocks.resize((int)TileBlockType::END);
+	ClearStage();
 }
 
 TileMaker::~TileMaker()
@@ -43,6 +42,7 @@ void TileMaker::render_update()
 	if (m_state == TileMakerState::NONE) {
 		if (ImGui::Button("Make New Stage")) {
 			m_state = TileMakerState::New;
+			m_curStage = m_newStage;
 		}
 		if (ImGui::Button("Stage Modify")) {
 			m_state = TileMakerState::Modify;
@@ -59,7 +59,16 @@ void TileMaker::render_update()
 		ImGui::SameLine();
 
 		if(ImGui::Button("Stage Save")){
+			if (m_StageName[0] == 0) {
+				MessageBox(nullptr, L"스테이지 이름을 지정해주세요", L"타일메이커", MB_OK);
+			}
+			else {
+				MessageBox(nullptr, L"스테이지가 저장되었습니다", L"타일메이커", MB_OK);
 
+				SaveStage(m_curStage);
+
+				ClearStage();
+			}
 		}
 
 		ButtonTitle("Stage Name");
@@ -109,9 +118,7 @@ void TileMaker::TileBlockMenu()
 
 	static int item_current_1 = -1; // If the selection isn't within 0..count, Combo won't display a preview
 	if (ImGui::Button("Create New TileBlock")) {
-		if (m_newTileBlock) delete m_newTileBlock;
-		m_newTileBlock = new CTileBlock;
-		m_curTileBlock = m_newTileBlock;
+		ClearBlockTile();
 	}
 	if (ImGui::Button("TileBlock Save")) {
 		if (item_current_1 == -1) {
@@ -120,7 +127,7 @@ void TileMaker::TileBlockMenu()
 		else {
 			MessageBox(nullptr, L"타일블록을 저장했습니다.", L"타일메이커", MB_OK);
 			m_vecTileBlocks[(int)item_current_1].push_back(m_newTileBlock);
-			m_curTileBlock = m_newTileBlock = new CTileBlock;
+			ClearBlockTile();
 		}
 	}
 
@@ -261,5 +268,46 @@ void TileMaker::SortTileBlocks(CStage* _stage)
 	for (auto iter = map.begin(); iter != map.end(); ++iter) {
 		m_vecTileBlocks[(int)iter->first].push_back(iter->second);
 	}
+}
+
+void TileMaker::SaveStage(CStage* _stage)
+{
+	ofstream fout;
+	string filename = ToString(CPathMgr::GetContentPath()) + "level\\";
+	filename += m_StageName;
+	filename += ".lv";
+	fout.open(filename);
+
+	FillTileBlocks(_stage);
+
+	if (fout.is_open()) {
+		fout << *_stage;
+	}
+}
+
+void TileMaker::FillTileBlocks(CStage* _stage)
+{
+	for (int type = 0; type < m_vecTileBlocks.size(); type++) {
+		for (int i = 0; i < m_vecTileBlocks[type].size(); i++) {
+			_stage->AddTileBlock((TileBlockType)type, m_vecTileBlocks[type][i]);
+		}
+	}
+}
+
+void TileMaker::ClearStage()
+{
+
+	if (m_newStage) delete m_newStage;
+	m_curStage = m_newStage = new CStage;
+
+	m_vecTileBlocks.resize((int)TileBlockType::END);
+	
+	ClearBlockTile();
+}
+
+void TileMaker::ClearBlockTile()
+{
+	if (m_newTileBlock) delete m_newTileBlock;
+	m_curTileBlock = m_newTileBlock = new CTileBlock;
 }
 

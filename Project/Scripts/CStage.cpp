@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "CStage.h"
 
+#include "CTileBlock.h"
 
 CStage::CStage()
 {
@@ -18,4 +19,14 @@ CStage::~CStage()
 void CStage::AddTileBlock(TileBlockType _type, CTileBlock* _block)
 {
 	m_mapBlockList[_type] = _block;
+}
+
+ofstream& operator<<(ofstream& fout, const CStage& stage)
+{
+	auto map = stage.m_mapBlockList;
+	for (auto iter = map.begin(); iter != map.end(); ++iter) {
+		fout << TileBlockTypeStrings[(int)iter->first] << endl;
+		fout << *(iter->second) << endl;
+	}
+	return fout;
 }
