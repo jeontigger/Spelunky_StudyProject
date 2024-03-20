@@ -30,6 +30,8 @@ private:
     char m_StageName[32];
 
     Ptr<CTexture> m_texBlockTile;
+
+
 private:
     void ReturnButton();
     void LoadAllStages();
@@ -37,7 +39,7 @@ private:
     void TileBlockMenu();
     void PrintTileBlock();
     void PrintStageBlocks();
-
+    void DeleteStageBlock(int type, int idx);
     void SortTileBlocks(CStage* _stage);
 
 public:

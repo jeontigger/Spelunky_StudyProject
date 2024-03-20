@@ -20,6 +20,7 @@ TileMaker::TileMaker()
 	wstring blocktilepath = L"texture\\tilemap\\blocktile.png";
 	m_texBlockTile = ASSET_LOAD(CTexture, blocktilepath);
 
+	m_vecTileBlocks.resize((int)TileBlockType::END);
 }
 
 TileMaker::~TileMaker()
@@ -28,6 +29,13 @@ TileMaker::~TileMaker()
 		delete m_newStage;
 	if (m_newTileBlock)
 		delete m_newTileBlock;
+
+	for (int i = 0; i < m_vecTileBlocks.size(); i++) {
+		for (int j = 0; j < m_vecTileBlocks[i].size(); j++) {
+			if (m_vecTileBlocks[i][j])
+				delete m_vecTileBlocks[i][j];
+		}
+	}
 }
 
 void TileMaker::render_update()
@@ -105,10 +113,9 @@ void TileMaker::TileBlockMenu()
 			MessageBox(nullptr, L"타일블록 타입을 지정해주세요", L"타일메이커", MB_OK);
 		}
 		else {
-			m_newStage->AddTileBlock((TileBlockType)item_current_1, m_newTileBlock);
 			MessageBox(nullptr, L"타일블록을 저장했습니다.", L"타일메이커", MB_OK);
+			m_vecTileBlocks[(int)item_current_1].push_back(m_newTileBlock);
 			m_newTileBlock = new CTileBlock;
-			SortTileBlocks(m_newStage);
 		}
 	}
 
@@ -201,28 +208,43 @@ void TileMaker::PrintTileBlock()
 void TileMaker::PrintStageBlocks()
 {
 
-	for (int i = 0; i < m_vecTileBlocks.size(); i++) {
-		auto tileblocks = m_vecTileBlocks[i];
+	for (int type = 0; type < m_vecTileBlocks.size(); type++) {
+		auto tileblocks = m_vecTileBlocks[type];
 		if (tileblocks.size() == 0) continue;
-		string strType = TileBlockTypeStrings[i];
+
+		string strType = TileBlockTypeStrings[type];
 		ButtonTitle(strType.c_str());
 		ImGui::NewLine();
-		for (int j = 0; j < tileblocks.size(); j++) {
-			string key = strType + std::to_string(j);
+		for (int idx = 0; idx < tileblocks.size(); idx++) {
+
+			string key = strType + std::to_string(idx);
 			ImGui::Dummy(ImVec2(5.0f, 0.0f));
 			ImGui::SameLine();
 			if (ImGui::Button(key.c_str())) {
 
 			}
+
+			string deletekey = "X##";
+			deletekey += key;
+			ImGui::SameLine();
+			if (ImGui::Button(deletekey.c_str())) {
+				DeleteStageBlock(type, idx);
+			}
 		}
 	}
+}
+
+void TileMaker::DeleteStageBlock(int type, int idx)
+{
+	auto del = m_vecTileBlocks[type].begin() + idx;
+	if (*del) delete* del;
+	m_vecTileBlocks[type].erase(m_vecTileBlocks[type].begin() + idx);
+	MessageBox(nullptr, L"타일블록 타입을 제거했습니다", L"타일메이커", MB_OK);
 }
 
 void TileMaker::SortTileBlocks(CStage* _stage)
 {
 	auto map = _stage->GetList();
-	m_vecTileBlocks.clear();
-	m_vecTileBlocks.resize((int)TileBlockType::END);
 	for (auto iter = map.begin(); iter != map.end(); ++iter) {
 		m_vecTileBlocks[(int)iter->first].push_back(iter->second);
 	}
