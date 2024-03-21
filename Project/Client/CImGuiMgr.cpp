@@ -122,7 +122,9 @@ void CImGuiMgr::tick()
     ImGui_ImplDX11_NewFrame();
     ImGui_ImplWin32_NewFrame();
     ImGui::NewFrame();
-
+    if (KEY_TAP(F1)) {
+        m_bDemoUI = !m_bDemoUI;
+    }
     
     if (m_bDemoUI)
     {
