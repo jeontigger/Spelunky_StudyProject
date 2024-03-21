@@ -201,6 +201,7 @@
     <ClInclude Include="TransformUI.h" />
     <ClInclude Include="TreeUI.h" />
     <ClInclude Include="UI.h" />
+    <ClInclude Include="utils.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AnimationTool.cpp" />

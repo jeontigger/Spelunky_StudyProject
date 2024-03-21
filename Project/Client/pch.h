@@ -19,3 +19,5 @@ using std::ofstream;
 
 #include <Engine/CAssetMgr.h>
 #define ASSET_LOAD(type, RelPath) CAssetMgr::GetInst()->Load<type>(RelPath, RelPath)
+
+#include "utils.h"

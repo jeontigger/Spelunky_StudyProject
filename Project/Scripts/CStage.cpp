@@ -23,6 +23,7 @@ void CStage::AddTileBlock(TileBlockType _type, CTileBlock _block)
 
 ifstream& operator>>(ifstream& fin,  CStage& stage)
 {
+	LoadAssetRef(stage.m_texBackground, fin);
 	int type;
 	while (fin >> type) {
 		CTileBlock tileblock;
@@ -35,6 +36,8 @@ ifstream& operator>>(ifstream& fin,  CStage& stage)
 
 ofstream& operator<<(ofstream& fout, const CStage& stage)
 {
+	SaveAssetRef(stage.m_texBackground, fout);
+
 	auto map = stage.m_mapBlockList;
 	for (auto iter = map.begin(); iter != map.end(); ++iter) {
 		

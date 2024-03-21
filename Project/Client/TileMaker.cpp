@@ -94,9 +94,12 @@ void TileMaker::render_update()
 		VecCombo("##tilemaker1", m_StageNames, m_iStageIdx);
 		if (prev != m_iStageIdx) {
 			SortTileBlocks(m_vecStages[m_iStageIdx]);
+			m_iBGIdx = Utils::StringToEnum(m_vecBackgroundPaths, ToString(m_vecStages[m_iStageIdx]->GetBackground()->GetKey()));
 			m_curTileBlock = m_newTileBlock;
 			m_curBlockName = NewBlockName;
 		}
+
+		SelectBackground();
 
 		TileBlockMenu(m_vecTileBlocks);
 
@@ -132,6 +135,7 @@ void TileMaker::ChangeState(TileMakerState _state)
 		for (int i = 0; i < 32; i++) {
 			m_StageName[i] = 0;
 		}
+		m_iBGIdx = 0;
 
 		break;
 
@@ -140,6 +144,7 @@ void TileMaker::ChangeState(TileMakerState _state)
 		LoadAllPath("stage", m_StageNames);
 		LoadAllStages();
 		SortTileBlocks(m_vecStages[0]);
+		m_iBGIdx = Utils::StringToEnum(m_vecBackgroundPaths, ToString(m_vecStages[0]->GetBackground()->GetKey()));
 		m_iStageIdx = 0;
 		break;
 
@@ -393,6 +398,7 @@ void TileMaker::SaveStage(CStage* _stage, vector<vector<CTileBlock>> _vvec)
 	ofstream fout(filename, std::ios::out | std::ios::trunc);
 
 	FillTileBlocks(_stage, _vvec);
+	_stage->SetBackground(m_vecBackgrounds[m_iBGIdx]);
 
 	if (fout.is_open()) {
 		fout << *_stage;
@@ -407,6 +413,7 @@ void TileMaker::SaveStage(CStage* _stage, vector<vector<CTileBlock>> _vvec, int 
 	ofstream fout(filename, std::ios::out | std::ios::trunc);
 
 	FillTileBlocks(_stage, _vvec);
+	_stage->SetBackground(m_vecBackgrounds[m_iBGIdx]);
 
 	if (fout.is_open()) {
 		fout << *_stage;

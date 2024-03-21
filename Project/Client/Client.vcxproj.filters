@@ -286,6 +286,9 @@
     <ClInclude Include="TileMaker.h">
       <Filter>02. UI\8. TileMaker</Filter>
     </ClInclude>
+    <ClInclude Include="utils.h">
+      <Filter>00. Define</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">

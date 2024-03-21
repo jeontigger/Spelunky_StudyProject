@@ -40,7 +40,6 @@ private:
     vector<Ptr<CTexture>> m_vecBackgrounds;
     vector<string> m_vecBackgroundPaths;
 
-
 private:
     void ChangeState(TileMakerState _state);
 
