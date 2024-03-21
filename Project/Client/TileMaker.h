@@ -37,6 +37,8 @@ private:
 
 
 private:
+    void ChangeState(TileMakerState _state);
+
     void ReturnButton();
     void NewStageSaveButton();
     void LoadAllStages();

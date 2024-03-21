@@ -31,25 +31,12 @@ void TileMaker::render_update()
 {
 	if (m_state == TileMakerState::NONE) {
 		if (ImGui::Button("Make New Stage")) {
-			m_state = TileMakerState::New;
-			if (m_newStage) delete m_newStage;
-			m_curStage = m_newStage = new CStage;
-			ClearTileBlocks(m_vecTileBlocks);
-			for (int i = 0; i < 32; i++) {
-				m_StageName[i] = 0;
-			}
-			m_iTypeCursor = -1;
+			ChangeState(TileMakerState::New);
 		}
 		if (ImGui::Button("Stage Modify")) {
-			m_state = TileMakerState::Modify;
-			m_StageNames.clear();
-			LoadAllPath("stage", m_StageNames);
-			LoadAllStages();
-			SortTileBlocks(m_vecStages[0]);
-			m_iTypeCursor = -1;
+			ChangeState(TileMakerState::Modify);
 		}
 	}
-
 
 
 	// 스테이지 생성
@@ -87,7 +74,7 @@ void TileMaker::render_update()
 
 			SaveStage(m_curStage, m_vecTileBlocks);
 
-			m_state = TileMakerState::NONE;
+			ChangeState(TileMakerState::NONE);
 		}
 
 		ButtonTitle("Select Stage");
@@ -113,6 +100,40 @@ void TileMaker::render_update()
 		ImGui::BeginChild("BlockTiles", ImVec2(1000, 800), true, 0);
 		PrintTileBlock(m_curTileBlock);
 		ImGui::EndChild();
+	}
+}
+
+void TileMaker::ChangeState(TileMakerState _state)
+{
+	m_iTypeCursor = -1;
+	m_state = _state;
+	ClearTileBlocks(m_vecTileBlocks);
+
+	switch (_state)
+	{
+	case TileMakerState::NONE:
+		break;
+	case TileMakerState::New:
+
+		if (m_newStage) delete m_newStage;
+		m_curStage = m_newStage = new CStage;
+		for (int i = 0; i < 32; i++) {
+			m_StageName[i] = 0;
+		}
+
+		break;
+
+	case TileMakerState::Modify:
+		m_StageNames.clear();
+		LoadAllPath("stage", m_StageNames);
+		LoadAllStages();
+		SortTileBlocks(m_vecStages[0]);
+		break;
+
+	case TileMakerState::END:
+		break;
+	default:
+		break;
 	}
 }
 
