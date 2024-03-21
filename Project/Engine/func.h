@@ -67,6 +67,23 @@ void SaveAssetRef(Ptr<T> _Asset, ofstream& _File)
 }
 
 template<typename T>
+void LoadAssetRef(Ptr<T>& _Asset, ifstream& fin)
+{
+	bool bAssetExist = false;
+	fin >> bAssetExist;
+
+	if (bAssetExist)
+	{
+		string strKey, strRelativePath;
+
+		fin >> strKey >> strRelativePath;
+
+		_Asset = CAssetMgr::GetInst()->Load<T>(ToWString(strKey), ToWString(strRelativePath));
+	}
+}
+
+
+template<typename T>
 void LoadAssetRef(Ptr<T>& _Asset, FILE* _File)
 {	
 	bool bAssetExist = false;
