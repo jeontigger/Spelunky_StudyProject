@@ -11,11 +11,12 @@ TileMaker::TileMaker()
 	: UI("TileMaker", UITileMakerName)
 	, m_curStage(nullptr)
 	, m_state(TileMakerState::NONE)
+	, m_iTypeCursor(-1)
 {
 	wstring blocktilepath = L"texture\\tilemap\\blocktile.png";
 	m_texBlockTile = ASSET_LOAD(CTexture, blocktilepath);
 
-	ClearStage();
+	m_curStage = m_newStage = new CStage;
 }
 
 TileMaker::~TileMaker()
@@ -31,9 +32,13 @@ void TileMaker::render_update()
 	if (m_state == TileMakerState::NONE) {
 		if (ImGui::Button("Make New Stage")) {
 			m_state = TileMakerState::New;
-			m_curStage = m_newStage;
-			m_vecNewTileBlocks.clear();
-			m_vecNewTileBlocks.resize((int)TileBlockType::END);
+			if (m_newStage) delete m_newStage;
+			m_curStage = m_newStage = new CStage;
+			ClearTileBlocks(m_vecTileBlocks);
+			for (int i = 0; i < 32; i++) {
+				m_StageName[i] = 0;
+			}
+			m_iTypeCursor = -1;
 		}
 		if (ImGui::Button("Stage Modify")) {
 			m_state = TileMakerState::Modify;
@@ -41,6 +46,7 @@ void TileMaker::render_update()
 			LoadAllPath("stage", m_StageNames);
 			LoadAllStages();
 			SortTileBlocks(m_vecStages[0]);
+			m_iTypeCursor = -1;
 		}
 	}
 
@@ -50,32 +56,18 @@ void TileMaker::render_update()
 	if (m_state == TileMakerState::New) {
 		ImGui::BeginChild("LeftTops", ImVec2(320, 800), true, 0);
 		ReturnButton();
-
 		ImGui::SameLine();
+		NewStageSaveButton();
 
-		if(ImGui::Button("Stage Save")){
-			if (m_StageName[0] == 0) {
-				MessageBox(nullptr, L"스테이지 이름을 지정해주세요", L"타일메이커", MB_OK);
-			}
-			else {
-				MessageBox(nullptr, L"스테이지가 저장되었습니다", L"타일메이커", MB_OK);
-
-				SaveStage(m_newStage, m_vecNewTileBlocks);
-
-				ClearStage();
-
-				m_state = TileMakerState::NONE;
-			}
-		}
 
 		ButtonTitle("Stage Name");
 		ImGui::InputText("##stagename", m_StageName, 32);
-		TileBlockMenu(m_vecNewTileBlocks);
+		TileBlockMenu(m_vecTileBlocks);
 		ImGui::EndChild();
 		ImGui::SameLine();
 
 		ImGui::BeginChild("BlockMaps", ImVec2(200, 800), true, 0);
-		PrintStageBlocks(m_vecNewTileBlocks);
+		PrintStageBlocks(m_vecTileBlocks);
 		ImGui::EndChild();
 		ImGui::SameLine();
 
@@ -94,8 +86,6 @@ void TileMaker::render_update()
 			MessageBox(nullptr, L"스테이지가 저장되었습니다", L"타일메이커", MB_OK);
 
 			SaveStage(m_curStage, m_vecTileBlocks);
-
-			ClearStage();
 
 			m_state = TileMakerState::NONE;
 		}
@@ -133,6 +123,25 @@ void TileMaker::ReturnButton()
 	}
 }
 
+void TileMaker::NewStageSaveButton()
+{
+	if (ImGui::Button("Stage Save")) {
+		if (m_StageName[0] == 0) {
+			MessageBox(nullptr, L"스테이지 이름을 지정해주세요", L"타일메이커", MB_OK);
+		}
+		else {
+			MessageBox(nullptr, L"스테이지가 저장되었습니다", L"타일메이커", MB_OK);
+
+			SaveStage(m_newStage, m_vecTileBlocks);
+
+			if (m_newStage) delete m_newStage;
+			m_curStage = m_newStage = new CStage;
+
+			m_state = TileMakerState::NONE;
+		}
+	}
+}
+
 void TileMaker::LoadAllStages()
 {
 	Delete_Vec(m_vecStages);
@@ -161,17 +170,16 @@ void TileMaker::TileBlockMenu(vector<vector<CTileBlock>>& vvec)
 	ImGui::BeginChild("LeftTops", ImVec2(305, 450), true, 0);
 
 
-	static int item_current_1 = -1; // If the selection isn't within 0..count, Combo won't display a preview
 	if (ImGui::Button("Create New TileBlock")) {
 		m_curTileBlock = m_newTileBlock;
 	}
 	if (ImGui::Button("TileBlock Save")) {
-		if (item_current_1 == -1) {
+		if (m_iTypeCursor == -1) {
 			MessageBox(nullptr, L"타일블록 타입을 지정해주세요", L"타일메이커", MB_OK);
 		}
 		else {
 			MessageBox(nullptr, L"타일블록을 저장했습니다.", L"타일메이커", MB_OK);
-			vvec[(int)item_current_1].push_back(m_curTileBlock);
+			vvec[(int)m_iTypeCursor].push_back(m_curTileBlock);
 			m_curTileBlock = m_newTileBlock;
 		}
 	}
@@ -179,7 +187,7 @@ void TileMaker::TileBlockMenu(vector<vector<CTileBlock>>& vvec)
 	// 타일블럭 정보 입력 칸 필요
 	ButtonTitle("Select Type");
 	const char* types[(int)TileBlockType::END] = { "None", "Entrance", "Entrance_Fall", "Exit", "Exit_Drop", "Normal", "Fall", "Drop", "Fall_Drop", "Side" };
-	ImGui::Combo("##selecttileblocktype", &item_current_1, types, IM_ARRAYSIZE(types));
+	ImGui::Combo("##selecttileblocktype", &m_iTypeCursor, types, IM_ARRAYSIZE(types));
 
 
 	// 블럭타일 이미지 띄우기
@@ -358,14 +366,11 @@ void TileMaker::FillTileBlocks(CStage* _stage, vector<vector<CTileBlock>> _vvec)
 	}
 }
 
-void TileMaker::ClearStage()
+void TileMaker::ClearTileBlocks(vector<vector<CTileBlock>>& _blocks)
 {
-	if (m_newStage) delete m_newStage;
-	m_curStage = m_newStage = new CStage;
-	
-	m_vecTileBlocks.clear();
-	m_vecTileBlocks.resize((int)TileBlockType::END);
-
+	_blocks.clear();
+	_blocks.resize((int)TileBlockType::END);
 }
+
 
 

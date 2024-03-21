@@ -20,7 +20,7 @@ private:
     vector<vector<CTileBlock>> m_vecNewTileBlocks;
     vector<vector<CTileBlock>> m_vecTileBlocks;
 
-
+    int m_iTypeCursor;
     BlockTileType m_curType;
 
     class CStage* m_curStage;
@@ -38,6 +38,7 @@ private:
 
 private:
     void ReturnButton();
+    void NewStageSaveButton();
     void LoadAllStages();
 
     void TileBlockMenu(vector<vector<CTileBlock>>& vvec);
@@ -53,7 +54,7 @@ private:
     void FillTileBlocks(CStage* _stage, vector<vector<CTileBlock>> _vvec);
 
 private:
-    void ClearStage();
+    void ClearTileBlocks(vector<vector<CTileBlock>>& _blocks);
 
 public:
     virtual void render_update() override;
