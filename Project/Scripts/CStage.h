@@ -20,6 +20,7 @@ private:
     map<TileBlockType, vector<CTileBlock>> m_mapBlockList;
 
 public:
+    inline void ClearTileBlock(TileBlockType _type) { m_mapBlockList[_type].clear(); }
     void AddTileBlock(TileBlockType _type, CTileBlock _block);
     inline map<TileBlockType, vector<CTileBlock>> GetList() { return m_mapBlockList; }
 

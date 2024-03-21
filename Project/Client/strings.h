@@ -5,3 +5,5 @@
 #define UIOutlinerName "##Outliner"
 #define UIAnimationToolName "##AnimationTool"
 #define UITileMakerName "##TileMaker"
+
+#define NewBlockName "New"

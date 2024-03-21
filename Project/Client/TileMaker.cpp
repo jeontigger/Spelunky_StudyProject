@@ -12,6 +12,7 @@ TileMaker::TileMaker()
 	, m_curStage(nullptr)
 	, m_state(TileMakerState::NONE)
 	, m_iTypeCursor(-1)
+	, m_iStageIdx(0)
 {
 	wstring blocktilepath = L"texture\\tilemap\\blocktile.png";
 	m_texBlockTile = ASSET_LOAD(CTexture, blocktilepath);
@@ -72,18 +73,20 @@ void TileMaker::render_update()
 		if (ImGui::Button("Stage Save")) {
 			MessageBox(nullptr, L"스테이지가 저장되었습니다", L"타일메이커", MB_OK);
 
-			SaveStage(m_curStage, m_vecTileBlocks);
+			SaveStage(m_curStage, m_vecTileBlocks, m_iStageIdx);
+			ClearTileBlocks(m_vecTileBlocks);
 
 			ChangeState(TileMakerState::NONE);
 		}
 
 		ButtonTitle("Select Stage");
 
-		static int comboidx = 0;
-		int prev = comboidx;
-		VecCombo("##tilemaker1", m_StageNames, comboidx);
-		if (prev != comboidx) {
-			SortTileBlocks(m_vecStages[comboidx]);
+		int prev = m_iStageIdx;
+		VecCombo("##tilemaker1", m_StageNames, m_iStageIdx);
+		if (prev != m_iStageIdx) {
+			SortTileBlocks(m_vecStages[m_iStageIdx]);
+			m_curTileBlock = m_newTileBlock;
+			m_curBlockName = NewBlockName;
 		}
 
 		TileBlockMenu(m_vecTileBlocks);
@@ -96,7 +99,6 @@ void TileMaker::render_update()
 		ImGui::EndChild();
 		ImGui::SameLine();
 
-
 		ImGui::BeginChild("BlockTiles", ImVec2(1000, 800), true, 0);
 		PrintTileBlock(m_curTileBlock);
 		ImGui::EndChild();
@@ -108,7 +110,8 @@ void TileMaker::ChangeState(TileMakerState _state)
 	m_iTypeCursor = -1;
 	m_state = _state;
 	ClearTileBlocks(m_vecTileBlocks);
-
+	m_curBlockName = NewBlockName;
+	m_curTileBlock = m_newTileBlock;
 	switch (_state)
 	{
 	case TileMakerState::NONE:
@@ -128,6 +131,7 @@ void TileMaker::ChangeState(TileMakerState _state)
 		LoadAllPath("stage", m_StageNames);
 		LoadAllStages();
 		SortTileBlocks(m_vecStages[0]);
+		m_iStageIdx = 0;
 		break;
 
 	case TileMakerState::END:
@@ -193,6 +197,7 @@ void TileMaker::TileBlockMenu(vector<vector<CTileBlock>>& vvec)
 
 	if (ImGui::Button("Create New TileBlock")) {
 		m_curTileBlock = m_newTileBlock;
+		m_curBlockName = NewBlockName;
 	}
 	if (ImGui::Button("TileBlock Save")) {
 		if (m_iTypeCursor == -1) {
@@ -293,6 +298,10 @@ void TileMaker::PrintTileBlock(CTileBlock& _tileblock)
 
 void TileMaker::PrintStageBlocks(vector<vector<CTileBlock>>& vvec)
 {
+	ButtonTitle("Current");
+	ImGui::Button(m_curBlockName.c_str());
+	ImGui::Separator();
+	ImGui::NewLine();
 
 	for (int type = 0; type < vvec.size(); type++) {
 		auto tileblocks = vvec[type];
@@ -308,6 +317,8 @@ void TileMaker::PrintStageBlocks(vector<vector<CTileBlock>>& vvec)
 			ImGui::SameLine();
 			if (ImGui::Button(key.c_str())) {
 				LoadStageBlock(vvec, type, idx);
+				m_iTypeCursor = type;
+				m_curBlockName = key;
 			}
 
 			string deletekey = "X##";
@@ -315,6 +326,7 @@ void TileMaker::PrintStageBlocks(vector<vector<CTileBlock>>& vvec)
 			ImGui::SameLine();
 			if (ImGui::Button(deletekey.c_str())) {
 				DeleteStageBlock(vvec, type, idx);
+				m_curBlockName = NewBlockName;
 			}
 		}
 	}
@@ -350,11 +362,10 @@ void TileMaker::SortTileBlocks(CStage* _stage)
 
 void TileMaker::SaveStage(CStage* _stage, vector<vector<CTileBlock>> _vvec)
 {
-	ofstream fout;
 	string filename = ToString(CPathMgr::GetContentPath()) + "stage\\";
 	filename += m_StageName;
 	filename += ".st";
-	fout.open(filename);
+	ofstream fout(filename, std::ios::out | std::ios::trunc);
 
 	FillTileBlocks(_stage, _vvec);
 
@@ -365,11 +376,10 @@ void TileMaker::SaveStage(CStage* _stage, vector<vector<CTileBlock>> _vvec)
 
 void TileMaker::SaveStage(CStage* _stage, vector<vector<CTileBlock>> _vvec, int _num)
 {
-	ofstream fout;
-	string filename = ToString(CPathMgr::GetContentPath()) + "stage\\";
+	string filename = ToString(CPathMgr::GetContentPath());
 	filename += m_StageNames[_num];
-	filename += ".st";
-	fout.open(filename);
+
+	ofstream fout(filename, std::ios::out | std::ios::trunc);
 
 	FillTileBlocks(_stage, _vvec);
 
@@ -382,6 +392,7 @@ void TileMaker::FillTileBlocks(CStage* _stage, vector<vector<CTileBlock>> _vvec)
 {
 	for (int type = 0; type < _vvec.size(); type++) {
 		for (int i = 0; i < _vvec[type].size(); i++) {
+			_stage->ClearTileBlock((TileBlockType)type);
 			_stage->AddTileBlock((TileBlockType)type, _vvec[type][i]);
 		}
 	}

@@ -20,9 +20,11 @@ private:
     vector<vector<CTileBlock>> m_vecNewTileBlocks;
     vector<vector<CTileBlock>> m_vecTileBlocks;
 
+    int m_iStageIdx;
     int m_iTypeCursor;
     BlockTileType m_curType;
 
+    string m_curBlockName;
     class CStage* m_curStage;
     class CTileBlock m_curTileBlock;
 
