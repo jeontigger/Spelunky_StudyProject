@@ -295,8 +295,8 @@ void TileMaker::SelectBackground()
 
 void TileMaker::PrintTileBlock(CTileBlock& _tileblock)
 {
-	for (int row = 0; row < TILEBLOCKSIZE; row++) {
-		for (int col = 0; col < TILEBLOCKSIZE; col++) {
+	for (int row = 0; row < TILEBLOCKSIZEY; row++) {
+		for (int col = 0; col < TILEBLOCKSIZEX; col++) {
 			BlockTileType curType = _tileblock.GetTileType(row, col);
 			Vec2 idx = math::IdxToRowCol((int)curType, Vec2(BLOCKTILEX, BLOCKTILEY));
 
@@ -313,7 +313,7 @@ void TileMaker::PrintTileBlock(CTileBlock& _tileblock)
 
 			// 이미지 위에 투명 버튼 오버레이
 			static int i = 0;
-			string key = std::to_string(row * TILEBLOCKSIZE + col);
+			string key = std::to_string(row * TILEBLOCKSIZEX + col);
 			if (ImGui::ImageButton(key.c_str(), m_texBlockTile->GetSRV().Get(), ImgSize, uv0, uv1, bg_col, tint_col)) {
 				_tileblock.SetTileType(m_curType, row, col);
 			}

@@ -39,7 +39,7 @@ class CTileBlock
 {
 private:
 	TileBlockType m_Type;
-	BlockTileType m_Tiles[TILEBLOCKSIZE][TILEBLOCKSIZE];
+	BlockTileType m_Tiles[TILEBLOCKSIZEY][TILEBLOCKSIZEX];
 
 public:
 	inline void SetTileType(BlockTileType _type, int _row, int _col) { m_Tiles[_row][_col] = _type; }
