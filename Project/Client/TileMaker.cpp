@@ -423,8 +423,8 @@ void TileMaker::SaveStage(CStage* _stage, vector<vector<CTileBlock>> _vvec, int 
 void TileMaker::FillTileBlocks(CStage* _stage, vector<vector<CTileBlock>> _vvec)
 {
 	for (int type = 0; type < _vvec.size(); type++) {
+		_stage->ClearTileBlock((TileBlockType)type);
 		for (int i = 0; i < _vvec[type].size(); i++) {
-			_stage->ClearTileBlock((TileBlockType)type);
 			_stage->AddTileBlock((TileBlockType)type, _vvec[type][i]);
 		}
 	}
