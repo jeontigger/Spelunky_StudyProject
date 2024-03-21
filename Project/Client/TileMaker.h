@@ -20,6 +20,7 @@ private:
     vector<vector<CTileBlock>> m_vecNewTileBlocks;
     vector<vector<CTileBlock>> m_vecTileBlocks;
 
+    int m_iBGIdx;
     int m_iStageIdx;
     int m_iTypeCursor;
     BlockTileType m_curType;
@@ -36,6 +37,8 @@ private:
     char m_StageName[32];
 
     Ptr<CTexture> m_texBlockTile;
+    vector<Ptr<CTexture>> m_vecBackgrounds;
+    vector<string> m_vecBackgroundPaths;
 
 
 private:
@@ -46,6 +49,7 @@ private:
     void LoadAllStages();
 
     void TileBlockMenu(vector<vector<CTileBlock>>& vvec);
+    void SelectBackground();
     void PrintTileBlock(CTileBlock& _tileblock);
     void PrintStageBlocks(vector<vector<CTileBlock>>& vvec);
     void LoadStageBlock(vector<vector<CTileBlock>> vvec, int type, int idx);

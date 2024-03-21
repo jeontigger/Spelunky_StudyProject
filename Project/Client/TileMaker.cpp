@@ -13,11 +13,18 @@ TileMaker::TileMaker()
 	, m_state(TileMakerState::NONE)
 	, m_iTypeCursor(-1)
 	, m_iStageIdx(0)
+	, m_iBGIdx(0)
 {
 	wstring blocktilepath = L"texture\\tilemap\\blocktile.png";
 	m_texBlockTile = ASSET_LOAD(CTexture, blocktilepath);
 
 	m_curStage = m_newStage = new CStage;
+
+	LoadAllPath("texture\\Background", m_vecBackgroundPaths);
+	for (auto path : m_vecBackgroundPaths) {
+		m_vecBackgrounds.push_back(ASSET_LOAD(CTexture, ToWString(path)));
+	}
+	int a = 0;
 }
 
 TileMaker::~TileMaker()
@@ -47,9 +54,11 @@ void TileMaker::render_update()
 		ImGui::SameLine();
 		NewStageSaveButton();
 
-
 		ButtonTitle("Stage Name");
 		ImGui::InputText("##stagename", m_StageName, 32);
+
+		SelectBackground();
+
 		TileBlockMenu(m_vecTileBlocks);
 		ImGui::EndChild();
 		ImGui::SameLine();
@@ -261,6 +270,22 @@ void TileMaker::TileBlockMenu(vector<vector<CTileBlock>>& vvec)
 
 
 	ImGui::EndChild();
+}
+
+void TileMaker::SelectBackground()
+{
+	ButtonTitle("Background");
+	VecCombo("##backgrounds", m_vecBackgroundPaths, m_iBGIdx);
+
+	ImVec2 uv_min = ImVec2(0.0f, 0.0f);                 // Top-left
+	ImVec2 uv_max = ImVec2(1.0f, 1.0f);                 // Lower-right
+	ImVec4 tint_col = ImVec4(1.0f, 1.0f, 1.0f, 1.0f); // No tint
+	ImVec4 border_col = ImGui::GetStyleColorVec4(ImGuiCol_Border);
+	int width = 250;
+	int height = (float)m_vecBackgrounds[m_iBGIdx].Get()->GetHeight() / m_vecBackgrounds[m_iBGIdx].Get()->GetWidth() * width;
+	ImVec2 ImgSize = { (float)width, (float)height };
+
+	ImGui::Image(m_vecBackgrounds[m_iBGIdx]->GetSRV().Get(), ImgSize, uv_min, uv_max, tint_col, border_col);
 }
 
 void TileMaker::PrintTileBlock(CTileBlock& _tileblock)
