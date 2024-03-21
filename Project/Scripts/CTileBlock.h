@@ -1,4 +1,6 @@
 #pragma once
+
+extern vector<string> TileBlockTypeStrings;
 // (입구, 입구 낙하, 출구, 출구(낙하받이), 사이드, 좌우 경로, 낙하 경로, 낙하받이 경로, 낙하& 낙하받이 경로)
 enum class TileBlockType{
 	NONE,
@@ -14,18 +16,22 @@ enum class TileBlockType{
 	END
 };
 
-extern vector<string> TileBlockTypeStrings;
-
-// 타입 - 빈공간, 흙, 흙(50%), 나무, 반벽, 사다리, 가시
+// 타입 - 빈공간, 흙, 흙(50%), 나무, 부숴지지 않음, 사다리, 사다리 반벽, 반벽, 움직이는 돌, 가시, 땅덩어리, 공중덩어리, 문덩어리
 enum class BlockTileType
 {
 	Blank,
 	Soil,
 	Soil_50,
 	Tree,
-	Half,
+	NeverCrash,
 	Ladder,
+	LadderHalf,
+	Half,
+	Movable,
 	Spike,
+	ChunkGround,
+	ChunkAir,
+	ChunkDoor,
 	END,
 };
 
