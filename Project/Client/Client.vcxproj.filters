@@ -286,9 +286,6 @@
     <ClInclude Include="TileMaker.h">
       <Filter>02. UI\8. TileMaker</Filter>
     </ClInclude>
-    <ClInclude Include="utils.h">
-      <Filter>00. Define</Filter>
-    </ClInclude>
     <ClInclude Include="CLevelGenerator.h">
       <Filter>01. Manager\03. LevelGenerator</Filter>
     </ClInclude>
@@ -442,9 +439,6 @@
     </ClCompile>
     <ClCompile Include="CLevelGenerator.cpp">
       <Filter>01. Manager\03. LevelGenerator</Filter>
-    </ClCompile>
-    <ClCompile Include="utils.cpp">
-      <Filter>00. Define</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -27,6 +27,8 @@
 #define CLONE_DISABLE(TYPE) TYPE* Clone() { return nullptr; assert(nullptr); }\
 							TYPE(const TYPE& _OriginBuffer) = delete;
 
+#define ASSET_LOAD(type, RelPath) CAssetMgr::GetInst()->Load<type>(RelPath, RelPath)
+
 enum class DIR_TYPE
 {
 	RIGHT,

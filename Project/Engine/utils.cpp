@@ -19,7 +19,7 @@ void Utils::LoadAllPath(string _strDirectoryPath, vector<string>& vec)
 	string path = ToString(CPathMgr::GetContentPath());
 	path += _strDirectoryPath;
 
-	namespace fs = std::filesystem;
+	namespace fs = filesystem;
 
 	for (const auto& entry : fs::directory_iterator(path)) {
 		string str = entry.path().string();
