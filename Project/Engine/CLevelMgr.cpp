@@ -36,7 +36,6 @@ void CLevelMgr::tick()
 
 	// 이전 프레임에 등록된 오브젝트들 clear
 	m_CurLevel->clear();
-
 	// 레벨이 Play 상태일 경우에만 tick() 호출
 	if (m_CurLevel->GetState() == LEVEL_STATE::PLAY)
 	{
@@ -50,6 +49,8 @@ void CLevelMgr::tick()
 
 	// Render
 	CRenderMgr::GetInst()->tick();
+
+	
 }
 
 void CLevelMgr::ChangeLevel(CLevel* _NextLevel, LEVEL_STATE _NextLevelStartState)

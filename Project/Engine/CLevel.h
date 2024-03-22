@@ -9,13 +9,13 @@ class CGameObject;
 class CLevel :
 	public CEntity
 {
-private:
+protected:
 	CLayer*			m_arrLayer[LAYER_MAX];
 	LEVEL_STATE		m_State;
 
 public:
 	void begin();
-	void tick();
+	virtual void tick();
 	void finaltick();
 	
 	void AddObject(CGameObject* _Object, int _LayerIdx, bool _bChildMove = true);
