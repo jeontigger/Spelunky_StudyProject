@@ -31,6 +31,7 @@
 #include "CImGuiMgr.h"
 #include "CEditorObjMgr.h"
 #include "CCreateTempLevel.h"
+#include "CLevelGenerator.h"
 
 //#define _RELEASE_GAME
 
@@ -86,6 +87,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     // ImGui 초기화
     CImGuiMgr::GetInst()->init(hWnd, DEVICE, CONTEXT);
 #endif
+
+    CLevelGenerator::LoadLevels();
 
 
     SetWindowText(CEngine::GetInst()->GetMainWind(), L"Spelunky");

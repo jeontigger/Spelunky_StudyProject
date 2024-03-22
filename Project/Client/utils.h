@@ -1,14 +1,6 @@
 #pragma once
 namespace Utils {
-	static int StringToEnum(const vector<string>& _strings, const string& _target) {
-		int idx = 0;
-		for (const string& str : _strings) {
-			if (str == _target) {
-				return idx;
-			}
-			idx++;
-		}
+	int StringToEnum(const vector<string>& _strings, const string& _target);
 
-		return -1;
-	}
+	void LoadAllPath(string _strDirectoryPath, vector<string>& vec);
 }

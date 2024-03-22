@@ -168,6 +168,7 @@ call CodeGen.exe</Command>
     <ClInclude Include="CPlayerScript.h" />
     <ClInclude Include="CScriptMgr.h" />
     <ClInclude Include="CStage.h" />
+    <ClInclude Include="CStagePack.h" />
     <ClInclude Include="CTileBlock.h" />
     <ClInclude Include="define.h" />
     <ClInclude Include="framework.h" />
@@ -182,6 +183,7 @@ call CodeGen.exe</Command>
     <ClCompile Include="CPlayerScript.cpp" />
     <ClCompile Include="CScriptMgr.cpp" />
     <ClCompile Include="CStage.cpp" />
+    <ClCompile Include="CStagePack.cpp" />
     <ClCompile Include="CTileBlock.cpp" />
     <ClCompile Include="extern.cpp" />
     <ClCompile Include="pch.cpp">

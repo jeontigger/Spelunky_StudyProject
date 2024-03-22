@@ -160,6 +160,7 @@
     <ClInclude Include="CGameObjectEx.h" />
     <ClInclude Include="CIdleState.h" />
     <ClInclude Include="CImGuiMgr.h" />
+    <ClInclude Include="CLevelGenerator.h" />
     <ClInclude Include="CLevelSaveLoad.h" />
     <ClInclude Include="Client.h" />
     <ClInclude Include="Collider2DUI.h" />
@@ -213,6 +214,7 @@
     <ClCompile Include="CGameObjectEx.cpp" />
     <ClCompile Include="CIdleState.cpp" />
     <ClCompile Include="CImGuiMgr.cpp" />
+    <ClCompile Include="CLevelGenerator.cpp" />
     <ClCompile Include="CLevelSaveLoad.cpp" />
     <ClCompile Include="Collider2DUI.cpp" />
     <ClCompile Include="ComponentUI.cpp" />
@@ -252,6 +254,7 @@
     <ClCompile Include="TransformUI.cpp" />
     <ClCompile Include="TreeUI.cpp" />
     <ClCompile Include="UI.cpp" />
+    <ClCompile Include="utils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc" />

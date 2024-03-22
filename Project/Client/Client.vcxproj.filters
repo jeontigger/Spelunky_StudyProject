@@ -101,9 +101,6 @@
     <Filter Include="03. Scripts">
       <UniqueIdentifier>{1381472f-65a8-4e6a-9233-8407012abcd6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="01. Manager\03. CreateTempLevel">
-      <UniqueIdentifier>{7f15e030-69f0-4236-a827-2c70dceb7a7c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="01. Manager\04. LevelSaveLoad">
       <UniqueIdentifier>{c5c28a06-dc9b-451b-84d4-de638d900f94}</UniqueIdentifier>
     </Filter>
@@ -133,6 +130,9 @@
     </Filter>
     <Filter Include="02. UI\8. TileMaker">
       <UniqueIdentifier>{aeacd850-0b9e-4771-8fce-5516fe4486a1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Manager\03. LevelGenerator">
+      <UniqueIdentifier>{7f15e030-69f0-4236-a827-2c70dceb7a7c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -254,7 +254,7 @@
       <Filter>03. Scripts</Filter>
     </ClInclude>
     <ClInclude Include="CCreateTempLevel.h">
-      <Filter>01. Manager\03. CreateTempLevel</Filter>
+      <Filter>01. Manager\03. LevelGenerator</Filter>
     </ClInclude>
     <ClInclude Include="CLevelSaveLoad.h">
       <Filter>01. Manager\04. LevelSaveLoad</Filter>
@@ -288,6 +288,9 @@
     </ClInclude>
     <ClInclude Include="utils.h">
       <Filter>00. Define</Filter>
+    </ClInclude>
+    <ClInclude Include="CLevelGenerator.h">
+      <Filter>01. Manager\03. LevelGenerator</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -411,7 +414,7 @@
       <Filter>03. Scripts</Filter>
     </ClCompile>
     <ClCompile Include="CCreateTempLevel.cpp">
-      <Filter>01. Manager\03. CreateTempLevel</Filter>
+      <Filter>01. Manager\03. LevelGenerator</Filter>
     </ClCompile>
     <ClCompile Include="CLevelSaveLoad.cpp">
       <Filter>01. Manager\04. LevelSaveLoad</Filter>
@@ -436,6 +439,12 @@
     </ClCompile>
     <ClCompile Include="TileMaker.cpp">
       <Filter>02. UI\8. TileMaker</Filter>
+    </ClCompile>
+    <ClCompile Include="CLevelGenerator.cpp">
+      <Filter>01. Manager\03. LevelGenerator</Filter>
+    </ClCompile>
+    <ClCompile Include="utils.cpp">
+      <Filter>00. Define</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

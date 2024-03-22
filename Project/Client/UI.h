@@ -17,7 +17,7 @@ private:
 
 protected:
 	void ButtonTitle(const char* Content);
-	void LoadAllPath(string _strDirectoryPath, vector<string>& vec);
+	
 
 	void VecCombo(const char* ID, const vector<string>& vec, int& i);
 

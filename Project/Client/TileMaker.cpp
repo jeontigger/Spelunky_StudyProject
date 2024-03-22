@@ -18,9 +18,9 @@ TileMaker::TileMaker()
 	wstring blocktilepath = L"texture\\tilemap\\blocktile.png";
 	m_texBlockTile = ASSET_LOAD(CTexture, blocktilepath);
 
-	m_curStage = m_newStage = new CStage;
+	m_curStage = m_newStage = new CStagePack;
 
-	LoadAllPath("texture\\Background", m_vecBackgroundPaths);
+	Utils::LoadAllPath("texture\\Background", m_vecBackgroundPaths);
 	for (auto path : m_vecBackgroundPaths) {
 		m_vecBackgrounds.push_back(ASSET_LOAD(CTexture, ToWString(path)));
 	}
@@ -131,7 +131,7 @@ void TileMaker::ChangeState(TileMakerState _state)
 	case TileMakerState::New:
 
 		if (m_newStage) delete m_newStage;
-		m_curStage = m_newStage = new CStage;
+		m_curStage = m_newStage = new CStagePack;
 		for (int i = 0; i < 32; i++) {
 			m_StageName[i] = 0;
 		}
@@ -141,7 +141,7 @@ void TileMaker::ChangeState(TileMakerState _state)
 
 	case TileMakerState::Modify:
 		m_StageNames.clear();
-		LoadAllPath("stage", m_StageNames);
+		Utils::LoadAllPath("stage", m_StageNames);
 		LoadAllStages();
 		SortTileBlocks(m_vecStages[0]);
 		m_iBGIdx = Utils::StringToEnum(m_vecBackgroundPaths, ToString(m_vecStages[0]->GetBackground()->GetKey()));
@@ -174,7 +174,7 @@ void TileMaker::NewStageSaveButton()
 			SaveStage(m_newStage, m_vecTileBlocks);
 
 			if (m_newStage) delete m_newStage;
-			m_curStage = m_newStage = new CStage;
+			m_curStage = m_newStage = new CStagePack;
 
 			m_state = TileMakerState::NONE;
 		}
@@ -190,7 +190,7 @@ void TileMaker::LoadAllStages()
 		string path = ToString(CPathMgr::GetContentPath());
 		path += m_StageNames[i];
 
-		CStage* stage = new CStage;
+		CStagePack* stage = new CStagePack;
 		ifstream fin;
 		fin.open(path.c_str());
 		if (fin.is_open()) {
@@ -377,7 +377,7 @@ void TileMaker::DeleteStageBlock(vector<vector<CTileBlock>>& vvec, int type, int
 	MessageBox(nullptr, L"타일블록 타입을 제거했습니다", L"타일메이커", MB_OK);
 }
 
-void TileMaker::SortTileBlocks(CStage* _stage)
+void TileMaker::SortTileBlocks(CStagePack* _stage)
 {
 	auto map = _stage->GetList();
 	m_vecTileBlocks.clear();
@@ -390,11 +390,11 @@ void TileMaker::SortTileBlocks(CStage* _stage)
 	}
 }
 
-void TileMaker::SaveStage(CStage* _stage, vector<vector<CTileBlock>> _vvec)
+void TileMaker::SaveStage(CStagePack* _stage, vector<vector<CTileBlock>> _vvec)
 {
 	string filename = ToString(CPathMgr::GetContentPath()) + "stage\\";
 	filename += m_StageName;
-	filename += ".st";
+	filename += ".sp";
 	ofstream fout(filename, std::ios::out | std::ios::trunc);
 
 	FillTileBlocks(_stage, _vvec);
@@ -405,7 +405,7 @@ void TileMaker::SaveStage(CStage* _stage, vector<vector<CTileBlock>> _vvec)
 	}
 }
 
-void TileMaker::SaveStage(CStage* _stage, vector<vector<CTileBlock>> _vvec, int _num)
+void TileMaker::SaveStage(CStagePack* _stage, vector<vector<CTileBlock>> _vvec, int _num)
 {
 	string filename = ToString(CPathMgr::GetContentPath());
 	filename += m_StageNames[_num];
@@ -420,7 +420,7 @@ void TileMaker::SaveStage(CStage* _stage, vector<vector<CTileBlock>> _vvec, int 
 	}
 }
 
-void TileMaker::FillTileBlocks(CStage* _stage, vector<vector<CTileBlock>> _vvec)
+void TileMaker::FillTileBlocks(CStagePack* _stage, vector<vector<CTileBlock>> _vvec)
 {
 	for (int type = 0; type < _vvec.size(); type++) {
 		_stage->ClearTileBlock((TileBlockType)type);

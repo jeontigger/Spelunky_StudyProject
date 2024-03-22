@@ -139,17 +139,3 @@ void UI::VecCombo(const char* ID, const vector<string>& vec, int& item_current_i
 	}
 }
 
-#include <filesystem>
-void UI::LoadAllPath(string _strDirectoryPath, vector<string>&vec)
-{
-	string path = ToString(CPathMgr::GetContentPath());
-	path += _strDirectoryPath;
-
-	namespace fs = std::filesystem;
-
-	for (const auto& entry : fs::directory_iterator(path)) {
-		string str = entry.path().string();
-		str = str.substr(str.find(_strDirectoryPath));
-		vec.push_back(str);
-	}
-}

@@ -14,7 +14,7 @@ class TileMaker :
     public UI
 {
 private:
-    class CStage* m_newStage;
+    class CStagePack* m_newStage;
     class CTileBlock m_newTileBlock;
 
     vector<vector<CTileBlock>> m_vecNewTileBlocks;
@@ -26,11 +26,11 @@ private:
     BlockTileType m_curType;
 
     string m_curBlockName;
-    class CStage* m_curStage;
+    class CStagePack* m_curStage;
     class CTileBlock m_curTileBlock;
 
     vector<string> m_StageNames;
-    vector<class CStage*> m_vecStages;
+    vector<class CStagePack*> m_vecStages;
 
     TileMakerState m_state;
 
@@ -53,12 +53,12 @@ private:
     void PrintStageBlocks(vector<vector<CTileBlock>>& vvec);
     void LoadStageBlock(vector<vector<CTileBlock>> vvec, int type, int idx);
     void DeleteStageBlock(vector<vector<CTileBlock>>& vvec, int type, int idx);
-    void SortTileBlocks(CStage* _stage);
+    void SortTileBlocks(CStagePack* _stage);
 
-    void SaveStage(CStage* _stage, vector<vector<CTileBlock>> _vvec);
-    void SaveStage(CStage* _stage, vector<vector<CTileBlock>> _vvec, int _num);
+    void SaveStage(CStagePack* _stage, vector<vector<CTileBlock>> _vvec);
+    void SaveStage(CStagePack* _stage, vector<vector<CTileBlock>> _vvec, int _num);
 
-    void FillTileBlocks(CStage* _stage, vector<vector<CTileBlock>> _vvec);
+    void FillTileBlocks(CStagePack* _stage, vector<vector<CTileBlock>> _vvec);
 
 private:
     void ClearTileBlocks(vector<vector<CTileBlock>>& _blocks);
