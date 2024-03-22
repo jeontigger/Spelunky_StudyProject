@@ -4,7 +4,7 @@
 #include <Engine/CAssetMgr.h>
 #include <Engine/CPathMgr.h>
 
-#include <Scripts/CStage.h>
+#include <Scripts/CStagePack.h>
 #include <Scripts/CTileBlock.h>
 
 TileMaker::TileMaker()

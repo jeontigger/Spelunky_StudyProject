@@ -4,19 +4,13 @@
 #include <Engine/CLevelMgr.h>
 
 
-#include <Scripts/CStage.h>
-
+#include <Scripts/CStagePack.h>
+#include <Scripts/CStagePackMgr.h>
 
 void CLevelGenerator::LoadLevels()
 {
+	CStagePackMgr::GetInst();
 
-	vector<string> m_vecStagePaths;
-	Utils::LoadAllPath("stage", m_vecStagePaths);
 
-	//m_vecStagePaths;
 
-	CStagePack* stage = new CStagePack;
-	for (int i = 0; i < m_vecStagePaths.size(); i++) {
-		//stage->Load(m_vecStagePaths[i]);
-	}
 }
