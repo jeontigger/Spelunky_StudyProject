@@ -13,6 +13,19 @@
 
 #define FONT_RGBA(r, g, b, a) (((((BYTE)a << 24 ) | (BYTE)b << 16) | (BYTE)g << 8) | (BYTE)r)
 
+struct Font {
+    float _fPosX;
+    float _fPosY;
+    float _fFontSize;
+    UINT _Color;
+};
+
+struct FontData {
+    const wchar_t* _str;
+    Font _font;
+    float _acc;
+    float _time;
+};
 
 class CFontMgr :
     public CSingleton<CFontMgr>
@@ -22,9 +35,13 @@ private:
     IFW1Factory*        m_pFW1Factory;
     IFW1FontWrapper*    m_pFontWrapper;
 
+    list<FontData> m_listFont;
+
+public:
+    void render();
+
 public:
     void init();
-    void DrawFont(const wchar_t* _pStr, float _fPosX, float _fPosY, float _fFontSize, UINT _Color);
-
+    void DrawFont(const wchar_t* _str, const Font& _data, float _time);
 };
 

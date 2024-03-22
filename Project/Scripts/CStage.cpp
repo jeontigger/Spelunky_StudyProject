@@ -67,7 +67,7 @@ CStage::CStage()
 	pCamObj->AddComponent(new CCamera);
 	
 
-	pCamObj->Transform()->SetRelativePos(Vec3(0.5f, 0.f, -500.f));
+	pCamObj->Transform()->SetRelativePos(Vec3(0.5f, 0.f,0.f));
 	pCamObj->Transform()->SetRelativeRotation(Vec3(0.f, 0.f, 0.f));
 
 	pCamObj->Camera()->SetProjType(PROJ_TYPE::ORTHOGRAPHIC);
@@ -111,7 +111,15 @@ void CStage::ChangeState(StageState _state)
 
 void CStage::CreateBlocks()
 {
-	CGameObject* pObj = new CGameObject;
+
+	Font data = {};
+	data._fPosX = 30.f;
+	data._fPosY = 20.f;
+	data._fFontSize = 32;
+	data._Color = FONT_RGBA(255, 30, 30, 255);
+	CFontMgr::GetInst()->DrawFont(L"m_szTex", data, 3.f);
+
+	/*CGameObject* pObj = new CGameObject;
 	pObj->AddComponent(new CTransform);
 	pObj->AddComponent(new CMeshRender);
 	pObj->Transform()->SetRelativePos(Vec3(0, 0, 0));
@@ -122,12 +130,20 @@ void CStage::CreateBlocks()
 	pObj->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
 	pObj->MeshRender()->SetMaterial(CAssetMgr::GetInst()->FindAsset<CMaterial>(L"Std2DMtrl"));
 
-	GamePlayStatic::SpawnGameObject(pObj, 7);
+	GamePlayStatic::SpawnGameObject(pObj, 7);*/
 }
 
 void CStage::tick()
 {
 	CLevel::tick();
+
+
+
+}
+
+void CStage::finaltick()
+{
+	CLevel::finaltick();
 
 	if (m_state == StageState::NONE) {
 		if (KEY_TAP(LBTN)) {
@@ -135,11 +151,11 @@ void CStage::tick()
 		}
 	}
 
+
 	if (m_state == StageState::CREATE_BLOCK) {
-		static int accTime = 0;
+		static float accTime = 0;
 		accTime += DT;
 		if (accTime <= 3.f) {
-			CFontMgr::GetInst()->DrawFont(L"m_szText", 0.f, 0.f, 16, FONT_RGBA(255, 30, 30, 255));
 		}
 	}
 }

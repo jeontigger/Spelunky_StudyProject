@@ -16,7 +16,7 @@ protected:
 public:
 	void begin();
 	virtual void tick();
-	void finaltick();
+	virtual void finaltick();
 	
 	void AddObject(CGameObject* _Object, int _LayerIdx, bool _bChildMove = true);
 	void AddObject(CGameObject* _Object, const wstring& _strLayerName, bool _bChildMove = true);

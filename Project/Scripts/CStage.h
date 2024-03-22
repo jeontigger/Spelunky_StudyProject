@@ -27,6 +27,7 @@ public:
 
 public:
     virtual void tick() override;
+    virtual void finaltick() override;
 
 public:
     CStage();
