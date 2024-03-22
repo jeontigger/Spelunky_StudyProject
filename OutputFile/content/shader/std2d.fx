@@ -73,6 +73,10 @@ float4 PS_Std2D(VS_OUT _in) : SV_Target
                 discard; //clip(-1);            
             }
         }
+        else
+        {
+            return float4(1.f, 1.f, 0.f, 1.f);
+        }
     }
         
     // ±¤¿ø Ã³¸®

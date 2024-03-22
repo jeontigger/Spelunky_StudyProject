@@ -1,18 +1,39 @@
 #pragma once
 #include <Engine/CLevel.h>
 
+enum class StageState {
+    NONE,
+    CREATE_BLOCK,
+    GENERATE_PATH,
+    ATTACK_TILEBLOCK,
+    TILE_INSTANCING,
+    END,
+};
+
 class CStage :
     public CLevel
 {
+    // 시각화용
+private:
+    StageState m_state;
+    vector<class CGameObject> m_vecBlocks;
+
 private:
     class CStagePack* m_SP;
 
 
 public:
-    void SetStagePack(StagePackList _num);
+    void SetStagePack(CStagePack* _sp) { m_SP = _sp; };
+
+public:
+    virtual void tick() override;
 
 public:
     CStage();
     ~CStage();
+
+private:
+    void ChangeState(StageState _state);
+    void CreateBlocks();
 };
 

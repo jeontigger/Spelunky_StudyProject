@@ -13,6 +13,7 @@ private:
     TreeUI*     m_Tree;
 
 public:
+    virtual void Activate() override;
     virtual void render_update() override;
 
 public:

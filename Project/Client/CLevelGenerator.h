@@ -3,5 +3,6 @@ class CLevelGenerator
 {
 public:
 	static void LoadLevels();
+
 };
 

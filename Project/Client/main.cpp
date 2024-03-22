@@ -78,8 +78,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     
 #ifndef _RELEASE_GAME
     // 임시 레벨 생성
-    CCreateTempLevel::Init();
-    CCreateTempLevel::CreateTempLevel();
+    //CCreateTempLevel::Init();
+    //CCreateTempLevel::CreateTempLevel();
 
     // EditorObjectManager 초기화
     CEditorObjMgr::GetInst()->init();

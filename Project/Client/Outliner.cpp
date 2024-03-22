@@ -34,6 +34,12 @@ Outliner::~Outliner()
 {
 }
 
+void Outliner::Activate()
+{
+	UI::Activate();
+	ResetCurrentLevel();
+}
+
 void Outliner::render_update()
 {
 	if (CTaskMgr::GetInst()->GetObjectEvent())
