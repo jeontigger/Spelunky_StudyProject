@@ -59,6 +59,7 @@ public:
     void LayerCheck(UINT _LayerIdx, bool _bCheck);
     void LayerCheck(const wstring& _strLayerName, bool _bCheck);
     void LayerCheckAll() { m_LayerCheck = 0xffffffff; }
+    UINT GetLayerCheck() { return m_LayerCheck; }
 
 
 public:

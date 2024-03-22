@@ -134,6 +134,9 @@
     <Filter Include="01. Manager\03. LevelGenerator">
       <UniqueIdentifier>{7f15e030-69f0-4236-a827-2c70dceb7a7c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. UI\3. Inspector\ComponentUI\Camera">
+      <UniqueIdentifier>{efc8f5f6-189a-4c65-9764-c46f9ac1bf60}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -289,6 +292,9 @@
     <ClInclude Include="CLevelGenerator.h">
       <Filter>01. Manager\03. LevelGenerator</Filter>
     </ClInclude>
+    <ClInclude Include="CameraUI.h">
+      <Filter>02. UI\3. Inspector\ComponentUI\Camera</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -439,6 +445,9 @@
     </ClCompile>
     <ClCompile Include="CLevelGenerator.cpp">
       <Filter>01. Manager\03. LevelGenerator</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraUI.cpp">
+      <Filter>02. UI\3. Inspector\ComponentUI\Camera</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

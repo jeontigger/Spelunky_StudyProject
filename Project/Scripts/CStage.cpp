@@ -119,7 +119,7 @@ void CStage::CreateBlocks()
 	data._Color = FONT_RGBA(255, 30, 30, 255);
 	CFontMgr::GetInst()->DrawFont(L"m_szTex", data, 3.f);
 
-	/*CGameObject* pObj = new CGameObject;
+	CGameObject* pObj = new CGameObject;
 	pObj->AddComponent(new CTransform);
 	pObj->AddComponent(new CMeshRender);
 	pObj->Transform()->SetRelativePos(Vec3(0, 0, 0));
@@ -130,7 +130,7 @@ void CStage::CreateBlocks()
 	pObj->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
 	pObj->MeshRender()->SetMaterial(CAssetMgr::GetInst()->FindAsset<CMaterial>(L"Std2DMtrl"));
 
-	GamePlayStatic::SpawnGameObject(pObj, 7);*/
+	GamePlayStatic::SpawnGameObject(pObj, 7);
 }
 
 void CStage::tick()
