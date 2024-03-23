@@ -43,27 +43,50 @@ void CameraUI::render_update()
         }
     }
     else {
+        const char* ZoomType[] = { "Normal", "MapGenerating" };
+        static int itype = 0;
+
         static float scale = m_camera->GetScale();
+        if (ImGui::Combo("combo", &itype, ZoomType, IM_ARRAYSIZE(ZoomType))) {
+            switch (itype)
+            {
+            case 0: 
+                scale = CameraNormalScale;
+                m_camera->SetScale(scale);
+                break;
+
+            case 1:
+                scale = CameraMapGeneratingScale;
+                m_camera->SetScale(scale);
+                break;
+
+            default:
+                break;
+            }
+        }
+
         if (ImGui::SliderFloat("Scale", &scale, 0.1f, 10, "scale = %.3f")) {
             m_camera->SetScale(scale);
         }
     }
 
+#define maxcol 4
+
     UINT layercheck = m_camera->GetLayerCheck();
     for (int i = 0; i < 8; i++){
-        for (int j = 0; j < 4; j++) {
-            auto layer = CLevelMgr::GetInst()->GetCurrentLevel()->GetLayer(i*4 + j);
+        for (int j = 0; j < maxcol; j++) {
+            auto layer = CLevelMgr::GetInst()->GetCurrentLevel()->GetLayer(i* maxcol + j);
             if (layer == nullptr) continue;
             //if (layer->GetName() == L"") continue;
             string name = ToString(layer->GetName());
             if (name != L"") {
                 name += "##";
             }
-            name += std::to_string(i * 4 + j);
+            name += std::to_string(i * maxcol + j);
 
-            bool lc = layercheck >> (i * 4 + j) & 1;
+            bool lc = layercheck >> (i * maxcol + j) & 1;
             if(ImGui::Checkbox(name.c_str(), &lc)){
-                m_camera->LayerCheck(i * 4 + j, lc);
+                m_camera->LayerCheck(i * maxcol + j, lc);
             }
             ImGui::SameLine();
         }
