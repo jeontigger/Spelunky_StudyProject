@@ -5,7 +5,7 @@ enum class StageState {
     NONE,
     CREATE_BLOCK,
     GENERATE_PATH,
-    ATTACK_TILEBLOCK,
+    ATTACH_TILEBLOCK,
     TILE_INSTANCING,
     END,
 };
