@@ -5,8 +5,8 @@
 enum class StageState {
     NONE,
     CREATE_BLOCK,
-    CREATE_ENTRANCE,
-    CREATE_EXIT,
+    SELECT_ENTRANCE,
+    SELECT_EXIT,
     GENERATE_PATH,
     ATTACH_TILEBLOCK,
     TILE_INSTANCING,
@@ -19,9 +19,13 @@ class CStage :
     // 시각화용
 private:
     StageState m_state;
-    vector<class CGameObject*> m_vecBlocks;
+    vector<vector<class CGameObject*>> m_vecBlocks;
+    int m_iEntracnePos;
+    int m_iExitPos;
 
 private:
+    bool m_visited[STAGETILEROW][STAGETILECOL];
+    vector<Vec2> m_Path;
     class CStagePack* m_SP;
 
     CTileBlock m_arrTileBlocks[STAGETILEROW][STAGETILECOL];
@@ -41,8 +45,13 @@ public:
 private:
     void ChangeState(StageState _state);
     void CreateBlocks();
-    void CreateEntrance();
-    void CreateExit();
+    void SelectEntrance();
+    void SelectExit();
     void GeneratePath();
+    void DFSGenerate(vector<Vec2>& _path, bool find);
+
+private:
+    void PrintChangeState(const wchar_t* _content);
+    void PathVisualization();
 };
 

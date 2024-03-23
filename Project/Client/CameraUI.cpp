@@ -80,7 +80,7 @@ void CameraUI::render_update()
             //if (layer->GetName() == L"") continue;
             string name = ToString(layer->GetName());
             if (name != L"") {
-                name += "##";
+                name += "##nonamelayer";
             }
             name += std::to_string(i * maxcol + j);
 

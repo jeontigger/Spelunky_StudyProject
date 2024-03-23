@@ -60,6 +60,18 @@ float4 PS_MGB(VS_OUT _in) : SV_Target
             vColor = float4(0.f, 1.f, 0.f, 1.f);
         }
     }
+    else if (g_int_0 == 3)
+    {
+        if (g_Thickness <= _in.vUV.x && _in.vUV.x <= (1.f - g_Thickness)
+        && g_Thickness <= _in.vUV.y && _in.vUV.y <= (1.f - g_Thickness))
+        {
+            vColor = float4(0.f, 0.f, 1.f, 1.f);
+        }
+        else
+        {
+            vColor = float4(0.f, 1.f, 0.f, 1.f);
+        }
+    }
 
         return vColor;
 }

@@ -99,12 +99,12 @@ void CStage::ChangeState(StageState _state)
 		CreateBlocks();
 		break;
 
-	case StageState::CREATE_ENTRANCE:
-		CreateEntrance();
+	case StageState::SELECT_ENTRANCE:
+		SelectEntrance();
 		break;
 
-	case StageState::CREATE_EXIT:
-		CreateExit();
+	case StageState::SELECT_EXIT:
+		SelectExit();
 		break;
 
 	case StageState::GENERATE_PATH:
@@ -125,22 +125,18 @@ void CStage::ChangeState(StageState _state)
 void CStage::CreateBlocks()
 {
 
-	Font data = {};
-	data._fPosX = 30.f;
-	data._fPosY = 20.f;
-	data._fFontSize = 32;
-	data._Color = FONT_RGBA(255, 30, 30, 255);
-	CFontMgr::GetInst()->DrawFont(L"CreateTileBlocks", data, 1.f);
+	PrintChangeState(L"Create Blocks");
 
-	CGameObject* pObj ;
-	for (int row = 0; row < 4; row++) {
-		for (int col = 0; col < 4; col++) {
+	CGameObject* pObj;
+	for (int row = 0; row < STAGETILEROW; row++) {
+		m_vecBlocks.push_back({});
+		for (int col = 0; col < STAGETILECOL; col++) {
 			pObj = new CGameObject;
 			pObj->AddComponent(new CTransform);
 			pObj->AddComponent(new CMeshRender);
 			pObj->Transform()->SetRelativeScale(TileBlockScaleVec);
 
-			pObj->Transform()->SetRelativePos(Vec3(col * TileBlockScaleX - TileBlockScaleX * 1.5, -row * TileBlockScaleY + TileBlockScaleY * 1.5, 0));
+			pObj->Transform()->SetRelativePos(Vec3(col * TileBlockScaleX - TileBlockScaleX * (STAGETILEROW/2 - 0.5), -row * TileBlockScaleY + TileBlockScaleY * (STAGETILECOL/2 - 0.5), 0));
 			wstring name = L"DummyBlock" + std::to_wstring(row * 4 + col);
 			pObj->SetName(name);
 
@@ -148,41 +144,106 @@ void CStage::CreateBlocks()
 			pObj->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
 			pObj->MeshRender()->SetMaterial(CAssetMgr::GetInst()->FindAsset<CMaterial>(MapGenBlockMtrl));
 			pObj->MtrlSetScalar(INT_0, StageState::CREATE_BLOCK);
-			m_vecBlocks.push_back(pObj);
+			m_vecBlocks[row].push_back(pObj);
 			GamePlayStatic::SpawnGameObject(pObj, 7);
 		}
 	}
 }
 
-void CStage::CreateEntrance()
+void CStage::SelectEntrance()
 {
-	UINT32 seed = 1337108209;
-	CRandomMgr::GetInst()->GenNewSeed(seed);
+	PrintChangeState(L"Select Entrance");
 
-	int num;
-	num = GETRANDOM(10);
-	num = GETRANDOM(10);
-	num = GETRANDOM(10);
-	num = GETRANDOM(10);
+	m_iEntracnePos = GETRANDOM(STAGETILECOL);
+	m_vecBlocks[0][m_iEntracnePos]->DMtrlSetScalar(INT_0, 2);
+
 }
 
-void CStage::CreateExit()
+void CStage::SelectExit()
 {
+	PrintChangeState(L"Select Exit");
+	m_iExitPos = GETRANDOM(STAGETILECOL);
+	m_vecBlocks[STAGETILEROW - 1][m_iExitPos]->DMtrlSetScalar(INT_0, 2);
 }
 
 void CStage::GeneratePath()
 {
-	Font data = {};
-	data._fPosX = 30.f;
-	data._fPosY = 20.f;
-	data._fFontSize = 32;
-	data._Color = FONT_RGBA(255, 30, 30, 255);
-	CFontMgr::GetInst()->DrawFont(L"GeneratePath", data, 1.f);
+	PrintChangeState(L"Generate Path");
 
-	for (auto obj : m_vecBlocks) {
-		obj->MtrlSetScalar(INT_0, StageState::GENERATE_PATH);
+	for (int row = 0; row < STAGETILEROW; row++)
+	{
+		for (int col = 0; col < STAGETILECOL; col++)
+		{
+			m_visited[row][col] = false;
+		}
+	}
+
+
+
+	Vec2 curPos(m_iEntracnePos, 0);
+	Vec2 targetPos(m_iExitPos, STAGETILEROW - 1);
+
+	m_visited[0][m_iEntracnePos] = true;
+
+	vector<Vec2> path;
+	path.push_back(curPos);
+
+	DFSGenerate(path, false);
+
+}
+
+int arrRow[] = { 0, 1, 0 };
+int arrCol[] = { 1, 0, -1 };
+
+void CStage::DFSGenerate(vector<Vec2>& _path, bool find)
+{
+	Vec2 curPos = _path.back();
+	if (find || curPos.x == m_iExitPos && curPos.y == STAGETILEROW - 1) {
+		m_Path = _path;
+		find = true;
+		return;
+	}
+
+	bool check[] = { false, false, false };
+	while (true) {
+		int ran;
+		while (true) {
+			// 좌, 우, 하 중에 가능한걸 골라
+			ran = GETRANDOM(3);
+			if (!check[ran]) {
+				check[ran] = true;
+				break;
+			}
+		}
+		
+		Vec2 nextPos(curPos.x + arrCol[ran], curPos.y + arrRow[ran]);
+
+		if (0 <= nextPos.x && nextPos.x < STAGETILECOL && 0 <= nextPos.y && nextPos.y < STAGETILEROW){
+			if (!m_visited[(int)nextPos.y][(int)nextPos.x]) {
+				m_visited[(int)nextPos.y][(int)nextPos.x] = true;
+				_path.push_back(nextPos);
+				DFSGenerate(_path, find);
+				_path.pop_back();
+				m_visited[(int)nextPos.y][(int)nextPos.x] = false;
+			}
+		}
+
+		bool allcheck = true;
+		for (size_t i = 0; i < 3; i++)
+		{
+			if (!check[i]) {
+				allcheck = false;
+				break;
+			}
+		}
+
+		if (allcheck)
+		{
+			break;
+		}
 	}
 }
+
 
 void CStage::tick()
 {
@@ -202,10 +263,52 @@ void CStage::finaltick()
 		}
 	}else if(m_state == StageState::CREATE_BLOCK) {
 		if (KEY_TAP(LBTN)) {
-			ChangeState(StageState::CREATE_ENTRANCE);
+			ChangeState(StageState::SELECT_ENTRANCE);
 		}
+	}else if (m_state == StageState::SELECT_ENTRANCE) {
+		if (KEY_TAP(LBTN)) {
+			ChangeState(StageState::SELECT_EXIT);
+		}
+	}else if (m_state == StageState::SELECT_EXIT) {
+		if (KEY_TAP(LBTN)) {
+			ChangeState(StageState::GENERATE_PATH);
+		}
+	}else if (m_state == StageState::GENERATE_PATH) {
+		PathVisualization();
 	}
 
 
+	
+}
+
+void CStage::PrintChangeState(const wchar_t* _content)
+{
+	Font data = {};
+	data._fPosX = 30.f;
+	data._fPosY = 20.f;
+	data._fFontSize = 32;
+	data._Color = FONT_RGBA(255, 30, 30, 255);
+	CFontMgr::GetInst()->DrawFont(_content, data, 1.f);
+}
+
+void CStage::PathVisualization()
+{
+	static float acc = 0.f;
+	float duration = 0.1f;
+
+	static int i = 1;
+
+	if (i >= m_Path.size() - 1) {
+		ChangeState(StageState::ATTACH_TILEBLOCK);
+		return;
+	}
+
+	acc += DT;
+	if (acc > duration) {
+		auto pos = m_Path[i];
+		m_vecBlocks[(int)pos.y][(int)pos.x]->DMtrlSetScalar(INT_0, 3);
+		acc = 0.f;
+		i++;
+	}
 	
 }
