@@ -58,7 +58,7 @@ public:
 	/// <summary>
 	/// 현재 타일 블록의 타입을 가져옵니다.
 	/// </summary>
-	inline TileBlockType TileBlockType() { return m_Type; }
+	inline TileBlockType GetBlockType() { return m_Type; }
 
 public:
 	friend ifstream& operator>>(ifstream& fin, CTileBlock& tileblock);

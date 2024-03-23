@@ -12,9 +12,11 @@
 
 #include <Engine/CLayer.h>
 
+#include "CBackgroundScript.h"
+
 #include "CRandomMgr.h"
 
-#include "CBackgroundScript.h"
+#include "CStagePack.h"
 
 CStage::CStage()
 	: m_state(StageState::NONE)
@@ -115,6 +117,11 @@ void CStage::ChangeState(StageState _state)
 	case StageState::ATTACH_TILEBLOCK:
 		SelectBlock();
 		break;
+
+	case StageState::REGIST_BACKGROUND:
+		RegistBackground();
+		break;
+
 	case StageState::TILE_INSTANCING:
 		break;
 	case StageState::END:
@@ -258,7 +265,7 @@ void CStage::FitType()
 		m_arrTileBlocks[0][m_iEntrancePos].SetBlockType(TileBlockType::Entrance_Fall);
 	}
 
-	Vec2 prevPos(0, m_iEntrancePos);
+	Vec2 prevPos(m_iEntrancePos, 0);
 	for (int i = 1; i < m_Path.size() - 1; i++) {
 		Vec2 curPos = m_Path[i];
 		Vec2 nextPos = m_Path[i + 1];
@@ -298,16 +305,34 @@ void CStage::FitType()
 
 void CStage::SelectBlock()
 {
-
+	PrintChangeState(L"SelectBlock");
+	for (int row = 0; row < STAGETILEROW; row++)
+	{
+		for (int col = 0; col < STAGETILECOL; col++)
+		{
+			m_arrTileBlocks[row][col] = m_SP->GetRandomBlock(m_arrTileBlocks[row][col].GetBlockType());
+		}
+	}
 }
 
+void CStage::RegistBackground()
+{
+	PrintChangeState(L"RegistBG");
+	auto bg = m_SP->GetBackground();
+
+	for (int row = 0; row < STAGETILEROW; row++)
+	{
+		for (int col = 0; col < STAGETILECOL; col++)
+		{
+			m_vecBlocks[row][col]->DMtrlSetTex(TEX_0, bg);
+		}
+	}
+
+}
 
 void CStage::tick()
 {
 	CLevel::tick();
-
-
-
 }
 
 void CStage::finaltick()
@@ -333,9 +358,11 @@ void CStage::finaltick()
 	}else if (m_state == StageState::GENERATE_PATH) {
 		PathVisualization();
 	}
-
-
-	
+	else if (m_state == StageState::ATTACH_TILEBLOCK) {
+		if (KEY_TAP(LBTN)) {
+			ChangeState(StageState::REGIST_BACKGROUND);
+		}
+	}
 }
 
 void CStage::PrintChangeState(const wchar_t* _content)

@@ -3,6 +3,8 @@
 
 #include "CTileBlock.h"
 
+#include "CRandomMgr.h"
+
 CStagePack::CStagePack()
 {
 	m_TileBlocks.resize(STAGETILEROW);
@@ -14,6 +16,14 @@ CStagePack::CStagePack()
 CStagePack::~CStagePack()
 {
 
+}
+
+CTileBlock CStagePack::GetRandomBlock(TileBlockType _type)
+{
+	const vector<CTileBlock> blocks = m_mapBlockList[_type];
+	int random = GETRANDOM(blocks.size());
+
+	return m_mapBlockList[_type][random];
 }
 
 void CStagePack::AddTileBlock(TileBlockType _type, CTileBlock _block)
@@ -28,6 +38,7 @@ ifstream& operator>>(ifstream& fin,  CStagePack& stage)
 	while (fin >> type) {
 		CTileBlock tileblock;
 		fin >> tileblock;
+		tileblock.SetBlockType((TileBlockType)type);
 		stage.AddTileBlock((TileBlockType)type, tileblock);
 	}
 

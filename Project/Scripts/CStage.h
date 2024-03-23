@@ -9,6 +9,7 @@ enum class StageState {
     SELECT_EXIT,
     GENERATE_PATH,
     ATTACH_TILEBLOCK,
+    REGIST_BACKGROUND,
     TILE_INSTANCING,
     END,
 };
@@ -51,6 +52,7 @@ private:
     void DFSGenerate(vector<Vec2>& _path, bool find);
     void FitType();
     void SelectBlock();
+    void RegistBackground();
 
 private:
     void PrintChangeState(const wchar_t* _content);

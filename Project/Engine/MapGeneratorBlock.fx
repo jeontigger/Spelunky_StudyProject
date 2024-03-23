@@ -38,6 +38,14 @@ VS_OUT VS_MGB(VS_IN _in)
 float4 PS_MGB(VS_OUT _in) : SV_Target
 {
     float4 vColor = 0.f;
+    
+    if (g_btex_0)
+    {
+        vColor = g_tex_0.Sample(g_sam_1, _in.vUV);
+        
+        return vColor;
+    }
+    
     if (g_int_0 == 1)
     {
         if (g_Thickness <= _in.vUV.x && _in.vUV.x <= (1.f - g_Thickness)

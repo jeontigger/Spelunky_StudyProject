@@ -22,6 +22,7 @@ private:
 public:
     void SetBackground(Ptr<CTexture> _bg) { m_texBackground = _bg; }
     Ptr<CTexture> GetBackground() { return m_texBackground; }
+    CTileBlock GetRandomBlock(TileBlockType _type);
 
 public:
     inline void ClearTileBlock(TileBlockType _type) { m_mapBlockList[_type].clear(); }
