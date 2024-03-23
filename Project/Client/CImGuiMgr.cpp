@@ -240,8 +240,7 @@ void CImGuiMgr::observe_content()
 bool CImGuiMgr::LoadUIActivate()
 {
     wstring absPath = CPathMgr::GetContentPath();
-    absPath += L"..";
-    absPath += L"\\imgui.txt";
+    absPath += L"..\\log\\imgui.txt";
 
     ifstream pfile;
     pfile.open(absPath);
@@ -268,8 +267,7 @@ bool CImGuiMgr::LoadUIActivate()
 bool CImGuiMgr::SaveUIActivate()
 {
     wstring absPath = CPathMgr::GetContentPath();
-    absPath += L"..";
-    absPath += L"\\imgui.txt";
+    absPath += L"..\\log\\imgui.txt";
 
     ofstream pfile;
     pfile.open(absPath);

@@ -1,7 +1,7 @@
-##AnimationTool 0
+##AnimationTool 1
 ##Content 1
 ##Inspector 1
 ##List 0
 ##Menu 1
 ##Outliner 1
-##TileMaker 0
+##TileMaker 1

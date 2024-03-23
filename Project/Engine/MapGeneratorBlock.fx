@@ -33,13 +33,12 @@ VS_OUT VS_MGB(VS_IN _in)
     return output;
 }
 
-#define g_Thickness 0.03f
-#define SclaeX g_int_0
-#define ScaleY g_int_1
+#define g_Thickness 0.01f
+
 float4 PS_MGB(VS_OUT _in) : SV_Target
 {
-    float4 vColor;
-    if (g_int_2 == 0)
+    float4 vColor = 0.f;
+    if (g_int_0 == 1)
     {
         if (g_Thickness <= _in.vUV.x && _in.vUV.x <= (1.f - g_Thickness)
         && g_Thickness <= _in.vUV.y && _in.vUV.y <= (1.f - g_Thickness))
@@ -49,7 +48,7 @@ float4 PS_MGB(VS_OUT _in) : SV_Target
     
         vColor = float4(0.f, 1.f, 0.f, 1.f);
     }
-    else if (g_int_2 == 1)
+    else if (g_int_0 == 2)
     {
         if (g_Thickness <= _in.vUV.x && _in.vUV.x <= (1.f - g_Thickness)
         && g_Thickness <= _in.vUV.y && _in.vUV.y <= (1.f - g_Thickness))

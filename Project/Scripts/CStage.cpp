@@ -12,6 +12,8 @@
 
 #include <Engine/CLayer.h>
 
+#include "CRandomMgr.h"
+
 #include "CBackgroundScript.h"
 
 CStage::CStage()
@@ -96,8 +98,19 @@ void CStage::ChangeState(StageState _state)
 	case StageState::CREATE_BLOCK:
 		CreateBlocks();
 		break;
-	case StageState::GENERATE_PATH:
+
+	case StageState::CREATE_ENTRANCE:
+		CreateEntrance();
 		break;
+
+	case StageState::CREATE_EXIT:
+		CreateExit();
+		break;
+
+	case StageState::GENERATE_PATH:
+		GeneratePath();
+		break;
+
 	case StageState::ATTACH_TILEBLOCK:
 		break;
 	case StageState::TILE_INSTANCING:
@@ -117,7 +130,7 @@ void CStage::CreateBlocks()
 	data._fPosY = 20.f;
 	data._fFontSize = 32;
 	data._Color = FONT_RGBA(255, 30, 30, 255);
-	CFontMgr::GetInst()->DrawFont(L"m_szTex", data, 3.f);
+	CFontMgr::GetInst()->DrawFont(L"CreateTileBlocks", data, 1.f);
 
 	CGameObject* pObj ;
 	for (int row = 0; row < 4; row++) {
@@ -127,20 +140,48 @@ void CStage::CreateBlocks()
 			pObj->AddComponent(new CMeshRender);
 			pObj->Transform()->SetRelativeScale(TileBlockScaleVec);
 
-			pObj->Transform()->SetRelativePos(Vec3(col * TileBlockScaleX + col, -row * TileBlockScaleY - row, 0));
+			pObj->Transform()->SetRelativePos(Vec3(col * TileBlockScaleX - TileBlockScaleX * 1.5, -row * TileBlockScaleY + TileBlockScaleY * 1.5, 0));
 			wstring name = L"DummyBlock" + std::to_wstring(row * 4 + col);
 			pObj->SetName(name);
 
 
 			pObj->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
 			pObj->MeshRender()->SetMaterial(CAssetMgr::GetInst()->FindAsset<CMaterial>(MapGenBlockMtrl));
-			pObj->MeshRender()->GetMaterial()->SetScalarParam(SCALAR_PARAM::INT_2, 0);
-
+			pObj->MtrlSetScalar(INT_0, StageState::CREATE_BLOCK);
+			m_vecBlocks.push_back(pObj);
 			GamePlayStatic::SpawnGameObject(pObj, 7);
 		}
 	}
+}
 
+void CStage::CreateEntrance()
+{
+	UINT32 seed = 1337108209;
+	CRandomMgr::GetInst()->GenNewSeed(seed);
 
+	int num;
+	num = GETRANDOM(10);
+	num = GETRANDOM(10);
+	num = GETRANDOM(10);
+	num = GETRANDOM(10);
+}
+
+void CStage::CreateExit()
+{
+}
+
+void CStage::GeneratePath()
+{
+	Font data = {};
+	data._fPosX = 30.f;
+	data._fPosY = 20.f;
+	data._fFontSize = 32;
+	data._Color = FONT_RGBA(255, 30, 30, 255);
+	CFontMgr::GetInst()->DrawFont(L"GeneratePath", data, 1.f);
+
+	for (auto obj : m_vecBlocks) {
+		obj->MtrlSetScalar(INT_0, StageState::GENERATE_PATH);
+	}
 }
 
 void CStage::tick()
@@ -159,13 +200,12 @@ void CStage::finaltick()
 		if (KEY_TAP(LBTN)) {
 			ChangeState(StageState::CREATE_BLOCK);
 		}
-	}
-
-
-	if (m_state == StageState::CREATE_BLOCK) {
-		static float accTime = 0;
-		accTime += DT;
-		if (accTime <= 3.f) {
+	}else if(m_state == StageState::CREATE_BLOCK) {
+		if (KEY_TAP(LBTN)) {
+			ChangeState(StageState::CREATE_ENTRANCE);
 		}
 	}
+
+
+	
 }

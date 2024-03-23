@@ -14,6 +14,9 @@
 
 #define TileBlockScaleVec Vec3(TileBlockScaleX, TileBlockScaleY, 1)
 
+#define RandomAccuracy 100
+
+#define GETRANDOM(bound) CRandomMgr::GetInst()->GetRandom(bound)
 
 enum class StagePackList {
     Dwelling,

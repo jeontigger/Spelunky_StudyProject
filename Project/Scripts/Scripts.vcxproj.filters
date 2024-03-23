@@ -41,7 +41,10 @@
       <Filter>04. Level\Stage</Filter>
     </ClInclude>
     <ClInclude Include="CStagePackMgr.h">
-      <Filter>04. Level</Filter>
+      <Filter>05. Manager\StagePackMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="CRandomMgr.h">
+      <Filter>05. Manager\RandomMgr</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -79,7 +82,10 @@
       <Filter>04. Level\Stage</Filter>
     </ClCompile>
     <ClCompile Include="CStagePackMgr.cpp">
-      <Filter>04. Level</Filter>
+      <Filter>05. Manager\StagePackMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="CRandomMgr.cpp">
+      <Filter>05. Manager\RandomMgr</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -110,8 +116,14 @@
     <Filter Include="04. Level\Stage">
       <UniqueIdentifier>{bbe7a70f-3d0f-4aa5-976d-da17153df75d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="05. Asset">
+    <Filter Include="05. Manager">
       <UniqueIdentifier>{40af1b4b-e561-44ab-9af3-3cb8bf825abc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05. Manager\StagePackMgr">
+      <UniqueIdentifier>{2e4aae8c-7cf2-4711-886d-6730a2a8966f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05. Manager\RandomMgr">
+      <UniqueIdentifier>{f9d7041e-bc0a-449f-9fcc-edb5ecaab36b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

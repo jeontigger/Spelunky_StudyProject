@@ -5,6 +5,8 @@
 enum class StageState {
     NONE,
     CREATE_BLOCK,
+    CREATE_ENTRANCE,
+    CREATE_EXIT,
     GENERATE_PATH,
     ATTACH_TILEBLOCK,
     TILE_INSTANCING,
@@ -17,7 +19,7 @@ class CStage :
     // 시각화용
 private:
     StageState m_state;
-    vector<class CGameObject> m_vecBlocks;
+    vector<class CGameObject*> m_vecBlocks;
 
 private:
     class CStagePack* m_SP;
@@ -39,5 +41,8 @@ public:
 private:
     void ChangeState(StageState _state);
     void CreateBlocks();
+    void CreateEntrance();
+    void CreateExit();
+    void GeneratePath();
 };
 

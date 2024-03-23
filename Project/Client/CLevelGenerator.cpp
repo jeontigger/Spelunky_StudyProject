@@ -7,6 +7,7 @@
 #include	<Scripts/CStage.h>
 #include <Scripts/CStagePack.h>
 #include <Scripts/CStagePackMgr.h>
+#include <Scripts/CRandomMgr.h>
 
 void CLevelGenerator::LoadLevels()
 {
@@ -14,4 +15,15 @@ void CLevelGenerator::LoadLevels()
 
 	CStagePack* sp = CStagePackMgr::GetInst()->GetStagePack(StagePackList::Dwelling);
 	stage->SetStagePack(sp);
+
+	CRandomMgr::GetInst()->init();
+
+	UINT32 seed = CRandomMgr::GetInst()->GetSeed();
+
+	string logpath = ToString(CPathMgr::GetContentPath()) + GameLogPath;
+	ofstream fout(logpath);
+	if (fout.is_open()) {
+		fout << "seed: " << seed << endl;
+	}
+
 }

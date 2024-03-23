@@ -8,3 +8,5 @@
 #define UICameraName "##Camera"
 
 #define NewBlockName "New"
+
+#define GameLogPath "..\\log\\game.txt"
