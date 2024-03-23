@@ -33,20 +33,16 @@ CLevel::~CLevel()
 	Delete_Array(m_arrLayer);
 }
 
-#include "CRenderMgr.h"
 void CLevel::begin()
 {
 	for (int i = 0; i < LAYER_MAX; ++i)
 	{
 		m_arrLayer[i]->begin();
 	}
-	
 }
 
 void CLevel::tick()
 {
-
-	auto mgr = CRenderMgr::GetInst();
 	for (int i = 0; i < LAYER_MAX; ++i)
 	{
 		m_arrLayer[i]->tick();
