@@ -20,7 +20,7 @@ class CStage :
 private:
     StageState m_state;
     vector<vector<class CGameObject*>> m_vecBlocks;
-    int m_iEntracnePos;
+    int m_iEntrancePos;
     int m_iExitPos;
 
 private:
@@ -49,6 +49,8 @@ private:
     void SelectExit();
     void GeneratePath();
     void DFSGenerate(vector<Vec2>& _path, bool find);
+    void FitType();
+    void SelectBlock();
 
 private:
     void PrintChangeState(const wchar_t* _content);

@@ -42,8 +42,23 @@ private:
 	BlockTileType m_Tiles[TILEBLOCKSIZEY][TILEBLOCKSIZEX];
 
 public:
+	/// <summary>
+	/// row, col에 해당하는 타일의 타입을 설정합니다.
+	/// </summary>
 	inline void SetTileType(BlockTileType _type, int _row, int _col) { m_Tiles[_row][_col] = _type; }
+	/// <summary>
+	/// row, col에 해당하는 타일의 타입을 가져옵니다.
+	/// </summary>
 	inline BlockTileType GetTileType(int _row, int _col) const { return m_Tiles[_row][_col]; }
+
+	/// <summary>
+	/// 현재 타일 블록의 타입을 설정합니다.
+	/// </summary>
+	inline void SetBlockType(TileBlockType _type) { m_Type = _type; }
+	/// <summary>
+	/// 현재 타일 블록의 타입을 가져옵니다.
+	/// </summary>
+	inline TileBlockType TileBlockType() { return m_Type; }
 
 public:
 	friend ifstream& operator>>(ifstream& fin, CTileBlock& tileblock);

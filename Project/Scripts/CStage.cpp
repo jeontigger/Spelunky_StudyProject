@@ -109,9 +109,11 @@ void CStage::ChangeState(StageState _state)
 
 	case StageState::GENERATE_PATH:
 		GeneratePath();
+		FitType();
 		break;
 
 	case StageState::ATTACH_TILEBLOCK:
+		SelectBlock();
 		break;
 	case StageState::TILE_INSTANCING:
 		break;
@@ -154,8 +156,8 @@ void CStage::SelectEntrance()
 {
 	PrintChangeState(L"Select Entrance");
 
-	m_iEntracnePos = GETRANDOM(STAGETILECOL);
-	m_vecBlocks[0][m_iEntracnePos]->DMtrlSetScalar(INT_0, 2);
+	m_iEntrancePos = GETRANDOM(STAGETILECOL);
+	m_vecBlocks[0][m_iEntrancePos]->DMtrlSetScalar(INT_0, 2);
 
 }
 
@@ -177,13 +179,10 @@ void CStage::GeneratePath()
 			m_visited[row][col] = false;
 		}
 	}
-
-
-
-	Vec2 curPos(m_iEntracnePos, 0);
+	Vec2 curPos(m_iEntrancePos, 0);
 	Vec2 targetPos(m_iExitPos, STAGETILEROW - 1);
 
-	m_visited[0][m_iEntracnePos] = true;
+	m_visited[0][m_iEntrancePos] = true;
 
 	vector<Vec2> path;
 	path.push_back(curPos);
@@ -242,6 +241,64 @@ void CStage::DFSGenerate(vector<Vec2>& _path, bool find)
 			break;
 		}
 	}
+}
+
+void CStage::FitType()
+{
+	for (int row = 0; row < STAGETILEROW; row++) {
+		for (int col = 0; col < STAGETILECOL; col++)
+		{
+			m_arrTileBlocks[row][col].SetBlockType(TileBlockType::Side);
+		}
+	}
+
+
+	m_arrTileBlocks[0][m_iEntrancePos].SetBlockType(TileBlockType::Entrance);
+	if (m_Path[1].y == 1) {
+		m_arrTileBlocks[0][m_iEntrancePos].SetBlockType(TileBlockType::Entrance_Fall);
+	}
+
+	Vec2 prevPos(0, m_iEntrancePos);
+	for (int i = 1; i < m_Path.size() - 1; i++) {
+		Vec2 curPos = m_Path[i];
+		Vec2 nextPos = m_Path[i + 1];
+
+		// 떨어지는거라면 
+		if (prevPos.y == curPos.y - 1) {
+			// 다음에도 떨어지는지
+			if (nextPos.y== curPos.y+1) {
+				m_arrTileBlocks[(int)curPos.y][(int)curPos.x].SetBlockType(TileBlockType::Fall_Drop);
+			}
+			else {
+				m_arrTileBlocks[(int)curPos.y][(int)curPos.x].SetBlockType(TileBlockType::Drop);
+			}
+		}
+		// 옆에서 온거라면
+		else if (prevPos.y == curPos.y) {
+			// 다음에 떨어지는지
+			if (nextPos.y == curPos.y + 1) {
+				m_arrTileBlocks[(int)curPos.y][(int)curPos.x].SetBlockType(TileBlockType::Fall);
+			}
+			else {
+				m_arrTileBlocks[(int)curPos.y][(int)curPos.x].SetBlockType(TileBlockType::Normal);
+			}
+		}
+		prevPos = curPos;
+	}
+
+	Vec2 curPos = m_Path.back();
+	// 떨어진거라면
+	if (prevPos.y == curPos.y - 1) {
+		m_arrTileBlocks[(int)curPos.y][(int)curPos.x].SetBlockType(TileBlockType::Exit_Drop);
+	}
+	else {
+		m_arrTileBlocks[(int)curPos.y][(int)curPos.x].SetBlockType(TileBlockType::Exit);
+	}
+}
+
+void CStage::SelectBlock()
+{
+
 }
 
 
