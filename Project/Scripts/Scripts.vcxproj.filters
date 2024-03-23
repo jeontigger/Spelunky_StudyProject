@@ -110,5 +110,8 @@
     <Filter Include="04. Level\Stage">
       <UniqueIdentifier>{bbe7a70f-3d0f-4aa5-976d-da17153df75d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="05. Asset">
+      <UniqueIdentifier>{40af1b4b-e561-44ab-9af3-3cb8bf825abc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

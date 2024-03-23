@@ -98,7 +98,7 @@ void CStage::ChangeState(StageState _state)
 		break;
 	case StageState::GENERATE_PATH:
 		break;
-	case StageState::ATTACK_TILEBLOCK:
+	case StageState::ATTACH_TILEBLOCK:
 		break;
 	case StageState::TILE_INSTANCING:
 		break;
@@ -119,18 +119,28 @@ void CStage::CreateBlocks()
 	data._Color = FONT_RGBA(255, 30, 30, 255);
 	CFontMgr::GetInst()->DrawFont(L"m_szTex", data, 3.f);
 
-	CGameObject* pObj = new CGameObject;
-	pObj->AddComponent(new CTransform);
-	pObj->AddComponent(new CMeshRender);
-	pObj->Transform()->SetRelativePos(Vec3(0, 0, 0));
-	pObj->Transform()->SetRelativeScale(TileBlockScaleVec);
-	pObj->SetName(L"DummyBlock");
+	CGameObject* pObj ;
+	for (int row = 0; row < 4; row++) {
+		for (int col = 0; col < 4; col++) {
+			pObj = new CGameObject;
+			pObj->AddComponent(new CTransform);
+			pObj->AddComponent(new CMeshRender);
+			pObj->Transform()->SetRelativeScale(TileBlockScaleVec);
+
+			pObj->Transform()->SetRelativePos(Vec3(col * TileBlockScaleX + col, -row * TileBlockScaleY - row, 0));
+			wstring name = L"DummyBlock" + std::to_wstring(row * 4 + col);
+			pObj->SetName(name);
 
 
-	pObj->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
-	pObj->MeshRender()->SetMaterial(CAssetMgr::GetInst()->FindAsset<CMaterial>(L"Std2DMtrl"));
+			pObj->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
+			pObj->MeshRender()->SetMaterial(CAssetMgr::GetInst()->FindAsset<CMaterial>(MapGenBlockMtrl));
+			pObj->MeshRender()->GetMaterial()->SetScalarParam(SCALAR_PARAM::INT_2, 0);
 
-	GamePlayStatic::SpawnGameObject(pObj, 7);
+			GamePlayStatic::SpawnGameObject(pObj, 7);
+		}
+	}
+
+
 }
 
 void CStage::tick()

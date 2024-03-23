@@ -488,6 +488,9 @@
     <Filter Include="04. Manager\FontMgr">
       <UniqueIdentifier>{37be9843-c16a-4fff-8630-20aa99e316a9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ShaderCode\custom">
+      <UniqueIdentifier>{c5c9eaee-8256-4263-a98d-4d800ba1623e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="SimpleMath.inl">
@@ -524,6 +527,9 @@
     </FxCompile>
     <FxCompile Include="particle_update.fx">
       <Filter>ShaderCode\Compute\ParticleUpdate</Filter>
+    </FxCompile>
+    <FxCompile Include="MapGeneratorBlock.fx">
+      <Filter>ShaderCode\custom</Filter>
     </FxCompile>
   </ItemGroup>
 </Project>

@@ -1,5 +1,6 @@
 #pragma once
 #include <Engine/CLevel.h>
+#include "CTileBlock.h"
 
 enum class StageState {
     NONE,
@@ -20,6 +21,8 @@ private:
 
 private:
     class CStagePack* m_SP;
+
+    CTileBlock m_arrTileBlocks[STAGETILEROW][STAGETILECOL];
 
 
 public:

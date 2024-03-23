@@ -16,6 +16,10 @@ void CAssetMgr::init()
 	CreateDefaultComputeShader();
 
 	CreateDefaultMaterial();
+
+	CreateCustomGraphicsShader();
+
+	CreateCustomMaterial();
 }
 
 void CAssetMgr::CreateDefaultMesh()
@@ -279,8 +283,6 @@ void CAssetMgr::CreateDefaultGraphicsShader()
 	AddAsset(L"DebugShapeShader", pShader.Get());
 }
 
-
-
 void CAssetMgr::CreateDefaultMaterial()
 {
 	CMaterial* pMtrl = nullptr;
@@ -330,7 +332,34 @@ void CAssetMgr::CreateDefaultMaterial()
 	AddAsset<CMaterial>(L"DebugShapeMtrl", pMtrl);
 }
 
+void CAssetMgr::CreateCustomGraphicsShader()
+{
+	Ptr<CGraphicsShader> pShader;
+	// =================================
+	// MapGeneratorBlock
+	// =================================
+	pShader = new CGraphicsShader;
+	pShader->CreateVertexShader(MapGenShaderPath, MapGenVS);
+	pShader->CreatePixelShader(MapGenShaderPath, MapGenPS);
 
+	pShader->SetRSType(RS_TYPE::CULL_NONE);
+	pShader->SetBSType(BS_TYPE::DEFAULT);
+	pShader->SetDSType(DS_TYPE::NO_TEST_NO_WRITE);
+
+	pShader->SetDomain(SHADER_DOMAIN::DOMAIN_MASKED);
+
+	AddAsset(MapGenShaderKey, pShader.Get());
+}
+
+void CAssetMgr::CreateCustomMaterial()
+{
+	Ptr<CMaterial> pMtrl;
+
+	// MapGeneratorBlock
+	pMtrl = new CMaterial(true);
+	pMtrl->SetShader(FindAsset<CGraphicsShader>(MapGenShaderKey));
+	AddAsset<CMaterial>(MapGenBlockMtrl, pMtrl.Get());
+}
 
 
 #include "CSetColorShader.h"

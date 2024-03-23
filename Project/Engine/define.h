@@ -29,6 +29,16 @@
 
 #define ASSET_LOAD(type, RelPath) CAssetMgr::GetInst()->Load<type>(RelPath, RelPath)
 
+#define CameraNormalScale 1
+#define CameraMapGeneratingScale 10
+
+#define MapGenShaderPath L"shader\\MapGeneratorBlock.fx"
+#define MapGenShaderKey L"MapGenShader"
+#define MapGenVS "VS_MGB"
+#define MapGenPS "PS_MGB"
+#define MapGenBlockMtrl L"MapGeneratorBlockMatrial"
+
+
 enum class DIR_TYPE
 {
 	RIGHT,

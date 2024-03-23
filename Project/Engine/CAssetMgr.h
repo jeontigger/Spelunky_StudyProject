@@ -35,6 +35,10 @@ private:
     void CreateDefaultComputeShader();
     void CreateDefaultMaterial();   
 
+private:
+    void CreateCustomGraphicsShader();
+    void CreateCustomMaterial();
+
 public:
     template<typename T>
     const map<wstring, Ptr<CAsset>>& GetAssets();
