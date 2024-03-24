@@ -12,11 +12,10 @@
 
 #include <Engine/CLayer.h>
 
-#include "CBackgroundScript.h"
-
 #include "CRandomMgr.h"
 
 #include "CStagePack.h"
+#include "CTile.h"
 
 CStage::CStage()
 	: m_state(StageState::NONE)
@@ -82,7 +81,7 @@ CStage::CStage()
 	AddObject(pCamObj, 0);
 
 
-	CLevelMgr::GetInst()->ChangeLevel(this, LEVEL_STATE::PLAY);
+	CLevelMgr::GetInst()->ChangeLevel(this, LEVEL_STATE::STOP);
 }
 
 CStage::~CStage()
@@ -123,6 +122,7 @@ void CStage::ChangeState(StageState _state)
 		break;
 
 	case StageState::TILE_INSTANCING:
+		TileInstancing();
 		break;
 	case StageState::END:
 		break;
@@ -330,6 +330,30 @@ void CStage::RegistBackground()
 
 }
 
+void CStage::TileInstancing()
+{
+	CGameObject* tile = new CGameObject;
+	tile->AddComponent(new CTransform);
+	tile->AddComponent(new CMeshRender);
+	tile->AddComponent(new CCollider2D);
+	tile->AddComponent(new CTile);
+
+	tile->Transform()->SetRelativePos(Vec3(00.f, 0.f, 500.f));
+	tile->Transform()->SetRelativeScale(Vec3(200.f, 200.f, 1.f));
+
+	tile->Collider2D()->SetAbsolute(true);
+	tile->Collider2D()->SetOffsetScale(Vec2(100.f, 100.f));
+	tile->Collider2D()->SetOffsetPos(Vec2(0.f, 0.f));
+
+	tile->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
+	tile->MeshRender()->SetMaterial(CAssetMgr::GetInst()->FindAsset<CMaterial>(L"Std2DMtrl"));
+
+	tile->GetScript<CTile>()->SetTileType(TileType::Blank);
+
+	AddObject(tile, L"Tile", false);
+
+}
+
 void CStage::tick()
 {
 	CLevel::tick();
@@ -361,6 +385,11 @@ void CStage::finaltick()
 	else if (m_state == StageState::ATTACH_TILEBLOCK) {
 		if (KEY_TAP(LBTN)) {
 			ChangeState(StageState::REGIST_BACKGROUND);
+		}
+	}
+	else if (m_state == StageState::REGIST_BACKGROUND) {
+		if (KEY_TAP(LBTN)) {
+			ChangeState(StageState::TILE_INSTANCING);
 		}
 	}
 }

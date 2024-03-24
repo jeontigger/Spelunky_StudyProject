@@ -53,6 +53,7 @@ private:
     void FitType();
     void SelectBlock();
     void RegistBackground();
+    void TileInstancing();
 
 private:
     void PrintChangeState(const wchar_t* _content);

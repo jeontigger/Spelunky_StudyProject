@@ -1,9 +1,8 @@
 #include "pch.h"
 #include "CTile.h"
 
-CTile::CTile(TileType type)
+CTile::CTile()
 	:CFieldObject(SCRIPT_TYPE::TILE)
-	, m_type(type)
 {
 }
 

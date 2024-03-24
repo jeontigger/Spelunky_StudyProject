@@ -30,6 +30,13 @@ private:
     TileType m_arrSurroundTiles[(int)SurroundTile::END];
 
 public:
+    void SetTileType(TileType type) { m_type = type; }
+    TileType GetTileType() { return m_type; }
+
+    void SetSurroundTileType(SurroundTile _dir, TileType _type) { m_arrSurroundTiles[(int)_dir] = _type; }
+    TileType GetSurroundTileType(SurroundTile _dir) { return m_arrSurroundTiles[(int)_dir]; }
+
+public:
     virtual void tick() override;
 
     virtual void skill() {};
@@ -39,7 +46,7 @@ public:
 
     CScript* Clone() { return this; };
 public:
-    CTile(TileType type);
+    CTile();
     ~CTile();
 };
 
