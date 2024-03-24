@@ -30,8 +30,7 @@ void AddComponentUI::render_update()
 	ButtonTitle("AddComponent");
 
     static int current_item = 0;
-    if (ImGui::Button("Save##addcomponent")) {
-        
+    if (ImGui::Button("Add##addcomponent")) {
         m_target->AddComponent((COMPONENT_TYPE)current_item);
         Inspector* inspector = (Inspector*)UIMGR->FindUI(UIInspectorName);
         inspector->SetTargetObject(m_target);

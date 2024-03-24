@@ -39,7 +39,13 @@
 #define MapGenShaderKey L"MapGenShader"
 #define MapGenVS "VS_MGB"
 #define MapGenPS "PS_MGB"
-#define MapGenBlockMtrl L"MapGeneratorBlockMatrial"
+#define MapGenBlockMtrl L"MapGeneratorBlockMaterial"
+
+#define TileShaderPath L"shader\\tile.fx"
+#define TileShaderKey L"TileShader"
+#define TileVS "VS_Tile"
+#define TilePS "PS_Tile"
+#define TileMtrl L"TileMaterial"
 
 
 

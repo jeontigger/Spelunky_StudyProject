@@ -149,7 +149,7 @@ void MaterialUI::render_update()
         Ptr<CTexture> pTex = pMtrl->GetTexParam(param);
         string key = "##texparm" + std::to_string(i);
 
-        string texkey = "Tex " + std::to_string(i) + "Key";
+        string texkey = "Tex " + std::to_string(i) + " Key";
         ImGui::Text(texkey.c_str()); ImGui::SameLine();
         ImGui::InputText(key.c_str(), desc.data(), 32);
         if (ParamUI::Param_TEXTURE(pTex, desc, this, (Delegate_1)&MaterialUI::SelectTexture))

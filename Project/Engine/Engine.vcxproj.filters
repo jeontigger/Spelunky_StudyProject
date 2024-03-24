@@ -531,5 +531,8 @@
     <FxCompile Include="MapGeneratorBlock.fx">
       <Filter>ShaderCode\custom</Filter>
     </FxCompile>
+    <FxCompile Include="tile.fx">
+      <Filter>ShaderCode\custom</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>

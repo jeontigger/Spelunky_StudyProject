@@ -338,6 +338,21 @@ void CAssetMgr::CreateCustomGraphicsShader()
 	pShader->SetDomain(SHADER_DOMAIN::DOMAIN_MASKED);
 
 	AddAsset(MapGenShaderKey, pShader.Get());
+
+	// =================================
+	// TileShader
+	// =================================
+	pShader = new CGraphicsShader;
+	pShader->CreateVertexShader(TileShaderPath, TileVS);
+	pShader->CreatePixelShader(TileShaderPath, TilePS);
+
+	pShader->SetRSType(RS_TYPE::CULL_NONE);
+	pShader->SetBSType(BS_TYPE::DEFAULT);
+	pShader->SetDSType(DS_TYPE::NO_TEST_NO_WRITE);
+
+	pShader->SetDomain(SHADER_DOMAIN::DOMAIN_MASKED);
+
+	AddAsset(TileShaderKey, pShader.Get());
 }
 
 void CAssetMgr::CreateCustomMaterial()
@@ -348,6 +363,11 @@ void CAssetMgr::CreateCustomMaterial()
 	pMtrl = new CMaterial(true);
 	pMtrl->SetShader(FindAsset<CGraphicsShader>(MapGenShaderKey));
 	AddAsset<CMaterial>(MapGenBlockMtrl, pMtrl.Get());
+
+	// Tile
+	pMtrl = new CMaterial(true);
+	pMtrl->SetShader(FindAsset<CGraphicsShader>(TileShaderKey));
+	AddAsset<CMaterial>(TileMtrl, pMtrl.Get());
 }
 
 
