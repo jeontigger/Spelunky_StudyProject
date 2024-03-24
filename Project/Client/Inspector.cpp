@@ -95,6 +95,8 @@ void Inspector::SetTargetAsset(Ptr<CAsset> _Asset)
 {
 	SetTargetObject(nullptr);
 
+	m_uiAddComponent->Deactivate();
+
 	m_TargetAsset = _Asset;
 
 	for (UINT i = 0; i < (UINT)ASSET_TYPE::END; ++i)
