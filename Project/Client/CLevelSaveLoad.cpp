@@ -99,6 +99,50 @@ void CLevelSaveLoad::SaveGameObject(CGameObject* _Obj, FILE* _File)
 	}
 }
 
+void CLevelSaveLoad::SaveGameObject(CGameObject* _Obj, ofstream& fout)
+{
+	// GameObject 의 이름을 저장
+	fout << _Obj->GetName();
+	// 컴포넌트 정보를 저장
+	UINT i = 0;
+	for (; i < (UINT)COMPONENT_TYPE::END; ++i)
+	{
+		CComponent* pCom = _Obj->GetComponent((COMPONENT_TYPE)i);
+		if (nullptr == pCom)
+			continue;
+
+		// 컴포넌트 타입 정보 저장
+		fout << i << endl;
+
+		// 해당 컴포넌트가 저장할 데이터 저장
+		pCom->SaveToFile(fout);
+	}
+	fwrite(&i, sizeof(UINT), 1, _File);
+
+	// 스크립트 정보 저장
+	const vector<CScript*>& vecScripts = _Obj->GetScripts();
+	size_t ScriptCount = vecScripts.size();
+
+	// 스크립트 개수 저장
+	fwrite(&ScriptCount, sizeof(size_t), 1, _File);
+
+	for (size_t i = 0; i < vecScripts.size(); ++i)
+	{
+		SaveWString(CScriptMgr::GetScriptName(vecScripts[i]), _File);
+		vecScripts[i]->SaveToFile(_File);
+	}
+
+	// 자식 오브젝트가 있으면 자식 오브젝트 정보 저장
+	const vector<CGameObject*>& vecChild = _Obj->GetChild();
+	size_t childcount = vecChild.size();
+	fwrite(&childcount, sizeof(size_t), 1, _File);
+
+	for (size_t i = 0; i < childcount; ++i)
+	{
+		SaveGameObject(vecChild[i], _File);
+	}
+}
+
 CLevel* CLevelSaveLoad::LoadLevel(const wstring& _strLevelPath)
 {
 	CLevel* pLevel = nullptr;
