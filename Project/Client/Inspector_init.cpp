@@ -21,6 +21,8 @@ void Inspector::CreateChildUI()
 
 void Inspector::CreateComponentUI()
 {
+
+
 	m_arrComUI[(UINT)COMPONENT_TYPE::TRANSFORM] = new TransformUI;
 	m_arrComUI[(UINT)COMPONENT_TYPE::TRANSFORM]->Deactivate();
 	AddChildUI(m_arrComUI[(UINT)COMPONENT_TYPE::TRANSFORM]);
@@ -45,6 +47,9 @@ void Inspector::CreateComponentUI()
 	m_arrComUI[(UINT)COMPONENT_TYPE::CAMERA]->Deactivate();
 	AddChildUI(m_arrComUI[(UINT)COMPONENT_TYPE::CAMERA]);
 
+	m_uiAddComponent = new AddComponentUI;
+	AddChildUI(m_uiAddComponent);
+	m_uiAddComponent->Deactivate();
 
 }
 
@@ -87,9 +92,6 @@ void Inspector::CreateAssetUI()
 	m_arrAssetUI[(UINT)ASSET_TYPE::FSM] = new FSMUI;
 	AddChildUI(m_arrAssetUI[(UINT)ASSET_TYPE::FSM]);
 
-	m_uiAddComponent = new AddComponentUI;
-	AddChildUI(m_uiAddComponent);
-	m_uiAddComponent->Deactivate();
 }
 
 void Inspector::ResizeScriptUI(UINT _Size)

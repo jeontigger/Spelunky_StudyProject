@@ -14,6 +14,8 @@ AddComponentUI::AddComponentUI()
     for (int i = 0; i < (int)COMPONENT_TYPE::END; i++) {
         m_vecComponentStrings.push_back(COMPONENT_TYPE_STRING[i]);
     }
+
+    SetSize(ImVec2(0.f, 120.f));
 }
 
 AddComponentUI::~AddComponentUI()
@@ -23,9 +25,9 @@ AddComponentUI::~AddComponentUI()
 
 void AddComponentUI::render_update()
 {
-	ImGui::Separator();
-	ButtonTitle("AddComponent");
+    ImGui::Separator();
 
+	ButtonTitle("AddComponent");
 
     static int current_item = 0;
     if (ImGui::Button("Save##addcomponent")) {
@@ -36,5 +38,4 @@ void AddComponentUI::render_update()
     }
 
     SearchableComboBox("addcomponentuicombo", &current_item, m_vecComponentStrings);
-
 }
