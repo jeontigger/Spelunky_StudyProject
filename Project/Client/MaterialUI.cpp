@@ -50,54 +50,67 @@ void MaterialUI::render_update()
     if (nullptr == pShader)
         return;
 
-    const vector<tScalarParam>& vecScalarParam = pShader->GetScalarParam();
-    for (size_t i = 0; i < vecScalarParam.size(); ++i)
-    {
-        switch (vecScalarParam[i].Type)
+    for (int i = 0; i < (int)SCALAR_PARAM::END; i++) {
+        SCALAR_PARAM param = (SCALAR_PARAM)i;
+        string desc = m_Mtrl->IsUsingScalarParam(param);
+        if (desc == "")
+            continue;
+        switch ((SCALAR_PARAM)i)
         {
         case SCALAR_PARAM::INT_0:
         case SCALAR_PARAM::INT_1:
         case SCALAR_PARAM::INT_2:
-        case SCALAR_PARAM::INT_3:                   
-            ParamUI::Param_INT((int*)pMtrl->GetScalarParam(vecScalarParam[i].Type), vecScalarParam[i].Desc);
+        case SCALAR_PARAM::INT_3:
+            ParamUI::Param_INT((int*)pMtrl->GetScalarParam(param), desc);
             break;
         case SCALAR_PARAM::FLOAT_0:
         case SCALAR_PARAM::FLOAT_1:
         case SCALAR_PARAM::FLOAT_2:
         case SCALAR_PARAM::FLOAT_3:
-            ParamUI::Param_FLOAT((float*)pMtrl->GetScalarParam(vecScalarParam[i].Type), vecScalarParam[i].Desc);
+            ParamUI::Param_FLOAT((float*)pMtrl->GetScalarParam(param), desc);
             break;
         case SCALAR_PARAM::VEC2_0:
         case SCALAR_PARAM::VEC2_1:
         case SCALAR_PARAM::VEC2_2:
         case SCALAR_PARAM::VEC2_3:
-            ParamUI::Param_VEC2((Vec2*)pMtrl->GetScalarParam(vecScalarParam[i].Type), vecScalarParam[i].Desc);
+            ParamUI::Param_VEC2((Vec2*)pMtrl->GetScalarParam(param), desc);
             break;
         case SCALAR_PARAM::VEC4_0:
         case SCALAR_PARAM::VEC4_1:
         case SCALAR_PARAM::VEC4_2:
         case SCALAR_PARAM::VEC4_3:
-            ParamUI::Param_VEC4((Vec4*)pMtrl->GetScalarParam(vecScalarParam[i].Type), vecScalarParam[i].Desc);
+            ParamUI::Param_VEC4((Vec4*)pMtrl->GetScalarParam(param), desc);
             break;
         case SCALAR_PARAM::MAT_0:
         case SCALAR_PARAM::MAT_1:
         case SCALAR_PARAM::MAT_2:
         case SCALAR_PARAM::MAT_3:
-            break;        
-        }        
+            break;
+        }
     }
 
-    const vector<tTexParam>& vecTexParam = pShader->GetTexParam();
-    for (size_t i = 0; i < vecTexParam.size(); ++i)
-    {
-        Ptr<CTexture> pTex = pMtrl->GetTexParam(vecTexParam[i].Type);      
-        if (ParamUI::Param_TEXTURE(pTex, vecTexParam[i].Desc, this, (Delegate_1)&MaterialUI::SelectTexture))
-        {           
+    for (int i = 0; i < (int)TEX_PARAM::END; i++) {
+        TEX_PARAM param = (TEX_PARAM)i;
+        string desc = m_Mtrl->IsUsingTexParam(param);
+        if (desc == "")
+            continue;
+
+        Ptr<CTexture> pTex = pMtrl->GetTexParam(param);
+        if (ParamUI::Param_TEXTURE(pTex, desc, this, (Delegate_1)&MaterialUI::SelectTexture))
+        {
             // 리스트 버튼을 눌렀다면
-            m_SelectTexParam = vecTexParam[i].Type;
+            m_SelectTexParam = param;
         }
-        pMtrl->SetTexParam(vecTexParam[i].Type, pTex);
+        pMtrl->SetTexParam(param, pTex);
     }
+    
+}
+
+void MaterialUI::Activate()
+{
+    AssetUI::Activate();
+
+    m_Mtrl = (CMaterial*)GetAsset().Get();
 }
 
 void MaterialUI::SelectTexture(DWORD_PTR _dwData)

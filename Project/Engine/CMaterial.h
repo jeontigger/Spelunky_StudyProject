@@ -12,6 +12,16 @@ private:
 	Ptr<CTexture>			m_arrTex[(UINT)TEX_PARAM::END];
     Ptr<CGraphicsShader>    m_pShader;
     
+private:
+	string m_arrUsingScalar[(UINT)SCALAR_PARAM::END];
+	string m_arrUsingTex[(UINT)TEX_PARAM::END];
+
+public:
+	inline void SetUsingScalarParam(SCALAR_PARAM _Param, const string& _Desc) { m_arrUsingScalar[(int)_Param] = _Desc; }
+	inline void SetUsingTexParam(TEX_PARAM _Param, const string& _Desc) { m_arrUsingTex[(int)_Param] = _Desc; }
+	inline const string& IsUsingScalarParam(SCALAR_PARAM _Param) { return  m_arrUsingScalar[(int)_Param]; }
+	inline const string& IsUsingTexParam(TEX_PARAM _Param) { return m_arrUsingTex[(int)_Param]; }
+
 public:
     void SetShader(Ptr<CGraphicsShader> _Shader) { m_pShader = _Shader; }
 	Ptr<CGraphicsShader> GetShader() { return m_pShader; }

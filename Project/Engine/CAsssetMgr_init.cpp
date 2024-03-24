@@ -175,11 +175,6 @@ void CAssetMgr::CreateDefaultGraphicsShader()
 	pShader->SetDSType(DS_TYPE::LESS);
 	pShader->SetBSType(BS_TYPE::DEFAULT);
 	pShader->SetDomain(SHADER_DOMAIN::DOMAIN_MASKED);
-		
-	// Parameter	
-	pShader->AddScalarParam(SCALAR_PARAM::INT_0, "Test Param");
-	pShader->AddTexParam(TEX_PARAM::TEX_0, "Output Texture 1");
-	
 
 	AddAsset(L"Std2DShader", pShader.Get());
 
@@ -197,7 +192,6 @@ void CAssetMgr::CreateDefaultGraphicsShader()
 	pShader->SetDomain(SHADER_DOMAIN::DOMAIN_TRANSPARENT);
 
 	AddAsset(L"EffectShader", pShader.Get());
-
 
 	// =============
 	// TileMapShader
@@ -292,15 +286,10 @@ void CAssetMgr::CreateDefaultMaterial()
 	pMtrl->SetShader(FindAsset<CGraphicsShader>(L"Std2DShader"));
 	AddAsset<CMaterial>(L"Std2DMtrl", pMtrl);
 
-	// TestMtrl
-	//pMtrl = new CMaterial(true);
-	//pMtrl->SetShader(FindAsset<CGraphicsShader>(L"Std2DShader"));
-	//pMtrl->SetTexParam(TEX_0, Load<CTexture>(L"texture\\Background.jpg", L"texture\\Background.jpg"));
-	//pMtrl->SetScalarParam(INT_0, 10);
-	//pMtrl->Save(L"material\\testmtrl.mtrl");
-	//AddAsset<CMaterial>(L"TestMtrl", pMtrl);
+	// Parameter	
+	pMtrl->SetUsingScalarParam(SCALAR_PARAM::INT_0, "Test Param");
+	pMtrl->SetUsingTexParam(TEX_PARAM::TEX_0, "Output Texture 1");
 	
-
 	// BackgroundMtrl
 	pMtrl = new CMaterial(true);
 	pMtrl->SetShader(FindAsset<CGraphicsShader>(L"Std2DShader"));
