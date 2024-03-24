@@ -21,6 +21,9 @@ CGraphicsShader::~CGraphicsShader()
 
 int CGraphicsShader::CreateVertexShader(const wstring& _strRelativePath, const string& _strFuncName)
 {
+	m_strVSPath = ToString(_strRelativePath);
+	m_strVSFunc = _strFuncName;
+
 	// 버텍스 쉐이더
 	// HLSL 버텍스 쉐이더 함수 컴파일
 	wstring strContentPath = CPathMgr::GetContentPath();
@@ -84,6 +87,9 @@ int CGraphicsShader::CreateVertexShader(const wstring& _strRelativePath, const s
 
 int CGraphicsShader::CreateGeometryShader(const wstring& _strRelativePath, const string& _strFuncName)
 {
+	m_strGSPath = ToString(_strRelativePath);
+	m_strGSFunc = _strFuncName;
+
 	wstring strContentPath = CPathMgr::GetContentPath();
 	wstring strFilePath = strContentPath + _strRelativePath;
 
@@ -111,6 +117,9 @@ int CGraphicsShader::CreateGeometryShader(const wstring& _strRelativePath, const
 
 int CGraphicsShader::CreatePixelShader(const wstring& _strRelativePath, const string& _strFuncName)
 {
+	m_strPSPath = ToString(_strRelativePath);
+	m_strPSFunc = _strFuncName;
+
 	wstring strContentPath = CPathMgr::GetContentPath();
 	wstring strFilePath = strContentPath + _strRelativePath;
 

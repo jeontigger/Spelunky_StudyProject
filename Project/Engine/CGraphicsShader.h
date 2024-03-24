@@ -33,6 +33,29 @@ private:
     // Shader Domain
     SHADER_DOMAIN                   m_Domain;
 
+private:
+    string m_strVSPath;
+    string m_strVSFunc;
+
+    string m_strHSPath;
+    string m_strHSFunc;
+
+    string m_strDSPath;
+    string m_strDSFunc;
+
+    string m_strGSPath;
+    string m_strGSFunc;
+
+    string m_strPSPath;
+    string m_strPSFunc;
+
+public:
+    void GetVSInfo(string& path, string& func) { path = m_strVSPath; func = m_strVSFunc; }
+    void GetHSInfo(string& path, string& func) { path = m_strHSPath; func = m_strHSFunc; }
+    void GetDSInfo(string& path, string& func) { path = m_strDSPath; func = m_strDSFunc; }
+    void GetGSInfo(string& path, string& func) { path = m_strGSPath; func = m_strGSFunc; }
+    void GetPSInfo(string& path, string& func) { path = m_strPSPath; func = m_strPSFunc; }
+
 public:
     int CreateVertexShader(const wstring& _strRelativePath, const string& _strFuncName);
    /* int CreateHullShader();
