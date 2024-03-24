@@ -17,8 +17,8 @@ private:
 	string m_arrUsingTex[(UINT)TEX_PARAM::END];
 
 public:
-	inline void SetUsingScalarParam(SCALAR_PARAM _Param, const string& _Desc) { m_arrUsingScalar[(int)_Param] = _Desc; }
-	inline void SetUsingTexParam(TEX_PARAM _Param, const string& _Desc) { m_arrUsingTex[(int)_Param] = _Desc; }
+	inline void SetUsingScalarParam(SCALAR_PARAM _Param, const string& _Desc) { m_arrUsingScalar[(int)_Param] = string(_Desc); }
+	inline void SetUsingTexParam(TEX_PARAM _Param, const string& _Desc) { m_arrUsingTex[(int)_Param] = string(_Desc); }
 	inline const string& IsUsingScalarParam(SCALAR_PARAM _Param) { return  m_arrUsingScalar[(int)_Param]; }
 	inline const string& IsUsingTexParam(TEX_PARAM _Param) { return m_arrUsingTex[(int)_Param]; }
 
