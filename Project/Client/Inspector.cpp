@@ -2,6 +2,7 @@
 #include "Inspector.h"
 
 #include <Engine/CTransform.h>
+#include <Engine\CPrefab.h>
 
 #include "TransformUI.h"
 #include "MeshRenderUI.h"
@@ -40,7 +41,22 @@ void Inspector::render_update()
 	if (nullptr != m_TargetObject)
 	{
 		string strName = string(m_TargetObject->GetName().begin(), m_TargetObject->GetName().end());
-		ImGui::Text(strName.c_str());
+		ImGui::Text(strName.c_str()); ImGui::SameLine();
+		ImGui::InputText("##modifyname", strName.data(), 32);
+
+		m_TargetObject->SetName(strName);
+
+		if (ImGui::Button("To Prefab")) {
+			Ptr<CPrefab> prefab = new CPrefab;
+
+			CGameObject* obj = m_TargetObject->Clone();
+			prefab->SetGameObject(obj);
+			wstring path = L"prefab\\";
+			path += ToWString(strName)+ L".pref";
+			prefab->Save(path);
+
+			MessageBox(nullptr, L"프리팹을 생성했습니다", L"프리팹 생성", 0);
+		}
 	}
 }
 
