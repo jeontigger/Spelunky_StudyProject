@@ -20,7 +20,7 @@ class CStage :
     // 시각화용
 private:
     StageState m_state;
-    vector<vector<class CGameObject*>> m_vecBlocks;
+    vector<vector<class CGameObject*>> m_vecBackgrounds;
     int m_iEntrancePos;
     int m_iExitPos;
 

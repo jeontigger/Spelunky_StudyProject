@@ -138,7 +138,7 @@ void CStage::CreateBlocks()
 
 	CGameObject* pObj;
 	for (int row = 0; row < STAGETILEROW; row++) {
-		m_vecBlocks.push_back({});
+		m_vecBackgrounds.push_back({});
 		for (int col = 0; col < STAGETILECOL; col++) {
 			pObj = new CGameObject;
 			pObj->AddComponent(new CTransform);
@@ -153,7 +153,7 @@ void CStage::CreateBlocks()
 			pObj->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
 			pObj->MeshRender()->SetMaterial(CAssetMgr::GetInst()->FindAsset<CMaterial>(MapGenBlockMtrl));
 			pObj->MtrlSetScalar(INT_0, StageState::CREATE_BLOCK);
-			m_vecBlocks[row].push_back(pObj);
+			m_vecBackgrounds[row].push_back(pObj);
 			GamePlayStatic::SpawnGameObject(pObj, 7);
 		}
 	}
@@ -164,7 +164,7 @@ void CStage::SelectEntrance()
 	PrintChangeState(L"Select Entrance");
 
 	m_iEntrancePos = GETRANDOM(STAGETILECOL);
-	m_vecBlocks[0][m_iEntrancePos]->DMtrlSetScalar(INT_0, 2);
+	m_vecBackgrounds[0][m_iEntrancePos]->DMtrlSetScalar(INT_0, 2);
 
 }
 
@@ -172,7 +172,7 @@ void CStage::SelectExit()
 {
 	PrintChangeState(L"Select Exit");
 	m_iExitPos = GETRANDOM(STAGETILECOL);
-	m_vecBlocks[STAGETILEROW - 1][m_iExitPos]->DMtrlSetScalar(INT_0, 2);
+	m_vecBackgrounds[STAGETILEROW - 1][m_iExitPos]->DMtrlSetScalar(INT_0, 2);
 }
 
 void CStage::GeneratePath()
@@ -324,7 +324,7 @@ void CStage::RegistBackground()
 	{
 		for (int col = 0; col < STAGETILECOL; col++)
 		{
-			m_vecBlocks[row][col]->DMtrlSetTex(TEX_0, bg);
+			m_vecBackgrounds[row][col]->DMtrlSetTex(TEX_0, bg);
 		}
 	}
 
@@ -390,7 +390,7 @@ void CStage::PathVisualization()
 	acc += DT;
 	if (acc > duration) {
 		auto pos = m_Path[i];
-		m_vecBlocks[(int)pos.y][(int)pos.x]->DMtrlSetScalar(INT_0, 3);
+		m_vecBackgrounds[(int)pos.y][(int)pos.x]->DMtrlSetScalar(INT_0, 3);
 		acc = 0.f;
 		i++;
 	}
