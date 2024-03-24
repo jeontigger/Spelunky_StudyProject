@@ -61,34 +61,45 @@ void MaterialUI::render_update()
         case SCALAR_PARAM::INT_1:
         case SCALAR_PARAM::INT_2:
         case SCALAR_PARAM::INT_3:
-            ImGui::Text("Key"); ImGui::SameLine();
+        {
+            string intkey = "Int " + std::to_string(i % 4) + " Key";
+            ImGui::Text(intkey.c_str()); ImGui::SameLine();
             ImGui::InputText(key.c_str(), desc.data(), 32);
             ParamUI::Param_INT((int*)pMtrl->GetScalarParam(param), desc);
-            
+        }
             break;
         case SCALAR_PARAM::FLOAT_0:
         case SCALAR_PARAM::FLOAT_1:
         case SCALAR_PARAM::FLOAT_2:
         case SCALAR_PARAM::FLOAT_3:
-            ImGui::Text("Key"); ImGui::SameLine();
+        {
+            string floatkey = "Float " + std::to_string(i % 4) + " Key";
+            ImGui::Text(floatkey.c_str()); ImGui::SameLine();
             ImGui::InputText(key.c_str(), desc.data(), 32);
             ParamUI::Param_FLOAT((float*)pMtrl->GetScalarParam(param), desc);
+        }
             break;
         case SCALAR_PARAM::VEC2_0:
         case SCALAR_PARAM::VEC2_1:
         case SCALAR_PARAM::VEC2_2:
         case SCALAR_PARAM::VEC2_3:
-            ImGui::Text("Key"); ImGui::SameLine();
+        {
+            string vec2key = "Vec2 " + std::to_string(i % 4) + " Key";
+            ImGui::Text(vec2key.c_str()); ImGui::SameLine();
             ImGui::InputText(key.c_str(), desc.data(), 32);
             ParamUI::Param_VEC2((Vec2*)pMtrl->GetScalarParam(param), desc);
+        }
             break;
         case SCALAR_PARAM::VEC4_0:
         case SCALAR_PARAM::VEC4_1:
         case SCALAR_PARAM::VEC4_2:
         case SCALAR_PARAM::VEC4_3:
-            ImGui::Text("Key"); ImGui::SameLine();
+        {
+            string vec4key = "Vec4 " + std::to_string(i % 4) + " Key";
+            ImGui::Text(vec4key.c_str()); ImGui::SameLine();
             ImGui::InputText(key.c_str(), desc.data(), 32);
             ParamUI::Param_VEC4((Vec4*)pMtrl->GetScalarParam(param), desc);
+        }
             break;
         case SCALAR_PARAM::MAT_0:
         case SCALAR_PARAM::MAT_1:
@@ -99,15 +110,15 @@ void MaterialUI::render_update()
         m_Mtrl->SetUsingScalarParam(param, desc);
     }
 
-    for (int i = 0; i < (int)TEX_PARAM::END; i++) {
+    for (int i = 0; i < (int)TEX_PARAM::TEX_5 + 1; i++) {
         TEX_PARAM param = (TEX_PARAM)i;
         string desc = m_Mtrl->IsUsingTexParam(param);
 
         Ptr<CTexture> pTex = pMtrl->GetTexParam(param);
         string key = "##texparm" + std::to_string(i);
 
-
-        ImGui::Text("Key"); ImGui::SameLine();
+        string texkey = "Tex " + std::to_string(i) + "Key";
+        ImGui::Text(texkey.c_str()); ImGui::SameLine();
         ImGui::InputText(key.c_str(), desc.data(), 32);
         if (ParamUI::Param_TEXTURE(pTex, desc, this, (Delegate_1)&MaterialUI::SelectTexture))
         {
