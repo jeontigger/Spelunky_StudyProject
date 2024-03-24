@@ -40,7 +40,6 @@ void MeshRenderUI::render_update()
 	{
 		mtrlname = ToString(pMtrl->GetKey()).c_str();
 	}
-	
 		
 	ImGui::Text("Mesh    ");
 	ImGui::SameLine(); 
@@ -79,9 +78,6 @@ void MeshRenderUI::render_update()
 		pListUI->Activate();
 	}
 
-
-
-
 	ImGui::Text("Material"); 
 	ImGui::SameLine(); 
 	ImGui::InputText("##MtrlName", (char*)mtrlname.c_str(), mtrlname.length(), ImGuiInputTextFlags_ReadOnly);
@@ -117,6 +113,89 @@ void MeshRenderUI::render_update()
 		pListUI->SetDbClickDelegate(this, (Delegate_1)&MeshRenderUI::MaterialSelect);
 		pListUI->Activate();
 	}
+
+	int scalarCnt = 0;
+	for (int i = 0; i < (int)SCALAR_PARAM::END; i++) {
+		SCALAR_PARAM param = (SCALAR_PARAM)i;
+		string desc = pMtrl->IsUsingScalarParam(param);
+		if (desc[0] == 0) continue;
+
+		ImGui::Text(desc.c_str());
+		ImGui::SameLine();
+		scalarCnt++;
+		string scalarKey = "##meshrenderScalarKey" + to_string(i);
+		string scalarContent = "";
+
+			switch ((SCALAR_PARAM)i)
+			{
+			case SCALAR_PARAM::INT_0:
+			case SCALAR_PARAM::INT_1:
+			case SCALAR_PARAM::INT_2:
+			case SCALAR_PARAM::INT_3:
+				scalarContent = to_string(*(int*)pMtrl->GetScalarParam(param));
+			break;
+			case SCALAR_PARAM::FLOAT_0:
+			case SCALAR_PARAM::FLOAT_1:
+			case SCALAR_PARAM::FLOAT_2:
+			case SCALAR_PARAM::FLOAT_3:
+				scalarContent = to_string(*(float*)pMtrl->GetScalarParam(param));
+			break;
+			case SCALAR_PARAM::VEC2_0:
+			case SCALAR_PARAM::VEC2_1:
+			case SCALAR_PARAM::VEC2_2:
+			case SCALAR_PARAM::VEC2_3:
+			{
+				Vec2 vec = *(Vec2*)pMtrl->GetScalarParam(param);
+				scalarContent = to_string(vec.x) + " | " + to_string(vec.y);
+			}
+			break;
+			case SCALAR_PARAM::VEC4_0:
+			case SCALAR_PARAM::VEC4_1:
+			case SCALAR_PARAM::VEC4_2:
+			case SCALAR_PARAM::VEC4_3:
+			{
+				Vec4 vec4 = *(Vec4*)pMtrl->GetScalarParam(param);
+				scalarContent = to_string(vec4.x) + " | " + to_string(vec4.y) + " | " + to_string(vec4.z) + " | " + to_string(vec4.w);
+			}
+			break;
+			case SCALAR_PARAM::MAT_0:
+			case SCALAR_PARAM::MAT_1:
+			case SCALAR_PARAM::MAT_2:
+			case SCALAR_PARAM::MAT_3:
+				break;
+			}
+		ImGui::InputText(scalarKey.c_str(), (char*)scalarContent.c_str(), scalarContent.length(), ImGuiInputTextFlags_ReadOnly);
+	}
+
+
+	int texCnt = 0;
+	for (int i = 0; i < (int)TEX_PARAM::TEX_5 + 1; i++) {
+		TEX_PARAM param = (TEX_PARAM)i;
+		string desc = pMtrl->IsUsingTexParam(param);
+		if (desc[0] == 0) continue;
+
+		ImGui::Text(desc.c_str());
+		ImGui::SameLine();
+
+		string scalarKey = "##meshrenderTexKey" + to_string(i);
+
+		// 텍스쳐 이미지 출력
+		Ptr<CTexture> tex = pMtrl->GetTexParam(param);
+		ImTextureID texid = nullptr;
+		if (tex != nullptr) 
+			tex->GetSRV().Get();
+
+		static bool use_text_color_for_tint = false;
+		ImVec2 uv_max = ImVec2(1.0f, 1.0f);
+		ImVec2 uv_min = ImVec2(0.0f, 0.0f);
+		ImVec4 tint_col = use_text_color_for_tint ? ImGui::GetStyleColorVec4(ImGuiCol_Text) : ImVec4(1.0f, 1.0f, 1.0f, 1.0f); // No tint
+		ImVec4 border_col = ImGui::GetStyleColorVec4(ImGuiCol_Border);
+		ImGui::Image(texid, ImVec2(150, 150), uv_min, uv_max, tint_col, border_col);
+
+		texCnt++;
+	}
+
+	SetSize(ImVec2(0, 120 + scalarCnt * 22 + texCnt * 150));
 }
 
 void MeshRenderUI::MeshSelect(DWORD_PTR _ptr)
