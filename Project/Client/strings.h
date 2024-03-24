@@ -6,6 +6,8 @@
 #define UIAnimationToolName "##AnimationTool"
 #define UITileMakerName "##TileMaker"
 #define UICameraName "##Camera"
+#define UIAddComponentName "##AddComponent"
+#define UIAddScriptName "##AddScript"
 
 #define NewBlockName "New"
 

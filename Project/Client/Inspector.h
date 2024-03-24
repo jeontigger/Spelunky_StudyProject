@@ -27,6 +27,9 @@ private:
 
     AssetUI*            m_arrAssetUI[(UINT)ASSET_TYPE::END];
 
+    class AddComponentUI* m_uiAddComponent;
+    class AddScriptUI* m_uiAddScript;
+
 public:
     virtual void tick() override;
     virtual void render_update() override;

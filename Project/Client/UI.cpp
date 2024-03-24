@@ -139,3 +139,45 @@ void UI::VecCombo(const char* ID, const vector<string>& vec, int& item_current_i
 	}
 }
 
+// 간단한 검색 가능한 콤보 박스 구현
+bool UI::SearchableComboBox(const char* id, int* current_item, std::vector<std::string>& items) {
+	// 검색 문자열을 저장할 버퍼
+	static char searchBuffer[256] = "";
+
+	// 콤보 박스와 검색 필드의 고유 ID를 생성하기 위해 사용자가 제공한 id를 사용
+	std::string combo_box_id = std::string("##ComboBox") + id;
+	std::string search_field_id = std::string("##SearchField") + id;
+
+	// 검색 필드
+	ImGui::InputText(search_field_id.c_str(), searchBuffer, IM_ARRAYSIZE(searchBuffer));
+
+	if (ImGui::BeginCombo(combo_box_id.c_str(), items[*current_item].c_str())) {
+		for (int i = 0; i < items.size(); i++) {
+			// 검색어가 비어 있지 않고 항목이 검색어를 포함하지 않는 경우 건너뛴다
+
+			string lowerItem = items[i];
+			std::transform(lowerItem.begin(), lowerItem.end(), lowerItem.begin(), [](unsigned char c) { return std::tolower(c); });
+
+			string lowersearch = searchBuffer;
+			std::transform(lowersearch.begin(), lowersearch.end(), lowersearch.begin(), [](unsigned char c) { return std::tolower(c); });
+
+			if (searchBuffer[0] != '\0' && lowerItem.find(lowersearch) == std::string::npos) {
+				continue;
+			}
+
+			// 항목 선택 가능하게 만들기
+			bool is_selected = (*current_item == i);
+			if (ImGui::Selectable(items[i].c_str(), is_selected)) {
+				*current_item = i;
+			}
+
+			// 항목이 선택된 경우, 콤보 박스를 닫고 해당 항목으로 스크롤하기
+			if (is_selected) {
+				ImGui::SetItemDefaultFocus();
+			}
+		}
+		ImGui::EndCombo();
+	}
+
+	return true;
+}

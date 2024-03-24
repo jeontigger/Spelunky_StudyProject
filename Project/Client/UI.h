@@ -20,6 +20,7 @@ protected:
 	
 
 	void VecCombo(const char* ID, const vector<string>& vec, int& i);
+	bool SearchableComboBox(const char* id, int* current_item, std::vector<std::string>& items);
 
 public:
 	void SetName(const string& _name) { m_strName = _name; }

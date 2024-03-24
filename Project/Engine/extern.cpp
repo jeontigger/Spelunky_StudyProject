@@ -4,6 +4,25 @@
 tTransform g_Transform = {};
 tGlobalData g_global = {};
 
+const char* COMPONENT_TYPE_STRING[(UINT)COMPONENT_TYPE::END]
+{
+	"TRANSFORM",
+	"COLLIDER2D",
+	"COLLIDER3D",
+	"ANIMATOR2D",
+	"ANIMATOR3D",
+	"LIGHT2D",
+	"LIGHT3D",
+	"CAMERA",
+	"STATEMACHINE",
+	"MESHRENDER",
+	"TILEMAP",
+	"PARTICLESYSTEM",
+	"SKYBOX",
+	"DECAL",
+	"LANDSCAPE",
+};
+
 
 const char* ASSET_TYPE_STRING[(UINT)ASSET_TYPE::END]
 {
@@ -17,3 +36,4 @@ const char* ASSET_TYPE_STRING[(UINT)ASSET_TYPE::END]
 	"GRAPHICS_SHADER",
 	"FSM",
 };
+

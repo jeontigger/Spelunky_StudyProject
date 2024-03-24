@@ -137,6 +137,9 @@
     <Filter Include="02. UI\3. Inspector\ComponentUI\Camera">
       <UniqueIdentifier>{efc8f5f6-189a-4c65-9764-c46f9ac1bf60}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. UI\3. Inspector\InspectorUI">
+      <UniqueIdentifier>{e756c3b5-4b75-4698-8386-6b69f91a6357}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -295,6 +298,9 @@
     <ClInclude Include="CameraUI.h">
       <Filter>02. UI\3. Inspector\ComponentUI\Camera</Filter>
     </ClInclude>
+    <ClInclude Include="AddComponentUI.h">
+      <Filter>02. UI\3. Inspector\InspectorUI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -448,6 +454,9 @@
     </ClCompile>
     <ClCompile Include="CameraUI.cpp">
       <Filter>02. UI\3. Inspector\ComponentUI\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="AddComponentUI.cpp">
+      <Filter>02. UI\3. Inspector\InspectorUI</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

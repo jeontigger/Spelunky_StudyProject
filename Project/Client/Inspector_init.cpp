@@ -56,6 +56,7 @@ void Inspector::CreateComponentUI()
 #include "ComputeShaderUI.h"
 #include "SoundUI.h"
 #include "FSMUI.h"
+#include "AddComponentUI.h"
 
 void Inspector::CreateAssetUI()
 {
@@ -85,6 +86,10 @@ void Inspector::CreateAssetUI()
 
 	m_arrAssetUI[(UINT)ASSET_TYPE::FSM] = new FSMUI;
 	AddChildUI(m_arrAssetUI[(UINT)ASSET_TYPE::FSM]);
+
+	m_uiAddComponent = new AddComponentUI;
+	AddChildUI(m_uiAddComponent);
+	m_uiAddComponent->Deactivate();
 }
 
 void Inspector::ResizeScriptUI(UINT _Size)

@@ -8,6 +8,7 @@
 CameraUI::CameraUI()
 	: ComponentUI("Camera", UICameraName, COMPONENT_TYPE::CAMERA)
 {
+    SetSize(ImVec2(GetSize().x, 280));
 }
 
 CameraUI::~CameraUI()
@@ -23,6 +24,7 @@ void CameraUI::Activate()
 
 void CameraUI::render_update()
 {
+    ImGui::Separator();
     ButtonTitle("Camera");
 
     ImGui::NewLine();
@@ -83,7 +85,6 @@ void CameraUI::render_update()
                 name += "##nonamelayer";
             }
             name += std::to_string(i * maxcol + j);
-
             bool lc = layercheck >> (i * maxcol + j) & 1;
             if(ImGui::Checkbox(name.c_str(), &lc)){
                 m_camera->LayerCheck(i * maxcol + j, lc);
@@ -92,5 +93,4 @@ void CameraUI::render_update()
         }
         ImGui::NewLine();
     }
-
 }

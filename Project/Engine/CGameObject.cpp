@@ -140,6 +140,62 @@ void CGameObject::render()
 	}	
 }
 
+void CGameObject::AddComponent(COMPONENT_TYPE _type)
+{
+	if (GetComponent(_type)) {
+		MessageBox(nullptr, L"이미 존재하는 컴포넌트입니다.", L"컴포넌트 추가", 0);
+		return;
+	}
+
+	switch (_type)
+	{
+	case COMPONENT_TYPE::TRANSFORM:
+		AddComponent(new CTransform);
+		break;
+	case COMPONENT_TYPE::COLLIDER2D:
+		AddComponent(new CCollider2D);
+		break;
+	case COMPONENT_TYPE::COLLIDER3D:
+		break;
+	case COMPONENT_TYPE::ANIMATOR2D:
+		AddComponent(new CAnimator2D);
+		break;
+	case COMPONENT_TYPE::ANIMATOR3D:
+		break;
+	case COMPONENT_TYPE::LIGHT2D:
+		AddComponent(new CLight2D);
+		break;
+	case COMPONENT_TYPE::LIGHT3D:
+		break;
+	case COMPONENT_TYPE::CAMERA:
+		AddComponent(new CCamera);
+		break;
+	case COMPONENT_TYPE::STATEMACHINE:
+		AddComponent(new CStateMachine);
+		break;
+	case COMPONENT_TYPE::MESHRENDER:
+		AddComponent(new CMeshRender);
+		break;
+	case COMPONENT_TYPE::TILEMAP:
+		AddComponent(new CTileMap);
+		break;
+	case COMPONENT_TYPE::PARTICLESYSTEM:
+		AddComponent(new CParticleSystem);
+		break;
+	case COMPONENT_TYPE::SKYBOX:
+		break;
+	case COMPONENT_TYPE::DECAL:
+		break;
+	case COMPONENT_TYPE::LANDSCAPE:
+		break;
+	case COMPONENT_TYPE::END:
+		break;
+	default:
+		assert(nullptr);
+		break;
+	}
+}
+
 void CGameObject::AddComponent(CComponent* _Comonent)
 {
 	COMPONENT_TYPE type = _Comonent->GetType();

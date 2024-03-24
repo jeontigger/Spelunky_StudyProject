@@ -363,6 +363,10 @@ void CStage::finaltick()
 {
 	CLevel::finaltick();
 
+
+	if (m_State == LEVEL_STATE::STOP)
+		return;
+
 	if (m_state == StageState::NONE) {
 		if (KEY_TAP(LBTN)) {
 			ChangeState(StageState::CREATE_BLOCK);

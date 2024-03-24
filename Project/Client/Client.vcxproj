@@ -151,6 +151,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="AddComponentUI.h" />
     <ClInclude Include="AnimationTool.h" />
     <ClInclude Include="Animator2DUI.h" />
     <ClInclude Include="AssetUI.h" />
@@ -205,6 +206,7 @@
     <ClInclude Include="UI.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AddComponentUI.cpp" />
     <ClCompile Include="AnimationTool.cpp" />
     <ClCompile Include="Animator2DUI.cpp" />
     <ClCompile Include="AssetUI.cpp" />

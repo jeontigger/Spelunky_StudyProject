@@ -11,6 +11,7 @@
 #include <list>
 #include <map>
 #include <unordered_map>
+#include <algorithm>
 
 using std::vector;
 using std::list;
@@ -33,6 +34,8 @@ using std::experimental::filesystem::path;
 using std::ifstream;
 using std::ofstream;
 using std::endl;
+
+namespace fs = filesystem;
 
 
 // Directx 11 헤더 및 라이브러리 참조

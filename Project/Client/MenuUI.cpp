@@ -52,7 +52,7 @@ void MenuUI::render_update()
 
     TileMaker();
 
-    //GameObject();
+    GameObject();
     
     //Asset();
 }
@@ -244,47 +244,12 @@ void MenuUI::TileMaker()
 
 void MenuUI::GameObject()
 {
-    if (ImGui::BeginMenu("GameObject"))
+    if (ImGui::MenuItem("Create Empty Object", ""))
     {
-        if (ImGui::MenuItem("Create Empty Object", ""))
-        {
-            CGameObject* pNewObj = new CGameObject;
-            pNewObj->SetName(L"New GameObject");
-            pNewObj->AddComponent(new CTransform);
-            GamePlayStatic::SpawnGameObject(pNewObj, 0);
-        }
-        ImGui::Separator();
-
-        if (ImGui::BeginMenu("Component", ""))
-        {
-            if (ImGui::MenuItem("Cut", "CTRL+X")) {}
-            if (ImGui::MenuItem("Copy", "CTRL+C")) {}
-            if (ImGui::MenuItem("Paste", "CTRL+V")) {}
-
-            ImGui::EndMenu();
-        }
-
-        if (ImGui::BeginMenu("Script", ""))
-        {
-            vector<wstring> vecScriptName;
-            CScriptMgr::GetScriptInfo(vecScriptName);
-
-            for (size_t i = 0; i < vecScriptName.size(); ++i)
-            {
-                if (ImGui::MenuItem(ToString(vecScriptName[i]).c_str()))
-                {
-                    Inspector* inspector = (Inspector*)CImGuiMgr::GetInst()->FindUI("##Inspector");
-                    if (nullptr != inspector->GetTargetObject())
-                    {                     
-                        inspector->GetTargetObject()->AddComponent(CScriptMgr::GetScript(vecScriptName[i]));
-                    }
-                }
-            }
-
-            ImGui::EndMenu();
-        }
-
-        ImGui::EndMenu();
+        CGameObject* pNewObj = new CGameObject;
+        pNewObj->SetName(L"New GameObject");
+        pNewObj->AddComponent(new CTransform);
+        GamePlayStatic::SpawnGameObject(pNewObj, 0);
     }
 }
 

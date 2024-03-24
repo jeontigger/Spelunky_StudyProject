@@ -9,6 +9,7 @@
 #include "Light2DUI.h"
 #include "Animator2DUI.h"
 #include "ScriptUI.h"
+#include "AddComponentUI.h"
 
 #include "AssetUI.h"
 
@@ -47,6 +48,9 @@ void Inspector::SetTargetObject(CGameObject* _Object)
 {
 	// Target 오브젝트 설정
 	m_TargetObject = _Object;
+
+	m_uiAddComponent->Activate();
+	m_uiAddComponent->SetTargetObject(_Object);
 
 	// 해당 오브젝트가 보유하고 있는 컴포넌트에 대응하는 컴포넌트UI 활성화
 	for (UINT i = 0; i < (UINT)COMPONENT_TYPE::END; ++i)

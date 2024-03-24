@@ -31,13 +31,11 @@ AnimationTool::~AnimationTool()
 {
 }
 
-#include <filesystem>
 
 void AnimationTool::LoadAtlasPath(vector<string>& vec)
 {
     string path = ToString(CPathMgr::GetContentPath());
     path += "texture\\atlas\\";
-    namespace fs = filesystem;
     for (const auto& entry : fs::directory_iterator(path)) {
         string str = entry.path().string();
         str = str.substr(str.find("texture"));

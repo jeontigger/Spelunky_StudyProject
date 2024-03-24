@@ -35,6 +35,7 @@ public:
     void render();
 
 public:
+    void AddComponent(COMPONENT_TYPE _type);
     void AddComponent(CComponent* _Comonent);
     CComponent* GetComponent(COMPONENT_TYPE _Type) { return m_arrCom[(UINT)_Type]; }        
     CRenderComponent* GetRenderComponent() { return m_RenderCom; }
