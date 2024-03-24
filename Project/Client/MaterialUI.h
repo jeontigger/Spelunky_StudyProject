@@ -17,5 +17,9 @@ public:
 public:
     MaterialUI();
     ~MaterialUI();
+
+
+private:
+    void GraphicsShaderSelect(DWORD_PTR _ptr);
 };
 

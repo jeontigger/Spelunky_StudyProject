@@ -21,6 +21,8 @@ using std::make_pair;
 
 using std::wstring;
 using std::string;
+using std::to_string;
+using std::to_wstring;
 
 #include <wrl.h>
 using namespace Microsoft::WRL;

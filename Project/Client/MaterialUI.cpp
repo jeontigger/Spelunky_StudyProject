@@ -7,6 +7,7 @@
 #include <Engine/CTexture.h>
 
 #include "ParamUI.h"
+#include "ListUI.h"
 
 MaterialUI::MaterialUI()
 	: AssetUI("Material", "##Material", ASSET_TYPE::MATERIAL)
@@ -40,9 +41,40 @@ void MaterialUI::render_update()
     ImGui::Text("Shader  ");
     ImGui::SameLine();
     ImGui::InputText("##ShaderName", (char*)strShaderName.c_str(), strShaderName.length(), ImGuiInputTextFlags_ReadOnly);
-    
+
+    // Mesh Drop 체크
+    if (ImGui::BeginDragDropTarget())
+    {
+        const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("ContentTree");
+
+        if (payload)
+        {
+            DWORD_PTR data = *((DWORD_PTR*)payload->Data);
+            CAsset* pAsset = (CAsset*)data;
+            if (ASSET_TYPE::GRAPHICS_SHADER == pAsset->GetType())
+            {
+                m_Mtrl->SetShader((CGraphicsShader*)pAsset);
+            }
+        }
+        ImGui::EndDragDropTarget();
+    }
+
+    ImGui::SameLine();
+    if (ImGui::Button("##MtrlBtn", ImVec2(20, 20)))
+    {
+        // 리스트 UI
+        ListUI* pListUI = (ListUI*)CImGuiMgr::GetInst()->FindUI("##List");
+
+        vector<string> vecShaderName;
+        CAssetMgr::GetInst()->GetAssetName(ASSET_TYPE::GRAPHICS_SHADER, vecShaderName);
+
+        pListUI->AddString(vecShaderName);
+        pListUI->SetDbClickDelegate(this, (Delegate_1)&MaterialUI::GraphicsShaderSelect);
+        pListUI->Activate();
+    }
 
     ImGui::Spacing(); ImGui::Spacing(); ImGui::Spacing(); ImGui::Spacing();
+    ImGui::Separator();
     ImGui::Text("Material Parameter");
     ImGui::Spacing(); ImGui::Spacing(); 
 
@@ -128,7 +160,6 @@ void MaterialUI::render_update()
         pMtrl->SetTexParam(param, pTex);
         m_Mtrl->SetUsingTexParam(param, desc);
     }
-    
 }
 
 void MaterialUI::Activate()
@@ -146,4 +177,14 @@ void MaterialUI::SelectTexture(DWORD_PTR _dwData)
     Ptr<CTexture> pTex = CAssetMgr::GetInst()->FindAsset<CTexture>(strTexName);
     Ptr<CMaterial> pMtrl = (CMaterial*)GetAsset().Get();
     pMtrl->SetTexParam(m_SelectTexParam, pTex);    
+}
+
+void MaterialUI::GraphicsShaderSelect(DWORD_PTR _ptr)
+{
+    string strShader = (char*)_ptr;
+    wstring strShaderName = ToWString(strShader);
+
+    Ptr<CGraphicsShader> pShader = CAssetMgr::GetInst()->FindAsset<CGraphicsShader>(strShaderName);
+
+    m_Mtrl->SetShader(pShader);
 }
