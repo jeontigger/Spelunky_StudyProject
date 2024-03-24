@@ -172,6 +172,7 @@ call CodeGen.exe</Command>
     <ClInclude Include="CStage.h" />
     <ClInclude Include="CStagePack.h" />
     <ClInclude Include="CStagePackMgr.h" />
+    <ClInclude Include="CTile.h" />
     <ClInclude Include="CTileBlock.h" />
     <ClInclude Include="define.h" />
     <ClInclude Include="framework.h" />
@@ -190,6 +191,7 @@ call CodeGen.exe</Command>
     <ClCompile Include="CStage.cpp" />
     <ClCompile Include="CStagePack.cpp" />
     <ClCompile Include="CStagePackMgr.cpp" />
+    <ClCompile Include="CTile.cpp" />
     <ClCompile Include="CTileBlock.cpp" />
     <ClCompile Include="extern.cpp" />
     <ClCompile Include="pch.cpp">

@@ -7,26 +7,14 @@
     <ClInclude Include="pch.h">
       <Filter>00. Default</Filter>
     </ClInclude>
-    <ClInclude Include="CBackgroundScript.h">
-      <Filter>02. Scripts</Filter>
-    </ClInclude>
-    <ClInclude Include="CMissileScript.h">
-      <Filter>02. Scripts</Filter>
-    </ClInclude>
     <ClInclude Include="CScriptMgr.h">
       <Filter>01. ScriptMgr</Filter>
-    </ClInclude>
-    <ClInclude Include="CMonsterScript.h">
-      <Filter>02. Scripts</Filter>
     </ClInclude>
     <ClInclude Include="CTileBlock.h">
       <Filter>03. Tile\TileBlock</Filter>
     </ClInclude>
     <ClInclude Include="define.h">
       <Filter>00. Default</Filter>
-    </ClInclude>
-    <ClInclude Include="CPlayerScript.h">
-      <Filter>02. Scripts\new</Filter>
     </ClInclude>
     <ClInclude Include="math.h">
       <Filter>00. Default</Filter>
@@ -49,6 +37,21 @@
     <ClInclude Include="CFieldObject.h">
       <Filter>06. FieldObject</Filter>
     </ClInclude>
+    <ClInclude Include="CBackgroundScript.h">
+      <Filter>02. Scripts\default</Filter>
+    </ClInclude>
+    <ClInclude Include="CMissileScript.h">
+      <Filter>02. Scripts\default</Filter>
+    </ClInclude>
+    <ClInclude Include="CMonsterScript.h">
+      <Filter>02. Scripts\default</Filter>
+    </ClInclude>
+    <ClInclude Include="CPlayerScript.h">
+      <Filter>02. Scripts\default</Filter>
+    </ClInclude>
+    <ClInclude Include="CTile.h">
+      <Filter>02. Scripts\Tile</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -57,23 +60,11 @@
     <ClCompile Include="Scripts.cpp">
       <Filter>00. Default</Filter>
     </ClCompile>
-    <ClCompile Include="CBackgroundScript.cpp">
-      <Filter>02. Scripts</Filter>
-    </ClCompile>
-    <ClCompile Include="CMissileScript.cpp">
-      <Filter>02. Scripts</Filter>
-    </ClCompile>
     <ClCompile Include="CScriptMgr.cpp">
       <Filter>01. ScriptMgr</Filter>
     </ClCompile>
-    <ClCompile Include="CMonsterScript.cpp">
-      <Filter>02. Scripts</Filter>
-    </ClCompile>
     <ClCompile Include="CTileBlock.cpp">
       <Filter>03. Tile\TileBlock</Filter>
-    </ClCompile>
-    <ClCompile Include="CPlayerScript.cpp">
-      <Filter>02. Scripts\new</Filter>
     </ClCompile>
     <ClCompile Include="extern.cpp">
       <Filter>00. Default</Filter>
@@ -93,6 +84,21 @@
     <ClCompile Include="CFieldObject.cpp">
       <Filter>06. FieldObject</Filter>
     </ClCompile>
+    <ClCompile Include="CBackgroundScript.cpp">
+      <Filter>02. Scripts\default</Filter>
+    </ClCompile>
+    <ClCompile Include="CMissileScript.cpp">
+      <Filter>02. Scripts\default</Filter>
+    </ClCompile>
+    <ClCompile Include="CMonsterScript.cpp">
+      <Filter>02. Scripts\default</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlayerScript.cpp">
+      <Filter>02. Scripts\default</Filter>
+    </ClCompile>
+    <ClCompile Include="CTile.cpp">
+      <Filter>02. Scripts\Tile</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="00. Default">
@@ -103,9 +109,6 @@
     </Filter>
     <Filter Include="02. Scripts">
       <UniqueIdentifier>{af5c3808-4d30-476b-b2ab-d844558017d2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. Scripts\new">
-      <UniqueIdentifier>{985cb4da-0df5-4ac6-903c-d0ce4c0fe9be}</UniqueIdentifier>
     </Filter>
     <Filter Include="04. Level">
       <UniqueIdentifier>{f840e35f-e86f-44e6-ba41-afc9556001be}</UniqueIdentifier>
@@ -133,6 +136,12 @@
     </Filter>
     <Filter Include="06. FieldObject">
       <UniqueIdentifier>{89d92c5c-a42c-45e9-a9a6-39dba9278c57}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Scripts\default">
+      <UniqueIdentifier>{3ad0de6d-e577-44b2-bb6b-1a3038b3f109}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Scripts\Tile">
+      <UniqueIdentifier>{218c9569-5d07-48d5-bd05-521042ec74e1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
