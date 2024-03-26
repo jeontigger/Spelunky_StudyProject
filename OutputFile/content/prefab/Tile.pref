@@ -1,0 +1,17 @@
+Tile
+0
+0 0 0
+128 128 1
+0 0 0
+1
+9
+1
+RectMesh
+1
+1
+material\Tile.mtrl
+0
+material\Tile.mtrl
+15
+0
+0

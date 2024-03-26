@@ -81,11 +81,7 @@ void MaterialUI::render_update()
         m_Mtrl->Save(path);
     }
 
-    ImGui::SameLine();
-    if (ImGui::Button("Modify##newmaterial")) {
-        wstring path = m_Mtrl->GetRelativePath();
-        m_Mtrl->Save(path);
-    }
+
 
     if (!m_Mtrl->IsEngineAsset()) {
         ImGui::PushID(0);

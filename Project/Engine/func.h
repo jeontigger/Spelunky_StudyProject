@@ -62,7 +62,14 @@ void SaveAssetRef(Ptr<T> _Asset, ofstream& _File)
 
 	if (bAssetExist)
 	{
-		_File << _Asset->GetKey() << " " << _Asset->GetRelativePath() << endl;
+		_File << _Asset->GetKey() << endl;
+		bool engine = _Asset->IsEngineAsset();
+		_File << engine << endl;
+		if (!engine)
+		{
+			_File << _Asset->GetRelativePath() << endl;
+		}
+
 	}
 }
 
@@ -75,9 +82,16 @@ void LoadAssetRef(Ptr<T>& _Asset, ifstream& fin)
 	if (bAssetExist)
 	{
 		string strKey, strRelativePath;
+		bool engine;
+		fin >> strKey;
+		fin >> engine;
 
-		fin >> strKey >> strRelativePath;
-
+		if (engine) {
+			strRelativePath = strKey;
+		}
+		else {
+			fin >> strRelativePath;
+		}
 		_Asset = CAssetMgr::GetInst()->Load<T>(ToWString(strKey), ToWString(strRelativePath));
 	}
 }

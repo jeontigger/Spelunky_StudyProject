@@ -105,6 +105,7 @@ ofstream& operator<<(ofstream& fout, tMtrlConst& mtrl)
     for (int i = 0; i < (UINT)TEX_PARAM::END; i++) {
         fout << mtrl.bTex[i] << " ";
     }
+    
     return fout;
 }
 

@@ -121,13 +121,14 @@ int CMaterial::Save(const wstring& _strRelativePath)
 		return E_FAIL;
 
 	// 재질 상수값 저장
-	fout << m_Const;
+	fout << m_Const << endl;
 
 	// 재질이 참조하는 텍스쳐 정보를 저장	
 	for (UINT i = 0; i < (UINT)TEX_PARAM::END; ++i)
 	{
 		SaveAssetRef<CTexture>(m_arrTex[i], fout);
 	}
+
 
 	for (int i = 0; i < (int)SCALAR_PARAM::END; i++) {
 		if (m_arrUsingScalar[i] == "") {
