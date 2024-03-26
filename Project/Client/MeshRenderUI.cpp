@@ -121,7 +121,7 @@ void MeshRenderUI::render_update()
 	for (int i = 0; i < (int)SCALAR_PARAM::END; i++) {
 		SCALAR_PARAM param = (SCALAR_PARAM)i;
 		string desc = pMtrl->IsUsingScalarParam(param);
-		if (desc[0] == 0) continue;
+		if (desc[0] == 0|| desc == EMPTYSYMBOL) continue;
 
 		ImGui::Text(desc.c_str());
 		ImGui::SameLine();
@@ -176,7 +176,7 @@ void MeshRenderUI::render_update()
 		TEX_PARAM param = (TEX_PARAM)i;
 		string desc = pMtrl->IsUsingTexParam(param);
 		Ptr<CTexture> tex = pMtrl->GetTexParam(param);
-		if (desc[0] == 0 && tex.Get() == nullptr) continue;
+		if ((desc[0] == 0 || desc == EMPTYSYMBOL) && tex.Get() == nullptr) continue;
 
 		ImGui::Text(desc.c_str());
 		ImGui::SameLine();

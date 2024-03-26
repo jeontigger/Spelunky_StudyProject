@@ -47,7 +47,7 @@
 #define TilePS "PS_Tile"
 #define TileMtrl L"TileMaterial"
 
-
+#define EMPTYSYMBOL "EMPTY"
 
 enum class DIR_TYPE
 {

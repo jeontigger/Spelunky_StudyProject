@@ -73,6 +73,35 @@ void MaterialUI::render_update()
         pListUI->Activate();
     }
 
+    ImGui::Text("New Name"); ImGui::SameLine();
+    static char newNameBuf[32]{};
+    ImGui::InputText("##Newnamekey", newNameBuf, IM_ARRAYSIZE(newNameBuf));
+    if (ImGui::Button("Save New##newmaterial")) {
+        wstring path = L"material\\" + ToWString(newNameBuf) + L".mtrl";
+        m_Mtrl->Save(path);
+    }
+
+    ImGui::SameLine();
+    if (ImGui::Button("Modify##newmaterial")) {
+        wstring path = m_Mtrl->GetRelativePath();
+        m_Mtrl->Save(path);
+    }
+
+    if (!m_Mtrl->IsEngineAsset()) {
+        ImGui::PushID(0);
+        ImGui::PushStyleColor(ImGuiCol_Button, (ImVec4)ImColor::HSV(0.f, 0.6f, 0.6f));
+        ImGui::PushStyleColor(ImGuiCol_ButtonHovered, (ImVec4)ImColor::HSV(0.f, 0.6f, 0.6f));
+        ImGui::PushStyleColor(ImGuiCol_ButtonActive, (ImVec4)ImColor::HSV(0.f, 0.6f, 0.6f));
+        if (ImGui::Button("Delete This")) {
+            wstring path = CPathMgr::GetContentPath() + m_Mtrl->GetRelativePath();
+            std::remove(ToString(path).c_str());
+
+        }
+        ImGui::PopStyleColor(3);
+        ImGui::PopID();
+        ImGui::SameLine();
+    }
+
     ImGui::Spacing(); ImGui::Spacing(); ImGui::Spacing(); ImGui::Spacing();
     ImGui::Separator();
     ImGui::Text("Material Parameter");

@@ -54,7 +54,7 @@ void MenuUI::render_update()
 
     GameObject();
     
-    //Asset();
+    Asset();
 }
 
 void MenuUI::File()
@@ -255,29 +255,25 @@ void MenuUI::GameObject()
 
 void MenuUI::Asset()
 {
-    if (ImGui::BeginMenu("Asset"))
+    if (ImGui::MenuItem("Create Empty Material"))
     {
-        if (ImGui::MenuItem("Create Empty Material"))
-        {
-            wchar_t szPath[255] = {};            
-            wstring FilePath = CPathMgr::GetContentPath();
-            
-            int num = 0;
-            while (true)
-            {                
-                swprintf_s(szPath, L"Material//New Material_%d.mtrl", num);
-                if (!exists(FilePath + szPath))
-                    break;
-                ++num;
-            }
+        wchar_t szPath[255] = {};
+        wstring FilePath = CPathMgr::GetContentPath();
 
-            CMaterial* pMtrl = new CMaterial;
-            pMtrl->SetName(szPath);
-            pMtrl->Save(szPath);
-            GamePlayStatic::AddAsset(pMtrl);
+        int num = 0;
+        while (true)
+        {
+            swprintf_s(szPath, L"Material//New Material_%d.mtrl", num);
+            if (!exists(FilePath + szPath))
+                break;
+            ++num;
         }
 
-        ImGui::EndMenu();
+        CMaterial* pMtrl = new CMaterial;
+        pMtrl->SetName(szPath);
+        pMtrl->Save(szPath);
+        GamePlayStatic::AddAsset(pMtrl);
     }
+
 }
 

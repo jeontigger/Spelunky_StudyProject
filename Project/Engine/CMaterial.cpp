@@ -115,48 +115,73 @@ int CMaterial::Save(const wstring& _strRelativePath)
 	wstring strFilePath = CPathMgr::GetContentPath();
 	strFilePath += _strRelativePath;
 
-	FILE* pFile = nullptr;
-	_wfopen_s(&pFile, strFilePath.c_str(), L"wb");
+	ofstream fout(strFilePath);
 
-	if (nullptr == pFile)
+	if (!fout.is_open())
 		return E_FAIL;
 
 	// 재질 상수값 저장
-	fwrite(&m_Const, sizeof(tMtrlConst), 1, pFile);	
-
+	fout << m_Const;
 
 	// 재질이 참조하는 텍스쳐 정보를 저장	
 	for (UINT i = 0; i < (UINT)TEX_PARAM::END; ++i)
 	{
-		SaveAssetRef<CTexture>(m_arrTex[i], pFile);
+		SaveAssetRef<CTexture>(m_arrTex[i], fout);
 	}
 
+	for (int i = 0; i < (int)SCALAR_PARAM::END; i++) {
+		if (m_arrUsingScalar[i] == "") {
+			fout << EMPTYSYMBOL << " ";
+		}
+		else {
+			fout << m_arrUsingScalar[i] << " ";
+		}
+	}
+	fout << endl;
+
+	for (int i = 0; i < (int)TEX_PARAM::TEX_5 + 1; i++) {
+		if (m_arrUsingTex[i] == "") {
+			fout << EMPTYSYMBOL << " ";
+		}
+		else {
+			fout << m_arrUsingTex[i] << " ";
+		}
+	}
+	fout << endl;
+	
+
 	// 재질이 참조하는 쉐이더 정보를 저장
-	SaveAssetRef<CGraphicsShader>(m_pShader, pFile);
+	SaveAssetRef<CGraphicsShader>(m_pShader, fout);
 
 	return 0;
 }
 
 int CMaterial::Load(const wstring& _strFilePath)
 {
-	FILE* pFile = nullptr;
-	_wfopen_s(&pFile, _strFilePath.c_str(), L"rb");
+	ifstream fin(_strFilePath);
 
-	if (nullptr == pFile)
+	if (!fin.is_open())
 		return E_FAIL;
 
 	// 재질 상수값 저장
-	fread(&m_Const, sizeof(tMtrlConst), 1, pFile);
-
+	fin >> m_Const;
 
 	// 재질이 참조하는 텍스쳐 정보를 로드
 	for (UINT i = 0; i < (UINT)TEX_PARAM::END; ++i)
 	{
-		LoadAssetRef<CTexture>(m_arrTex[i], pFile);
+		LoadAssetRef<CTexture>(m_arrTex[i], fin);
+	}
+
+	for (int i = 0; i < (int)SCALAR_PARAM::END; i++) {
+		fin >> m_arrUsingScalar[i];
+	}
+
+	for (int i = 0; i < (int)TEX_PARAM::TEX_5 + 1; i++) {
+		fin >> m_arrUsingTex[i];
 	}
 
 	// 재질이 참조하는 쉐이더 정보를 저장
-	LoadAssetRef<CGraphicsShader>(m_pShader, pFile);
+	LoadAssetRef<CGraphicsShader>(m_pShader, fin);
 
 	return 0;
 }

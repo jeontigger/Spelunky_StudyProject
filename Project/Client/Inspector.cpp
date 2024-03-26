@@ -46,7 +46,7 @@ void Inspector::render_update()
 
 		m_TargetObject->SetName(strName);
 
-		if (ImGui::Button("To Prefab")) {
+		if (ImGui::Button("Make New Prefab")) {
 			Ptr<CPrefab> prefab = new CPrefab;
 			CGameObject* obj = m_TargetObject->Clone();
 			prefab->SetGameObject(obj);
@@ -57,6 +57,28 @@ void Inspector::render_update()
 
 			MessageBox(nullptr, L"프리팹을 생성했습니다", L"프리팹 생성", 0);
 		}
+
+		ImGui::PushID(0);
+		ImGui::PushStyleColor(ImGuiCol_Button, (ImVec4)ImColor::HSV(0.f, 0.6f, 0.6f));
+		ImGui::PushStyleColor(ImGuiCol_ButtonHovered, (ImVec4)ImColor::HSV(0.f, 0.5f, 0.5f));
+		ImGui::PushStyleColor(ImGuiCol_ButtonActive, (ImVec4)ImColor::HSV(0.f, 0.4f, 0.4f));
+		if (ImGui::Button("Delete Prefab")) {
+			wstring path = CPathMgr::GetContentPath();
+			path += L"prefab\\" + m_TargetObject->GetName();
+			path += L".pref";
+			if (std::remove(ToString(path).c_str()) != 0) {
+				MessageBox(nullptr, L"삭제되지 않는 객체입니다", L"프리팹 삭제", 0);
+			}
+			else {
+				MessageBox(nullptr, L"삭제되었습니다", L"프리팹 삭제", 0);
+			}
+		}
+		ImGui::SameLine();
+		if (ImGui::Button("Delete Object")) {
+			GamePlayStatic::DestroyGameObject(m_TargetObject);
+		}
+		ImGui::PopStyleColor(3);
+		ImGui::PopID();
 	}
 }
 

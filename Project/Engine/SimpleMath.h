@@ -560,6 +560,8 @@ namespace DirectX
             // Unary operators
             Matrix operator+ () const { return *this; }
             Matrix operator- () const;
+            friend ofstream& operator<<(ofstream& fout, Matrix& matrix);
+            friend ifstream& operator>>(ifstream& fin, Matrix& matrix);
 
             // Properties
             Vector3 Up() const { return Vector3(_21, _22, _23); }

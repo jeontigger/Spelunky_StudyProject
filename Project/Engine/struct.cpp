@@ -83,3 +83,52 @@ ifstream& operator>>(ifstream& fin, tParticleModule& module)
     }
     return fin;
 }
+
+ofstream& operator<<(ofstream& fout, tMtrlConst& mtrl)
+{
+    for (int i = 0; i < 4; i++) {
+        fout << mtrl.iArr[i] << " ";
+    }
+    for (int i = 0; i < 4; i++) {
+        fout << mtrl.fArr[i] << " ";
+    }
+    for (int i = 0; i < 4; i++) {
+        fout << mtrl.v2Arr[i] << " ";
+    }
+    for (int i = 0; i < 4; i++) {
+        fout << mtrl.v4Arr[i] << " ";
+    }
+    for (int i = 0; i < 4; i++) {
+        fout << mtrl.matArr[i] << " ";
+    }
+
+    for (int i = 0; i < (UINT)TEX_PARAM::END; i++) {
+        fout << mtrl.bTex[i] << " ";
+    }
+    return fout;
+}
+
+ifstream& operator>>(ifstream& fin, tMtrlConst& mtrl)
+{
+    for (int i = 0; i < 4; i++) {
+        fin >> mtrl.iArr[i];
+    }
+    for (int i = 0; i < 4; i++) {
+        fin >> mtrl.fArr[i];
+    }
+    for (int i = 0; i < 4; i++) {
+        fin >> mtrl.v2Arr[i];
+    }
+    for (int i = 0; i < 4; i++) {
+        fin >> mtrl.v4Arr[i];
+    }
+    for (int i = 0; i < 4; i++) {
+        fin >> mtrl.matArr[i];
+    }
+
+    for (int i = 0; i < (UINT)TEX_PARAM::END; i++) {
+        fin >> mtrl.bTex[i];
+    }
+
+    return fin;
+}

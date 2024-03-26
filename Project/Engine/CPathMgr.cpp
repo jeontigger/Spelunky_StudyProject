@@ -23,6 +23,13 @@ void CPathMgr::init()
 	wcscat_s(g_szContent, 255, L"content\\");
 }
 
+wstring CPathMgr::GetMaterialPath()
+{
+	wstring mtrlPath = g_szContent;
+	mtrlPath += L"material\\";
+	return mtrlPath;
+}
+
 wstring CPathMgr::GetRelativePath(const wstring& _FullPath)
 {
 	wstring strContentPath = GetContentPath();
