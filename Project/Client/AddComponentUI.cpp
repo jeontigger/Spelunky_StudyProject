@@ -14,7 +14,11 @@ AddComponentUI::AddComponentUI()
     for (int i = 0; i < (int)COMPONENT_TYPE::END; i++) {
         m_vecComponentStrings.push_back(COMPONENT_TYPE_STRING[i]);
     }
-
+    vector<wstring> vec;
+    CScriptMgr::GetScriptInfo(vec);
+    for (int i = 0; i < vec.size(); i++) {
+        m_vecComponentStrings.push_back(ToString(vec[i]));
+    }
     SetSize(ImVec2(0.f, 120.f));
 }
 
@@ -31,7 +35,14 @@ void AddComponentUI::render_update()
 
     static int current_item = 0;
     if (ImGui::Button("Add##addcomponent")) {
-        m_target->AddComponent((COMPONENT_TYPE)current_item);
+        if (current_item < (int)COMPONENT_TYPE::END) {
+            m_target->AddComponent((COMPONENT_TYPE)current_item);
+        }
+        else {
+            CScript* script = CScriptMgr::GetScript(current_item - (int)COMPONENT_TYPE::END);
+            m_target->AddComponent((CComponent*)script);
+        }
+        
         Inspector* inspector = (Inspector*)UIMGR->FindUI(UIInspectorName);
         inspector->SetTargetObject(m_target);
     }

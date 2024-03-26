@@ -8,6 +8,10 @@ void Inspector::CreateChildUI()
 	CreateComponentUI();
 
 	CreateAssetUI();
+
+	m_uiAddComponent = new AddComponentUI;
+	AddChildUI(m_uiAddComponent);
+	m_uiAddComponent->Deactivate();
 }
 
 
@@ -47,9 +51,7 @@ void Inspector::CreateComponentUI()
 	m_arrComUI[(UINT)COMPONENT_TYPE::CAMERA]->Deactivate();
 	AddChildUI(m_arrComUI[(UINT)COMPONENT_TYPE::CAMERA]);
 
-	m_uiAddComponent = new AddComponentUI;
-	AddChildUI(m_uiAddComponent);
-	m_uiAddComponent->Deactivate();
+
 
 }
 
@@ -101,7 +103,7 @@ void Inspector::ResizeScriptUI(UINT _Size)
 	for (int i = 0; i < AddSize; ++i)
 	{
 		ScriptUI* pScriptUI = new ScriptUI;
-		AddChildUI(pScriptUI);
+		AddChildOneBack(pScriptUI);
 		m_vecScriptUI.push_back(pScriptUI);
 	}
 }

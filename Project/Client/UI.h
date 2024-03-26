@@ -36,6 +36,11 @@ public:
 		_ChildUI->m_Parent = this;
 	}
 
+	void AddChildOneBack(UI* _ChildUI) {
+		m_vecChildUI.insert(m_vecChildUI.end()-1, _ChildUI);
+		_ChildUI->m_Parent = this;
+	}
+
 	UI* GetParentUI() { return m_Parent; }
 	virtual void Activate()  { m_bActive = true; }
 	virtual void Deactivate() { m_bActive = false; }
