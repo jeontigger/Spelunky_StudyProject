@@ -29,7 +29,7 @@ void CameraUI::render_update()
 
     ImGui::NewLine();
     static bool check = (bool)m_camera->GetProjType();
-    if (ImGui::Checkbox("Orthographic", &check)) {
+    if (ImGui::Checkbox("Perspective", &check)) {
         if (check) {
             m_camera->SetProjType(PROJ_TYPE::PERSPECTIVE);
         }
