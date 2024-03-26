@@ -27,10 +27,13 @@ public:
 
     CAnim* GetCurAnim() { return m_CurAnim; }
     CAnim* FindAnim(const wstring& _strAnimName);
+    CAnim* FindAnim(const string& _strAnimName);
     void Play(const wstring& _strAnimName, bool _bRepeat = true);
 
     virtual void SaveToFile(FILE* _File) override;
+    virtual void SaveToFile(ofstream& fout) override;
     virtual void LoadFromFile(FILE* _File) override;
+    virtual void LoadFromFile(ifstream& fin) override;
     CLONE(CAnimator2D);
 public:
     CAnimator2D();

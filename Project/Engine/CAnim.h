@@ -50,6 +50,7 @@ public:
     void SaveToFile(FILE* _File);
     void SaveToFile(ofstream& _File);
     void LoadFromFile(FILE* _File);
+    void LoadFromFile(ifstream& fin);
     CLONE(CAnim);
 public:
     CAnim();

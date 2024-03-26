@@ -101,10 +101,22 @@ void CCollider2D::SaveToFile(FILE* _File)
 	fwrite(&m_Type, sizeof(UINT), 1, _File);	
 }
 
+void CCollider2D::SaveToFile(ofstream& fout)
+{
+	fout << m_vOffsetPos << " " << m_vOffsetScale << " " << m_bAbsolute << " " << (int)m_Type << endl;
+}
+
 void CCollider2D::LoadFromFile(FILE* _File)
 {
 	fread(&m_vOffsetPos, sizeof(Vec3), 1, _File);
 	fread(&m_vOffsetScale, sizeof(Vec3), 1, _File);
 	fread(&m_bAbsolute, sizeof(bool), 1, _File);
 	fread(&m_Type, sizeof(UINT), 1, _File);
+}
+
+void CCollider2D::LoadFromFile(ifstream& fin)
+{
+	int num;
+	fin >> m_vOffsetPos >> m_vOffsetScale >> m_bAbsolute >> num;
+	m_Type = (COLLIDER2D_TYPE)num;
 }

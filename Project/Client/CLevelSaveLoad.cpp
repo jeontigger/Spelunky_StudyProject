@@ -102,7 +102,7 @@ void CLevelSaveLoad::SaveGameObject(CGameObject* _Obj, FILE* _File)
 void CLevelSaveLoad::SaveGameObject(CGameObject* _Obj, ofstream& fout)
 {
 	// GameObject 의 이름을 저장
-	fout << _Obj->GetName();
+	fout << ToString(_Obj->GetName()) << endl;
 	// 컴포넌트 정보를 저장
 	UINT i = 0;
 	for (; i < (UINT)COMPONENT_TYPE::END; ++i)
@@ -117,29 +117,30 @@ void CLevelSaveLoad::SaveGameObject(CGameObject* _Obj, ofstream& fout)
 		// 해당 컴포넌트가 저장할 데이터 저장
 		pCom->SaveToFile(fout);
 	}
-	fwrite(&i, sizeof(UINT), 1, _File);
+
+	fout << i << endl;
 
 	// 스크립트 정보 저장
 	const vector<CScript*>& vecScripts = _Obj->GetScripts();
 	size_t ScriptCount = vecScripts.size();
 
 	// 스크립트 개수 저장
-	fwrite(&ScriptCount, sizeof(size_t), 1, _File);
+	fout << ScriptCount << endl;
 
 	for (size_t i = 0; i < vecScripts.size(); ++i)
 	{
-		SaveWString(CScriptMgr::GetScriptName(vecScripts[i]), _File);
-		vecScripts[i]->SaveToFile(_File);
+		fout << CScriptMgr::GetScriptName(vecScripts[i]) << endl;
+		vecScripts[i]->SaveToFile(fout);
 	}
 
 	// 자식 오브젝트가 있으면 자식 오브젝트 정보 저장
 	const vector<CGameObject*>& vecChild = _Obj->GetChild();
 	size_t childcount = vecChild.size();
-	fwrite(&childcount, sizeof(size_t), 1, _File);
+	fout << childcount << endl;;
 
 	for (size_t i = 0; i < childcount; ++i)
 	{
-		SaveGameObject(vecChild[i], _File);
+		SaveGameObject(vecChild[i], fout);
 	}
 }
 
@@ -276,6 +277,94 @@ CGameObject* CLevelSaveLoad::LoadGameObject(FILE* _File)
 	for (size_t i = 0; i < childcount; ++i)
 	{
 		pObject->AddChild(LoadGameObject(_File));
+	}
+
+	return pObject;
+}
+
+CGameObject* CLevelSaveLoad::LoadGameObject(ifstream& fin)
+{
+	CGameObject* pObject = new CGameObject;
+
+	// GameObject 의 이름을 로드
+	string strName;
+	getline(fin, strName);
+	pObject->SetName(strName);
+
+
+	// 컴포넌트 정보를 불러오기
+	COMPONENT_TYPE type = COMPONENT_TYPE::END;
+	while (true)
+	{
+		int num;
+		fin >> num;
+		type = (COMPONENT_TYPE)num;
+
+		if (COMPONENT_TYPE::END == type)
+			break;
+
+		CComponent* pComponent = nullptr;
+
+		switch (type)
+		{
+		case COMPONENT_TYPE::TRANSFORM:
+			pComponent = new CTransform;
+			break;
+		case COMPONENT_TYPE::COLLIDER2D:
+			pComponent = new CCollider2D;
+			break;
+		case COMPONENT_TYPE::ANIMATOR2D:
+			pComponent = new CAnimator2D;
+			break;
+		case COMPONENT_TYPE::LIGHT2D:
+			pComponent = new CLight2D;
+			break;
+		case COMPONENT_TYPE::CAMERA:
+			pComponent = new CCamera;
+			break;
+		case COMPONENT_TYPE::STATEMACHINE:
+			pComponent = new CStateMachine;
+			break;
+		case COMPONENT_TYPE::MESHRENDER:
+			pComponent = new CMeshRender;
+			break;
+		case COMPONENT_TYPE::TILEMAP:
+			pComponent = new CTileMap;
+			break;
+		case COMPONENT_TYPE::PARTICLESYSTEM:
+			pComponent = new CParticleSystem;
+			break;
+		default:
+			assert(nullptr);
+			break;
+		}
+
+		// 해당 컴포넌트가 저장한 데이터를 로드
+		pObject->AddComponent(pComponent);
+		pComponent->LoadFromFile(fin);
+	}
+
+	// 스크립트 개수 읽기
+	size_t ScriptCount = 0;
+	fin >> ScriptCount;
+
+	for (size_t i = 0; i < ScriptCount; ++i)
+	{
+		string strScriptName;
+		fin >> strScriptName;
+
+		CScript* pScript = CScriptMgr::GetScript(ToWString(strScriptName));
+		pObject->AddComponent(pScript);
+		pScript->LoadFromFile(fin);
+	}
+
+	// 자식 오브젝트가 있으면 자식 오브젝트 정보 저장	
+	size_t childcount = 0;
+	fin >> childcount;
+
+	for (size_t i = 0; i < childcount; ++i)
+	{
+		pObject->AddChild(LoadGameObject(fin));
 	}
 
 	return pObject;

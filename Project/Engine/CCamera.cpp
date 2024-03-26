@@ -210,6 +210,18 @@ void CCamera::SaveToFile(FILE* _File)
 	fwrite(&m_CameraPriority, sizeof(int), 1, _File);
 }
 
+void CCamera::SaveToFile(ofstream& fout)
+{
+	fout << (int)m_ProjType << " " 
+		<< m_FOV << " "
+		<< m_Width << " " 
+		<< m_Scale << " " 
+		<< m_AspectRatio << " " 
+		<< m_Far << " "
+		<< m_LayerCheck << " "
+		<< m_CameraPriority << endl;
+}
+
 void CCamera::LoadFromFile(FILE* _File)
 {
 	fread(&m_ProjType, sizeof(PROJ_TYPE), 1, _File);
@@ -220,4 +232,11 @@ void CCamera::LoadFromFile(FILE* _File)
 	fread(&m_Far, sizeof(float), 1, _File);
 	fread(&m_LayerCheck, sizeof(UINT), 1, _File);
 	fread(&m_CameraPriority, sizeof(int), 1, _File);
+}
+
+void CCamera::LoadFromFile(ifstream& fin)
+{
+	int num;
+	fin >> num >> m_FOV >> m_Width >> m_Scale >> m_AspectRatio >> m_Far >> m_LayerCheck >> m_CameraPriority;
+	m_ProjType = (PROJ_TYPE)num;
 }

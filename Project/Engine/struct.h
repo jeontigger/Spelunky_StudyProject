@@ -39,6 +39,9 @@ struct tLightInfo
 	int		LightType;	// ±¤¿ø Å¸ÀÔ
 
 	Vec3	vPadding;
+
+	friend ofstream& operator<< (ofstream& fout, const tLightInfo& light);
+	friend ifstream& operator>>(ifstream& fin, tLightInfo& light);
 };
 
 struct tPixel
@@ -107,6 +110,9 @@ struct tParticleModule
 
 	// Module On / Off
 	int arrModuleCheck[(UINT)PARTICLE_MODULE::END];
+
+	friend ofstream& operator<<(ofstream& fout, tParticleModule& module);
+	friend ifstream& operator>>(ifstream& fin, tParticleModule& module);
 };
 
 struct tSpawnCount

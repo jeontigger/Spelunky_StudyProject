@@ -48,11 +48,11 @@ void Inspector::render_update()
 
 		if (ImGui::Button("To Prefab")) {
 			Ptr<CPrefab> prefab = new CPrefab;
-
 			CGameObject* obj = m_TargetObject->Clone();
 			prefab->SetGameObject(obj);
 			wstring path = L"prefab\\";
 			path += ToWString(strName)+ L".pref";
+			CAssetMgr::GetInst()->AddAsset(path, prefab.Get());
 			prefab->Save(path);
 
 			MessageBox(nullptr, L"프리팹을 생성했습니다", L"프리팹 생성", 0);
@@ -122,7 +122,7 @@ void Inspector::SetTargetAsset(Ptr<CAsset> _Asset)
 		
 	if(nullptr != m_TargetAsset)
 	{
-		m_arrAssetUI[(UINT)m_TargetAsset->GetType()]->Activate();
 		m_arrAssetUI[(UINT)m_TargetAsset->GetType()]->SetAsset(_Asset);
+		m_arrAssetUI[(UINT)m_TargetAsset->GetType()]->Activate();
 	}	
 }

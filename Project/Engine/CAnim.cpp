@@ -124,10 +124,12 @@ void CAnim::SaveToFile(ofstream& _File)
 	_File << m_vecFrm.size() << endl;
 	for (int i = 0; i < m_vecFrm.size(); i++) {
 		auto data = m_vecFrm[i];
-		_File << data.vSlice.x << " " << data.vSlice.y << " " << " " << data.vLeftTop.x << " " << data.vLeftTop.y << " " 
-			<< data.vOffset.x << " " << data.vOffset.y << " " << data.vBackground.x << " " << data.vBackground.y << " " << 
-			data.Duration << endl;
+		_File << data.vSlice.x << " " << data.vSlice.y << " " << data.vLeftTop.x << " " << data.vLeftTop.y << " " 
+			<< data.vOffset.x << " " << data.vOffset.y << " " << data.vBackground.x << " " << data.vBackground.y << " "
+			<< data.Duration << endl;
 	}
+
+	SaveAssetRef(m_AtlasTex, _File);
 }
 
 void CAnim::LoadFromFile(FILE* _File)
@@ -145,4 +147,22 @@ void CAnim::LoadFromFile(FILE* _File)
 
 	// 애니메이션이 참조하던 텍스쳐 정보 로드
 	LoadAssetRef(m_AtlasTex, _File);
+}
+
+void CAnim::LoadFromFile(ifstream& fin)
+{
+	string str;
+	fin >> str;
+	SetName(str);
+
+	int cnt;
+	fin >> cnt;
+	for (int i = 0; i < cnt; i++) {
+		tAnimFrm data;
+		fin >> data.vSlice.x >> data.vSlice.y >> data.vLeftTop.x >> data.vLeftTop.y
+			>> data.vOffset.x >> data.vOffset.y >> data.vBackground.x >> data.vBackground.y 
+			>> data.Duration;
+	}
+
+	LoadAssetRef(m_AtlasTex, fin);
 }

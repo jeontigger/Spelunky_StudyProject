@@ -26,5 +26,6 @@ void PrefabUI::Activate()
 
 	m_Prefab = (CPrefab*)GetAsset().Get();
 	m_Inspector = (Inspector*)UIMGR->FindUI(UIInspectorName);
-	m_Inspector->SetTargetObject(m_Prefab->Instantiate());
+	
+	m_Inspector->SetTargetObject(m_Prefab->GetProtoType());
 }

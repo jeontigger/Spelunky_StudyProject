@@ -150,6 +150,9 @@ namespace DirectX
             Vector2 operator+ () const { return *this; }
             Vector2 operator- () const { return Vector2(-x, -y); }
 
+            friend ofstream& operator<< (ofstream& fout, Vector2& vec);
+            friend ifstream& operator>> (ifstream& fin, Vector2& vec);
+
             // Vector operations
             bool InBounds(const Vector2& Bounds) const;
 
@@ -272,6 +275,9 @@ namespace DirectX
             // Unary operators
             Vector3 operator+ () const { return *this; }
             Vector3 operator- () const;
+
+            friend ofstream& operator<<(ofstream& fout, Vector3& vec);
+            friend ifstream& operator>>(ifstream& fin, Vector3& vec);
 
             // Vector operations
             bool InBounds(const Vector3& Bounds) const;
@@ -411,6 +417,9 @@ namespace DirectX
             Vector4 operator+ () const { return *this; }
             Vector4 operator- () const;
 			operator Vector3 () { return Vector3(x, y, z); }
+
+            friend ofstream& operator<<(ofstream& fout, Vector4 vec);
+            friend ifstream& operator>>(ifstream& fin, Vector4 vec);
 			
 
             // Vector operations

@@ -42,7 +42,9 @@ public:
     virtual void skill() {};
 
     virtual void SaveToFile(FILE* _File) {};
+    virtual void SaveToFile(ofstream& _File) {};
     virtual void LoadFromFile(FILE* _File) {};
+    virtual void LoadFromFile(ifstream& _File) {};
 
     CScript* Clone() { return this; };
 public:

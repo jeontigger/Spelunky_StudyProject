@@ -44,7 +44,15 @@ void CMonsterScript::SaveToFile(FILE* _File)
 {
 }
 
+void CMonsterScript::SaveToFile(ofstream& _File)
+{
+}
+
 void CMonsterScript::LoadFromFile(FILE* _File)
+{
+}
+
+void CMonsterScript::LoadFromFile(ifstream& fin)
 {
 }
 

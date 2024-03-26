@@ -13,7 +13,9 @@ public:
     virtual void tick() override;
 
     virtual void SaveToFile(FILE* _File) override;
+    virtual void SaveToFile(ofstream& _File) override;
     virtual void LoadFromFile(FILE* _File) override;
+    virtual void LoadFromFile(ifstream& fin) override;
     CLONE(CMonsterScript);
 public:
     CMonsterScript();

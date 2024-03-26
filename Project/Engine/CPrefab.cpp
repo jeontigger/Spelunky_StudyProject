@@ -45,27 +45,23 @@ int CPrefab::Save(const wstring& _strRelativePath)
 	wstring strContentPath = CPathMgr::GetContentPath();
 	strContentPath += _strRelativePath;
 
-	FILE* pFile = nullptr;
-	_wfopen_s(&pFile, strContentPath.c_str(), L"wb");
+	ofstream fout(strContentPath);
+	if (fout.is_open()) {
+		GAMEOBJECT_SAVE(m_ProtoObj, fout);
+	}
 
-	GAMEOBJECT_SAVE(m_ProtoObj, pFile);
-
-	fclose(pFile);
 	return S_OK;
 }
 
 int CPrefab::Load(const wstring& _strFilePath)
 {
 	assert(GAMEOBJECT_LOAD);
+	
+	ifstream fin(_strFilePath);
 
-	FILE* pFile = nullptr;
-	_wfopen_s(&pFile, _strFilePath.c_str(), L"rb");
+	if (fin.is_open()) {
+		m_ProtoObj = GAMEOBJECT_LOAD(fin);
+	}
 
-	if (nullptr == pFile)
-		return E_FAIL;
-
-	m_ProtoObj = GAMEOBJECT_LOAD(pFile);
-
-	fclose(pFile);
 	return S_OK;
 }

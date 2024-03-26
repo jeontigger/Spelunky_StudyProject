@@ -8,6 +8,8 @@ struct tTileInfo
     Vec2 vLeftTopUV;    
     int  bRender;
     int  padding;
+
+    friend ifstream& operator>>(ifstream& fin, tTileInfo& info);
 };
 
 
@@ -47,6 +49,7 @@ public:
 
     virtual void SaveToFile(FILE* _File) override;
     virtual void LoadFromFile(FILE* _File) override;
+    virtual void LoadFromFile(ifstream& fin) override;
     CLONE(CTileMap);
 public:
     CTileMap();

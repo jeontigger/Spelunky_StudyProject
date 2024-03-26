@@ -27,6 +27,14 @@ void CMissileScript::SaveToFile(FILE* _File)
 {
 }
 
+void CMissileScript::SaveToFile(ofstream& _File)
+{
+}
+
 void CMissileScript::LoadFromFile(FILE* _File)
+{
+}
+
+void CMissileScript::LoadFromFile(ifstream& fin)
 {
 }

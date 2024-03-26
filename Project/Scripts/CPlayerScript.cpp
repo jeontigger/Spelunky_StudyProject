@@ -143,7 +143,17 @@ void CPlayerScript::SaveToFile(FILE* _File)
 	fwrite(&m_Speed, sizeof(float), 1, _File);
 }
 
+void CPlayerScript::SaveToFile(ofstream& fout)
+{
+	fout << m_Speed << endl;
+}
+
 void CPlayerScript::LoadFromFile(FILE* _File)
 {
 	fread(&m_Speed, sizeof(float), 1, _File);
+}
+
+void CPlayerScript::LoadFromFile(ifstream& fin)
+{
+	fin >> m_Speed;
 }

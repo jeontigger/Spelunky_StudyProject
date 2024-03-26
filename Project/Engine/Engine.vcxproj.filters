@@ -327,6 +327,10 @@
     <ClCompile Include="utils.cpp">
       <Filter>01. Header</Filter>
     </ClCompile>
+    <ClCompile Include="struct.cpp" />
+    <ClCompile Include="SimpleMath.cpp">
+      <Filter>Module</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Default">

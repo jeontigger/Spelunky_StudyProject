@@ -363,6 +363,7 @@ void CStage::finaltick()
 {
 	CLevel::finaltick();
 
+	return;
 
 	if (m_State == LEVEL_STATE::STOP)
 		return;

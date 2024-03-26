@@ -33,7 +33,9 @@ public:
     float GetAngle() { return m_Info.fAngle; }
 
     virtual void SaveToFile(FILE* _File) override;
+    virtual void SaveToFile(ofstream& fout) override;
     virtual void LoadFromFile(FILE* _File) override;
+    virtual void LoadFromFile(ifstream& fin) override;
 
     CLONE(CLight2D);
 public:

@@ -139,7 +139,6 @@ void CTileMap::SaveToFile(FILE* _File)
 	fwrite(&m_FaceX, sizeof(UINT), 1, _File);
 	fwrite(&m_FaceY, sizeof(UINT), 1, _File);
 	fwrite(&m_vTileRenderSize, sizeof(Vec2), 1, _File);
-	fwrite(&m_vTileRenderSize, sizeof(Vec2), 1, _File);
 
 	SaveAssetRef(m_TileAtlas, _File);
 
@@ -160,7 +159,6 @@ void CTileMap::LoadFromFile(FILE* _File)
 	fread(&m_FaceX, sizeof(UINT), 1, _File);
 	fread(&m_FaceY, sizeof(UINT), 1, _File);
 	fread(&m_vTileRenderSize, sizeof(Vec2), 1, _File);
-	fread(&m_vTileRenderSize, sizeof(Vec2), 1, _File);
 
 	LoadAssetRef(m_TileAtlas, _File);
 
@@ -174,4 +172,30 @@ void CTileMap::LoadFromFile(FILE* _File)
 	fread(&InfoCount, sizeof(size_t), 1, _File);
 	m_vecTileInfo.reserve(InfoCount);
 	fread(m_vecTileInfo.data(), sizeof(tTileInfo), InfoCount, _File);
+}
+
+void CTileMap::LoadFromFile(ifstream& fin)
+{
+	fin >> m_FaceX >> m_FaceY;
+	fin >> m_vTileRenderSize;
+	LoadAssetRef(m_TileAtlas, fin);
+
+	fin >> m_vTilePixelSize >> m_vSliceSizeUV;
+
+	fin >> m_MaxCol >> m_MaxRow;
+
+	size_t cnt = 0;
+	fin >> cnt;
+	for (int i = 0; i < cnt; i++) {
+		tTileInfo info;
+		fin >> info;
+		m_vecTileInfo.push_back(info);
+	}
+}
+
+ifstream& operator>>(ifstream& fin, tTileInfo& info)
+{
+	fin >> info.vLeftTopUV >> info.bRender;
+
+	return fin;
 }

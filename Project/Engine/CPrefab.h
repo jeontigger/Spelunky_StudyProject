@@ -1,8 +1,8 @@
 #pragma once
 #include "CAsset.h"
 
-typedef void(*SAVE_TYPE)(CGameObject*, FILE*);
-typedef CGameObject* (*LOAD_TYPE)(FILE*);
+typedef void(*SAVE_TYPE)(CGameObject*, ofstream&);
+typedef CGameObject* (*LOAD_TYPE)(ifstream&);
 
 class CPrefab :
     public CAsset
@@ -17,6 +17,7 @@ private:
 public:
     void SetGameObject(CGameObject* _Object);
     CGameObject* Instantiate();
+    CGameObject* GetProtoType() { return m_ProtoObj; }
 
     CLONE_DISABLE(CPrefab);
 public:

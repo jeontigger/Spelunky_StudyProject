@@ -48,8 +48,18 @@ void CStateMachine::SaveToFile(FILE* _File)
 	SaveAssetRef(m_FSM, _File);	
 }
 
+void CStateMachine::SaveToFile(ofstream& fout)
+{
+	SaveAssetRef(m_FSM, fout);
+}
+
 void CStateMachine::LoadFromFile(FILE* _File)
 {
 	LoadAssetRef(m_FSM, _File);
+}
+
+void CStateMachine::LoadFromFile(ifstream& fin)
+{
+	LoadAssetRef(m_FSM, fin);
 }
 
