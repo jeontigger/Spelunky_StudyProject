@@ -179,6 +179,9 @@ void CLevel::ChangeState(LEVEL_STATE _NextState)
 
 			begin();
 		}
+		else if(LEVEL_STATE::PAUSE == m_State) {
+			m_State = _NextState;
+		}
 	}
 
 	// 플레이 -> 정지 or 일시정지
