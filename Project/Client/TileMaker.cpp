@@ -226,7 +226,7 @@ void TileMaker::TileBlockMenu(vector<vector<CTileBlock>>& vvec)
 
 	// 타일블럭 정보 입력 칸 필요
 	ButtonTitle("Select Type");
-	const char* types[(int)TileBlockType::END] = { "None", "Entrance", "Entrance_Fall", "Exit", "Exit_Drop", "Normal", "Fall", "Drop", "Fall_Drop", "Side" };
+	const char* types[(int)TileBlockType::END] = { "None", "Entrance", "Entrance_Fall", "Exit", "Exit_Drop", "Normal", "Fall", "Drop", "Fall_Drop", "Side", "NeverCrash"};
 	ImGui::Combo("##selecttileblocktype", &m_iTypeCursor, types, IM_ARRAYSIZE(types));
 
 

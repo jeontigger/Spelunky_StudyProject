@@ -13,6 +13,7 @@ enum class TileBlockType{
 	Drop,
 	Fall_Drop,
 	Side,
+	NeverCrash,
 	END
 };
 
