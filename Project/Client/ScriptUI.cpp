@@ -31,11 +31,14 @@ void ScriptUI::render_update()
 
 	const vector<tScriptParam>& vecParam = m_TargetScript->GetScriptParam();
 
+	SetSize(ImVec2(0, 40 + 26 * vecParam.size()));
+
 	for (size_t i = 0; i < vecParam.size(); ++i)
 	{
 		switch (vecParam[i].Type)
 		{
 		case SCRIPT_PARAM::INT:
+			ParamUI::	Param_INT((int*)vecParam[i].pData, vecParam[i].Desc);
 			break;
 		case SCRIPT_PARAM::FLOAT:
 			ParamUI::Param_FLOAT((float*)vecParam[i].pData, vecParam[i].Desc);

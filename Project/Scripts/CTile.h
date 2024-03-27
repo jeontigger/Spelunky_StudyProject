@@ -30,7 +30,7 @@ private:
     TileType m_arrSurroundTiles[(int)SurroundTile::END];
 
 public:
-    void SetTileType(TileType type) { m_type = type; }
+    void SetTileType(TileType type);
     TileType GetTileType() { return m_type; }
 
     void SetSurroundTileType(SurroundTile _dir, TileType _type) { m_arrSurroundTiles[(int)_dir] = _type; }
@@ -38,6 +38,7 @@ public:
 
 public:
     virtual void tick() override;
+    virtual void begin() override;
 
     virtual void skill() {};
 
@@ -46,9 +47,13 @@ public:
     virtual void LoadFromFile(FILE* _File) {};
     virtual void LoadFromFile(ifstream& _File) {};
 
-    CScript* Clone() { return this; };
+    CLONE(CTile);
 public:
     CTile();
+    CTile(const CTile& tile);
     ~CTile();
+
+private:
+    Vec2 TypeToPos(TileType type);
 };
 

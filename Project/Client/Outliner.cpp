@@ -76,9 +76,9 @@ void Outliner::ResetCurrentLevel()
 		CLayer* pLayer = pCurLevel->GetLayer(i);
 		const vector<CGameObject*>& vecParent = pLayer->GetParentObjects();
 
-		for (size_t i = 0; i < vecParent.size(); ++i)
+		for (size_t j = 0; j < vecParent.size(); ++j)
 		{
-			AddObjectToTree(pRootNode, vecParent[i]);
+			AddObjectToTree(pRootNode, vecParent[j]);
 		}
 	}
 }

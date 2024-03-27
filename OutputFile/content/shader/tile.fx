@@ -34,6 +34,12 @@ VS_OUT VS_Tile(VS_IN _in)
 }
 
 #define g_Thickness 0.01f
+#define FACE_X 12
+#define FACE_Y 12
+#define TileSize 128
+#define ROW g_int_1
+#define COL g_int_2
+
 
 float4 PS_Tile(VS_OUT _in) : SV_Target
 {
@@ -41,21 +47,14 @@ float4 PS_Tile(VS_OUT _in) : SV_Target
     
     if (g_btex_0)
     {
-        vColor = g_tex_0.Sample(g_sam_1, _in.vUV);
+        float2 FrameSize = float2(1.f / FACE_X, 1.f / FACE_Y);
+        float2 FramePosition = float2(ROW, COL);
         
-        return vColor;
+        float2 adjustedUV = FramePosition * FrameSize + _in.vUV * FrameSize;
+        vColor = g_tex_0.Sample(g_sam_0, adjustedUV);
     }
-    
-    if (g_int_0 == 1)
-    {
-        if (g_Thickness <= _in.vUV.x && _in.vUV.x <= (1.f - g_Thickness)
-        && g_Thickness <= _in.vUV.y && _in.vUV.y <= (1.f - g_Thickness))
-        {
-            discard;
-        }
-        vColor = float4(0.f, 0.f, 1.f, 1.f);
-    }
-    
+
+
     return vColor;
 }
 

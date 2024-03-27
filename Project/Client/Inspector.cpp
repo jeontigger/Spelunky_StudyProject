@@ -45,9 +45,10 @@ void Inspector::render_update()
 		ImGui::InputText("##modifyname", (char*)nameBuf, 32);
 
 		string strName((char*)nameBuf);
-		m_TargetObject->SetName(strName);
+		
 
 		if (ImGui::Button("Make New Prefab")) {
+			m_TargetObject->SetName(strName);
 			Ptr<CPrefab> prefab = new CPrefab;
 			CGameObject* obj = m_TargetObject->Clone();
 			prefab->SetGameObject(obj);
