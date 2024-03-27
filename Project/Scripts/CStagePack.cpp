@@ -26,6 +26,14 @@ CTileBlock CStagePack::GetRandomBlock(TileBlockType _type)
 	return m_mapBlockList[_type][random];
 }
 
+CTileChunk CStagePack::GetRandomChunk(ChunkType _type)
+{
+	const vector<CTileChunk> blocks = m_mapChunkList[_type];
+	int random = GETRANDOM(blocks.size());
+
+	return m_mapChunkList[_type][random];
+}
+
 void CStagePack::AddTileBlock(TileBlockType _type, CTileBlock _block)
 {
 	m_mapBlockList[_type].push_back(_block);
@@ -40,6 +48,22 @@ ifstream& operator>>(ifstream& fin,  CStagePack& stage)
 		fin >> tileblock;
 		tileblock.SetBlockType((TileBlockType)type);
 		stage.AddTileBlock((TileBlockType)type, tileblock);
+	}
+
+	{
+		wstring path = CPathMgr::GetContentPath();
+		path += ChunkPath;
+		ifstream fin(path);
+		int num;
+		fin >> num;
+		for (int i = 0; i < num; i++) {
+			CTileChunk chunk;
+			int type;
+			fin >> type;
+			fin >> chunk;
+			chunk.SetType((ChunkType)type);
+			stage.m_mapChunkList[(ChunkType)type].push_back(chunk);
+		}
 	}
 
 	return fin;

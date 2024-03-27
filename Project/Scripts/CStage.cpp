@@ -80,7 +80,6 @@ CStage::CStage()
 
 	AddObject(pCamObj, 0);
 
-
 	CLevelMgr::GetInst()->ChangeLevel(this, LEVEL_STATE::PLAY);
 }
 
@@ -267,7 +266,7 @@ void CStage::FitType()
 
 
 	m_arrTileBlocks[1][m_iEntrancePos+1].SetBlockType(TileBlockType::Entrance);
-	if (m_Path[1].y == 1) {
+	if (m_Path[1].y == 2) {
 		m_arrTileBlocks[1][m_iEntrancePos+1].SetBlockType(TileBlockType::Entrance_Fall);
 	}
 

@@ -5,6 +5,7 @@
 #include <Engine/CGameObject.h>
 
 #include "CRandomMgr.h"
+#include "CStagePackMgr.h"
 
 CTileBlock::CTileBlock()
 	: m_Type(TileBlockType::NONE)
@@ -92,11 +93,21 @@ void CTileBlock::TileInstancing(int _row, int _col)
 				tiletype = TileType::Spike;
 				break;
 			case BlockTileType::ChunkGround:
+			{
+				CStagePack* sp = CStagePackMgr::GetInst()->GetStagePack(StagePackList::Dwelling);
+				auto chunk = sp->GetRandomChunk(ChunkType::Ground);
+				chunk.Instancing(colpos, rowpos);
+			}
 				break;
 			case BlockTileType::ChunkAir:
-				tiletype = TileType::Blank;
+			{
+
+			}
 				break;
 			case BlockTileType::ChunkDoor:
+			{
+
+			}
 				tiletype = TileType::Blank;
 				break;
 			case BlockTileType::END:

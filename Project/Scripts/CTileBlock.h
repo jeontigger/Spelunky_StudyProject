@@ -17,25 +17,6 @@ enum class TileBlockType{
 	END
 };
 
-// 타입 - 빈공간, 흙, 흙(50%), 나무, 부숴지지 않음, 사다리, 사다리 반벽, 반벽, 움직이는 돌, 가시, 땅덩어리, 공중덩어리, 문덩어리
-enum class BlockTileType
-{
-	Blank,
-	Soil,
-	Soil_50,
-	Tree,
-	NeverCrash,
-	Ladder,
-	LadderHalf,
-	Half,
-	Movable,
-	Spike,
-	ChunkGround,
-	ChunkAir,
-	ChunkDoor,
-	END,
-};
-
 class CTileBlock
 {
 private:

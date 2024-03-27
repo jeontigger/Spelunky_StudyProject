@@ -52,6 +52,9 @@
     <ClInclude Include="CTile.h">
       <Filter>02. Scripts\Tile</Filter>
     </ClInclude>
+    <ClInclude Include="CTileChunk.h">
+      <Filter>03. Tile\TileChunk</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -99,6 +102,9 @@
     <ClCompile Include="CTile.cpp">
       <Filter>02. Scripts\Tile</Filter>
     </ClCompile>
+    <ClCompile Include="CTileChunk.cpp">
+      <Filter>03. Tile\TileChunk</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="00. Default">
@@ -142,6 +148,9 @@
     </Filter>
     <Filter Include="02. Scripts\Tile">
       <UniqueIdentifier>{218c9569-5d07-48d5-bd05-521042ec74e1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Tile\TileChunk">
+      <UniqueIdentifier>{730872a2-5c95-432a-a64c-26e2ab74983c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
