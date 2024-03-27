@@ -7,6 +7,7 @@
 CCollider2D::CCollider2D()
 	: CComponent(COMPONENT_TYPE::COLLIDER2D)
 	, m_CollisionCount(0)
+	, m_vOffsetScale(1, 1, 1)
 	, m_bAbsolute(false)
 	, m_Type(COLLIDER2D_TYPE::RECT)
 {
@@ -50,7 +51,6 @@ void CCollider2D::finaltick()
 		m_matColWorld *= matObjWorld;
 	}	
 
-	return;
 	// 충돌중이면 Red, 충돌하고 있지 않으면 Green
 	if (0 == m_CollisionCount)
 	{
@@ -103,7 +103,10 @@ void CCollider2D::SaveToFile(FILE* _File)
 
 void CCollider2D::SaveToFile(ofstream& fout)
 {
-	fout << m_vOffsetPos << " " << m_vOffsetScale << " " << m_bAbsolute << " " << (int)m_Type << endl;
+	fout << m_vOffsetPos << endl;
+	fout << m_vOffsetScale << endl;
+	fout << m_bAbsolute << endl;
+	fout << (int)m_Type << endl;
 }
 
 void CCollider2D::LoadFromFile(FILE* _File)
