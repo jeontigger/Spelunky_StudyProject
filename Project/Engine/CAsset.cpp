@@ -13,6 +13,7 @@ CAsset::CAsset(const CAsset& _Origin)
 	, m_Type(_Origin.m_Type)
 	, m_bEngineAsset(_Origin.m_bEngineAsset)
 	, m_RefCount(0)
+	, m_Key(_Origin.m_Key)
 {
 }
 
