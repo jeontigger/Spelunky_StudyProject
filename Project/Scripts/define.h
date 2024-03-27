@@ -3,8 +3,8 @@
 #define TILEBLOCKSIZEX 10
 #define TILEBLOCKSIZEY 8
 
-#define STAGETILEROW 4
-#define STAGETILECOL 4
+#define STAGETILEROW 6
+#define STAGETILECOL 6
 
 #define TileScaleX 128
 #define TileScaleY 128

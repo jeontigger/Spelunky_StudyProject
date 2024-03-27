@@ -1,6 +1,8 @@
 #include "pch.h"
 #include "CCollider2D.h"
 
+#include "CRenderMgr.h"
+
 #include "CTransform.h"
 #include "CScript.h"
 
@@ -52,6 +54,8 @@ void CCollider2D::finaltick()
 	}	
 
 	// 충돌중이면 Red, 충돌하고 있지 않으면 Green
+	if (CRenderMgr::GetInst()->IsDebugPosition() == false)
+		return;
 	if (0 == m_CollisionCount)
 	{
 		GamePlayStatic::DrawDebugRect(m_matColWorld, Vec3(0.f, 1.f, 0.f), false);

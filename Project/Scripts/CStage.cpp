@@ -163,16 +163,16 @@ void CStage::SelectEntrance()
 {
 	PrintChangeState(L"Select Entrance");
 
-	m_iEntrancePos = GETRANDOM(STAGETILECOL);
-	m_vecBackgrounds[0][m_iEntrancePos]->DMtrlSetScalar(INT_0, 2);
+	m_iEntrancePos = GETRANDOM(STAGETILECOL-2);
+	m_vecBackgrounds[1][m_iEntrancePos + 1]->DMtrlSetScalar(INT_0, 2);
 
 }
 
 void CStage::SelectExit()
 {
 	PrintChangeState(L"Select Exit");
-	m_iExitPos = GETRANDOM(STAGETILECOL);
-	m_vecBackgrounds[STAGETILEROW - 1][m_iExitPos]->DMtrlSetScalar(INT_0, 2);
+	m_iExitPos = GETRANDOM(STAGETILECOL-2);
+	m_vecBackgrounds[STAGETILEROW - 2][m_iExitPos + 1]->DMtrlSetScalar(INT_0, 2);
 }
 
 void CStage::GeneratePath()
@@ -186,10 +186,10 @@ void CStage::GeneratePath()
 			m_visited[row][col] = false;
 		}
 	}
-	Vec2 curPos(m_iEntrancePos, 0);
-	Vec2 targetPos(m_iExitPos, STAGETILEROW - 1);
+	Vec2 curPos(m_iEntrancePos + 1, 1);
+	Vec2 targetPos(m_iExitPos + 1, STAGETILEROW - 2);
 
-	m_visited[0][m_iEntrancePos] = true;
+	m_visited[1][m_iEntrancePos + 1] = true;
 
 	vector<Vec2> path;
 	path.push_back(curPos);
@@ -204,7 +204,7 @@ int arrCol[] = { 1, 0, -1 };
 void CStage::DFSGenerate(vector<Vec2>& _path, bool find)
 {
 	Vec2 curPos = _path.back();
-	if (find || curPos.x == m_iExitPos && curPos.y == STAGETILEROW - 1) {
+	if (find || curPos.x == m_iExitPos+ 1&& curPos.y == STAGETILEROW - 2) {
 		m_Path = _path;
 		find = true;
 		return;
@@ -224,7 +224,7 @@ void CStage::DFSGenerate(vector<Vec2>& _path, bool find)
 		
 		Vec2 nextPos(curPos.x + arrCol[ran], curPos.y + arrRow[ran]);
 
-		if (0 <= nextPos.x && nextPos.x < STAGETILECOL && 0 <= nextPos.y && nextPos.y < STAGETILEROW){
+		if (1 <= nextPos.x && nextPos.x < STAGETILECOL - 1 && 1 <= nextPos.y && nextPos.y < STAGETILEROW - 1){
 			if (!m_visited[(int)nextPos.y][(int)nextPos.x]) {
 				m_visited[(int)nextPos.y][(int)nextPos.x] = true;
 				_path.push_back(nextPos);
@@ -255,14 +255,20 @@ void CStage::FitType()
 	for (int row = 0; row < STAGETILEROW; row++) {
 		for (int col = 0; col < STAGETILECOL; col++)
 		{
-			m_arrTileBlocks[row][col].SetBlockType(TileBlockType::Side);
+			if (row == 0 || row == STAGETILEROW-1 || col == 0 || col == STAGETILECOL-1) {
+				m_arrTileBlocks[row][col].SetBlockType(TileBlockType::NeverCrash);
+			}
+			else
+			{
+				m_arrTileBlocks[row][col].SetBlockType(TileBlockType::Side);
+			}
 		}
 	}
 
 
-	m_arrTileBlocks[0][m_iEntrancePos].SetBlockType(TileBlockType::Entrance);
+	m_arrTileBlocks[1][m_iEntrancePos+1].SetBlockType(TileBlockType::Entrance);
 	if (m_Path[1].y == 1) {
-		m_arrTileBlocks[0][m_iEntrancePos].SetBlockType(TileBlockType::Entrance_Fall);
+		m_arrTileBlocks[1][m_iEntrancePos+1].SetBlockType(TileBlockType::Entrance_Fall);
 	}
 
 	Vec2 prevPos(m_iEntrancePos, 0);
