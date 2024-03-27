@@ -81,7 +81,7 @@ CStage::CStage()
 	AddObject(pCamObj, 0);
 
 
-	CLevelMgr::GetInst()->ChangeLevel(this, LEVEL_STATE::STOP);
+	CLevelMgr::GetInst()->ChangeLevel(this, LEVEL_STATE::PLAY);
 }
 
 CStage::~CStage()
@@ -145,7 +145,7 @@ void CStage::CreateBlocks()
 			pObj->AddComponent(new CMeshRender);
 			pObj->Transform()->SetRelativeScale(TileBlockScaleVec);
 
-			pObj->Transform()->SetRelativePos(Vec3(col * TileBlockScaleX - TileBlockScaleX * (STAGETILEROW/2 - 0.5), -row * TileBlockScaleY + TileBlockScaleY * (STAGETILECOL/2 - 0.5), 0));
+			pObj->Transform()->SetRelativePos(Vec3(col * TileBlockScaleX - TileBlockScaleX * (STAGETILEROW/2 - 0.5), -row * TileBlockScaleY + TileBlockScaleY * (STAGETILECOL/2 - 0.5), 500));
 			wstring name = L"DummyBlock" + std::to_wstring(row * 4 + col);
 			pObj->SetName(name);
 
@@ -332,25 +332,17 @@ void CStage::RegistBackground()
 
 void CStage::TileInstancing()
 {
-	CGameObject* tile = new CGameObject;
-	tile->AddComponent(new CTransform);
-	tile->AddComponent(new CMeshRender);
-	tile->AddComponent(new CCollider2D);
-	tile->AddComponent(new CTile);
 
-	tile->Transform()->SetRelativePos(Vec3(00.f, 0.f, 500.f));
-	tile->Transform()->SetRelativeScale(Vec3(200.f, 200.f, 1.f));
 
-	tile->Collider2D()->SetAbsolute(true);
-	tile->Collider2D()->SetOffsetScale(Vec2(100.f, 100.f));
-	tile->Collider2D()->SetOffsetPos(Vec2(0.f, 0.f));
-
-	tile->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
-	tile->MeshRender()->SetMaterial(CAssetMgr::GetInst()->FindAsset<CMaterial>(L"Std2DMtrl"));
-
-	tile->GetScript<CTile>()->SetTileType(TileType::Blank);
-
-	AddObject(tile, L"Tile", false);
+	for (int row = 0; row < STAGETILEROW; row++)
+	{
+		for (int col = 0; col < STAGETILECOL; col++)
+		{
+			int colpos = 0 - TileBlockScaleX * (STAGETILECOL / 2) + TileBlockScaleX / 2 + TileBlockScaleX * col;
+			int rowpos = 0 + TileBlockScaleY * (STAGETILEROW / 2) - TileBlockScaleY / 2 - TileBlockScaleY * row;
+			m_arrTileBlocks[row][col].TileInstancing(rowpos, colpos);
+		}
+	}
 
 }
 
@@ -362,8 +354,6 @@ void CStage::tick()
 void CStage::finaltick()
 {
 	CLevel::finaltick();
-
-	return;
 
 	if (m_State == LEVEL_STATE::STOP)
 		return;

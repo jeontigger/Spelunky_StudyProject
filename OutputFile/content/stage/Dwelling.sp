@@ -1,5 +1,7 @@
 1
-texture\Background\bg_cave.png texture\Background\bg_cave.png
+texture\Background\bg_cave.png
+0
+texture\Background\bg_cave.png
 1
 3 3 3 3 3 3 3 3 3 3 
 0 0 2 3 3 3 3 2 0 0 

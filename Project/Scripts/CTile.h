@@ -30,6 +30,7 @@ private:
     TileType m_arrSurroundTiles[(int)SurroundTile::END];
 
 public:
+    void Instancing(TileType type, int row, int col);
     void SetTileType(TileType type);
     TileType GetTileType() { return m_type; }
 

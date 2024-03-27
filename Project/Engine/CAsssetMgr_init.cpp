@@ -333,7 +333,7 @@ void CAssetMgr::CreateCustomGraphicsShader()
 
 	pShader->SetRSType(RS_TYPE::CULL_NONE);
 	pShader->SetBSType(BS_TYPE::DEFAULT);
-	pShader->SetDSType(DS_TYPE::NO_TEST_NO_WRITE);
+	pShader->SetDSType(DS_TYPE::LESS);
 
 	pShader->SetDomain(SHADER_DOMAIN::DOMAIN_MASKED);
 
@@ -348,7 +348,7 @@ void CAssetMgr::CreateCustomGraphicsShader()
 
 	pShader->SetRSType(RS_TYPE::CULL_NONE);
 	pShader->SetBSType(BS_TYPE::DEFAULT);
-	pShader->SetDSType(DS_TYPE::NO_TEST_NO_WRITE);
+	pShader->SetDSType(DS_TYPE::LESS);
 
 	pShader->SetDomain(SHADER_DOMAIN::DOMAIN_MASKED);
 

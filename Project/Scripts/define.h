@@ -14,9 +14,13 @@
 
 #define TileBlockScaleVec Vec3(TileBlockScaleX, TileBlockScaleY, 1)
 
+#define TileLayer 3
+
 #define RandomAccuracy 100
 
 #define GETRANDOM(bound) CRandomMgr::GetInst()->GetRandom(bound)
+
+#define TilePrefKey L"prefab\\Tile.pref"
 
 enum class StagePackList {
     Dwelling,

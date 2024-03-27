@@ -60,6 +60,8 @@ public:
 	/// </summary>
 	inline TileBlockType GetBlockType() { return m_Type; }
 
+	void TileInstancing(int row, int col);
+
 public:
 	friend ifstream& operator>>(ifstream& fin, CTileBlock& tileblock);
 	friend ofstream& operator<<(ofstream& fout, const CTileBlock& tileblock);

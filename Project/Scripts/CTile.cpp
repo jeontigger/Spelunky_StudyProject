@@ -21,6 +21,12 @@ CTile::~CTile()
 {
 }
 
+void CTile::Instancing(TileType type, int row, int col)
+{
+	SetTileType(type);
+	GetOwner()->Transform()->SetRelativePos(Vec3(row, col, 200.f));
+}
+
 void CTile::SetTileType(TileType type)
 {
 	m_type = type;
@@ -29,9 +35,6 @@ void CTile::SetTileType(TileType type)
 	Vec2 pos = TypeToPos(type);
 	GetOwner()->DMtrlSetScalar(INT_1, (int)pos.x);
 	GetOwner()->DMtrlSetScalar(INT_2, (int)pos.y);
-	auto mtrl = GetOwner()->GetRenderComopnent()->GetDynamicMaterial();
-
-	int a = 0;
 }
 
 void CTile::tick()
@@ -41,13 +44,14 @@ void CTile::tick()
 	if (m_type != prev) {
 		SetTileType(m_type);
 	}
+
 	prev = m_type;
 
 }
 
 void CTile::begin()
 {
-
+	SetTileType(TileType::Blank);
 }
 
 Vec2 CTile::TypeToPos(TileType type)
@@ -55,27 +59,30 @@ Vec2 CTile::TypeToPos(TileType type)
 	switch (type)
 	{
 	case TileType::Blank:
-		return Vec2(0, 0);
-		break;
+		return Vec2(1, 7);
+
 	case TileType::Soil:
 		return Vec2(0, 1);
 
 	case TileType::Tree:
-		return Vec2(0, 2);
+		return Vec2(2, 7);
 		break;
 	case TileType::NeverCrash:
-		return Vec2(0, 3);
-
+		return Vec2(0, 0);
+		break;
 	case TileType::Ladder:
-		return Vec2(0, 4);
+		return Vec2(1, 4);
 
 	case TileType::LadderHalf:
-		return Vec2(0, 5);
+		return Vec2(2, 4);
 
 	case TileType::Movable:
+		return Vec2(0, 7);
 		break;
 	case TileType::Spike:
+		return Vec2(9, 5);
 		break;
+
 	case TileType::Door:
 		break;
 	case TileType::END:
