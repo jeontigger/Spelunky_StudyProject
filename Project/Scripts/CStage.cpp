@@ -75,12 +75,16 @@ CStage::CStage()
 
 	pCamObj->Transform()->SetRelativePos(Vec3(0.5f, 0.f,0.f));
 	pCamObj->Transform()->SetRelativeRotation(Vec3(0.f, 0.f, 0.f));
-	pCamObj->Transform()->SetRelativeScale(Vec3(TileBlockScaleX*2, TileBlockScaleY + TileScaleY, 0.f));
+	pCamObj->Transform()->SetRelativeScale(Vec3(1.f, 1.f, 1.f));
+
+	pCamObj->Collider2D()->SetOffsetScale(Vec2(TileBlockScaleX * 2, TileBlockScaleY + TileScaleY));
 
 	pCamObj->Camera()->SetProjType(PROJ_TYPE::ORTHOGRAPHIC);
 	pCamObj->Camera()->SetCameraPriority(0);
 	pCamObj->Camera()->LayerCheckAll();
 	pCamObj->Camera()->LayerCheck(31, false);
+
+
 
 	AddObject(pCamObj, L"Camera");
 
@@ -112,7 +116,7 @@ CStage::CStage()
 	pCamObj->Transform()->SetRelativePos(Vec3(0.f, TileBlockScaleY * 2 + TileScaleY * 3, 0.f));
 	AddObject(pCamObj, L"CameraCollider");
 
-	CLevelMgr::GetInst()->ChangeLevel(this, LEVEL_STATE::STOP);
+	CLevelMgr::GetInst()->ChangeLevel(this, LEVEL_STATE::PLAY);
 }
 
 CStage::~CStage()

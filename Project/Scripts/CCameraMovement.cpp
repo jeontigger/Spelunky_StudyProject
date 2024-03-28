@@ -70,8 +70,8 @@ void CCameraMovement::tick()
 		{
 			Vec2 vDrag = CKeyMgr::GetInst()->GetMouseDrag();
 			Vec3 vRot = Transform()->GetRelativeRotation();
-			vRot.y += vDrag.x * DT_ENGINE * XM_PI * 4.f;
-			vRot.x += vDrag.y * DT_ENGINE * XM_PI * 4.f;
+			vRot.y += vDrag.x * DT_ENGINE * XM_PI / 4.f;
+			vRot.x += vDrag.y * DT_ENGINE * XM_PI / 4.f;
 			Transform()->SetRelativeRotation(vRot);
 		}
 	}
