@@ -59,20 +59,29 @@ float4 PS_Tile(VS_OUT _in) : SV_Target
         {
             FrameSize = float2(1.f / 10.f, 1.f / 10.f);
             float2 adjustedUV = FramePosition * FrameSize + _in.vUV * FrameSize;
-            vColor = WoodTex.Sample(g_sam_0, adjustedUV);
+            vColor = WoodTex.Sample(g_sam_1, adjustedUV);
         }
         else if (Type == 3)
         {
             FrameSize = float2(1.f / 8.f, 1.f / 8.f);
             float2 adjustedUV = FramePosition * FrameSize + _in.vUV * FrameSize;
-            vColor = WallTex.Sample(g_sam_0, adjustedUV);
+            vColor = WallTex.Sample(g_sam_1, adjustedUV);
         }
         else
         {
             float2 adjustedUV = FramePosition * FrameSize + _in.vUV * FrameSize;
-            vColor = DwellingTex.Sample(g_sam_0, adjustedUV);
+            vColor = DwellingTex.Sample(g_sam_1, adjustedUV);
         }
+        
+        if (vColor.a < 0.1f)
+        {
+            // ÇÈ¼¿ ½¦ÀÌ´õ¸¦ Áß°£¿¡ Æó±âÃ³¸®
+            discard; //clip(-1);            
+        }
+
     }
+    
+    
     return vColor;
 }
 

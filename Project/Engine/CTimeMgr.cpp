@@ -63,5 +63,11 @@ void CTimeMgr::tick()
 void CTimeMgr::render()
 {
 	// 폰트 출력
-	/*CFontMgr::GetInst()->DrawFont(m_szText, 10.f, 30.f, 16, FONT_RGBA(255, 30, 30, 255));*/
+	Font data = {};
+	data._Color = FONT_RGBA(255, 30, 30, 255);
+	data._fFontSize = 16;
+	data._fPosX = 10.f;
+	data._fPosY = 30.f;
+
+	CFontMgr::GetInst()->DrawFont(m_szText, data, 0.01f);
 }

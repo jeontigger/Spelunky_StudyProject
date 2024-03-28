@@ -80,7 +80,7 @@ CStage::CStage()
 
 	AddObject(pCamObj, 0);
 
-	CLevelMgr::GetInst()->ChangeLevel(this, LEVEL_STATE::PLAY);
+	CLevelMgr::GetInst()->ChangeLevel(this, LEVEL_STATE::STOP);
 }
 
 CStage::~CStage()
