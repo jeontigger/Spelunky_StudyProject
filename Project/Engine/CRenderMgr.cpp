@@ -33,6 +33,7 @@ CRenderMgr::~CRenderMgr()
 
 void CRenderMgr::tick()
 {
+	auto start = std::chrono::high_resolution_clock::now();
 	// ∑ª¥ı≈∏∞Ÿ π◊ ±Ì¿Ã ≈∏∞Ÿ º≥¡§
 	Ptr<CTexture> pRTTex = CAssetMgr::GetInst()->FindAsset<CTexture>(L"RenderTargetTex");
 	Ptr<CTexture> pDSTex = CAssetMgr::GetInst()->FindAsset<CTexture>(L"DepthStencilTex");

@@ -6,6 +6,7 @@
 #include "CMonsterScript.h"
 #include "CPlayerScript.h"
 #include "CTile.h"
+#include "CCameraMovement.h"
 
 void CScriptMgr::GetScriptInfo(vector<wstring>& _vec)
 {
@@ -14,6 +15,7 @@ void CScriptMgr::GetScriptInfo(vector<wstring>& _vec)
 	_vec.push_back(L"CMonsterScript");
 	_vec.push_back(L"CPlayerScript");
 	_vec.push_back(L"CTile");
+	_vec.push_back(L"CCameraMovement");
 }
 
 CScript * CScriptMgr::GetScript(const wstring& _strScriptName)
@@ -28,6 +30,8 @@ CScript * CScriptMgr::GetScript(const wstring& _strScriptName)
 		return new CPlayerScript;
 	if (L"CTile" == _strScriptName)
 		return new CTile;
+	if (L"CCameraMovement" == _strScriptName)
+		return new CCameraMovement;
 	return nullptr;
 }
 
@@ -49,6 +53,9 @@ CScript * CScriptMgr::GetScript(UINT _iScriptType)
 		break;
 	case (UINT)SCRIPT_TYPE::TILE:
 		return new CTile;
+		break;
+	case (UINT)SCRIPT_TYPE::CAMERAMOVEMENT:
+		return new CCameraMovement;
 		break;
 	}
 	return nullptr;
@@ -76,6 +83,10 @@ const wchar_t * CScriptMgr::GetScriptName(CScript * _pScript)
 
 	case SCRIPT_TYPE::TILE:
 		return L"CTile";
+		break;
+
+	case SCRIPT_TYPE::CAMERAMOVEMENT:
+		return L"CCameraMovement";
 		break;
 
 	}

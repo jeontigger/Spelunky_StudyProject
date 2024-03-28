@@ -538,5 +538,8 @@
     <FxCompile Include="tile.fx">
       <Filter>ShaderCode\custom</Filter>
     </FxCompile>
+    <FxCompile Include="AtlasPick.fx">
+      <Filter>ShaderCode\custom</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>

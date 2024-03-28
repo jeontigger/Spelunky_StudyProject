@@ -162,6 +162,7 @@ call CodeGen.exe</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CCameraMovement.h" />
     <ClInclude Include="CBackgroundScript.h" />
     <ClInclude Include="CFieldObject.h" />
     <ClInclude Include="CMissileScript.h" />
@@ -180,8 +181,11 @@ call CodeGen.exe</Command>
     <ClInclude Include="global.h" />
     <ClInclude Include="math.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="strings.h" />
+    <ClInclude Include="zAxis.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CCameraMovement.cpp" />
     <ClCompile Include="CBackgroundScript.cpp" />
     <ClCompile Include="CFieldObject.cpp" />
     <ClCompile Include="CMissileScript.cpp" />

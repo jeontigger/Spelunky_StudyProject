@@ -14,7 +14,7 @@ protected:
 	LEVEL_STATE		m_State;
 
 public:
-	void begin();
+	virtual void begin();
 	virtual void tick();
 	virtual void finaltick();
 	

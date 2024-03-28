@@ -6,6 +6,7 @@
 #include <Engine/CFontMgr.h>
 #include <Engine/CTimeMgr.h>
 #include <Engine/CLevelMgr.h>
+#include <Engine/CCollisionMgr.h>
 
 #include <Engine/CGameObject.h>
 #include <Engine/components.h>
@@ -13,7 +14,7 @@
 #include <Engine/CLayer.h>
 
 #include "CRandomMgr.h"
-
+#include "CCameraMovement.h"
 #include "CStagePack.h"
 #include "CTile.h"
 
@@ -25,9 +26,9 @@ CStage::CStage()
 	m_arrLayer[1]->SetName(L"Background");
 	m_arrLayer[2]->SetName(L"Tile");
 	m_arrLayer[3]->SetName(L"Player");
-	m_arrLayer[4]->SetName(L"Monster");
+	m_arrLayer[4]->SetName(L"CameraCollider");
 	m_arrLayer[5]->SetName(L"Light");
-	m_arrLayer[6]->SetName(L"Tile");
+	m_arrLayer[6]->SetName(L"Camera");
 	m_arrLayer[31]->SetName(L"UI");
 
 	// 전역 광원 추가
@@ -68,17 +69,48 @@ CStage::CStage()
 	pCamObj->SetName(L"MainCamera");
 	pCamObj->AddComponent(new CTransform);
 	pCamObj->AddComponent(new CCamera);
+	pCamObj->AddComponent(new CCollider2D);
+	pCamObj->AddComponent(new CCameraMovement);
 	
 
 	pCamObj->Transform()->SetRelativePos(Vec3(0.5f, 0.f,0.f));
 	pCamObj->Transform()->SetRelativeRotation(Vec3(0.f, 0.f, 0.f));
+	pCamObj->Transform()->SetRelativeScale(Vec3(TileBlockScaleX*2, TileBlockScaleY + TileScaleY, 0.f));
 
 	pCamObj->Camera()->SetProjType(PROJ_TYPE::ORTHOGRAPHIC);
 	pCamObj->Camera()->SetCameraPriority(0);
 	pCamObj->Camera()->LayerCheckAll();
 	pCamObj->Camera()->LayerCheck(31, false);
 
-	AddObject(pCamObj, 0);
+	AddObject(pCamObj, L"Camera");
+
+	//Main Camera Block 생성
+	pCamObj = new CGameObject;
+	pCamObj->SetName(CameraColliderWallName);
+	pCamObj->AddComponent(new CTransform);
+	pCamObj->AddComponent(new CCollider2D);
+
+	pCamObj->Transform()->SetRelativePos(Vec3(-TileBlockScaleX *2 - TileScaleX*3 , 0.f, 0.f));
+	pCamObj->Transform()->SetRelativeScale(Vec3(TileScaleX * 2, TileBlockScaleY * 4, 1.f));
+	AddObject(pCamObj, L"CameraCollider");
+
+	pCamObj = pCamObj->Clone();
+	pCamObj->Transform()->SetRelativePos(Vec3(TileBlockScaleX * 2 + TileScaleX * 3, 0.f, 0.f));
+	AddObject(pCamObj, L"CameraCollider");
+
+	pCamObj = new CGameObject;
+	pCamObj->SetName(CameraColliderPlatformName);
+	pCamObj->AddComponent(new CTransform);
+	pCamObj->AddComponent(new CCollider2D);
+
+	pCamObj->Transform()->SetRelativePos(Vec3(0.f, -TileBlockScaleY * 2 - TileScaleY * 3, 0.f));
+	pCamObj->Transform()->SetRelativeScale(Vec3(TileBlockScaleX * 4, TileScaleY * 2, 1.f));
+
+	AddObject(pCamObj, L"CameraCollider");
+
+	pCamObj = pCamObj->Clone();
+	pCamObj->Transform()->SetRelativePos(Vec3(0.f, TileBlockScaleY * 2 + TileScaleY * 3, 0.f));
+	AddObject(pCamObj, L"CameraCollider");
 
 	CLevelMgr::GetInst()->ChangeLevel(this, LEVEL_STATE::PLAY);
 }
@@ -132,7 +164,6 @@ void CStage::ChangeState(StageState _state)
 
 void CStage::CreateBlocks()
 {
-
 	PrintChangeState(L"Create Blocks");
 
 	CGameObject* pObj;
@@ -144,7 +175,7 @@ void CStage::CreateBlocks()
 			pObj->AddComponent(new CMeshRender);
 			pObj->Transform()->SetRelativeScale(TileBlockScaleVec);
 
-			pObj->Transform()->SetRelativePos(Vec3(col * TileBlockScaleX - TileBlockScaleX * (STAGETILEROW/2 - 0.5), -row * TileBlockScaleY + TileBlockScaleY * (STAGETILECOL/2 - 0.5), 500));
+			pObj->Transform()->SetRelativePos(Vec3(col * TileBlockScaleX - TileBlockScaleX * (STAGETILEROW/2 - 0.5), -row * TileBlockScaleY + TileBlockScaleY * (STAGETILECOL/2 - 0.5), BackgroundZ));
 			wstring name = L"DummyBlock" + std::to_wstring(row * 4 + col);
 			pObj->SetName(name);
 
@@ -162,16 +193,16 @@ void CStage::SelectEntrance()
 {
 	PrintChangeState(L"Select Entrance");
 
-	m_iEntrancePos = GETRANDOM(STAGETILECOL-2);
-	m_vecBackgrounds[1][m_iEntrancePos + 1]->DMtrlSetScalar(INT_0, 2);
+	m_iEntrancePos = GETRANDOM(STAGETILECOL);
+	m_vecBackgrounds[0][m_iEntrancePos]->DMtrlSetScalar(INT_0, 2);
 
 }
 
 void CStage::SelectExit()
 {
 	PrintChangeState(L"Select Exit");
-	m_iExitPos = GETRANDOM(STAGETILECOL-2);
-	m_vecBackgrounds[STAGETILEROW - 2][m_iExitPos + 1]->DMtrlSetScalar(INT_0, 2);
+	m_iExitPos = GETRANDOM(STAGETILECOL);
+	m_vecBackgrounds[STAGETILEROW-1][m_iExitPos]->DMtrlSetScalar(INT_0, 2);
 }
 
 void CStage::GeneratePath()
@@ -185,10 +216,10 @@ void CStage::GeneratePath()
 			m_visited[row][col] = false;
 		}
 	}
-	Vec2 curPos(m_iEntrancePos + 1, 1);
-	Vec2 targetPos(m_iExitPos + 1, STAGETILEROW - 2);
+	Vec2 curPos(m_iEntrancePos , 0);
+	Vec2 targetPos(m_iExitPos , STAGETILEROW - 1);
 
-	m_visited[1][m_iEntrancePos + 1] = true;
+	m_visited[0][m_iEntrancePos] = true;
 
 	vector<Vec2> path;
 	path.push_back(curPos);
@@ -203,7 +234,7 @@ int arrCol[] = { 1, 0, -1 };
 void CStage::DFSGenerate(vector<Vec2>& _path, bool find)
 {
 	Vec2 curPos = _path.back();
-	if (find || curPos.x == m_iExitPos+ 1&& curPos.y == STAGETILEROW - 2) {
+	if (find || curPos.x == m_iExitPos&& curPos.y == STAGETILEROW - 1) {
 		m_Path = _path;
 		find = true;
 		return;
@@ -223,7 +254,7 @@ void CStage::DFSGenerate(vector<Vec2>& _path, bool find)
 		
 		Vec2 nextPos(curPos.x + arrCol[ran], curPos.y + arrRow[ran]);
 
-		if (1 <= nextPos.x && nextPos.x < STAGETILECOL - 1 && 1 <= nextPos.y && nextPos.y < STAGETILEROW - 1){
+		if (0 <= nextPos.x && nextPos.x < STAGETILECOL && 0 <= nextPos.y && nextPos.y < STAGETILEROW){
 			if (!m_visited[(int)nextPos.y][(int)nextPos.x]) {
 				m_visited[(int)nextPos.y][(int)nextPos.x] = true;
 				_path.push_back(nextPos);
@@ -254,23 +285,17 @@ void CStage::FitType()
 	for (int row = 0; row < STAGETILEROW; row++) {
 		for (int col = 0; col < STAGETILECOL; col++)
 		{
-			if (row == 0 || row == STAGETILEROW-1 || col == 0 || col == STAGETILECOL-1) {
-				m_arrTileBlocks[row][col].SetBlockType(TileBlockType::NeverCrash);
-			}
-			else
-			{
-				m_arrTileBlocks[row][col].SetBlockType(TileBlockType::Side);
-			}
+			m_arrTileBlocks[row][col].SetBlockType(TileBlockType::Side);
 		}
 	}
 
 
-	m_arrTileBlocks[1][m_iEntrancePos+1].SetBlockType(TileBlockType::Entrance);
-	if (m_Path[1].y == 2) {
-		m_arrTileBlocks[1][m_iEntrancePos+1].SetBlockType(TileBlockType::Entrance_Fall);
+	m_arrTileBlocks[0][m_iEntrancePos].SetBlockType(TileBlockType::Entrance);
+	if (m_Path[1].y == 1) {
+		m_arrTileBlocks[0][m_iEntrancePos].SetBlockType(TileBlockType::Entrance_Fall);
 	}
 
-	Vec2 prevPos(m_iEntrancePos+1, 1);
+	Vec2 prevPos(m_iEntrancePos, 0);
 	for (int i = 1; i < m_Path.size() - 1; i++) {
 		Vec2 curPos = m_Path[i];
 		Vec2 nextPos = m_Path[i + 1];
@@ -332,13 +357,10 @@ void CStage::RegistBackground()
 			m_vecBackgrounds[row][col]->DMtrlSetTex(TEX_0, bg);
 		}
 	}
-
 }
 
 void CStage::TileInstancing()
 {
-
-
 	for (int row = 0; row < STAGETILEROW; row++)
 	{
 		for (int col = 0; col < STAGETILECOL; col++)
@@ -349,6 +371,42 @@ void CStage::TileInstancing()
 		}
 	}
 
+	Ptr<CPrefab> prefab = CAssetMgr::GetInst()->Load<CPrefab>(OutlineWallKey, OutlineWallKey);
+	Ptr<CTexture> tex = CAssetMgr::GetInst()->Load<CTexture>(OutlineAtlasPath, OutlineAtlasPath);
+
+	int maxcount = 7;
+	for (int j = 0; j < maxcount; j++) {
+		CGameObject* object = prefab->Instantiate();
+		Vec3 scale = object->Transform()->GetRelativeScale();
+		object->Transform()->SetRelativePos(Vec3(TileBlockScaleX * 2 + TileScaleX, -(maxcount / 2) * scale.y + scale.y * j, OutlineWallZ));
+		GamePlayStatic::SpawnGameObject(object, TileLayer);
+	}
+	for (int j = 0; j < maxcount; j++) {
+		CGameObject* object = prefab->Instantiate();
+		Vec3 scale = object->Transform()->GetRelativeScale();
+		object->Transform()->SetRelativePos(Vec3(-(TileBlockScaleX * 2 + TileScaleX), -(maxcount / 2) * scale.y + scale.y * j, OutlineWallZ));
+		GamePlayStatic::SpawnGameObject(object, TileLayer);
+	}
+
+	for (int j = 0; j < maxcount; j++) {
+		CGameObject* object = prefab->Instantiate();
+		Vec3 scale = object->Transform()->GetRelativeScale();
+		Vec3 rotation = object->Transform()->GetRelativeRotation();
+		object->Transform()->SetRelativePos(Vec3(-(maxcount / 2) * scale.y + scale.y * j, TileBlockScaleY * 2 + TileScaleY, OutlineWallZ));
+		rotation.z = XM_PI/2;
+		object->Transform()->SetRelativeRotation(rotation);
+		GamePlayStatic::SpawnGameObject(object, TileLayer);
+	}
+
+	for (int j = 0; j < maxcount; j++) {
+		CGameObject* object = prefab->Instantiate();
+		Vec3 scale = object->Transform()->GetRelativeScale();
+		Vec3 rotation = object->Transform()->GetRelativeRotation();
+		object->Transform()->SetRelativePos(Vec3(-(maxcount / 2) * scale.y + scale.y * j, -(TileBlockScaleY * 2 + TileScaleY), OutlineWallZ));
+		rotation.z = XM_PI / 2;
+		object->Transform()->SetRelativeRotation(rotation);
+		GamePlayStatic::SpawnGameObject(object, TileLayer);
+	}
 }
 
 void CStage::tick()
@@ -359,6 +417,7 @@ void CStage::tick()
 void CStage::finaltick()
 {
 	CLevel::finaltick();
+
 
 	if (m_State == LEVEL_STATE::STOP)
 		return;
@@ -392,6 +451,14 @@ void CStage::finaltick()
 			ChangeState(StageState::TILE_INSTANCING);
 		}
 	}
+}
+
+void CStage::begin()
+{
+	CLevel::begin();
+
+	CCollisionMgr::GetInst()->LayerCheck(L"Camera", L"CameraCollider");
+	CCollisionMgr::GetInst()->LayerCheck(L"Tile", L"Camera");
 }
 
 void CStage::PrintChangeState(const wchar_t* _content)

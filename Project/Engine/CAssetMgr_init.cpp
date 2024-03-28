@@ -352,6 +352,20 @@ void CAssetMgr::CreateCustomGraphicsShader()
 	pShader->SetDomain(SHADER_DOMAIN::DOMAIN_MASKED);
 
 	AddAsset(TileShaderKey, pShader.Get());
+
+	// =================================
+	// AtlasShader
+	// =================================
+	pShader = new CGraphicsShader;
+	pShader->CreateVertexShader(AtlasShaderPath, AtlasVS);
+	pShader->CreatePixelShader(AtlasShaderPath, AtlasPS);
+
+	pShader->SetRSType(RS_TYPE::CULL_NONE);
+	pShader->SetDSType(DS_TYPE::LESS);
+	pShader->SetBSType(BS_TYPE::DEFAULT);
+	pShader->SetDomain(SHADER_DOMAIN::DOMAIN_MASKED);
+
+	AddAsset(AtlasShaderKey, pShader.Get());
 }
 
 void CAssetMgr::CreateCustomMaterial()
@@ -367,6 +381,11 @@ void CAssetMgr::CreateCustomMaterial()
 	pMtrl = new CMaterial(true);
 	pMtrl->SetShader(FindAsset<CGraphicsShader>(TileShaderKey));
 	AddAsset<CMaterial>(TileMtrl, pMtrl.Get());
+
+	// Atlas
+	pMtrl = new CMaterial(true);
+	pMtrl->SetShader(FindAsset<CGraphicsShader>(AtlasShaderKey));
+	AddAsset<CMaterial>(AtlasMtrl, pMtrl.Get());
 }
 
 

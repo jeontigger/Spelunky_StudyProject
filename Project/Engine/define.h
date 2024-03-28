@@ -47,6 +47,13 @@
 #define TilePS "PS_Tile"
 #define TileMtrl L"TileMaterial"
 
+#define AtlasShaderPath L"shader\\AtlasPick.fx"
+#define AtlasShaderKey L"AtlasShader"
+#define AtlasVS "VS_ATLAS"
+#define AtlasPS "PS_ATLAS"
+#define AtlasMtrl L"AtlasMaterial"
+
+
 #define EMPTYSYMBOL "EMPTY"
 
 enum class DIR_TYPE

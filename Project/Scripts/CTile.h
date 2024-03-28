@@ -27,6 +27,7 @@ class CTile :
     public CFieldObject
 {
 private:
+    static int TileCount;
     TileType m_type;
     TileType m_arrSurroundTiles[(int)SurroundTile::END];
 

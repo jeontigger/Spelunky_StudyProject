@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "CTile.h"
-
+int CTile::TileCount = 0;
 CTile::CTile()
 	:CFieldObject(SCRIPT_TYPE::TILE)
 {
@@ -24,12 +24,13 @@ CTile::~CTile()
 void CTile::Instancing(TileType type, int row, int col)
 {
 	SetTileType(type);
-	Vec3 pos = Vec3(row, col, 200.f);
+	Vec3 pos = Vec3(row, col, TileZ);
 	if (type == TileType::Door) {
 		pos.x += TileScaleX;
 		pos.y -= TileScaleY/2;
 	}
 	GetOwner()->Transform()->SetRelativePos(pos);
+	TileCount++;
 }
 
 void CTile::SetTileType(TileType type)
@@ -51,7 +52,7 @@ void CTile::tick()
 	}
 
 	prev = m_type;
-
+	TileCount;
 }
 
 void CTile::begin()

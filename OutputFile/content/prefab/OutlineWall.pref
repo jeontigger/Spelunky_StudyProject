@@ -1,0 +1,22 @@
+OutlineWall
+0
+2688 -2 200
+256 786 1
+0 0 0
+1
+1
+0 0 0
+1 1 1
+0
+0
+9
+1
+RectMesh
+1
+1
+material\OutlineWall.mtrl
+0
+material\OutlineWall.mtrl
+15
+0
+0

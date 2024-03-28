@@ -76,7 +76,7 @@ void CCamera::finaltick()
 		m_matProj = XMMatrixPerspectiveFovLH(m_FOV, m_AspectRatio, 1.f, m_Far);
 	}
 
-	
+
 }
 
 void CCamera::SetCameraPriority(int _Priority)

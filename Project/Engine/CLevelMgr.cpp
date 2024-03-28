@@ -41,7 +41,7 @@ void CLevelMgr::tick()
 	{
 		m_CurLevel->tick();
 	}
-	
+
 	m_CurLevel->finaltick();
 
 	// 충돌 처리
@@ -49,7 +49,6 @@ void CLevelMgr::tick()
 
 	// Render
 	CRenderMgr::GetInst()->tick();
-
 	
 }
 

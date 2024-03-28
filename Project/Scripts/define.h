@@ -3,8 +3,8 @@
 #define TILEBLOCKSIZEX 10
 #define TILEBLOCKSIZEY 8
 
-#define STAGETILEROW 6
-#define STAGETILECOL 6
+#define STAGETILEROW 4
+#define STAGETILECOL 4
 
 #define TileScaleX 128
 #define TileScaleY 128
@@ -14,15 +14,11 @@
 
 #define TileBlockScaleVec Vec3(TileBlockScaleX, TileBlockScaleY, 1)
 
-#define TileLayer 3
+#define TileLayer 2
 
 #define RandomAccuracy 100
 
 #define GETRANDOM(bound) CRandomMgr::GetInst()->GetRandom(bound)
-
-#define TilePrefKey L"prefab\\Tile.pref"
-
-#define ChunkPath L"stage\\DwellingChunk.ck";
 
 enum class StagePackList {
     Dwelling,

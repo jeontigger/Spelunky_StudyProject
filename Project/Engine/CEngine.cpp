@@ -16,7 +16,6 @@
 
 #include "CSound.h"
 
-
 CEngine::CEngine()
 	: m_hMainWnd(nullptr)
 	, m_vResolution()
