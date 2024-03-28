@@ -1,13 +1,6 @@
 #pragma once
 #include "CFieldObject.h"
 
-enum class SurroundTile {
-    TOP,
-    RIGHT,
-    BUTTOM,
-    LEFT,
-    END,
-};
 
 enum class TileType {
     Blank,
@@ -29,15 +22,15 @@ class CTile :
 private:
     static int TileCount;
     TileType m_type;
-    TileType m_arrSurroundTiles[(int)SurroundTile::END];
+    TileType m_arrSurroundTiles[(int)BoundaryTile::END];
 
 public:
     void Instancing(TileType type, int row, int col);
     void SetTileType(TileType type);
     TileType GetTileType() { return m_type; }
 
-    void SetSurroundTileType(SurroundTile _dir, TileType _type) { m_arrSurroundTiles[(int)_dir] = _type; }
-    TileType GetSurroundTileType(SurroundTile _dir) { return m_arrSurroundTiles[(int)_dir]; }
+    void SetSurroundTileType(BoundaryTile _dir, TileType _type) { m_arrSurroundTiles[(int)_dir] = _type; }
+    TileType GetSurroundTileType(BoundaryTile _dir) { return m_arrSurroundTiles[(int)_dir]; }
 
 public:
     virtual void tick() override;

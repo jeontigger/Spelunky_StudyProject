@@ -38,8 +38,8 @@ VS_OUT VS_ATLAS(VS_IN _in)
 #define g_Height g_float_1
 #define SliceWidth g_int_0
 #define SliceHeight g_int_1
-#define g_GridRow g_int_2
-#define g_GridCol g_int_3
+#define g_GridRow g_float_2
+#define g_GridCol g_float_3
 #define Atlas g_tex_0
 
 
@@ -55,9 +55,16 @@ float4 PS_ATLAS(VS_OUT _in) : SV_Target
         float2 adjustedUV = FramePosition * FrameSize + _in.vUV * FrameSize;
         vColor = Atlas.Sample(g_sam_1, adjustedUV);
         
+        float sum = vColor.r + vColor.g + vColor.b;
+        
+        if (sum < 0.1f)
+        {
+            discard;
+        }
+
         if (vColor.a < 0.1f)
         {
-            // ÇÈ¼¿ ½¦ÀÌ´õ¸¦ Áß°£¿¡ Æó±âÃ³¸®
+        // ÇÈ¼¿ ½¦ÀÌ´õ¸¦ Áß°£¿¡ Æó±âÃ³¸®
             discard; //clip(-1);            
         }
 

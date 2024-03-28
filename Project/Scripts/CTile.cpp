@@ -12,7 +12,7 @@ CTile::CTile(const CTile& tile)
 	, m_type(tile.m_type)
 {
 	AddScriptParam(SCRIPT_PARAM::INT, "Type", &m_type);
-	for (int i = 0; i < (int)SurroundTile::END; i++) {
+	for (int i = 0; i < (int)BoundaryTile::END; i++) {
 		m_arrSurroundTiles[i] = tile.m_arrSurroundTiles[i];
 	}
 }

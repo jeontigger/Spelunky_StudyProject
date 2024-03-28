@@ -47,3 +47,10 @@ enum class BlockTileType
 
 extern string StagePackListString[(int)StagePackList::END];
 
+enum class BoundaryTile {
+	TOP,
+	RIGHT,
+	BUTTOM,
+	LEFT,
+	END,
+};

@@ -24,7 +24,7 @@ void PrefabUI::render_update()
 
     static UINT layercheck = 0;
     int maxcol = 4;
-    int layeridx = 0;
+    static int layeridx = 0;
     for (int i = 0; i < 8; i++) {
         for (int j = 0; j < maxcol; j++) {
             auto layer = CLevelMgr::GetInst()->GetCurrentLevel()->GetLayer(i * maxcol + j);

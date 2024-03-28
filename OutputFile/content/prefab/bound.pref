@@ -1,0 +1,22 @@
+bound
+0
+0 0 0
+1 1 1
+0 0 0
+1
+1
+0 0 0
+1 1 1
+0
+0
+9
+1
+RectMesh
+1
+1
+material\boundary.mtrl
+0
+material\boundary.mtrl
+15
+0
+0

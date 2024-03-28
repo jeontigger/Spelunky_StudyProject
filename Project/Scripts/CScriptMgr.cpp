@@ -7,6 +7,7 @@
 #include "CPlayerScript.h"
 #include "CTile.h"
 #include "CCameraMovement.h"
+#include "CTileBoundary.h"
 
 void CScriptMgr::GetScriptInfo(vector<wstring>& _vec)
 {
@@ -16,6 +17,7 @@ void CScriptMgr::GetScriptInfo(vector<wstring>& _vec)
 	_vec.push_back(L"CPlayerScript");
 	_vec.push_back(L"CTile");
 	_vec.push_back(L"CCameraMovement");
+	_vec.push_back(L"CTileBoundary");
 }
 
 CScript * CScriptMgr::GetScript(const wstring& _strScriptName)
@@ -32,6 +34,8 @@ CScript * CScriptMgr::GetScript(const wstring& _strScriptName)
 		return new CTile;
 	if (L"CCameraMovement" == _strScriptName)
 		return new CCameraMovement;
+	if (L"CTileBoundary" == _strScriptName)
+		return new CTileBoundary;
 	return nullptr;
 }
 
@@ -56,6 +60,9 @@ CScript * CScriptMgr::GetScript(UINT _iScriptType)
 		break;
 	case (UINT)SCRIPT_TYPE::CAMERAMOVEMENT:
 		return new CCameraMovement;
+		break;
+	case (UINT)SCRIPT_TYPE::TILEBOUNDARY:
+		return new CTileBoundary;
 		break;
 	}
 	return nullptr;
@@ -87,6 +94,10 @@ const wchar_t * CScriptMgr::GetScriptName(CScript * _pScript)
 
 	case SCRIPT_TYPE::CAMERAMOVEMENT:
 		return L"CCameraMovement";
+		break;
+
+	case SCRIPT_TYPE::TILEBOUNDARY:
+		return L"CTileBoundary";
 		break;
 
 	}

@@ -4,3 +4,4 @@ CMonsterScript
 CPlayerScript
 CTile
 CCameraMovement
+CTileBoundary
