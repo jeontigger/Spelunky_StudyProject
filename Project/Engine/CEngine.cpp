@@ -13,6 +13,7 @@
 #include "CRenderMgr.h"
 #include "CCollisionMgr.h"
 #include "CFontMgr.h"
+#include "CChronoMgr.h"
 
 #include "CSound.h"
 
@@ -59,20 +60,27 @@ int CEngine::init(HWND _hWnd, Vec2 _vResolution)
 
 	return S_OK;
 }
-
+#include <Scripts\func.h>
 void CEngine::progress()
 {
 	// Manager Update
 	CTimeMgr::GetInst()->tick();
 	CKeyMgr::GetInst()->tick();
-
+	CChronoMgr::GetInst()->Start();
 	// FMOD Update
 	CSound::g_pFMOD->update();
-
+	auto time = CChronoMgr::GetInst()->End();
+	CChronoMgr::GetInst()->Start();
 	// Level Update	
 	CLevelMgr::GetInst()->tick();
+	time = CChronoMgr::GetInst()->End();
+	CChronoMgr::GetInst()->Start();
 	CTimeMgr::GetInst()->render();
+	time = CChronoMgr::GetInst()->End();
+	CChronoMgr::GetInst()->Start();
 	CFontMgr::GetInst()->render();
+	time = CChronoMgr::GetInst()->End();
+	CChronoMgr::GetInst()->Start();
 
 	// GC
 	CGC::GetInst()->tick();

@@ -169,6 +169,7 @@
     <ClInclude Include="utils.h">
       <Filter>01. Header</Filter>
     </ClInclude>
+    <ClInclude Include="CChronoMgr.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
@@ -331,6 +332,7 @@
     <ClCompile Include="SimpleMath.cpp">
       <Filter>Module</Filter>
     </ClCompile>
+    <ClCompile Include="CChronoMgr.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Default">

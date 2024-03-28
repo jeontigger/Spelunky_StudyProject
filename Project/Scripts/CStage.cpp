@@ -112,7 +112,7 @@ CStage::CStage()
 	pCamObj->Transform()->SetRelativePos(Vec3(0.f, TileBlockScaleY * 2 + TileScaleY * 3, 0.f));
 	AddObject(pCamObj, L"CameraCollider");
 
-	CLevelMgr::GetInst()->ChangeLevel(this, LEVEL_STATE::PLAY);
+	CLevelMgr::GetInst()->ChangeLevel(this, LEVEL_STATE::STOP);
 }
 
 CStage::~CStage()

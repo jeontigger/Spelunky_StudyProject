@@ -5,6 +5,7 @@
 #include <Engine/CTimeMgr.h>
 
 #include <Engine/CMeshRender.h>
+#include <Engine\CCamera.h>
 
 CCameraMovement::CCameraMovement()
 	: CScript(CAMERAMOVEMENT)
@@ -18,24 +19,62 @@ CCameraMovement::~CCameraMovement()
 
 void CCameraMovement::tick()
 {
-	auto pos = Transform()->GetRelativePos();
-	m_vPrevPos = pos;
-	if (KEY_PRESSED(KEY::W)) {
-		pos.y += m_fSpeed * DT;
+	if (Camera()->GetProjType() == PROJ_TYPE::ORTHOGRAPHIC) {
+		auto pos = Transform()->GetRelativePos();
+		m_vPrevPos = pos;
+		if (KEY_PRESSED(KEY::W)) {
+			pos.y += m_fSpeed * DT;
+		}
+		if (KEY_PRESSED(KEY::D)) {
+			pos.x += m_fSpeed * DT;
+		}
+		if (KEY_PRESSED(KEY::A)) {
+			pos.x -= m_fSpeed * DT;
+		}
+		if (KEY_PRESSED(KEY::S)) {
+			pos.y -= m_fSpeed * DT;
+		}
+		m_vMoveDir = pos - m_vPrevPos;
+		m_vMoveDir.Normalize();
+		Transform()->SetRelativePos(pos);
 	}
-	if (KEY_PRESSED(KEY::D)) {
-		pos.x += m_fSpeed * DT;
-	}
-	if (KEY_PRESSED(KEY::A)) {
-		pos.x -= m_fSpeed * DT;
-	}
-	if (KEY_PRESSED(KEY::S)) {
-		pos.y -= m_fSpeed * DT;
-	}
-	m_vMoveDir = pos - m_vPrevPos;
-	m_vMoveDir.Normalize();
-	Transform()->SetRelativePos(pos);
+	else {
+		Vec3 vPos = Transform()->GetRelativePos();
 
+		Vec3 vFront = Transform()->GetWorldDir(DIR_TYPE::FRONT);
+		Vec3 vRight = Transform()->GetWorldDir(DIR_TYPE::RIGHT);
+
+		if (KEY_PRESSED(KEY::W))
+		{
+			vPos += DT * m_fSpeed * vFront;
+		}
+
+		if (KEY_PRESSED(KEY::S))
+		{
+			vPos += DT * m_fSpeed * -vFront;
+		}
+
+		if (KEY_PRESSED(KEY::A))
+		{
+			vPos += DT * m_fSpeed * -vRight;
+		}
+
+		if (KEY_PRESSED(KEY::D))
+		{
+			vPos += DT * m_fSpeed * vRight;
+		}
+
+		Transform()->SetRelativePos(vPos);
+
+		if (KEY_PRESSED(KEY::RBTN))
+		{
+			Vec2 vDrag = CKeyMgr::GetInst()->GetMouseDrag();
+			Vec3 vRot = Transform()->GetRelativeRotation();
+			vRot.y += vDrag.x * DT_ENGINE * XM_PI * 4.f;
+			vRot.x += vDrag.y * DT_ENGINE * XM_PI * 4.f;
+			Transform()->SetRelativeRotation(vRot);
+		}
+	}
 }
 
 void CCameraMovement::BeginOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCollider2D* _OtherCollider)
