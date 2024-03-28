@@ -80,7 +80,7 @@ CStage::CStage()
 
 	AddObject(pCamObj, 0);
 
-	CLevelMgr::GetInst()->ChangeLevel(this, LEVEL_STATE::STOP);
+	CLevelMgr::GetInst()->ChangeLevel(this, LEVEL_STATE::PLAY);
 }
 
 CStage::~CStage()
@@ -270,7 +270,7 @@ void CStage::FitType()
 		m_arrTileBlocks[1][m_iEntrancePos+1].SetBlockType(TileBlockType::Entrance_Fall);
 	}
 
-	Vec2 prevPos(m_iEntrancePos, 0);
+	Vec2 prevPos(m_iEntrancePos+1, 1);
 	for (int i = 1; i < m_Path.size() - 1; i++) {
 		Vec2 curPos = m_Path[i];
 		Vec2 nextPos = m_Path[i + 1];

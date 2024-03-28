@@ -24,7 +24,12 @@ CTile::~CTile()
 void CTile::Instancing(TileType type, int row, int col)
 {
 	SetTileType(type);
-	GetOwner()->Transform()->SetRelativePos(Vec3(row, col, 200.f));
+	Vec3 pos = Vec3(row, col, 200.f);
+	if (type == TileType::Door) {
+		pos.x += TileScaleX;
+		pos.y -= TileScaleY/2;
+	}
+	GetOwner()->Transform()->SetRelativePos(pos);
 }
 
 void CTile::SetTileType(TileType type)
@@ -84,6 +89,7 @@ Vec2 CTile::TypeToPos(TileType type)
 		break;
 
 	case TileType::Door:
+		return Vec2(7, 0);
 		break;
 	case TileType::END:
 		break;

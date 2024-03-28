@@ -3,6 +3,7 @@
 enum class ChunkType {
 	Air,
 	Ground,
+	Door,
 	END,
 };
 
@@ -10,8 +11,8 @@ class CTileChunk
 {
 private:
 	int m_row;
-	int m_col;
 	ChunkType m_Type;
+	int m_col;
 	vector<vector<BlockTileType>> m_Tiles;
 
 public:

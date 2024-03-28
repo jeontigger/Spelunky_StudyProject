@@ -39,7 +39,7 @@ VS_OUT VS_Tile(VS_IN _in)
 #define TileSize 128
 #define ROW g_int_2
 #define COL g_int_1
-#define Type g_int_0 // 2: tree, 3: º®
+#define Type g_int_0 // 2: tree, 3: º®, 8: Door
 #define DwellingTex g_tex_0
 #define WoodTex g_tex_1
 #define WallTex g_tex_2
@@ -67,6 +67,14 @@ float4 PS_Tile(VS_OUT _in) : SV_Target
             float2 adjustedUV = FramePosition * FrameSize + _in.vUV * FrameSize;
             vColor = WallTex.Sample(g_sam_1, adjustedUV);
         }
+        else if (Type == 8)
+        {
+            FrameSize = float2(1.f / 4, 1.f / 6);
+            FramePosition = float2(0, 3.5);
+            float2 adjustedUV = FramePosition * FrameSize + _in.vUV * FrameSize;
+            vColor = DwellingTex.Sample(g_sam_1, adjustedUV);
+        }
+
         else
         {
             float2 adjustedUV = FramePosition * FrameSize + _in.vUV * FrameSize;

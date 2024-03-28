@@ -50,12 +50,16 @@ void CTileBlock::TileInstancing(int _row, int _col)
 	for (int row = 0; row < TILEBLOCKSIZEY; row++) {
 		for (int col = 0; col < TILEBLOCKSIZEX; col++) {
 			int rowpos = _row + TileScaleY * (TILEBLOCKSIZEY / 2) - TileScaleY / 2 - row * TileScaleY;
-			int colpos = _col + TileScaleX * (TILEBLOCKSIZEX / 2) - TileScaleX / 2 - col * TileScaleX;
+			int colpos = _col - TileScaleX * (TILEBLOCKSIZEX / 2) + TileScaleX / 2 + col * TileScaleX;
 
 			auto type = m_Tiles[row][col];
 			auto tile = tilepref->Instantiate();
 			auto script = tile->GetScript<CTile>();
 			TileType tiletype = TileType::Blank;
+			//if (type != BlockTileType::ChunkDoor) {
+			//	delete tile;
+			//	continue;
+			//}
 			switch (type)
 			{
 			case BlockTileType::Blank:
@@ -101,14 +105,21 @@ void CTileBlock::TileInstancing(int _row, int _col)
 				break;
 			case BlockTileType::ChunkAir:
 			{
-
+				CStagePack* sp = CStagePackMgr::GetInst()->GetStagePack(StagePackList::Dwelling);
+				auto chunk = sp->GetRandomChunk(ChunkType::Air);
+				chunk.Instancing(colpos, rowpos);
 			}
 				break;
 			case BlockTileType::ChunkDoor:
 			{
+				tiletype = TileType::Door;
+				script->Instancing(tiletype, colpos, rowpos);
+				tile->Transform()->SetRelativeScale(Vec3(TileScaleX * 3, TileScaleY * 2, 1));
+				tile->Collider2D()->SetOffsetScale(Vec2(0.33f, 0.5f));
+				tile->Collider2D()->SetOffsetPos(Vec2(0.f, -0.25f));
+				GamePlayStatic::SpawnGameObject(tile, TileLayer);
 
 			}
-				tiletype = TileType::Blank;
 				break;
 			case BlockTileType::END:
 				tiletype = TileType::Blank;
@@ -125,8 +136,6 @@ void CTileBlock::TileInstancing(int _row, int _col)
 				script->Instancing(tiletype, colpos, rowpos);
 				GamePlayStatic::SpawnGameObject(tile, TileLayer);
 			}
-
-			
 		}
 	}
 }
