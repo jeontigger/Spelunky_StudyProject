@@ -16,6 +16,7 @@ enum class TileType {
 	NeverCrash,
 	Ladder,
 	LadderHalf,
+    Half,
 	Movable,
 	Spike,
     Door,

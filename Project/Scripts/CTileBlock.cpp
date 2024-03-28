@@ -88,7 +88,7 @@ void CTileBlock::TileInstancing(int _row, int _col)
 				tiletype = TileType::LadderHalf;
 				break;
 			case BlockTileType::Half:
-				tiletype = TileType::Blank;
+				tiletype = TileType::Half;
 				break;
 			case BlockTileType::Movable:
 				tiletype = TileType::Movable;
@@ -100,14 +100,14 @@ void CTileBlock::TileInstancing(int _row, int _col)
 			{
 				CStagePack* sp = CStagePackMgr::GetInst()->GetStagePack(StagePackList::Dwelling);
 				auto chunk = sp->GetRandomChunk(ChunkType::Ground);
-				chunk.Instancing(colpos, rowpos);
+				chunk.Instancing(rowpos, colpos);
 			}
 				break;
 			case BlockTileType::ChunkAir:
 			{
 				CStagePack* sp = CStagePackMgr::GetInst()->GetStagePack(StagePackList::Dwelling);
 				auto chunk = sp->GetRandomChunk(ChunkType::Air);
-				chunk.Instancing(colpos, rowpos);
+				chunk.Instancing(rowpos, colpos);
 			}
 				break;
 			case BlockTileType::ChunkDoor:

@@ -73,7 +73,7 @@ void CTileChunk::Instancing(int _row, int _col)
 				tiletype = TileType::LadderHalf;
 				break;
 			case BlockTileType::Half:
-				tiletype = TileType::Blank;
+				tiletype = TileType::Half;
 				break;
 			case BlockTileType::END:
 				break;

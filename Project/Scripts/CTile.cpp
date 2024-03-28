@@ -81,6 +81,9 @@ Vec2 CTile::TypeToPos(TileType type)
 	case TileType::LadderHalf:
 		return Vec2(2, 4);
 
+	case TileType::Half:
+		return Vec2(1, 1);
+
 	case TileType::Movable:
 		return Vec2(0, 7);
 		break;
