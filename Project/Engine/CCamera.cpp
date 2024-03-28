@@ -10,6 +10,7 @@
 #include "CLayer.h"
 #include "CGameObject.h"
 #include "CRenderComponent.h"
+#include "CMeshRender.h"
 
 #include "CAssetMgr.h"
 
@@ -125,12 +126,18 @@ void CCamera::SortObject()
 		for (size_t j = 0; j < vecObjects.size(); ++j)
 		{
 			// 메쉬, 재질, 쉐이더 확인
-			if (!( vecObjects[j]->GetRenderComopnent()
+			if (!(vecObjects[j]->GetRenderComopnent()
 				&& vecObjects[j]->GetRenderComopnent()->GetMesh().Get()
 				&& vecObjects[j]->GetRenderComopnent()->GetMaterial().Get()
 				&& vecObjects[j]->GetRenderComopnent()->GetMaterial()->GetShader().Get()))
 			{
 				continue;
+			}
+
+			if (vecObjects[j]->MeshRender()) {
+				if (!vecObjects[j]->MeshRender()->isRenderActive()) {
+					continue;
+				}
 			}
 
 			SHADER_DOMAIN domain = vecObjects[j]->GetRenderComopnent()->GetMaterial()->GetShader()->GetDomain();

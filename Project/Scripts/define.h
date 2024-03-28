@@ -14,6 +14,7 @@
 
 #define TileBlockScaleVec Vec3(TileBlockScaleX, TileBlockScaleY, 1)
 
+#define BackgroundLayer 1
 #define TileLayer 2
 
 #define RandomAccuracy 100

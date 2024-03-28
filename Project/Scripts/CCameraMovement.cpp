@@ -4,6 +4,8 @@
 #include <Engine/CKeyMgr.h>
 #include <Engine/CTimeMgr.h>
 
+#include <Engine/CMeshRender.h>
+
 CCameraMovement::CCameraMovement()
 	: CScript(CAMERAMOVEMENT)
 	, m_fSpeed(500)
@@ -38,6 +40,11 @@ void CCameraMovement::tick()
 
 void CCameraMovement::BeginOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCollider2D* _OtherCollider)
 {
+	CMeshRender* render = _OtherObj->MeshRender();
+	if (render) {
+		render->setRenderActive(true);
+	}
+	
 }
 
 void CCameraMovement::Overlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCollider2D* _OtherCollider)
@@ -53,5 +60,14 @@ void CCameraMovement::Overlap(CCollider2D* _Collider, CGameObject* _OtherObj, CC
 		pos.y = m_vPrevPos.y;
 		Transform()->SetRelativePos(pos);
 	}
+}
+
+void CCameraMovement::EndOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCollider2D* _OtherCollider)
+{
+	CMeshRender* render = _OtherObj->MeshRender();
+	if (render) {
+		render->setRenderActive(false);
+	}
+
 }
 

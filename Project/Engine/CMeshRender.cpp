@@ -14,6 +14,7 @@
 
 CMeshRender::CMeshRender()
 	: CRenderComponent(COMPONENT_TYPE::MESHRENDER)
+	, m_bRenderActive(false)
 {
 }
 
@@ -45,6 +46,7 @@ void CMeshRender::render()
 	if (nullptr == GetMesh() || nullptr == GetMaterial())
 		return;
 
+
 	if (Animator2D())
 	{
 		Animator2D()->UpdateData();
@@ -55,6 +57,8 @@ void CMeshRender::render()
 	}
 
 	UpdateData();
+
+
 
 	GetMesh()->render();
 }

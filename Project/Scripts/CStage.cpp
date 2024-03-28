@@ -173,6 +173,8 @@ void CStage::CreateBlocks()
 			pObj = new CGameObject;
 			pObj->AddComponent(new CTransform);
 			pObj->AddComponent(new CMeshRender);
+			pObj->AddComponent(new CCollider2D);
+
 			pObj->Transform()->SetRelativeScale(TileBlockScaleVec);
 
 			pObj->Transform()->SetRelativePos(Vec3(col * TileBlockScaleX - TileBlockScaleX * (STAGETILEROW/2 - 0.5), -row * TileBlockScaleY + TileBlockScaleY * (STAGETILECOL/2 - 0.5), BackgroundZ));
@@ -459,6 +461,7 @@ void CStage::begin()
 
 	CCollisionMgr::GetInst()->LayerCheck(L"Camera", L"CameraCollider");
 	CCollisionMgr::GetInst()->LayerCheck(L"Tile", L"Camera");
+	CCollisionMgr::GetInst()->LayerCheck(7, 6);
 }
 
 void CStage::PrintChangeState(const wchar_t* _content)
