@@ -2,7 +2,7 @@
 #include "CPlayerScript.h"
 
 CPlayerScript::CPlayerScript()
-	: CScript(PLAYERSCRIPT)
+	: CScript((UINT)SCRIPT_TYPE::PLAYERSCRIPT)
 {
 	
 }

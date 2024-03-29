@@ -2,13 +2,13 @@
 #include "CTile.h"
 int CTile::TileCount = 0;
 CTile::CTile()
-	:CFieldObject(SCRIPT_TYPE::TILE)
+	:CFieldObject((UINT)SCRIPT_TYPE::TILE)
 {
 	AddScriptParam(SCRIPT_PARAM::INT, "Type", &m_type);
 }
 
 CTile::CTile(const CTile& tile)
-	:CFieldObject(SCRIPT_TYPE::TILE)
+	:CFieldObject((UINT)SCRIPT_TYPE::TILE)
 	, m_type(tile.m_type)
 {
 	AddScriptParam(SCRIPT_PARAM::INT, "Type", &m_type);

@@ -55,6 +55,7 @@
 
 
 #define EMPTYSYMBOL "EMPTY"
+#define StateEndSymbol "STATE_END"
 
 enum class DIR_TYPE
 {

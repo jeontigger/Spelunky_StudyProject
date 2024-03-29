@@ -12,3 +12,6 @@
 #define OutlineAtlasPath L"texture\\tilemap\\border_main.png"
 
 #define OutlineWallName L"OutlineWall"
+
+
+#define StateEndSymbol "STATE_END"

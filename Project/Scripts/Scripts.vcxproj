@@ -174,6 +174,7 @@ call CodeGen.exe</Command>
     <ClInclude Include="CStage.h" />
     <ClInclude Include="CStagePack.h" />
     <ClInclude Include="CStagePackMgr.h" />
+    <ClInclude Include="CStateMgr.h" />
     <ClInclude Include="CTile.h" />
     <ClInclude Include="CTileBlock.h" />
     <ClInclude Include="CTileBoundary.h" />
@@ -183,6 +184,7 @@ call CodeGen.exe</Command>
     <ClInclude Include="global.h" />
     <ClInclude Include="math.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="CPlayerIdleState.h" />
     <ClInclude Include="strings.h" />
     <ClInclude Include="zAxis.h" />
   </ItemGroup>
@@ -199,6 +201,7 @@ call CodeGen.exe</Command>
     <ClCompile Include="CStage.cpp" />
     <ClCompile Include="CStagePack.cpp" />
     <ClCompile Include="CStagePackMgr.cpp" />
+    <ClCompile Include="CStateMgr.cpp" />
     <ClCompile Include="CTile.cpp" />
     <ClCompile Include="CTileBlock.cpp" />
     <ClCompile Include="CTileBoundary.cpp" />
@@ -210,6 +213,7 @@ call CodeGen.exe</Command>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="CPlayerIdleState.cpp" />
     <ClCompile Include="Scripts.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

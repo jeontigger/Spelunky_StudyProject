@@ -12,6 +12,14 @@ CState::~CState()
 {
 }
 
+void CState::Save(ofstream& fout)
+{
+}
+
+void CState::Load(ifstream& fin)
+{
+}
+
 void* CState::GetBlackboardData(const wstring& _strKey)
 {
 	CStateMachine* pSM = m_FSM->GetStateMachine();

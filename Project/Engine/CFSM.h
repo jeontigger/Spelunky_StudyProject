@@ -41,6 +41,12 @@ public:
     void finaltick();
 
 public:
+    virtual int Save(const wstring& _strRelativePath);
+    virtual int Load(const wstring& _strFilePath);
+
+    static CState* (*LoadStateFunc)(const string& _strFilePath);
+
+public:
     CLONE_DISABLE(CFSM);
     CFSM(bool _bEngine = false);    
     ~CFSM();

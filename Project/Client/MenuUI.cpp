@@ -255,25 +255,47 @@ void MenuUI::GameObject()
 
 void MenuUI::Asset()
 {
-    if (ImGui::MenuItem("Create Empty Material"))
+    if (ImGui::BeginMenu("Level"))
     {
-        wchar_t szPath[255] = {};
-        wstring FilePath = CPathMgr::GetContentPath();
-
-        int num = 0;
-        while (true)
+        if (ImGui::MenuItem("Create Empty Material"))
         {
-            swprintf_s(szPath, L"Material//New Material_%d.mtrl", num);
-            if (!exists(FilePath + szPath))
-                break;
-            ++num;
+            wchar_t szPath[255] = {};
+            wstring FilePath = CPathMgr::GetContentPath();
+
+            int num = 0;
+            while (true)
+            {
+                swprintf_s(szPath, L"Material//New Material_%d.mtrl", num);
+                if (!exists(FilePath + szPath))
+                    break;
+                ++num;
+            }
+
+            CMaterial* pMtrl = new CMaterial;
+            pMtrl->SetName(szPath);
+            pMtrl->Save(szPath);
+            GamePlayStatic::AddAsset(pMtrl);
         }
+        if (ImGui::MenuItem("Create Empty FSM"))
+        {
+            wchar_t szPath[255] = {};
+            wstring FilePath = CPathMgr::GetContentPath();
 
-        CMaterial* pMtrl = new CMaterial;
-        pMtrl->SetName(szPath);
-        pMtrl->Save(szPath);
-        GamePlayStatic::AddAsset(pMtrl);
+            int num = 0;
+            while (true)
+            {
+                swprintf_s(szPath, L"fsm//New FSM_%d.mtrl", num);
+                if (!exists(FilePath + szPath))
+                    break;
+                ++num;
+            }
+
+            CFSM* pFSM = new CFSM;
+            pFSM->SetName(szPath);
+            pFSM->Save(szPath);
+            GamePlayStatic::AddAsset(pFSM);
+        }
+        ImGui::EndMenu();
     }
-
 }
 

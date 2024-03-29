@@ -8,6 +8,7 @@
 #include <Engine\CEngine.h>
 #include <Engine\CDevice.h>
 #include <Engine/CPrefab.h>
+#include <Engine/CFSM.h>
 
 #include "CLevelSaveLoad.h"
 
@@ -75,6 +76,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         
     CPrefab::GAMEOBJECT_SAVE = &CLevelSaveLoad::SaveGameObject;
     CPrefab::GAMEOBJECT_LOAD = &CLevelSaveLoad::LoadGameObject;    
+    CFSM::LoadStateFunc = &CLevelSaveLoad::LoadState;
+
     
 #ifndef _RELEASE_GAME
     // 임시 레벨 생성

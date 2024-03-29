@@ -7,7 +7,7 @@
 #include <Engine/CMeshRender.h>
 
 CCameraMovement::CCameraMovement()
-	: CScript(CAMERAMOVEMENT)
+	: CScript((UINT)SCRIPT_TYPE::CAMERAMOVEMENT)
 	, m_fSpeed(500)
 {
 }

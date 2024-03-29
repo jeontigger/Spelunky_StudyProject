@@ -2,7 +2,7 @@
 #include "CTileBoundary.h"
 
 CTileBoundary::CTileBoundary()
-	: CScript(TILEBOUNDARY)
+	: CScript((UINT)SCRIPT_TYPE::TILEBOUNDARY)
 	, m_Type(BoundaryTile::END)
 {
 }

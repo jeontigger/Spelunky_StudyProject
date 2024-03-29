@@ -370,3 +370,11 @@ CGameObject* CLevelSaveLoad::LoadGameObject(ifstream& fin)
 
 	return pObject;
 }
+
+#include <Engine/CState.h>
+#include <Scripts/CStateMgr.h>
+
+CState* CLevelSaveLoad::LoadState(const string& _strStateName)
+{
+	return CStateMgr::GetState(ToWString(_strStateName));
+}

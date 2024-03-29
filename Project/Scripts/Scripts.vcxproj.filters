@@ -68,6 +68,10 @@
     <ClInclude Include="CPlayerScript.h">
       <Filter>02. Scripts\Character</Filter>
     </ClInclude>
+    <ClInclude Include="CPlayerIdleState.h">
+      <Filter>08. States</Filter>
+    </ClInclude>
+    <ClInclude Include="CStateMgr.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -125,6 +129,10 @@
     <ClCompile Include="CPlayerScript.cpp">
       <Filter>02. Scripts\Character</Filter>
     </ClCompile>
+    <ClCompile Include="CPlayerIdleState.cpp">
+      <Filter>08. States</Filter>
+    </ClCompile>
+    <ClCompile Include="CStateMgr.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="00. Default">
@@ -183,6 +191,9 @@
     </Filter>
     <Filter Include="07. Character">
       <UniqueIdentifier>{a560a08d-6734-4e23-b84c-5ad08e5a7b5c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="08. States">
+      <UniqueIdentifier>{853ddb1c-247f-4a83-80b1-4b974435b9b2}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

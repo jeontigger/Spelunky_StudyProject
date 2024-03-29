@@ -28,6 +28,50 @@ void CFSM::finaltick()
 	}
 }
 
+int CFSM::Save(const wstring& _strRelativePath)
+{
+	wstring strFilePath = CPathMgr::GetContentPath();
+	strFilePath += _strRelativePath;
+
+	ofstream fout(strFilePath);
+
+	if (!fout.is_open())
+		return E_FAIL;
+
+	fout << GetName() << endl;
+
+	fout << m_mapState.size() << endl;
+
+	for (auto iter = m_mapState.begin(); iter != m_mapState.end(); ++iter) {
+		fout << iter->first << endl;
+		iter->second->Save(fout);
+	}
+
+	return MB_OK;
+}
+
+int CFSM::Load(const wstring& _strFilePath)
+{
+	ifstream fin(_strFilePath);
+
+	if (!fin.is_open()) return E_FAIL;
+	string name;
+	fin >> name;
+
+	int stateCnt;
+	fin >> stateCnt;
+	for (int i = 0; i < stateCnt; i++) {
+		string statename;
+		fin >> statename;
+
+		CState* state = nullptr;
+		if (LoadStateFunc)
+			state = LoadStateFunc(statename);
+		AddState(ToWString(statename), state);
+		state->Load(fin);
+	}
+}
+
 void CFSM::AddState(const wstring& _StateName, CState* _State)
 {
 	assert(!(FindState(_StateName)));

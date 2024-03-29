@@ -9,6 +9,7 @@ class CState :
     public CEntity
 {
 private:
+    UINT m_iStateType;
     CFSM*       m_FSM;
 
 public:
@@ -22,6 +23,8 @@ protected:
 
     void ChangeState(const wstring& _strStateName);
 
+public:
+    UINT GetStateType() { return m_iStateType; }
 
 public:
     CLONE_DISABLE(CState);
@@ -30,4 +33,8 @@ public:
     ~CState();
 
     friend class CFSM;
+
+public:
+    virtual void Save(ofstream& fout);
+    virtual void Load(ifstream& fin);
 };
