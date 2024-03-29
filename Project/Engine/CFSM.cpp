@@ -2,6 +2,7 @@
 #include "CFSM.h"
 
 CState* (*CFSM::LoadStateFunc)(const string& _strFilePath) = nullptr;
+
 CFSM::CFSM(bool _bEngine)
 	: CAsset(ASSET_TYPE::FSM, _bEngine)
 	, m_Master(nullptr)
@@ -48,7 +49,7 @@ int CFSM::Save(const wstring& _strRelativePath)
 		iter->second->Save(fout);
 	}
 
-	return MB_OK;
+	return S_OK;
 }
 
 int CFSM::Load(const wstring& _strFilePath)
@@ -68,6 +69,7 @@ int CFSM::Load(const wstring& _strFilePath)
 		CState* state = nullptr;
 		if (LoadStateFunc)
 			state = LoadStateFunc(statename);
+		state->SetName(statename);
 		AddState(ToWString(statename), state);
 		state->Load(fin);
 	}

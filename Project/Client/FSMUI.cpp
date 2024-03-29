@@ -22,6 +22,7 @@ void FSMUI::render_update()
 {
 	AssetUI::render_update();
 
+    Save();
 	// 스테이트 목록 보여주기 + change state
     ImGui::Separator();
     StateList();
@@ -35,6 +36,22 @@ void FSMUI::Activate()
 {
     AssetUI::Activate();
     m_target = (CFSM*)GetAsset().Get();
+    //strcpy(m_NameBuff, ToString(m_target->GetKey()).c_str());
+}
+
+#include "Content.h"
+void FSMUI::Save()
+{
+    ImGui::Text("New Name"); ImGui::SameLine();
+    ImGui::InputText("##FSMNameBox", m_NameBuff, sizeof(m_NameBuff)); ImGui::SameLine();
+    if(ImGui::Button("Save")) {
+        string name = string(m_NameBuff);
+        name = "fsm\\" + name + ".fsm";
+        m_target->SetName(name);
+        m_target->Save(ToWString(name));
+        auto content = (Content*)UIMGR->FindUI(UIContentName);
+        content->ResetContent();
+    }
 }
 
 void FSMUI::StateList()
@@ -42,10 +59,9 @@ void FSMUI::StateList()
     map<wstring, CState*>& states = m_target->GetStates();
     for (auto iter = states.begin(); iter != states.end();) {
         string statename = ToString(iter->first);
-        ImGui::InputText("##ShaderName", (char*)statename.c_str(), statename.length(), ImGuiInputTextFlags_ReadOnly);
+        ImGui::InputText("##StateName", (char*)statename.c_str(), statename.length(), ImGuiInputTextFlags_ReadOnly);
         ImGui::SameLine();
 
-        ImGui::SameLine();
         ImGui::PushID(0);
         ImGui::PushStyleColor(ImGuiCol_Button, (ImVec4)ImColor::HSV(0.f, 0.6f, 0.6f));
         ImGui::PushStyleColor(ImGuiCol_ButtonHovered, (ImVec4)ImColor::HSV(0.f, 0.6f, 0.6f));

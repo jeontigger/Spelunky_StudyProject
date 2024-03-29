@@ -87,7 +87,7 @@ float4 PS_Tile(VS_OUT _in) : SV_Target
             vColor = DwellingTex.Sample(g_sam_1, adjustedUV);
         }
         
-        if (vColor.a < 0.1f)
+        if (vColor.a < 0.01f)
         {
             // ÇÈ¼¿ ½¦ÀÌ´õ¸¦ Áß°£¿¡ Æó±âÃ³¸®
             discard; //clip(-1);            

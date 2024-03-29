@@ -35,6 +35,7 @@ public:
 
     CStateMachine* GetStateMachine() { return m_StateMachie; }
     void ChangeState(const wstring& _strStateName);
+    CState* GetCurState() { return m_CurState; }
 
 
 public:
@@ -54,5 +55,6 @@ public:
 private:
     map<wstring, CState*>& GetStates() { return m_mapState; }
     friend class FSMUI;
+    friend class StateMachineUI;
 };
 

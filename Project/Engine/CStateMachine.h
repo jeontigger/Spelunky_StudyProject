@@ -39,7 +39,10 @@ public:
 public:
     CLONE(CStateMachine);
     CStateMachine();
-
     ~CStateMachine();
+
+private:
+    Ptr<CFSM> GetOriginFSM() { return m_FSM; }
+    friend class StateMachineUI;
 };
 

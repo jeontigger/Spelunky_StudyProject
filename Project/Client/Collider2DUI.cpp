@@ -8,7 +8,7 @@ Collider2DUI::Collider2DUI()
 	, m_collider(nullptr)
 {
 	SetSize(ImVec2(0.f, 120.f));
-	SetComopnentTitle("Collider2D");
+	SetComponentTitle("Collider2D");
 }
 
 Collider2DUI::~Collider2DUI()

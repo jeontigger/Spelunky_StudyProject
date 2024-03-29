@@ -5,6 +5,7 @@ class FSMUI :
     public AssetUI
 {
 private:
+    char m_NameBuff[32];
     Ptr<CFSM> m_target;
     vector<string> m_vecNames;
 
@@ -17,7 +18,7 @@ public:
     ~FSMUI();
 
 private:
-    void CurState();
+    void Save();
     void StateList();
     void AddState();
 };

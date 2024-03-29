@@ -64,7 +64,6 @@
     <ClInclude Include="CTileBoundary.h">
       <Filter>02. Scripts\Tile\Boundary</Filter>
     </ClInclude>
-    <ClInclude Include="CCharacterScript.h" />
     <ClInclude Include="CPlayerScript.h">
       <Filter>02. Scripts\Character</Filter>
     </ClInclude>
@@ -73,6 +72,9 @@
     </ClInclude>
     <ClInclude Include="CStateMgr.h">
       <Filter>01. CodeGenMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="CCharacterScript.h">
+      <Filter>07. Character</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -127,7 +129,6 @@
     <ClCompile Include="CTileBoundary.cpp">
       <Filter>02. Scripts\Tile\Boundary</Filter>
     </ClCompile>
-    <ClCompile Include="CCharacterScript.cpp" />
     <ClCompile Include="CPlayerScript.cpp">
       <Filter>02. Scripts\Character</Filter>
     </ClCompile>
@@ -136,6 +137,9 @@
     </ClCompile>
     <ClCompile Include="CStateMgr.cpp">
       <Filter>01. CodeGenMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="CCharacterScript.cpp">
+      <Filter>07. Character</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

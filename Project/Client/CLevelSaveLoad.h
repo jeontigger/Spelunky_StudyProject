@@ -18,6 +18,6 @@ public:
 	static void LoadLayer(CLayer* _Layer, FILE* _File);
 	static CGameObject* LoadGameObject(FILE* _File);
 	static CGameObject* LoadGameObject(ifstream& fin);
-	static class CState* LoadState(const string& _strLevelPath);
+	static class CState* LoadState(const string& _strStateName);
 };
 
