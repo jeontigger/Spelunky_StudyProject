@@ -46,9 +46,6 @@
     <ClInclude Include="CMonsterScript.h">
       <Filter>02. Scripts\default</Filter>
     </ClInclude>
-    <ClInclude Include="CPlayerScript.h">
-      <Filter>02. Scripts\default</Filter>
-    </ClInclude>
     <ClInclude Include="CTile.h">
       <Filter>02. Scripts\Tile</Filter>
     </ClInclude>
@@ -66,6 +63,10 @@
     </ClInclude>
     <ClInclude Include="CTileBoundary.h">
       <Filter>02. Scripts\Tile\Boundary</Filter>
+    </ClInclude>
+    <ClInclude Include="CCharacterScript.h" />
+    <ClInclude Include="CPlayerScript.h">
+      <Filter>02. Scripts\Character</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -108,9 +109,6 @@
     <ClCompile Include="CMonsterScript.cpp">
       <Filter>02. Scripts\default</Filter>
     </ClCompile>
-    <ClCompile Include="CPlayerScript.cpp">
-      <Filter>02. Scripts\default</Filter>
-    </ClCompile>
     <ClCompile Include="CTile.cpp">
       <Filter>02. Scripts\Tile</Filter>
     </ClCompile>
@@ -122,6 +120,10 @@
     </ClCompile>
     <ClCompile Include="CTileBoundary.cpp">
       <Filter>02. Scripts\Tile\Boundary</Filter>
+    </ClCompile>
+    <ClCompile Include="CCharacterScript.cpp" />
+    <ClCompile Include="CPlayerScript.cpp">
+      <Filter>02. Scripts\Character</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -175,6 +177,12 @@
     </Filter>
     <Filter Include="02. Scripts\Tile\Boundary">
       <UniqueIdentifier>{3e904ac0-05ae-46e2-84a6-dd0dae688986}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Scripts\Character">
+      <UniqueIdentifier>{037aa803-d0ad-402a-940a-037d950dc050}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="07. Character">
+      <UniqueIdentifier>{a560a08d-6734-4e23-b84c-5ad08e5a7b5c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
