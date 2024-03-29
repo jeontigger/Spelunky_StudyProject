@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "CFSM.h"
 
+CState* (*CFSM::LoadStateFunc)(const string& _strFilePath) = nullptr;
 CFSM::CFSM(bool _bEngine)
 	: CAsset(ASSET_TYPE::FSM, _bEngine)
 	, m_Master(nullptr)

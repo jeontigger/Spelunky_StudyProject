@@ -8,7 +8,7 @@
       <Filter>00. Default</Filter>
     </ClInclude>
     <ClInclude Include="CScriptMgr.h">
-      <Filter>01. ScriptMgr</Filter>
+      <Filter>01. CodeGenMgr</Filter>
     </ClInclude>
     <ClInclude Include="CTileBlock.h">
       <Filter>03. Tile\TileBlock</Filter>
@@ -71,7 +71,9 @@
     <ClInclude Include="CPlayerIdleState.h">
       <Filter>08. States</Filter>
     </ClInclude>
-    <ClInclude Include="CStateMgr.h" />
+    <ClInclude Include="CStateMgr.h">
+      <Filter>01. CodeGenMgr</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -81,7 +83,7 @@
       <Filter>00. Default</Filter>
     </ClCompile>
     <ClCompile Include="CScriptMgr.cpp">
-      <Filter>01. ScriptMgr</Filter>
+      <Filter>01. CodeGenMgr</Filter>
     </ClCompile>
     <ClCompile Include="CTileBlock.cpp">
       <Filter>03. Tile\TileBlock</Filter>
@@ -132,14 +134,13 @@
     <ClCompile Include="CPlayerIdleState.cpp">
       <Filter>08. States</Filter>
     </ClCompile>
-    <ClCompile Include="CStateMgr.cpp" />
+    <ClCompile Include="CStateMgr.cpp">
+      <Filter>01. CodeGenMgr</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="00. Default">
       <UniqueIdentifier>{4f2f6642-c0f0-494a-9d81-0124398fdb95}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="01. ScriptMgr">
-      <UniqueIdentifier>{b42de7fc-e585-40cf-9c65-79e91e2b59d4}</UniqueIdentifier>
     </Filter>
     <Filter Include="02. Scripts">
       <UniqueIdentifier>{af5c3808-4d30-476b-b2ab-d844558017d2}</UniqueIdentifier>
@@ -194,6 +195,9 @@
     </Filter>
     <Filter Include="08. States">
       <UniqueIdentifier>{853ddb1c-247f-4a83-80b1-4b974435b9b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. CodeGenMgr">
+      <UniqueIdentifier>{b42de7fc-e585-40cf-9c65-79e91e2b59d4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -94,8 +94,6 @@ float4 PS_Tile(VS_OUT _in) : SV_Target
         }
 
     }
-    
-    
     return vColor;
 }
 

@@ -123,9 +123,6 @@ CStage::CStage()
 		
 		AddObject(obj, TileLayer);
 
-		Ptr<CFSM>	pFSM = new CFSM(true);
-		CAssetMgr::GetInst()->AddAsset(L"New FSM", pFSM.Get());
-
 
 	}
 }
