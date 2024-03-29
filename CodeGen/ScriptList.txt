@@ -1,7 +1,7 @@
 CBackgroundScript
 CMissileScript
 CMonsterScript
-CPlayerScript
 CTile
 CCameraMovement
 CTileBoundary
+CPlayerScript

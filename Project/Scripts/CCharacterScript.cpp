@@ -1,7 +1,8 @@
 #include "pch.h"
 #include "CCharacterScript.h"
 
-CCharacterScript::CCharacterScript()
+CCharacterScript::CCharacterScript(UINT type)
+	: CFieldObject(type)
 {
 }
 
