@@ -23,7 +23,7 @@ void CFontMgr::render()
 {
 	for (auto iter = m_listFont.begin(); iter != m_listFont.end();) {
 		FontData& data = *iter;
-		data._acc += DT;
+		data._acc += DT_ENGINE;
 
 		m_pFontWrapper->DrawString(
 			CONTEXT,

@@ -53,6 +53,14 @@ void CTimeMgr::tick()
 		swprintf_s(m_szText, 50, L"DeltaTime : %f, FPS : %d", m_DeltaTime, m_iCall);
 		m_iCall = 0;
 		m_Time = 0.f;
+
+		// 폰트 출력
+		Font data = {};
+		data._Color = FONT_RGBA(255, 30, 30, 255);
+		data._fFontSize = 16;
+		data._fPosX = 10.f;
+		data._fPosY = 30.f;
+		CFontMgr::GetInst()->DrawFont(m_szText, data, 1.f);
 	}
 
 	++m_iCall;	
@@ -62,12 +70,5 @@ void CTimeMgr::tick()
 
 void CTimeMgr::render()
 {
-	// 폰트 출력
-	Font data = {};
-	data._Color = FONT_RGBA(255, 30, 30, 255);
-	data._fFontSize = 16;
-	data._fPosX = 10.f;
-	data._fPosY = 30.f;
 
-	CFontMgr::GetInst()->DrawFont(m_szText, data, 0.01f);
 }
