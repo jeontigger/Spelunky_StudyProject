@@ -255,7 +255,7 @@ void MenuUI::GameObject()
 
 void MenuUI::Asset()
 {
-    if (ImGui::BeginMenu("Level"))
+    if (ImGui::BeginMenu("Asset"))
     {
         if (ImGui::MenuItem("Create Empty Material"))
         {
@@ -284,7 +284,7 @@ void MenuUI::Asset()
             int num = 0;
             while (true)
             {
-                swprintf_s(szPath, L"fsm//New FSM_%d.mtrl", num);
+                swprintf_s(szPath, L"fsm//NewFSM_%d.fsm", num);
                 if (!exists(FilePath + szPath))
                     break;
                 ++num;

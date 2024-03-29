@@ -71,11 +71,16 @@ int CFSM::Load(const wstring& _strFilePath)
 		AddState(ToWString(statename), state);
 		state->Load(fin);
 	}
+	
+	return MB_OK;
 }
 
 void CFSM::AddState(const wstring& _StateName, CState* _State)
 {
-	assert(!(FindState(_StateName)));
+	if (FindState(_StateName)) {
+		MessageBox(nullptr, L"중복된 스테이트입니다", L"FSM", 0);
+		return;
+	}
 
 	_State->m_FSM = this;
 	m_mapState.insert(make_pair(_StateName, _State));

@@ -50,5 +50,9 @@ public:
     CLONE_DISABLE(CFSM);
     CFSM(bool _bEngine = false);    
     ~CFSM();
+
+private:
+    map<wstring, CState*>& GetStates() { return m_mapState; }
+    friend class FSMUI;
 };
 

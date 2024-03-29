@@ -96,7 +96,11 @@ void Content::ReloadContent()
 		switch (Type)
 		{
 		case ASSET_TYPE::END:
+			break;
 		default:
+		{
+			int a = 0;
+		}
 			continue;
 			break;
 		case ASSET_TYPE::MESH:
@@ -230,6 +234,8 @@ ASSET_TYPE Content::GetAssetTypeByExt(const path& _relativePath)
 		return ASSET_TYPE::MESH;
 	if (_relativePath.extension() == L".mesh")
 		return ASSET_TYPE::MESH;
+	if (_relativePath.extension() == L".fsm")
+		return ASSET_TYPE::FSM;
 
 	return ASSET_TYPE::END;
 }

@@ -4,13 +4,21 @@
 class FSMUI :
     public AssetUI
 {
-public:
-    virtual void render_update() override;
+private:
+    Ptr<CFSM> m_target;
+    vector<string> m_vecNames;
 
 public:
+    virtual void render_update() override;
+    virtual void Activate() override;
 
 public:
     FSMUI();
     ~FSMUI();
+
+private:
+    void CurState();
+    void StateList();
+    void AddState();
 };
 
