@@ -8,6 +8,7 @@
 #define UICameraName "##Camera"
 #define UIAddComponentName "##AddComponent"
 #define UIAddScriptName "##AddScript"
+#define UIStateMachineName "##StateMachine"
 
 #define NewBlockName "New"
 

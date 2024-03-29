@@ -140,6 +140,9 @@
     <Filter Include="02. UI\3. Inspector\InspectorUI">
       <UniqueIdentifier>{e756c3b5-4b75-4698-8386-6b69f91a6357}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. UI\3. Inspector\ComponentUI\StateMachine">
+      <UniqueIdentifier>{a02dd4f8-3020-4f68-bb02-6911609eac13}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -301,6 +304,9 @@
     <ClInclude Include="AddComponentUI.h">
       <Filter>02. UI\3. Inspector\InspectorUI</Filter>
     </ClInclude>
+    <ClInclude Include="StateMachineUI.h">
+      <Filter>02. UI\3. Inspector\ComponentUI\StateMachine</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -457,6 +463,9 @@
     </ClCompile>
     <ClCompile Include="AddComponentUI.cpp">
       <Filter>02. UI\3. Inspector\InspectorUI</Filter>
+    </ClCompile>
+    <ClCompile Include="StateMachineUI.cpp">
+      <Filter>02. UI\3. Inspector\ComponentUI\StateMachine</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

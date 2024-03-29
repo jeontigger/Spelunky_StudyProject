@@ -22,6 +22,7 @@ void Inspector::CreateChildUI()
 #include "Animator2DUI.h"
 #include "PrefabUI.h"
 #include "CameraUI.h"
+#include "StateMachineUI.h"
 
 void Inspector::CreateComponentUI()
 {
@@ -51,7 +52,9 @@ void Inspector::CreateComponentUI()
 	m_arrComUI[(UINT)COMPONENT_TYPE::CAMERA]->Deactivate();
 	AddChildUI(m_arrComUI[(UINT)COMPONENT_TYPE::CAMERA]);
 
-
+	m_arrComUI[(UINT)COMPONENT_TYPE::STATEMACHINE] = new StateMachineUI;
+	m_arrComUI[(UINT)COMPONENT_TYPE::STATEMACHINE]->Deactivate();
+	AddChildUI(m_arrComUI[(UINT)COMPONENT_TYPE::STATEMACHINE]);
 
 }
 

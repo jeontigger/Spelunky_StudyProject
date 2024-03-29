@@ -18,6 +18,8 @@
 #include "CStagePack.h"
 #include "CTile.h"
 
+bool test;
+
 CStage::CStage()
 	: m_state(StageState::NONE)
 	, m_SP(nullptr)
@@ -113,6 +115,16 @@ CStage::CStage()
 	AddObject(pCamObj, L"CameraCollider");
 
 	CLevelMgr::GetInst()->ChangeLevel(this, LEVEL_STATE::PLAY);
+	test = true;
+	if (test) {
+		auto prefab = CAssetMgr::GetInst()->Load<CPrefab>(TilePrefKey, TilePrefKey);
+		auto obj = prefab->Instantiate();
+		obj->Transform()->SetRelativePos(Vec3(0, -100, TileZ));
+		
+		AddObject(obj, TileLayer);
+
+
+	}
 }
 
 CStage::~CStage()
@@ -420,6 +432,8 @@ void CStage::finaltick()
 {
 	CLevel::finaltick();
 
+	if (test)
+		return;
 
 	if (m_State == LEVEL_STATE::STOP)
 		return;
