@@ -67,14 +67,14 @@
     <ClInclude Include="CPlayerScript.h">
       <Filter>02. Scripts\Character</Filter>
     </ClInclude>
-    <ClInclude Include="CPlayerIdleState.h">
-      <Filter>08. States</Filter>
-    </ClInclude>
     <ClInclude Include="CStateMgr.h">
       <Filter>01. CodeGenMgr</Filter>
     </ClInclude>
     <ClInclude Include="CCharacterScript.h">
       <Filter>07. Character</Filter>
+    </ClInclude>
+    <ClInclude Include="CPlayerIdleState.h">
+      <Filter>08. States\Player\Idle</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -132,14 +132,14 @@
     <ClCompile Include="CPlayerScript.cpp">
       <Filter>02. Scripts\Character</Filter>
     </ClCompile>
-    <ClCompile Include="CPlayerIdleState.cpp">
-      <Filter>08. States</Filter>
-    </ClCompile>
     <ClCompile Include="CStateMgr.cpp">
       <Filter>01. CodeGenMgr</Filter>
     </ClCompile>
     <ClCompile Include="CCharacterScript.cpp">
       <Filter>07. Character</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlayerIdleState.cpp">
+      <Filter>08. States\Player\Idle</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -202,6 +202,12 @@
     </Filter>
     <Filter Include="01. CodeGenMgr">
       <UniqueIdentifier>{b42de7fc-e585-40cf-9c65-79e91e2b59d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="08. States\Player">
+      <UniqueIdentifier>{c17df28e-cd3a-4a14-91a6-ca74a97e7b62}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="08. States\Player\Idle">
+      <UniqueIdentifier>{b570fd3a-d764-40a5-9c1b-bc8df6624c69}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

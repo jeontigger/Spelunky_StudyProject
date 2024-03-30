@@ -162,6 +162,8 @@ void CAnim::LoadFromFile(ifstream& fin)
 		fin >> data.vSlice.x >> data.vSlice.y >> data.vLeftTop.x >> data.vLeftTop.y
 			>> data.vOffset.x >> data.vOffset.y >> data.vBackground.x >> data.vBackground.y 
 			>> data.Duration;
+
+		m_vecFrm.push_back(data);
 	}
 
 	LoadAssetRef(m_AtlasTex, fin);

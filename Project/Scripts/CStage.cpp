@@ -46,7 +46,7 @@ CStage::CStage()
 	CGameObject* pObj = nullptr;
 
 	// Player Object 持失
-	pObj = new CGameObject;
+	/*pObj = new CGameObject;
 	pObj->SetName(L"Player");
 
 	pObj->AddComponent(new CTransform);
@@ -64,7 +64,7 @@ CStage::CStage()
 	pObj->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
 	pObj->MeshRender()->SetMaterial(CAssetMgr::GetInst()->FindAsset<CMaterial>(L"Std2DMtrl"));
 
-	AddObject(pObj, L"Player", false);
+	AddObject(pObj, L"Player", false);*/
 
 	 //Main Camera Object 持失
 	CGameObject* pCamObj = new CGameObject;
@@ -127,6 +127,10 @@ CStage::CStage()
 		
 		AddObject(obj, TileLayer);
 
+		prefab = CAssetMgr::GetInst()->Load<CPrefab>(PlayerPefKey, PlayerPefKey);
+		obj = prefab->Instantiate();
+		
+		AddObject(obj, PlayerLayer);
 
 	}
 }

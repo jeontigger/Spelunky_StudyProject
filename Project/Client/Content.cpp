@@ -7,6 +7,7 @@
 #include "CImGuiMgr.h"
 #include "Inspector.h"
 #include "TreeUI.h"
+#include "Animator2DUI.h"
 
 Content::Content()
 	: UI("Content", "##Content")
@@ -63,6 +64,9 @@ void Content::ResetContent()
 				, (DWORD_PTR)pair.second.Get());
 		}
 	}
+	Animator2DUI* ui = (Animator2DUI*)UIMGR->FindUI(UIAnimatorName);
+	if(ui)
+		ui->LoadAnims();
 }
 
 void Content::SelectAsset(DWORD_PTR _Node)

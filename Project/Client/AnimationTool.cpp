@@ -140,7 +140,6 @@ void AnimationTool::SaveButton()
         //m_Atlas->save
         MessageBox(nullptr, L"저장 완료!", L"애니메이션 저장", MB_OK);
 
-        SaveAssetRef(m_Atlas, pFile);
     }
 
     ImGui::PopStyleColor(3);

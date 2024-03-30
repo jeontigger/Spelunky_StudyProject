@@ -8,3 +8,13 @@ CPlayerIdleState::CPlayerIdleState()
 CPlayerIdleState::~CPlayerIdleState()
 {
 }
+
+void CPlayerIdleState::finaltick()
+{
+
+}
+
+void CPlayerIdleState::Enter()
+{
+
+}

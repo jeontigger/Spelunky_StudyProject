@@ -24,6 +24,7 @@ public:
     // _LeftTop, _SliceSize, _Offset : Pixel Unit
     void Create(const wstring& _strKey, Ptr<CTexture> _AltasTex, Vec2 _LeftTop, Vec2 _vSliceSize, Vec2 _OffsetSize, Vec2 _Background, int _FrmCount, float _FPS);
     void AddAnim(const wstring& _strKey, Ptr<CTexture> _AltasTex, const vector<tAnimFrm>& frms);
+    void AddAnim(CAnim* anim);
 
     CAnim* GetCurAnim() { return m_CurAnim; }
     CAnim* FindAnim(const wstring& _strAnimName);
@@ -39,5 +40,7 @@ public:
     CAnimator2D();
     CAnimator2D(const CAnimator2D& _OriginAnimator);
     ~CAnimator2D();
+
+    friend class Animator2DUI;
 };
 

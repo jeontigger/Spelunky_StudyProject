@@ -81,6 +81,17 @@ void CAnimator2D::AddAnim(const wstring& _strKey, Ptr<CTexture> _AltasTex, const
 	m_mapAnim.insert(make_pair(_strKey, pAnim));
 }
 
+void CAnimator2D::AddAnim(CAnim* anim)
+{
+	CAnim* pAnim = FindAnim(anim->GetName());
+	if (pAnim) {
+		MessageBox(nullptr, L"이미 있는 애니메이션입니다", L"애니메이션 추가", 0);
+		return;
+	}
+
+	m_mapAnim.insert(make_pair(anim->GetName(), anim));
+}
+
 CAnim* CAnimator2D::FindAnim(const wstring& _strKey)
 {
 	map<wstring, CAnim*>::iterator iter = m_mapAnim.find(_strKey);
