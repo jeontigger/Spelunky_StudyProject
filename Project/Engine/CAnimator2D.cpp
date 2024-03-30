@@ -88,7 +88,7 @@ void CAnimator2D::AddAnim(CAnim* anim)
 		MessageBox(nullptr, L"이미 있는 애니메이션입니다", L"애니메이션 추가", 0);
 		return;
 	}
-
+	anim->m_Animator = this;
 	m_mapAnim.insert(make_pair(anim->GetName(), anim));
 }
 
@@ -180,17 +180,6 @@ void CAnimator2D::LoadFromFile(FILE* _File)
 		pAnim->m_Animator = this;
 		m_mapAnim.insert(make_pair(pAnim->GetName(), pAnim));		
 	}
-
-	// 플레이 중이던 애니메이션의 키를 불러온다
-	wstring PlayAnimName;
-	LoadWString(PlayAnimName, _File);
-
-	if (!PlayAnimName.empty())
-	{
-		m_CurAnim = FindAnim(PlayAnimName);
-	}
-
-	fread(&m_bRepeat, sizeof(bool), 1, _File);
 }
 
 void CAnimator2D::LoadFromFile(ifstream& fin)
@@ -205,16 +194,4 @@ void CAnimator2D::LoadFromFile(ifstream& fin)
 		anim->m_Animator = this;
 		m_mapAnim.insert(make_pair(anim->GetName(), anim));
 	}
-
-
-	// 플레이 중이던 애니메이션의 키를 불러온다
-	string PlayAnimName;
-	fin >> PlayAnimName;
-
-	if (!PlayAnimName.empty())
-	{
-		m_CurAnim = FindAnim(PlayAnimName);
-	}
-
-	fin >> m_bRepeat;
 }

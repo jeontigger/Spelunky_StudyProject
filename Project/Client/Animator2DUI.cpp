@@ -27,7 +27,7 @@ void Animator2DUI::render_update()
 	ImGui::Separator();
 	AddAnim();
 
-	SetSize(ImVec2(0, 150 + 28 * m_iAnimCnt));
+	SetSize(ImVec2(0, 180 + 28 * m_iAnimCnt));
 }
 
 void Animator2DUI::Activate()
@@ -57,13 +57,41 @@ void Animator2DUI::AnimList()
 		ButtonTitle("AnimList");
 		ImGui::NewLine();
 	}
+	else {
+		return;
+	}
 
 	int cnt = 0;
-	for (auto iter = list.begin(); iter != list.end(); ++iter) {
-		string key = "##animname" + to_string(cnt);
-		string animname = ToString(iter->first);
-		ImGui::InputText(key.c_str(), (char*)animname.c_str(), animname.length(), ImGuiInputTextFlags_ReadOnly);
+	static bool repeat = false;
+	if(ImGui::Checkbox("IsRepeat", &repeat));
 
+	for (auto iter = list.begin(); iter != list.end();) {
+		string key = "##animname" + to_string(cnt);
+		string buttonKey = "Play##anim" + to_string(cnt);
+		string DeleteKey = "Delete##anim" + to_string(cnt);
+
+		string animname = ToString(iter->first);
+
+		ImGui::InputText(key.c_str(), (char*)animname.c_str(), animname.length(), ImGuiInputTextFlags_ReadOnly);
+		ImGui::SameLine();
+		if (ImGui::Button(buttonKey.c_str())) {
+			m_target->Play(ToWString(animname), repeat);
+		}
+		ImGui::SameLine();
+		ImGui::PushID(0);
+		ImGui::PushStyleColor(ImGuiCol_Button, (ImVec4)ImColor::HSV(0.f, 0.6f, 0.6f));
+		ImGui::PushStyleColor(ImGuiCol_ButtonHovered, (ImVec4)ImColor::HSV(0.f, 0.6f, 0.6f));
+		ImGui::PushStyleColor(ImGuiCol_ButtonActive, (ImVec4)ImColor::HSV(0.f, 0.6f, 0.6f));
+		if (ImGui::Button(DeleteKey.c_str())) {
+			delete iter->second;
+			iter = m_target->m_mapAnim.erase(iter);
+			m_target->m_CurAnim = nullptr;
+		}
+		else {
+			++iter;
+		}
+		ImGui::PopStyleColor(3);
+		ImGui::PopID();
 	}
 }
 
@@ -83,6 +111,7 @@ void Animator2DUI::AddAnim()
 			return;
 		}
 		anim->LoadFromFile(fin);
+		anim->SetName(m_vecAnimNames[current_item]);
 		m_target->AddAnim(anim);
 
 	}
