@@ -23,16 +23,22 @@ class CBlackboard :
 private:
     map<wstring, tBlackboardData>   m_mapBBData;
 
-
 public:
     void AddBlackboardData(const wstring& _strKey, BB_DATA _Type, void* _Data);
     void* GetBlackboardData(const wstring& _strKey);
 
-
-    CLONE(CBlackboard);
 public:
+    void Save(ofstream& fout);
+    void Load(ifstream& fin);
+    static void (*SaveGameObject)(class CGameObject* _Obj, ofstream& fout);
+    static class CGameObject* (*LoadGameObject)(ifstream& fin);
+
+public:
+    CLONE(CBlackboard);
     CBlackboard();
     CBlackboard(const CBlackboard& _board);
     ~CBlackboard();
+
+    friend class StateMachineUI;
 };
 

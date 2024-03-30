@@ -9,6 +9,9 @@ private:
     map<wstring, class CState*> m_States;
     vector<string> m_vecNames;
 
+    int m_iStateCnt;
+    int m_iBlackboardCnt;
+
 public:
     void FSMSelect(DWORD_PTR _ptr);
 
@@ -23,6 +26,8 @@ public:
 private:
     // FSM 선택지
     void SelectFSM();
+    // 블랙보드 출력
+    void Blackboard();
     // 현재 스테이트 출력
     void CurState();
     // 스테이트 목록 출력 + change state
