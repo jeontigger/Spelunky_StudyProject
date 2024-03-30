@@ -69,7 +69,7 @@ void Animator2DUI::AnimList()
 		string key = "##animname" + to_string(cnt);
 		string buttonKey = "Play##anim" + to_string(cnt);
 		string DeleteKey = "Delete##anim" + to_string(cnt);
-
+		cnt++;
 		string animname = ToString(iter->first);
 
 		ImGui::InputText(key.c_str(), (char*)animname.c_str(), animname.length(), ImGuiInputTextFlags_ReadOnly);
@@ -80,8 +80,8 @@ void Animator2DUI::AnimList()
 		ImGui::SameLine();
 		ImGui::PushID(0);
 		ImGui::PushStyleColor(ImGuiCol_Button, (ImVec4)ImColor::HSV(0.f, 0.6f, 0.6f));
-		ImGui::PushStyleColor(ImGuiCol_ButtonHovered, (ImVec4)ImColor::HSV(0.f, 0.6f, 0.6f));
-		ImGui::PushStyleColor(ImGuiCol_ButtonActive, (ImVec4)ImColor::HSV(0.f, 0.6f, 0.6f));
+		ImGui::PushStyleColor(ImGuiCol_ButtonHovered, (ImVec4)ImColor::HSV(0.f, 0.5f, 0.5f));
+		ImGui::PushStyleColor(ImGuiCol_ButtonActive, (ImVec4)ImColor::HSV(0.f, 0.4f, 0.4f));
 		if (ImGui::Button(DeleteKey.c_str())) {
 			delete iter->second;
 			iter = m_target->m_mapAnim.erase(iter);
@@ -115,7 +115,7 @@ void Animator2DUI::AddAnim()
 		m_target->AddAnim(anim);
 
 	}
-	SearchableComboBox("addstateuicombo", &current_item, m_vecAnimNames);
+	SearchableComboBox("animuicombo", &current_item, m_vecAnimNames);
 }
 
 void Animator2DUI::LoadAnims()

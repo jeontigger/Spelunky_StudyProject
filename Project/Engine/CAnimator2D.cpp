@@ -155,15 +155,6 @@ void CAnimator2D::SaveToFile(ofstream& fout)
 	{
 		pair.second->SaveToFile(fout);
 	}
-
-	wstring PlayAnimName;
-
-	if (nullptr != m_CurAnim)
-	{
-		PlayAnimName = m_CurAnim->GetName();
-	}
-
-	fout << PlayAnimName << endl;
 }
 
 void CAnimator2D::LoadFromFile(FILE* _File)

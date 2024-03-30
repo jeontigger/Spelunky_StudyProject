@@ -17,6 +17,7 @@
 #define BackgroundLayer 1
 #define TileLayer 2
 #define PlayerLayer 3
+#define CameraLayer 6
 
 #define RandomAccuracy 100
 

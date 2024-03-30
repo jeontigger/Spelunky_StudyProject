@@ -543,5 +543,8 @@
     <FxCompile Include="AtlasPick.fx">
       <Filter>ShaderCode\custom</Filter>
     </FxCompile>
+    <FxCompile Include="animation.fx">
+      <Filter>ShaderCode\custom</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>

@@ -45,26 +45,7 @@ CStage::CStage()
 
 	CGameObject* pObj = nullptr;
 
-	// Player Object 持失
-	/*pObj = new CGameObject;
-	pObj->SetName(L"Player");
 
-	pObj->AddComponent(new CTransform);
-	pObj->AddComponent(new CMeshRender);
-	pObj->AddComponent(new CCollider2D);
-	pObj->AddComponent(new CAnimator2D);
-
-	pObj->Transform()->SetRelativePos(Vec3(-9000.f, 0.f, 500.f));
-	pObj->Transform()->SetRelativeScale(Vec3(200.f, 200.f, 1.f));
-
-	pObj->Collider2D()->SetAbsolute(true);
-	pObj->Collider2D()->SetOffsetScale(Vec2(100.f, 100.f));
-	pObj->Collider2D()->SetOffsetPos(Vec2(0.f, 0.f));
-
-	pObj->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
-	pObj->MeshRender()->SetMaterial(CAssetMgr::GetInst()->FindAsset<CMaterial>(L"Std2DMtrl"));
-
-	AddObject(pObj, L"Player", false);*/
 
 	 //Main Camera Object 持失
 	CGameObject* pCamObj = new CGameObject;
@@ -118,7 +99,30 @@ CStage::CStage()
 	pCamObj->Transform()->SetRelativePos(Vec3(0.f, TileBlockScaleY * 2 + TileScaleY * 3, 0.f));
 	AddObject(pCamObj, L"CameraCollider");
 
+	// Player Object 持失
+	pObj = new CGameObject;
+	pObj->SetName(L"Player");
+
+	pObj->AddComponent(new CTransform);
+	pObj->AddComponent(new CMeshRender);
+	pObj->AddComponent(new CCollider2D);
+	pObj->AddComponent(new CAnimator2D);
+
+	pObj->Transform()->SetRelativePos(Vec3(-9000.f, 0.f, 500.f));
+	pObj->Transform()->SetRelativeScale(Vec3(200.f, 200.f, 1.f));
+
+	pObj->Collider2D()->SetAbsolute(true);
+	pObj->Collider2D()->SetOffsetScale(Vec2(100.f, 100.f));
+	pObj->Collider2D()->SetOffsetPos(Vec2(0.f, 0.f));
+
+	pObj->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
+	pObj->MeshRender()->SetMaterial(CAssetMgr::GetInst()->FindAsset<CMaterial>(L"Std2DMtrl"));
+
+	AddObject(pObj, L"Player", false);
+
+
 	CLevelMgr::GetInst()->ChangeLevel(this, LEVEL_STATE::PLAY);
+
 	test = true;
 	if (test) {
 		auto prefab = CAssetMgr::GetInst()->Load<CPrefab>(TilePrefKey, TilePrefKey);
@@ -132,6 +136,9 @@ CStage::CStage()
 		
 		AddObject(obj, PlayerLayer);
 
+	}
+	else {
+		
 	}
 }
 
@@ -483,6 +490,7 @@ void CStage::begin()
 
 	CCollisionMgr::GetInst()->LayerCheck(L"Camera", L"CameraCollider");
 	CCollisionMgr::GetInst()->LayerCheck(L"Tile", L"Camera");
+	CCollisionMgr::GetInst()->LayerCheck(PlayerLayer, CameraLayer);
 	CCollisionMgr::GetInst()->LayerCheck(7, 6);
 }
 

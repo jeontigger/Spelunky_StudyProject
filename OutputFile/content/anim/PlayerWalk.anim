@@ -1,24 +1,4 @@
-player
-0
-0 0 0
-128 128 1
-0 0 0
-1
-1
-0 0 0
-1 1 1
-0
-0
-3
-2
-anim\PlayerIdle.anim
-1
-0.0625 0.0625 0 0 0 0 0.0625 0.0625 0.0625
-1
-texture\atlas\char_cerulean.png
-0
-texture\atlas\char_cerulean.png
-anim\PlayerWalk.anim
+PlayerWalk
 8
 0.0625 0.0625 0.0625 0 0 0 0.0625 0.0625 0.0625
 0.0625 0.0625 0.125 0 0 0 0.0625 0.0625 0.0625
@@ -32,16 +12,3 @@ anim\PlayerWalk.anim
 texture\atlas\char_cerulean.png
 0
 texture\atlas\char_cerulean.png
-8
-0
-9
-1
-RectMesh
-1
-1
-Std2DMtrl
-1
-15
-1
-CPlayerScript
-0
