@@ -2,7 +2,7 @@
 #include "CPlayerScript.h"
 
 CPlayerScript::CPlayerScript()
-	: CScript((UINT)SCRIPT_TYPE::PLAYERSCRIPT)
+	: CFieldObject((UINT)SCRIPT_TYPE::PLAYERSCRIPT)
 {
 	
 }
@@ -12,13 +12,18 @@ CPlayerScript::~CPlayerScript()
 
 }
 
+void CPlayerScript::skill()
+{
+}
+
 void CPlayerScript::begin()
 {
-
+	GetOwner()->GetScript<CFieldObject>()->ImPlayer();
 }
 
 void CPlayerScript::tick()
 {
+	CFieldObject::tick();
 
 }
 

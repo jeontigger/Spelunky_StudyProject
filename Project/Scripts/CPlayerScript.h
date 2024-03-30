@@ -1,12 +1,14 @@
 #pragma once
 
-#include <Engine/CScript.h>
+#include "CFieldObject.h"
 
 class CPlayerScript :
-    public CScript
+    public CFieldObject
 {
 private:
-    
+
+public:
+    virtual void skill() override;
 
 public:
     virtual void begin() override;
@@ -21,6 +23,7 @@ public:
     virtual void SaveToFile(ofstream& fout) override {};
     virtual void LoadFromFile(FILE* _File) override {};
     virtual void LoadFromFile(ifstream& fin) override {};
+
     CLONE(CPlayerScript);
 public:
     CPlayerScript();

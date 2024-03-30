@@ -133,12 +133,8 @@ CStage::CStage()
 
 		prefab = CAssetMgr::GetInst()->Load<CPrefab>(PlayerPefKey, PlayerPefKey);
 		obj = prefab->Instantiate();
-		
 		AddObject(obj, PlayerLayer);
 
-	}
-	else {
-		
 	}
 }
 
