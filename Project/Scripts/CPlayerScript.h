@@ -28,5 +28,6 @@ public:
 public:
     CPlayerScript();
     ~CPlayerScript();
+
 };
 

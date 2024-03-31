@@ -127,7 +127,7 @@ CStage::CStage()
 	if (test) {
 		auto prefab = CAssetMgr::GetInst()->Load<CPrefab>(TilePrefKey, TilePrefKey);
 		auto obj = prefab->Instantiate();
-		obj->Transform()->SetRelativePos(Vec3(0, -100, TileZ));
+		obj->Transform()->SetRelativePos(Vec3(0, -300, TileZ));
 		
 		AddObject(obj, TileLayer);
 

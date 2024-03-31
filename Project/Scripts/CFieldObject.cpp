@@ -18,8 +18,13 @@ CFieldObject::~CFieldObject()
 
 void CFieldObject::AddGravity()
 {
-	if(!m_bGround)
-		m_vPos.y -= m_fGravity * m_fMass;
+	if (m_bGround)
+	{
+		m_vVelocity.y = 0;
+	}
+	else {
+		m_vVelocity.y -= m_fGravity * m_fMass *DT;
+	}
 }
 
 void CFieldObject::tick()
@@ -27,6 +32,8 @@ void CFieldObject::tick()
 	m_vPos = Transform()->GetRelativePos();
 	AddGravity();
 
+	m_vPos.x += m_vVelocity.x;
+	m_vPos.y += m_vVelocity.y;
 	Transform()->SetRelativePos(m_vPos);
 }
 

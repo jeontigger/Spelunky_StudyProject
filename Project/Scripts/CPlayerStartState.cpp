@@ -2,14 +2,12 @@
 #include "CPlayerStartState.h"
 
 #include <Engine/CStateMachine.h>
-#include "CPlayerIdleState.h">
+#include "CPlayerIdleState.h"
 
 void CPlayerStartState::finaltick()
 {
-	vector<wstring> states;
-	CStateMgr::GetStateInfo(states);
-	
-	ChangeState(states[(UINT)STATE_TYPE::PLAYERIDLESTATE]);
+	auto state = GetFSM()->GetState<CPlayerIdleState>();
+	ChangeState(CStateMgr::GetStateName(state));
 }
 
 void CPlayerStartState::Enter()

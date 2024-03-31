@@ -15,6 +15,7 @@ private:
     float m_fMass;
     float m_fGravity;
     Vec3 m_vPos;
+    Vec2 m_vVelocity;
     bool m_bGround;
 
 public:
@@ -28,6 +29,10 @@ public:
 
     inline void SetGround(bool _b) { m_bGround = _b; }
     inline bool IsGrounded() { return m_bGround; }
+
+    Vec2 GetVelocity() { return m_vVelocity; }
+    void SetVelocity(Vec2 _vec) { m_vVelocity = _vec; }
+    void AddVelocity(Vec2 _vec) { m_vVelocity += _vec; }
 
 public:
     virtual void tick() override;
