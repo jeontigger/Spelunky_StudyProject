@@ -4,6 +4,10 @@
 class CPlayerIdleState :
     public CState
 {
+private:
+    CGameObject* m_Player;
+    class CPlayerScript* m_PlayerScript;
+
 public:
     virtual void finaltick();
     virtual void Enter();
@@ -12,5 +16,8 @@ public:
 public:
     CPlayerIdleState();
     ~CPlayerIdleState();
+
+private:
+
 };
 

@@ -6,6 +6,15 @@ class CPlayerScript :
     public CFieldObject
 {
 private:
+    float m_fJumpInitSpeed;
+    float m_fJumpWeightSpeed;
+    float m_fJumpMaxTime;
+    float m_fJumpTimer;
+    bool m_bJumpup;
+
+public:
+    void Jump();
+    bool IsJumpUp() { return m_bJumpup; }
 
 public:
     virtual void skill() override;
@@ -29,5 +38,6 @@ public:
     CPlayerScript();
     ~CPlayerScript();
 
+    friend class CPlayerIdleState;
 };
 

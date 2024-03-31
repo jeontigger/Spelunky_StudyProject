@@ -1,6 +1,6 @@
-player
+Player
 0
-0 -3 0
+0 -172.176 0
 128 128 1
 0 0 0
 1
@@ -10,10 +10,20 @@ player
 0
 0
 3
-2
+3
 anim\PlayerIdle.anim
 1
 0.0625 0.0625 0 0 0 0 0.0625 0.0625 0.0625
+1
+texture\atlas\char_cerulean.png
+0
+texture\atlas\char_cerulean.png
+anim\PlayerJumpUp.anim
+4
+0.0625 0.0625 0.25 0.5625 0 0 0.0625 0.0625 0.0625
+0.0625 0.0625 0.3125 0.5625 0 0 0.0625 0.0625 0.0625
+0.0625 0.0625 0.375 0.5625 0 0 0.0625 0.0625 0.0625
+0.0625 0.0625 0.4375 0.5625 0 0 0.0625 0.0625 0.0625
 1
 texture\atlas\char_cerulean.png
 0

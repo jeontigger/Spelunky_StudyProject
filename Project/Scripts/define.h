@@ -14,13 +14,15 @@
 
 #define TileBlockScaleVec Vec3(TileBlockScaleX, TileBlockScaleY, 1)
 
+#define DefaultGravity 2.5
+
+
 #define BackgroundLayer 1
 #define TileLayer 2
 #define PlayerLayer 3
 #define CameraLayer 6
 
 #define RandomAccuracy 100
-
 #define GETRANDOM(bound) CRandomMgr::GetInst()->GetRandom(bound)
 
 enum class StagePackList {

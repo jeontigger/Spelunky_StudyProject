@@ -5,9 +5,10 @@
 
 CFieldObject::CFieldObject(UINT type)
 	: CScript(type)
-	, m_fGravity(1.f)
+	, m_fGravity(DefaultGravity)
 	, m_fMass(1.f)
 	, isPlayer(false)
+	, m_bGround(false)
 {
 
 }
