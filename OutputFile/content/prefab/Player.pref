@@ -1,6 +1,6 @@
 player
 0
-0 0 0
+0 -3 0
 128 128 1
 0 0 0
 1
@@ -33,7 +33,10 @@ texture\atlas\char_cerulean.png
 0
 texture\atlas\char_cerulean.png
 8
+1
+fsm\PlayerState.fsm
 0
+fsm\PlayerState.fsm
 9
 1
 RectMesh

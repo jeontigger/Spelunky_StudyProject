@@ -34,6 +34,7 @@ public:
     static class CGameObject* (*LoadGameObject)(ifstream& fin);
 
 public:
+    void Copy(CBlackboard& _bb)const;
     CLONE(CBlackboard);
     CBlackboard();
     CBlackboard(const CBlackboard& _board);

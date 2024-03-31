@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "CTile.h"
+
 int CTile::TileCount = 0;
 CTile::CTile()
 	:CFieldObject((UINT)SCRIPT_TYPE::TILE)
@@ -58,6 +59,12 @@ void CTile::tick()
 void CTile::begin()
 {
 	SetTileType(TileType::Blank);
+}
+
+void CTile::BeginOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCollider2D* _OtherCollider) {
+	CFieldObject* script = _OtherObj->GetScript<CFieldObject>();
+	if(script)
+		script->SetGround(true);
 }
 
 Vec2 CTile::TypeToPos(TileType type)

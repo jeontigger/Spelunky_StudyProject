@@ -76,6 +76,12 @@
     <ClInclude Include="CPlayerIdleState.h">
       <Filter>08. States\Player\Idle</Filter>
     </ClInclude>
+    <ClInclude Include="CPlayerWalkState.h">
+      <Filter>08. States\Player\Walk</Filter>
+    </ClInclude>
+    <ClInclude Include="CPlayerStartState.h">
+      <Filter>08. States\Player</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -140,6 +146,12 @@
     </ClCompile>
     <ClCompile Include="CPlayerIdleState.cpp">
       <Filter>08. States\Player\Idle</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlayerWalkState.cpp">
+      <Filter>08. States\Player\Walk</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlayerStartState.cpp">
+      <Filter>08. States\Player</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -208,6 +220,9 @@
     </Filter>
     <Filter Include="08. States\Player\Idle">
       <UniqueIdentifier>{b570fd3a-d764-40a5-9c1b-bc8df6624c69}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="08. States\Player\Walk">
+      <UniqueIdentifier>{d41939b6-6d07-4a89-8524-adc7c2a13a24}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

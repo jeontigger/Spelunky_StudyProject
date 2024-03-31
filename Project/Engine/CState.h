@@ -29,7 +29,7 @@ public:
 public:
     CLONE_DISABLE(CState);
 
-    CState();
+    CState(UINT Type);
     ~CState();
 
     friend class CFSM;

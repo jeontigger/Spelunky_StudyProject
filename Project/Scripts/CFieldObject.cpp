@@ -18,7 +18,8 @@ CFieldObject::~CFieldObject()
 
 void CFieldObject::AddGravity()
 {
-	m_vPos.y -= m_fGravity * m_fMass;
+	if(!m_bGround)
+		m_vPos.y -= m_fGravity * m_fMass;
 }
 
 void CFieldObject::tick()

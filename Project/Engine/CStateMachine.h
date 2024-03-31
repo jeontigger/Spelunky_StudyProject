@@ -39,6 +39,7 @@ public:
 public:
     CLONE(CStateMachine);
     CStateMachine();
+    CStateMachine(const CStateMachine& _origin);
     ~CStateMachine();
 
 private:

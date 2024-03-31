@@ -10,6 +10,7 @@ CFSM::CFSM(bool _bEngine)
 {
 }
 
+
 CFSM::~CFSM()
 {
 	if (m_Blackboard)
@@ -49,8 +50,6 @@ int CFSM::Save(const wstring& _strRelativePath)
 		iter->second->Save(fout);
 	}
 
-	m_Blackboard->Save(fout);
-
 	return S_OK;
 }
 
@@ -75,7 +74,6 @@ int CFSM::Load(const wstring& _strFilePath)
 		AddState(ToWString(statename), state);
 		state->Load(fin);
 	}
-	m_Blackboard->Load(fin);
 	
 	return MB_OK;
 }
@@ -125,6 +123,7 @@ void CFSM::ChangeState(const wstring& _strStateName)
 
 	m_CurState = FindState(_strStateName);
 	m_CurState->SetName(_strStateName);
+	m_CurState->m_FSM = this;
 
 	assert(m_CurState);
 

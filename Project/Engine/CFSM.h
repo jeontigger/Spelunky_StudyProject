@@ -11,7 +11,7 @@ class CFSM :
 {
 private:
     CFSM*                   m_Master;
-    CStateMachine*          m_StateMachie; // FSM 을 사용하는 StateMachine;
+    CStateMachine*          m_StateMachine; // FSM 을 사용하는 StateMachine;
 
     map<wstring, CState*>   m_mapState;
     CBlackboard*            m_Blackboard;
@@ -28,14 +28,25 @@ public:
     { 
         if (m_Master) 
         { 
-            m_StateMachie = _SM; 
+            m_StateMachine = _SM; 
         } 
     }
     CFSM* GetFSMIstance();
 
-    CStateMachine* GetStateMachine() { return m_StateMachie; }
+    CStateMachine* GetStateMachine() { return m_StateMachine; }
     void ChangeState(const wstring& _strStateName);
     CState* GetCurState() { return m_CurState; }
+
+    template<typename T>
+    T* GetState()
+    {
+        for (auto iter = m_mapState.begin(); iter != m_mapState.end(); ++iter)
+        {
+            if (dynamic_cast<T*>(iter->second))
+                return (T*)iter->second;
+        }
+        return nullptr;
+    }
 
 
 public:
@@ -48,13 +59,14 @@ public:
     static CState* (*LoadStateFunc)(const string& _strFilePath);
 
 public:
-    CLONE_DISABLE(CFSM);
-    CFSM(bool _bEngine = false);    
-    ~CFSM();
+    CLONE(CFSM);
+    CFSM(bool _bEngine = false);
+    ~CFSM();   
 
 private:
     map<wstring, CState*>& GetStates() { return m_mapState; }
     friend class FSMUI;
     friend class StateMachineUI;
+    friend class CStateMachine;
 };
 

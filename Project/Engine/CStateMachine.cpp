@@ -6,6 +6,15 @@ CStateMachine::CStateMachine()
 {
 }
 
+CStateMachine::CStateMachine(const CStateMachine& _origin)
+	: CComponent(COMPONENT_TYPE::STATEMACHINE)
+{
+	m_FSM = _origin.m_FSM;
+	m_FSM_Inst = _origin.m_FSM_Inst;
+
+	_origin.m_Blackboard.Copy(m_Blackboard);
+}
+
 CStateMachine::~CStateMachine()
 {
 }
@@ -61,5 +70,6 @@ void CStateMachine::LoadFromFile(FILE* _File)
 void CStateMachine::LoadFromFile(ifstream& fin)
 {
 	LoadAssetRef(m_FSM, fin);
+	m_FSM->m_StateMachine = this;
 }
 

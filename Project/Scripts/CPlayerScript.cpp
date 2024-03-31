@@ -16,9 +16,12 @@ void CPlayerScript::skill()
 {
 }
 
+#include "CPlayerStartState.h"
 void CPlayerScript::begin()
 {
 	GetOwner()->GetScript<CFieldObject>()->ImPlayer();
+	auto state = GetOwner()->StateMachine()->GetFSM()->GetState<CPlayerStartState>();
+	GetOwner()->StateMachine()->GetFSM()->ChangeState(CStateMgr::GetStateName(state));
 }
 
 void CPlayerScript::tick()

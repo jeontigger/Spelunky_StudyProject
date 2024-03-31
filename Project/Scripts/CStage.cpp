@@ -487,6 +487,7 @@ void CStage::begin()
 	CCollisionMgr::GetInst()->LayerCheck(L"Camera", L"CameraCollider");
 	CCollisionMgr::GetInst()->LayerCheck(L"Tile", L"Camera");
 	CCollisionMgr::GetInst()->LayerCheck(PlayerLayer, CameraLayer);
+	CCollisionMgr::GetInst()->LayerCheck(PlayerLayer, TileLayer);
 	CCollisionMgr::GetInst()->LayerCheck(7, 6);
 }
 

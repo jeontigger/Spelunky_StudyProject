@@ -6,6 +6,54 @@
 void (*CBlackboard::SaveGameObject)(CGameObject* _Obj, ofstream& fout) = nullptr;
 CGameObject* (*CBlackboard::LoadGameObject)(ifstream& fin) = nullptr;
 
+void CBlackboard::Copy(CBlackboard& _bb) const
+{
+	for (auto iter =m_mapBBData.begin(); iter != m_mapBBData.end(); ++iter) {
+
+		switch (iter->second.Type)
+		{
+		case BB_DATA::INT:
+		{
+			int temp = *((int*)iter->second.pData);
+			_bb.AddBlackboardData(iter->first, iter->second.Type, &temp);
+		}
+		break;
+		case BB_DATA::FLOAT:
+		{
+			float temp = *((float*)iter->second.pData);
+			_bb.AddBlackboardData(iter->first, iter->second.Type, &temp);
+		}
+		break;
+		case BB_DATA::VEC2:
+		{
+			Vec2 temp = *((Vec2*)iter->second.pData);
+			_bb.AddBlackboardData(iter->first, iter->second.Type, &temp);
+		}
+		break;
+		case BB_DATA::VEC3:
+		{
+			Vec3 temp = *((Vec3*)iter->second.pData);
+			_bb.AddBlackboardData(iter->first, iter->second.Type, &temp);
+		}
+		break;
+		case BB_DATA::VEC4:
+		{
+			Vec4 temp = *((Vec4*)iter->second.pData);
+			_bb.AddBlackboardData(iter->first, iter->second.Type, &temp);
+		}
+		break;
+		case BB_DATA::OBJECT:
+		{
+			CGameObject* obj = (CGameObject*)iter->second.pData;
+			_bb.AddBlackboardData(iter->first, iter->second.Type, obj);
+		}
+		break;
+		default:
+			break;
+		}
+	}
+}
+
 CBlackboard::CBlackboard()
 {
 }
@@ -14,6 +62,7 @@ CBlackboard::CBlackboard(const CBlackboard& _board)
 	: CEntity(_board)
 	, m_mapBBData()
 {
+
 }
 
 CBlackboard::~CBlackboard()

@@ -57,8 +57,12 @@ void FSMUI::Save()
 void FSMUI::StateList()
 {
     map<wstring, CState*>& states = m_target->GetStates();
+
+    int cnt = 0;
     for (auto iter = states.begin(); iter != states.end();) {
         string statename = ToString(iter->first);
+        string deleteKey = "Delete##" + to_string(cnt);
+        cnt++;
         ImGui::InputText("##StateName", (char*)statename.c_str(), statename.length(), ImGuiInputTextFlags_ReadOnly);
         ImGui::SameLine();
 
@@ -67,7 +71,7 @@ void FSMUI::StateList()
         ImGui::PushStyleColor(ImGuiCol_ButtonHovered, (ImVec4)ImColor::HSV(0.f, 0.6f, 0.6f));
         ImGui::PushStyleColor(ImGuiCol_ButtonActive, (ImVec4)ImColor::HSV(0.f, 0.6f, 0.6f));
 
-        if (ImGui::Button("Delete")) {
+        if (ImGui::Button(deleteKey.c_str())) {
             delete iter->second;
             iter = states.erase(iter);
             MessageBox(nullptr, L"State가 삭제되었습니다.", L"State", 0);

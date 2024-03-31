@@ -21,5 +21,6 @@
 
 
 #include "CScriptMgr.h"
+#include "CStateMgr.h"
 
 #endif //PCH_H
