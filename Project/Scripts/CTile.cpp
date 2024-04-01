@@ -75,14 +75,29 @@ void CTile::BeginOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCollid
 		Vec3 objColScale(objmat._11, objmat._22, objmat._33);
 
 		Vec3 objPos = _OtherObj->Transform()->GetRelativePos();
-		Vec2 objVel = script->GetVelocity() * DT;
-		Vec3 prevPos = Vec3(objPos.x - objVel.x, objPos.y - objVel.y, objPos.z);
+		Vec2 objVel = script->GetVelocity();
+		Vec3 prevColPos = Vec3(objColPos.x - objVel.x, objColPos.y - objVel.y, objPos.z);
 
-		float deltaY = prevPos.y - (objColScale.y/2.f + tilePos.y);
+		float deltaY = (prevColPos.y - objColScale.y/2.f) - (tileScale.y/2.f + tilePos.y);
 
-		if (deltaY > 0) {
-			objPos.y = tilePos.y + tileScale.y / 2.f;
+		if (deltaY + 1.f> 0) {
+			objPos.y = tilePos.y + tileScale.y / 2.f + objColScale.y / 2.f;
 			_OtherObj->Transform()->SetRelativePos(objPos);
+		}
+		else {
+			//// 오브젝트가 오른쪽
+			//if (objColPos.x - tilePos.x > 0) {
+			//	objPos.x = tilePos.x + (tileScale.x + abs(objColScale.x))/2.f;
+			//	_OtherObj->Transform()->SetRelativePos(objPos);
+			//	objVel.x = 0;
+			//	script->SetVelocity(objVel);
+			//}
+			//else {
+			//	objPos.x = tilePos.x - (tileScale.x + abs(objColScale.x))/2.f;
+			//	_OtherObj->Transform()->SetRelativePos(objPos);
+			//	objVel.x = 0;
+			//	script->SetVelocity(objVel);
+			//}
 		}
 
 	}

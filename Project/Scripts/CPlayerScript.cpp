@@ -77,9 +77,15 @@ void CPlayerScript::tick()
 		}
 	}
 	else {
-		if (IsGrounded() && !IsMoving()) {
-			Animator2D()->Play(AnimPlayerIdle);
+		if (IsGrounded()) {
+			if (!IsMoving()) {
+				Animator2D()->Play(AnimPlayerIdle);
+			}
+			else {
+				Animator2D()->Play(AnimPlayerIdle);
+			}
 		}
+			
 	}
 
 	// Move
@@ -110,12 +116,18 @@ void CPlayerScript::tick()
 	if (KEY_TAP(InputKey.MoveLeft)) {
 		m_bLastMoveDir = 0;
 		m_bMoveLeft = true;
+		if (IsRightBump()) {
+			SetRightBump(false);
+		}
 		if(IsGrounded())
 			Animator2D()->Play(AnimPlayerWalk);
 	}
 	if (KEY_TAP(InputKey.MoveRight)) {
 		m_bLastMoveDir = 1;
 		m_bMoveRight = true;
+		if (IsLeftBump()) {
+			SetLeftBump(false);
+		}
 		if (IsGrounded())
 			Animator2D()->Play(AnimPlayerWalk);
 	}
@@ -137,11 +149,12 @@ void CPlayerScript::tick()
 void CPlayerScript::BeginOverlap(CCollider2D* _Collider
 	, CGameObject* _OtherObj, CCollider2D* _OtherCollider)
 {
+	CFieldObject::BeginOverlap(_Collider, _OtherObj, _OtherCollider);
 	auto script = _OtherObj->GetScript<CTile>();
 	if (script)
 	{
-		if (!IsGrounded()) {
-			m_bGround = 0;
+		if (!IsJumpUp()) {
+			
 			if (IsMoving()) {
 				Animator2D()->Play(AnimPlayerWalk);
 			}
@@ -149,7 +162,7 @@ void CPlayerScript::BeginOverlap(CCollider2D* _Collider
 				Animator2D()->Play(AnimPlayerIdle);
 			}
 		}
-		SetGround(true);
+		
 	}
 }
 
@@ -160,7 +173,7 @@ void CPlayerScript::Overlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCol
 
 void CPlayerScript::EndOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCollider2D* _OtherCollider)
 {
-	auto script = _OtherObj->GetScript<CTile>();
+	/*auto script = _OtherObj->GetScript<CTile>();
 	if (script)
-		SetGround(false);
+		SetGround(false);*/
 }
