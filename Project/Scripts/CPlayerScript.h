@@ -6,6 +6,13 @@ class CPlayerScript :
     public CFieldObject
 {
 private:
+    PlayerKey InputKey;
+
+public:
+    PlayerKey GetInputKeys() { return InputKey; }
+    void SetInputKey(PlayerKey _key) { InputKey = _key; }
+
+private:
     float m_fRunSpeed;
     bool m_bLastMoveDir; // 0 : left, 1 : right
     bool m_bMoveLeft;

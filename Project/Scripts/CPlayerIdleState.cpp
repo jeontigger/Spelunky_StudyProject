@@ -17,13 +17,14 @@ CPlayerIdleState::~CPlayerIdleState()
 
 void CPlayerIdleState::finaltick()
 {
-	if (KEY_PRESSED(SPACE)) { 
+	PlayerKey input = m_PlayerScript->GetInputKeys();
+	if (KEY_PRESSED(input.Jump)) { 
 			m_PlayerScript->Jump();
 	}
-	if (KEY_PRESSED(LEFT)) {
+	if (KEY_PRESSED(input.MoveLeft)) {
 		m_PlayerScript->MoveLeft();
 	}
-	if (KEY_PRESSED(RIGHT)) {
+	if (KEY_PRESSED(input.MoveRight)) {
 		m_PlayerScript->MoveRight();
 	}
 }

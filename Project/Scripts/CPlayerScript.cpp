@@ -5,6 +5,7 @@
 
 CPlayerScript::CPlayerScript()
 	: CFieldObject((UINT)SCRIPT_TYPE::PLAYERSCRIPT)
+	, InputKey()
 	, m_fJumpInitSpeed(0.7f)
 	, m_fJumpTimer(0.f)
 	, m_fJumpMaxTime(.3f)
@@ -65,7 +66,6 @@ void CPlayerScript::begin()
 void CPlayerScript::tick()
 {
 	CFieldObject::tick();
-	IsMoving();
 	// Jump
 	if (m_bJumpup) {
 		if (m_fJumpTimer > 0) {
@@ -109,25 +109,24 @@ void CPlayerScript::tick()
 	}
 
 	SetVelocity(vel);
-	if (KEY_TAP(LEFT)) {
+	if (KEY_TAP(InputKey.MoveLeft)) {
 		m_bLastMoveDir = 0;
 		m_bMoveLeft = true;
 		if(IsGrounded())
 			Animator2D()->Play(AnimPlayerWalk);
 	}
-	if (KEY_TAP(RIGHT)) {
+	if (KEY_TAP(InputKey.MoveRight)) {
 		m_bLastMoveDir = 1;
 		m_bMoveRight = true;
 		if (IsGrounded())
 			Animator2D()->Play(AnimPlayerWalk);
 	}
-	if (KEY_RELEASED(LEFT)) {
+	if (KEY_RELEASED(InputKey.MoveLeft)) {
 		m_bMoveLeft = false;
 	}
-	if (KEY_RELEASED(RIGHT)) {
+	if (KEY_RELEASED(InputKey.MoveRight)) {
 		m_bMoveRight = false;
 	}
-	IsMoving();
 }
 
 #include "CTile.h"

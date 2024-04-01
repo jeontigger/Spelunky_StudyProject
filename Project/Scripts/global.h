@@ -7,3 +7,5 @@
 
 #include <fstream>
 using std::ofstream;
+
+#include "struct.h"
