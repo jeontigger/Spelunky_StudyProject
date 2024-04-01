@@ -18,6 +18,7 @@
 
 #define AnimPlayerIdle L"anim\\PlayerIdle.anim"
 #define AnimPlayerJumpUp L"anim\\PlayerJumpUp.anim"
+#define AnimPlayerWalk L"anim\\PlayerWalk.anim"
 
 #define StatePlayerIdle L"CPlayerIdleState"
 

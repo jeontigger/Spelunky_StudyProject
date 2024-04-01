@@ -188,6 +188,7 @@ call CodeGen.exe</Command>
     <ClInclude Include="pch.h" />
     <ClInclude Include="CPlayerIdleState.h" />
     <ClInclude Include="strings.h" />
+    <ClInclude Include="struct.h" />
     <ClInclude Include="zAxis.h" />
   </ItemGroup>
   <ItemGroup>

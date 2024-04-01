@@ -6,6 +6,20 @@ class CPlayerScript :
     public CFieldObject
 {
 private:
+    float m_fRunSpeed;
+    bool m_bLastMoveDir; // 0 : left, 1 : right
+    bool m_bMoveLeft;
+    bool m_bMoveRight;
+
+public:
+    bool IsLookRight();
+    void MoveLeft();
+    void MoveRight();
+    bool IsMoving() { 
+        return m_bMoveRight || m_bMoveLeft;
+    }
+
+private:
     float m_fJumpInitSpeed;
     float m_fJumpWeightSpeed;
     float m_fJumpMaxTime;

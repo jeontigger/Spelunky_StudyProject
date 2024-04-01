@@ -19,7 +19,7 @@ CFieldObject::~CFieldObject()
 
 void CFieldObject::AddGravity()
 {
-	if (m_bGround)
+	if (IsGrounded())
 	{
 		m_vVelocity.y = 0;
 	}

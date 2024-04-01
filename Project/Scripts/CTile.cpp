@@ -61,16 +61,9 @@ void CTile::begin()
 	SetTileType(TileType::Blank);
 }
 
-#include "CPlayerScript.h"
 void CTile::BeginOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCollider2D* _OtherCollider) {
-	CFieldObject* script = _OtherObj->GetScript<CFieldObject>();
-	if(script)
-		script->SetGround(true);
 }
 void CTile::EndOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCollider2D* _OtherCollider) {
-	CFieldObject* script = _OtherObj->GetScript<CFieldObject>();
-	if (script)
-		script->SetGround(false);
 }
 
 Vec2 CTile::TypeToPos(TileType type)

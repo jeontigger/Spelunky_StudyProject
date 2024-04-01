@@ -16,7 +16,9 @@ private:
     float m_fGravity;
     Vec3 m_vPos;
     Vec2 m_vVelocity;
-    bool m_bGround;
+
+protected:
+    int m_bGround;
 
 public:
     inline void SetMass(UINT _mass) { m_fMass = _mass; }
@@ -27,8 +29,8 @@ public:
 
     inline bool IsMove() { return m_fGravity != 0.f; }
 
-    inline void SetGround(bool _b) { m_bGround = _b; }
-    inline bool IsGrounded() { return m_bGround; }
+    inline void SetGround(bool _b) { _b? m_bGround++ : m_bGround--; }
+    inline bool IsGrounded() { return m_bGround != 0; }
 
     Vec2 GetVelocity() { return m_vVelocity; }
     void SetVelocity(Vec2 _vec) { m_vVelocity = _vec; }

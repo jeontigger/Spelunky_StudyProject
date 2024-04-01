@@ -125,11 +125,16 @@ CStage::CStage()
 
 	test = true;
 	if (test) {
-		auto prefab = CAssetMgr::GetInst()->Load<CPrefab>(TilePrefKey, TilePrefKey);
-		auto obj = prefab->Instantiate();
-		obj->Transform()->SetRelativePos(Vec3(0, -300, TileZ));
-		
-		AddObject(obj, TileLayer);
+		Ptr<CPrefab> prefab;
+		CGameObject* obj;
+		for (int i = 0; i < 10; i++) {
+			 prefab = CAssetMgr::GetInst()->Load<CPrefab>(TilePrefKey, TilePrefKey);
+			 obj = prefab->Instantiate();
+			obj->Transform()->SetRelativePos(Vec3(-5 * TileScaleX + i * TileScaleX, -400, TileZ));
+
+			AddObject(obj, TileLayer);
+		}
+
 
 		prefab = CAssetMgr::GetInst()->Load<CPrefab>(PlayerPefKey, PlayerPefKey);
 		obj = prefab->Instantiate();
