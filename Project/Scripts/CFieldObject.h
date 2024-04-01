@@ -30,7 +30,7 @@ public:
     inline bool IsMove() { return m_fGravity != 0.f; }
 
     inline void SetGround(bool _b) { _b? m_bGround++ : m_bGround--; }
-    inline bool IsGrounded() { return m_bGround != 0; }
+    inline bool IsGrounded() { return m_bGround > 0; }
 
     Vec2 GetVelocity() { return m_vVelocity; }
     void SetVelocity(Vec2 _vec) { m_vVelocity = _vec; }

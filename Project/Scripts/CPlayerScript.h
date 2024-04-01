@@ -17,6 +17,8 @@ private:
     bool m_bLastMoveDir; // 0 : left, 1 : right
     bool m_bMoveLeft;
     bool m_bMoveRight;
+    Vec3 m_vPrevPos;
+    Vec3 m_vCurPos;
 
 public:
     bool IsLookRight();

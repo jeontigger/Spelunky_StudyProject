@@ -61,8 +61,34 @@ void CTile::begin()
 	SetTileType(TileType::Blank);
 }
 
+#include "CFieldObject.h"
 void CTile::BeginOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCollider2D* _OtherCollider) {
+
+	auto script = _OtherObj->GetScript<CFieldObject>();
+	if (script) {
+		auto tilemat = _Collider->GetColliderWorldMat();
+		auto objmat = _OtherCollider->GetColliderWorldMat();
+
+		Vec3 tilePos(tilemat._41, tilemat._42, tilemat._43);
+		Vec3 tileScale(tilemat._11, tilemat._22, tilemat._33);
+		Vec3 objColPos(objmat._41, objmat._42, objmat._43);
+		Vec3 objColScale(objmat._11, objmat._22, objmat._33);
+
+		Vec3 objPos = _OtherObj->Transform()->GetRelativePos();
+		Vec2 objVel = script->GetVelocity() * DT;
+		Vec3 prevPos = Vec3(objPos.x - objVel.x, objPos.y - objVel.y, objPos.z);
+
+		float deltaY = prevPos.y - (objColScale.y/2.f + tilePos.y);
+
+		if (deltaY > 0) {
+			objPos.y = tilePos.y + tileScale.y / 2.f;
+			_OtherObj->Transform()->SetRelativePos(objPos);
+		}
+
+	}
+	
 }
+
 void CTile::EndOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCollider2D* _OtherCollider) {
 }
 

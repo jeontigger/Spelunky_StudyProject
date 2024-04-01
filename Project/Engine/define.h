@@ -112,6 +112,13 @@ enum class COMPONENT_TYPE
 	SCRIPT,
 };
 
+enum class CollisionDir {
+	Top, 
+	Side,
+	Bottom,
+	END,
+};
+
 extern const char* COMPONENT_TYPE_STRING[(UINT)COMPONENT_TYPE::END];
 
 // 상수버퍼 종류

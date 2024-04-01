@@ -74,7 +74,6 @@ void CPlayerScript::tick()
 		else {
 			m_bJumpup = false;
 			m_fJumpTimer = 0;
-			
 		}
 	}
 	else {
@@ -84,7 +83,6 @@ void CPlayerScript::tick()
 	}
 
 	// Move
-
 	Vec2 vel = GetVelocity();
 	if (m_bMoveRight && m_bMoveLeft) {
 		m_bLastMoveDir ? m_bMoveLeft = false: m_bMoveRight = false;
@@ -127,6 +125,11 @@ void CPlayerScript::tick()
 	if (KEY_RELEASED(InputKey.MoveRight)) {
 		m_bMoveRight = false;
 	}
+
+	m_vPrevPos = m_vCurPos;
+	m_vCurPos = GetOwner()->Transform()->GetRelativePos();
+
+
 }
 
 #include "CTile.h"
@@ -138,6 +141,7 @@ void CPlayerScript::BeginOverlap(CCollider2D* _Collider
 	if (script)
 	{
 		if (!IsGrounded()) {
+			m_bGround = 0;
 			if (IsMoving()) {
 				Animator2D()->Play(AnimPlayerWalk);
 			}
@@ -146,13 +150,12 @@ void CPlayerScript::BeginOverlap(CCollider2D* _Collider
 			}
 		}
 		SetGround(true);
-		
 	}
 }
 
 void CPlayerScript::Overlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCollider2D* _OtherCollider)
 {
-	
+
 }
 
 void CPlayerScript::EndOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCollider2D* _OtherCollider)
