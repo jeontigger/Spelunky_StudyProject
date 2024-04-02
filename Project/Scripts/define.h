@@ -14,7 +14,7 @@
 
 #define TileBlockScaleVec Vec3(TileBlockScaleX, TileBlockScaleY, 1)
 
-#define DefaultGravity 2.5
+#define DefaultGravity 20.5
 
 
 #define BackgroundLayer 1

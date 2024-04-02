@@ -38,8 +38,8 @@ void CFieldObject::tick()
 	m_vPos = Transform()->GetRelativePos();
 	AddGravity();
 
-	m_vPos.x += m_vVelocity.x;
-	m_vPos.y += m_vVelocity.y;
+	m_vPos.x += m_vVelocity.x * TileScaleX * DT;
+	m_vPos.y += m_vVelocity.y * TileScaleX * DT;
 	Transform()->SetRelativePos(m_vPos);
 
 
@@ -108,7 +108,7 @@ void CFieldObject::EndOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, CC
 		Vec3 objColScale(objmat._11, objmat._22, objmat._33);
 
 		Vec3 objPos = GetOwner()->Transform()->GetRelativePos();
-		Vec2 objVel = GetVelocity();
+		Vec2 objVel = GetVelocity() * DT;
 		Vec3 prevColPos = Vec3(objColPos.x - objVel.x, objColPos.y - objVel.y, objPos.z);
 
 		float deltaY = (prevColPos.y - objColScale.y / 2.f) - (tileScale.y / 2.f + tilePos.y);

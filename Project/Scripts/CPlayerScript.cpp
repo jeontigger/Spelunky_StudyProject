@@ -6,11 +6,11 @@
 CPlayerScript::CPlayerScript()
 	: CFieldObject((UINT)SCRIPT_TYPE::PLAYERSCRIPT)
 	, InputKey()
-	, m_fJumpInitSpeed(0.7f)
+	, m_fJumpInitSpeed(6.7f)
 	, m_fJumpTimer(0.f)
 	, m_fJumpMaxTime(.3f)
 	, m_fJumpWeightSpeed(1.5f)
-	, m_fRunSpeed(1.f)
+	, m_fRunSpeed(6.f)
 {
 	
 }
