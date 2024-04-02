@@ -38,7 +38,9 @@ void CPlayerScript::MoveRight()
 void CPlayerScript::Jump()
 {
 	if (IsGrounded()) {
-		m_bGround = 0;
+		auto pos = Transform()->GetRelativePos();
+		pos.y += 1.f;
+		Transform()->SetRelativePos(pos);
 		SetVelocity(Vec2(0.f, m_fJumpInitSpeed));
 		m_fJumpTimer = m_fJumpMaxTime;
 		m_bJumpup = true;
@@ -61,6 +63,7 @@ void CPlayerScript::begin()
 	GetOwner()->StateMachine()->GetFSM()->ChangeState(CStateMgr::GetStateName(state));
 
 	AddScriptParam(SCRIPT_PARAM::FLOAT, "JumpTimer", &m_fJumpTimer);
+	AddScriptParam(SCRIPT_PARAM::INT, "Is ground", &m_bGround);
 }
 
 void CPlayerScript::tick()
@@ -82,7 +85,7 @@ void CPlayerScript::tick()
 				Animator2D()->Play(AnimPlayerIdle);
 			}
 			else {
-				Animator2D()->Play(AnimPlayerIdle);
+				//Animator2D()->Play(AnimPlayerIdle);
 			}
 		}
 			
@@ -168,11 +171,12 @@ void CPlayerScript::BeginOverlap(CCollider2D* _Collider
 
 void CPlayerScript::Overlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCollider2D* _OtherCollider)
 {
-
+	CFieldObject::Overlap(_Collider, _OtherObj, _OtherCollider);
 }
 
 void CPlayerScript::EndOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCollider2D* _OtherCollider)
 {
+	CFieldObject::EndOverlap(_Collider, _OtherObj, _OtherCollider);
 	/*auto script = _OtherObj->GetScript<CTile>();
 	if (script)
 		SetGround(false);*/

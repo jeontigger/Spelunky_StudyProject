@@ -21,6 +21,7 @@ protected:
     int m_bGround;
     bool m_bLeftBump;
     bool m_bRightBump;
+    int m_iTileCnt;
 
 public:
     inline void SetMass(UINT _mass) { m_fMass = _mass; }
@@ -31,7 +32,7 @@ public:
 
     inline bool IsMove() { return m_fGravity != 0.f; }
 
-    inline void SetGround(bool _b) { _b? m_bGround = true : m_bGround = false; }
+    inline void SetGround(bool _b) { _b? m_bGround++ : m_bGround--; }
     inline bool IsGrounded() { return m_bGround > 0; }
 
     inline void SetLeftBump(bool _b) { _b ? m_bLeftBump = true : m_bLeftBump = false; }
@@ -51,8 +52,8 @@ public:
 
 public:
     virtual void BeginOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCollider2D* _OtherCollider);
-    virtual void Overlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCollider2D* _OtherCollider) {}
-    virtual void EndOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCollider2D* _OtherCollider) {}
+    virtual void Overlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCollider2D* _OtherCollider);
+    virtual void EndOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCollider2D* _OtherCollider);
 
 public:
     CFieldObject(UINT type);
