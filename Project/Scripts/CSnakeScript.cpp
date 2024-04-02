@@ -17,7 +17,17 @@ CSnakeScript::~CSnakeScript()
 
 bool CSnakeScript::DetectFrontTile()
 {
-	return m_DetectCollider->DetectTile();
+	return m_DetectTileCollider->DetectTile();
+}
+
+bool CSnakeScript::DetectFrontWall()
+{
+	return m_DetectWallAndPlayerCollider->DetectTile();
+}
+
+bool CSnakeScript::DetectPlayer()
+{
+	return m_DetectWallAndPlayerCollider->DetectPlayer();
 }
 
 void CSnakeScript::begin()
@@ -36,10 +46,16 @@ void CSnakeScript::begin()
 	GamePlayStatic::SpawnGameObject(hitcollider, MonsterColliderLayer);
 
 	CGameObject* detectcollider = new CGameObject;
-	z = GetOwner()->Transform()->GetRelativePos().z;
 	detectcollider->AddComponent(new CMonsterDetectCollider);
-	m_DetectCollider = detectcollider->GetScript<CMonsterDetectCollider>();
-	m_DetectCollider->Set(GetOwner(), Vec3(50, -50, z), Vec3(4, 4, z));
+	m_DetectTileCollider = detectcollider->GetScript<CMonsterDetectCollider>();
+	m_DetectTileCollider->Set(GetOwner(), Vec3(50, -50, z), Vec3(4, 4, z));
+	GetOwner()->AddChild(detectcollider);
+	GamePlayStatic::SpawnGameObject(detectcollider, MonsterColliderLayer);
+
+	detectcollider = new CGameObject;
+	detectcollider->AddComponent(new CMonsterDetectCollider);
+	m_DetectWallAndPlayerCollider = detectcollider->GetScript<CMonsterDetectCollider>();
+	m_DetectWallAndPlayerCollider->Set(GetOwner(), Vec3(40, -10, z), Vec3(30, 40, z));
 	GetOwner()->AddChild(detectcollider);
 	GamePlayStatic::SpawnGameObject(detectcollider, MonsterColliderLayer);
 }

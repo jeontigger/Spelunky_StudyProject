@@ -6,7 +6,6 @@ class CSnakeIdleState
 	:public CState
 {
 private:
-	float m_fAttackRange;
 	CGameObject* m_pPlayer;
 	CGameObject* m_pOwner;
 	class CSnakeScript* m_pScript;

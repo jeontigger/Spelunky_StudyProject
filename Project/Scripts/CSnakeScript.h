@@ -4,10 +4,13 @@ class CSnakeScript
 	: public CCharacterScript
 {
 private:
-    class CMonsterDetectCollider* m_DetectCollider;
+    class CMonsterDetectCollider* m_DetectTileCollider;
+    class CMonsterDetectCollider* m_DetectWallAndPlayerCollider;
 
 public:
     bool DetectFrontTile();
+    bool DetectFrontWall();
+    bool DetectPlayer();
 
 public:
     virtual void begin() override;
