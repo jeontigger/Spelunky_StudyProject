@@ -6,6 +6,8 @@ class CSnakeScript
 private:
     float m_fDetectRange;
 
+    class CMonsterDetectTileCollider* m_DetectTile;
+
 public:
     bool DetectFrontTile();
 

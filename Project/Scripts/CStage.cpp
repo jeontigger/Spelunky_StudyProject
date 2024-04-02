@@ -135,7 +135,7 @@ CStage::CStage()
 			AddObject(obj, TileLayer);
 		}
 		obj = prefab->Instantiate();
-		obj->Transform()->SetRelativePos(Vec3(-5 * TileScaleX, -400 + TileScaleY, TileZ));
+		obj->Transform()->SetRelativePos(Vec3(-6 * TileScaleX, -400 + TileScaleY, TileZ));
 		AddObject(obj, TileLayer);
 		obj = prefab->Instantiate();
 		obj->Transform()->SetRelativePos(Vec3(5 * TileScaleX, -400 + TileScaleY, TileZ));
@@ -503,6 +503,7 @@ void CStage::begin()
 	CCollisionMgr::GetInst()->LayerCheck(PlayerLayer, CameraLayer);
 	CCollisionMgr::GetInst()->LayerCheck(PlayerLayer, TileLayer);
 	CCollisionMgr::GetInst()->LayerCheck(PlayerLayer, MonsterColliderLayer);
+	CCollisionMgr::GetInst()->LayerCheck(TileLayer, MonsterColliderLayer);
 	CCollisionMgr::GetInst()->LayerCheck(MonsterLayer, TileLayer);
 	CCollisionMgr::GetInst()->LayerCheck(MonsterLayer, CameraLayer);
 	CCollisionMgr::GetInst()->LayerCheck(7, 6);

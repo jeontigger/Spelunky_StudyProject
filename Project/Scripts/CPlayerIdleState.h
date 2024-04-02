@@ -16,8 +16,5 @@ public:
 public:
     CPlayerIdleState();
     ~CPlayerIdleState();
-
-private:
-
 };
 

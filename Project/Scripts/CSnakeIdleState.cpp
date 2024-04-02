@@ -23,13 +23,19 @@ void CSnakeIdleState::finaltick()
 {
 	Vec3 targetPos = m_pPlayer->Transform()->GetRelativePos();
 
-	if (m_pScript->IsLookRight()) {
+	static bool turn = false;
+	if (turn) {
 		m_pScript->MoveRight();
 	}
 	else {
 		m_pScript->MoveLeft();
 	}
 	
+	
+	if (m_pScript->IsGrounded() && !m_pScript->DetectFrontTile()) {
+		int a = 0;
+		turn = !turn;
+	}
 }
 
 void CSnakeIdleState::Enter()

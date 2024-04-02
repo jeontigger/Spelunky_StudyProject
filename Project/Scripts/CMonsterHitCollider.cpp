@@ -23,9 +23,6 @@ void CMonsterHitCollider::Set(CGameObject* parent, Vec3 vOffsetPos, Vec3 vOffset
 	Transform()->SetRelativePos(vOffsetPos);
 	Transform()->SetRelativeScale(vOffsetScale);
 }
-void CMonsterHitCollider::begin()
-{
-}
 void CMonsterHitCollider::BeginOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCollider2D* _OtherCollider)
 {
 	auto script = _OtherObj->GetScript<CPlayerScript>();
