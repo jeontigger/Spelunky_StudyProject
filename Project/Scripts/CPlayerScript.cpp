@@ -10,7 +10,6 @@ CPlayerScript::CPlayerScript()
 	, m_fJumpTimer(0.f)
 	, m_fJumpMaxTime(.3f)
 	, m_fJumpWeightSpeed(1.5f)
-	, m_fRunSpeed(6.f)
 {
 	
 }
@@ -18,21 +17,6 @@ CPlayerScript::CPlayerScript()
 CPlayerScript::~CPlayerScript()
 {
 
-}
-
-bool CPlayerScript::IsLookRight()
-{
-	return m_bMoveRight;
-}
-
-void CPlayerScript::MoveLeft()
-{
-	m_bMoveLeft = true;
-}
-
-void CPlayerScript::MoveRight()
-{
-	m_bMoveRight = true;
 }
 
 void CPlayerScript::Jump()
@@ -71,7 +55,7 @@ void CPlayerScript::begin()
 
 void CPlayerScript::tick()
 {
-	CFieldObject::tick();
+	CCharacterScript::tick();
 	// Jump
 	if (m_bJumpup) {
 		if (m_fJumpTimer > 0) {
@@ -91,49 +75,15 @@ void CPlayerScript::tick()
 				//Animator2D()->Play(AnimPlayerIdle);
 			}
 		}
-			
 	}
 
-	// Move
-	Vec2 vel = GetVelocity();
-	if (m_bMoveRight && m_bMoveLeft) {
-		m_bLastMoveDir ? m_bMoveLeft = false: m_bMoveRight = false;
-	}
-
-	if (m_bMoveRight) {
-		vel.x = m_fRunSpeed;
-		Vec3 scale = Transform()->GetRelativeScale();
-		scale.x = abs(scale.x);
-		Transform()->SetRelativeScale(scale);
-	}
-
-	if (m_bMoveLeft) {
-		vel.x = -m_fRunSpeed;
-		Vec3 scale = Transform()->GetRelativeScale();
-		scale.x = -(abs(scale.x));
-		Transform()->SetRelativeScale(scale);
-	}
-
-	if (!m_bMoveLeft && !m_bMoveRight) {
-		vel.x = 0;
-	}
-
-	SetVelocity(vel);
 	if (KEY_TAP(InputKey.MoveLeft)) {
-		m_bLastMoveDir = 0;
-		m_bMoveLeft = true;
-		if (IsRightBump()) {
-			SetRightBump(false);
-		}
+		MoveLeft();
 		if(IsGrounded())
 			Animator2D()->Play(AnimPlayerWalk);
 	}
 	if (KEY_TAP(InputKey.MoveRight)) {
-		m_bLastMoveDir = 1;
-		m_bMoveRight = true;
-		if (IsLeftBump()) {
-			SetLeftBump(false);
-		}
+		MoveRight();
 		if (IsGrounded())
 			Animator2D()->Play(AnimPlayerWalk);
 	}
@@ -146,8 +96,6 @@ void CPlayerScript::tick()
 
 	m_vPrevPos = m_vCurPos;
 	m_vCurPos = GetOwner()->Transform()->GetRelativePos();
-
-
 }
 
 #include "CTile.h"

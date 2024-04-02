@@ -13,20 +13,8 @@ public:
     void SetInputKey(PlayerKey _key) { InputKey = _key; }
 
 private:
-    float m_fRunSpeed;
-    bool m_bLastMoveDir; // 0 : left, 1 : right
-    bool m_bMoveLeft;
-    bool m_bMoveRight;
     Vec3 m_vPrevPos;
     Vec3 m_vCurPos;
-
-public:
-    bool IsLookRight();
-    void MoveLeft();
-    void MoveRight();
-    bool IsMoving() { 
-        return m_bMoveRight || m_bMoveLeft;
-    }
 
 private:
     float m_fJumpInitSpeed;
