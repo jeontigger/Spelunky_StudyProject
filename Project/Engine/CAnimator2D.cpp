@@ -92,6 +92,16 @@ void CAnimator2D::AddAnim(CAnim* anim)
 	m_mapAnim.insert(make_pair(anim->GetName(), anim));
 }
 
+float CAnimator2D::GetAnimDuration(CAnim* anim)
+{
+	float duration = 0.f;
+	for (int i = 0; i < anim->m_vecFrm.size(); i++) {
+		duration += anim->m_vecFrm[i].Duration;
+	}
+
+	return duration;
+}
+
 CAnim* CAnimator2D::FindAnim(const wstring& _strKey)
 {
 	map<wstring, CAnim*>::iterator iter = m_mapAnim.find(_strKey);

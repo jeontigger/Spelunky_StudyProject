@@ -42,5 +42,8 @@ public:
     ~CAnimator2D();
 
     friend class Animator2DUI;
+
+public:
+    static float GetAnimDuration(CAnim* anim);
 };
 

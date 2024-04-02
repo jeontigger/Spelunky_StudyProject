@@ -137,9 +137,9 @@ CStage::CStage()
 		obj = prefab->Instantiate();
 		obj->Transform()->SetRelativePos(Vec3(-6 * TileScaleX, -400 + TileScaleY, TileZ));
 		AddObject(obj, TileLayer);
-		obj = prefab->Instantiate();
+		/*obj = prefab->Instantiate();
 		obj->Transform()->SetRelativePos(Vec3(5 * TileScaleX, -400 + TileScaleY, TileZ));
-		AddObject(obj, TileLayer);
+		AddObject(obj, TileLayer);*/
 
 		prefab = CAssetMgr::GetInst()->Load<CPrefab>(PlayerPefKey, PlayerPefKey);
 		obj = prefab->Instantiate();

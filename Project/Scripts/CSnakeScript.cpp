@@ -55,7 +55,20 @@ void CSnakeScript::begin()
 	detectcollider = new CGameObject;
 	detectcollider->AddComponent(new CMonsterDetectCollider);
 	m_DetectWallAndPlayerCollider = detectcollider->GetScript<CMonsterDetectCollider>();
-	m_DetectWallAndPlayerCollider->Set(GetOwner(), Vec3(40, -10, z), Vec3(30, 40, z));
+	m_DetectWallAndPlayerCollider->Set(GetOwner(), Vec3(40, -13, z), Vec3(30, 40, z));
 	GetOwner()->AddChild(detectcollider);
 	GamePlayStatic::SpawnGameObject(detectcollider, MonsterColliderLayer);
+}
+
+void CSnakeScript::tick()
+{
+	CState* state = GetOwner()->StateMachine()->GetFSM()->GetCurState();
+	STATE_TYPE type = (STATE_TYPE)state->GetStateType();
+	if(type == STATE_TYPE::SNAKEIDLESTATE)
+	{
+		CCharacterScript::tick();
+	}
+	else {
+
+	}
 }
