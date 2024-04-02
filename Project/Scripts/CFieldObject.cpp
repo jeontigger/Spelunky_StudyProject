@@ -35,6 +35,8 @@ void CFieldObject::AddGravity()
 
 void CFieldObject::tick()
 {
+	m_vPrevPos = m_vPos;
+
 	m_vPos = Transform()->GetRelativePos();
 	AddGravity();
 
@@ -43,6 +45,8 @@ void CFieldObject::tick()
 	Transform()->SetRelativePos(m_vPos);
 
 
+	
+	m_vPos = Transform()->GetRelativePos();
 }
 
 void CFieldObject::begin()
@@ -62,17 +66,34 @@ void CFieldObject::BeginOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, 
 		Vec3 tileScale(tilemat._11, tilemat._22, tilemat._33);
 		Vec3 objColPos(objmat._41, objmat._42, objmat._43);
 		Vec3 objColScale(objmat._11, objmat._22, objmat._33);
+		Vec2 objColOffset = _Collider->GetOffsetPos();
 
 		Vec3 objPos = GetOwner()->Transform()->GetRelativePos();
+		Vec3 objScale = GetOwner()->Transform()->GetRelativeScale();
 		Vec2 objVel = GetVelocity();
 		Vec3 prevColPos = Vec3(objColPos.x - objVel.x, objColPos.y - objVel.y, objPos.z);
 
 		float deltaY = (prevColPos.y - objColScale.y / 2.f) - (tileScale.y / 2.f + tilePos.y);
 
 		if (deltaY + 1.f > 0) {
-			objPos.y = tilePos.y + (tileScale.y + abs(objColScale.y)) / 2.f;
-			Transform()->SetRelativePos(objPos);
-			SetGround(true);
+			if (objVel.y > 0.f && (objColPos.x == tilePos.x + (tileScale.x+objColScale.x) / 2.f || objColPos.x == tilePos.x - (tileScale.x +objColScale.x)/ 2.f)) {
+				// 오브젝트가 오른쪽
+				if (objColPos.x - tilePos.x > 0) {
+					objPos.x = tilePos.x + (tileScale.x + abs(objColScale.x)) / 2.f;
+					Transform()->SetRelativePos(objPos);
+					SetLeftBump(true);
+				}
+				else {
+					objPos.x = tilePos.x - (tileScale.x + abs(objColScale.x)) / 2.f;
+					Transform()->SetRelativePos(objPos);
+					SetRightBump(true);
+				}
+			}
+			else {
+				objPos.y = tilePos.y + (tileScale.y + abs(objColScale.y)) / 2.f - objColOffset.y * abs(objScale.y);
+				Transform()->SetRelativePos(objPos);
+				SetGround(true);
+			}
 		}
 		else {
 			// 오브젝트가 오른쪽
@@ -113,22 +134,26 @@ void CFieldObject::EndOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, CC
 
 		float deltaY = (prevColPos.y - objColScale.y / 2.f) - (tileScale.y / 2.f + tilePos.y);
 
-		if (deltaY + 1.f > 0) {
-			SetGround(false);
+
+		if (objVel.y > 0) {
+			if (deltaY > 0.5f) {
+				SetGround(false);
+			}
+			else {
+				// 오브젝트가 오른쪽
+				if (objColPos.x - tilePos.x > 0) {
+					SetLeftBump(false);
+				}
+				else {
+					SetRightBump(false);
+				}
+			}
+			
 		}
 		else {
-			//// 오브젝트가 오른쪽
-			//if (objColPos.x - tilePos.x > 0) {
-			//	objPos.x = tilePos.x + (tileScale.x + abs(objColScale.x)) / 2.f;
-			//	Transform()->SetRelativePos(objPos);
-			//	SetLeftBump(true);
-			//}
-			//else {
-			//	objPos.x = tilePos.x - (tileScale.x + abs(objColScale.x)) / 2.f;
-			//	Transform()->SetRelativePos(objPos);
-			//	SetRightBump(true);
-			//}
+			if (deltaY + 1.f > 0) {
+				SetGround(false);
+			}
 		}
-
 	}
 }

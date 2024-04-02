@@ -38,13 +38,14 @@ void CPlayerScript::MoveRight()
 void CPlayerScript::Jump()
 {
 	if (IsGrounded()) {
-		auto pos = Transform()->GetRelativePos();
-		pos.y += 1.f;
-		Transform()->SetRelativePos(pos);
+		//auto pos = Transform()->GetRelativePos();
+		//pos.y += 1.f;
+		//Transform()->SetRelativePos(pos);
 		SetVelocity(Vec2(0.f, m_fJumpInitSpeed));
 		m_fJumpTimer = m_fJumpMaxTime;
 		m_bJumpup = true;
 		GetOwner()->Animator2D()->Play(AnimPlayerJumpUp, false);
+		m_bGround = 0;
 	}
 	if (m_fJumpTimer > 0) {
 		AddVelocity(Vec2(0.f, m_fJumpWeightSpeed * DT));
@@ -64,6 +65,8 @@ void CPlayerScript::begin()
 
 	AddScriptParam(SCRIPT_PARAM::FLOAT, "JumpTimer", &m_fJumpTimer);
 	AddScriptParam(SCRIPT_PARAM::INT, "Is ground", &m_bGround);
+	AddScriptParam(SCRIPT_PARAM::INT, "Is left", &m_bLeftBump);
+	AddScriptParam(SCRIPT_PARAM::INT, "Is right", &m_bRightBump);
 }
 
 void CPlayerScript::tick()

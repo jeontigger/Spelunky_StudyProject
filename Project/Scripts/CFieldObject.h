@@ -15,12 +15,13 @@ private:
     float m_fMass;
     float m_fGravity;
     Vec3 m_vPos;
+    Vec3 m_vPrevPos;
     Vec2 m_vVelocity;
 
 protected:
     int m_bGround;
     bool m_bLeftBump;
-    bool m_bRightBump;
+    int m_bRightBump;
     int m_iTileCnt;
 
 public:
