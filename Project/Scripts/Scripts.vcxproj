@@ -167,7 +167,7 @@ call CodeGen.exe</Command>
     <ClInclude Include="CCharacterScript.h" />
     <ClInclude Include="CFieldObject.h" />
     <ClInclude Include="CMissileScript.h" />
-    <ClInclude Include="CMonsterDetectTileCollider.h" />
+    <ClInclude Include="CMonsterDetectCollider.h" />
     <ClInclude Include="CMonsterHitCollider.h" />
     <ClInclude Include="CMonsterScript.h" />
     <ClInclude Include="CPlayerScript.h" />
@@ -203,7 +203,7 @@ call CodeGen.exe</Command>
     <ClCompile Include="CCharacterScript.cpp" />
     <ClCompile Include="CFieldObject.cpp" />
     <ClCompile Include="CMissileScript.cpp" />
-    <ClCompile Include="CMonsterDetectTileCollider.cpp" />
+    <ClCompile Include="CMonsterDetectCollider.cpp" />
     <ClCompile Include="CMonsterHitCollider.cpp" />
     <ClCompile Include="CMonsterScript.cpp" />
     <ClCompile Include="CPlayerScript.cpp" />

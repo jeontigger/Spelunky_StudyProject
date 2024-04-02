@@ -10,7 +10,7 @@
 #include "CPlayerScript.h"
 #include "CSnakeScript.h"
 #include "CMonsterHitCollider.h"
-#include "CMonsterDetectTileCollider.h"
+#include "CMonsterDetectCollider.h"
 
 void CScriptMgr::GetScriptInfo(vector<wstring>& _vec)
 {
@@ -23,7 +23,7 @@ void CScriptMgr::GetScriptInfo(vector<wstring>& _vec)
 	_vec.push_back(L"CPlayerScript");
 	_vec.push_back(L"CSnakeScript");
 	_vec.push_back(L"CMonsterHitCollider");
-	_vec.push_back(L"CMonsterDetectTileCollider");
+	_vec.push_back(L"CMonsterDetectCollider");
 }
 
 CScript * CScriptMgr::GetScript(const wstring& _strScriptName)
@@ -46,8 +46,8 @@ CScript * CScriptMgr::GetScript(const wstring& _strScriptName)
 		return new CSnakeScript;
 	if (L"CMonsterHitCollider" == _strScriptName)
 		return new CMonsterHitCollider;
-	if (L"CMonsterDetectTileCollider" == _strScriptName)
-		return new CMonsterDetectTileCollider;
+	if (L"CMonsterDetectCollider" == _strScriptName)
+		return new CMonsterDetectCollider;
 	return nullptr;
 }
 
@@ -82,8 +82,8 @@ CScript * CScriptMgr::GetScript(UINT _iScriptType)
 	case (UINT)SCRIPT_TYPE::MONSTERHITCOLLIDER:
 		return new CMonsterHitCollider;
 		break;
-	case (UINT)SCRIPT_TYPE::MONSTERDETECTTILECOLLIDER:
-		return new CMonsterDetectTileCollider;
+	case (UINT)SCRIPT_TYPE::MONSTERDETECTCOLLIDER:
+		return new CMonsterDetectCollider;
 		break;
 	}
 	return nullptr;
@@ -129,8 +129,8 @@ const wchar_t * CScriptMgr::GetScriptName(CScript * _pScript)
 		return L"CMonsterHitCollider";
 		break;
 
-	case SCRIPT_TYPE::MONSTERDETECTTILECOLLIDER:
-		return L"CMonsterDetectTileCollider";
+	case SCRIPT_TYPE::MONSTERDETECTCOLLIDER:
+		return L"CMonsterDetectCollider";
 		break;
 
 	}

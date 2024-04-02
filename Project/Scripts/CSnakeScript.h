@@ -4,9 +4,7 @@ class CSnakeScript
 	: public CCharacterScript
 {
 private:
-    float m_fDetectRange;
-
-    class CMonsterDetectTileCollider* m_DetectTile;
+    class CMonsterDetectCollider* m_DetectCollider;
 
 public:
     bool DetectFrontTile();

@@ -88,15 +88,15 @@ void CLevelSaveLoad::SaveGameObject(CGameObject* _Obj, FILE* _File)
 		vecScripts[i]->SaveToFile(_File);
 	}
 
-	// 자식 오브젝트가 있으면 자식 오브젝트 정보 저장
-	const vector<CGameObject*>& vecChild = _Obj->GetChild();
-	size_t childcount = vecChild.size();
-	fwrite(&childcount, sizeof(size_t), 1, _File);
+	//// 자식 오브젝트가 있으면 자식 오브젝트 정보 저장
+	//const vector<CGameObject*>& vecChild = _Obj->GetChild();
+	//size_t childcount = vecChild.size();
+	//fwrite(&childcount, sizeof(size_t), 1, _File);
 
-	for (size_t i = 0; i < childcount; ++i)
-	{
-		SaveGameObject(vecChild[i], _File);
-	}
+	//for (size_t i = 0; i < childcount; ++i)
+	//{
+	//	SaveGameObject(vecChild[i], _File);
+	//}
 }
 
 void CLevelSaveLoad::SaveGameObject(CGameObject* _Obj, ofstream& fout)

@@ -100,7 +100,7 @@
     <ClInclude Include="CMonsterHitCollider.h">
       <Filter>02. Scripts\Character\Monster\Collider</Filter>
     </ClInclude>
-    <ClInclude Include="CMonsterDetectTileCollider.h">
+    <ClInclude Include="CMonsterDetectCollider.h">
       <Filter>02. Scripts\Character\Monster\Collider</Filter>
     </ClInclude>
   </ItemGroup>
@@ -189,7 +189,7 @@
     <ClCompile Include="CMonsterHitCollider.cpp">
       <Filter>02. Scripts\Character\Monster\Collider</Filter>
     </ClCompile>
-    <ClCompile Include="CMonsterDetectTileCollider.cpp">
+    <ClCompile Include="CMonsterDetectCollider.cpp">
       <Filter>02. Scripts\Character\Monster\Collider</Filter>
     </ClCompile>
   </ItemGroup>

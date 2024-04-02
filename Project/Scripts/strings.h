@@ -2,7 +2,7 @@
 
 #define StrPlayerName L"Player"
 #define StrMonsterHitColliderName L"HitCollider"
-#define StrMonsterDetectTileColliderName L"DetectTileCollider"
+#define StrMonsterDetectColliderName L"DetectCollider"
 
 #define TilePrefKey L"prefab\\Tile.pref"
 #define PlayerPefKey L"prefab\\Player.pref"

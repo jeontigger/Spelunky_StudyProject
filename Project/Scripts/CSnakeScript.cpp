@@ -3,7 +3,7 @@
 
 #include "CSnakeEntryState.h"
 #include "CMonsterHitCollider.h"
-#include "CMonsterDetectTileCollider.h"
+#include "CMonsterDetectCollider.h"
 
 CSnakeScript::CSnakeScript()
 	: CCharacterScript((UINT)SCRIPT_TYPE::SNAKESCRIPT)
@@ -17,7 +17,7 @@ CSnakeScript::~CSnakeScript()
 
 bool CSnakeScript::DetectFrontTile()
 {
-	return m_DetectTile->DetectTile();
+	return m_DetectCollider->DetectTile();
 }
 
 void CSnakeScript::begin()
@@ -37,9 +37,9 @@ void CSnakeScript::begin()
 
 	CGameObject* detectcollider = new CGameObject;
 	z = GetOwner()->Transform()->GetRelativePos().z;
-	detectcollider->AddComponent(new CMonsterDetectTileCollider);
-	m_DetectTile = detectcollider->GetScript<CMonsterDetectTileCollider>();
-	m_DetectTile->Set(GetOwner(), Vec3(-50, -50, z), Vec3(4, 4, z));
+	detectcollider->AddComponent(new CMonsterDetectCollider);
+	m_DetectCollider = detectcollider->GetScript<CMonsterDetectCollider>();
+	m_DetectCollider->Set(GetOwner(), Vec3(50, -50, z), Vec3(4, 4, z));
 	GetOwner()->AddChild(detectcollider);
 	GamePlayStatic::SpawnGameObject(detectcollider, MonsterColliderLayer);
 }

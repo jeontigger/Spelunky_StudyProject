@@ -12,16 +12,16 @@ void CCharacterScript::tick()
 
 	if (m_bMoveRight) {
 		vel.x = m_fRunSpeed;
-		Vec3 scale = Transform()->GetRelativeScale();
-		scale.x = abs(scale.x);
-		Transform()->SetRelativeScale(scale);
+		Vec3 rotation = Transform()->GetRelativeRotation();
+		rotation.y = 0;
+		Transform()->SetRelativeRotation(rotation);
 	}
 
 	if (m_bMoveLeft) {
 		vel.x = -m_fRunSpeed;
-		Vec3 scale = Transform()->GetRelativeScale();
-		scale.x = -(abs(scale.x));
-		Transform()->SetRelativeScale(scale);
+		Vec3 rotation = Transform()->GetRelativeRotation();
+		rotation.y = -XM_PI;
+		Transform()->SetRelativeRotation(rotation);
 	}
 
 	if (!m_bMoveLeft && !m_bMoveRight) {
@@ -48,13 +48,16 @@ void CCharacterScript::Hit()
 
 bool CCharacterScript::IsLookRight()
 {
-	return m_bMoveRight;
+	return GetOwner()->Transform()->GetRelativeRotation().y >= 0;
 }
 
 void CCharacterScript::MoveLeft()
 {
 	m_bLastMoveDir = 0;
 	m_bMoveLeft = true;
+	Vec3 rotation = Transform()->GetRelativeRotation();
+	rotation.y = -XM_PI;
+	Transform()->SetRelativeRotation(rotation);
 	if (IsRightBump()) {
 		SetRightBump(false);
 	}
@@ -64,6 +67,9 @@ void CCharacterScript::MoveRight()
 {
 	m_bLastMoveDir = 1;
 	m_bMoveRight = true;
+	Vec3 rotation = Transform()->GetRelativeRotation();
+	rotation.y = 0;
+	Transform()->SetRelativeRotation(rotation);
 	if (IsLeftBump()) {
 		SetLeftBump(false);
 	}
