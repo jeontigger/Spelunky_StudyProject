@@ -4,6 +4,7 @@
 #define TilePrefKey L"prefab\\Tile.pref"
 #define PlayerPefKey L"prefab\\Player.pref"
 #define OutlineWallKey L"prefab\\OutlineWall.pref"
+#define SnakePrefKey L"prefab\\Snake.pref"
 
 #define BBOwnerKey L"Owner"
 

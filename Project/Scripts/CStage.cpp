@@ -145,6 +145,10 @@ CStage::CStage()
 		obj = prefab->Instantiate();
 		AddObject(obj, PlayerLayer);
 
+		prefab = CAssetMgr::GetInst()->Load<CPrefab>(SnakePrefKey, SnakePrefKey);
+		obj = prefab->Instantiate();
+		AddObject(obj, MonsterLayer);
+
 	}
 }
 
@@ -498,6 +502,9 @@ void CStage::begin()
 	CCollisionMgr::GetInst()->LayerCheck(L"Tile", L"Camera");
 	CCollisionMgr::GetInst()->LayerCheck(PlayerLayer, CameraLayer);
 	CCollisionMgr::GetInst()->LayerCheck(PlayerLayer, TileLayer);
+	CCollisionMgr::GetInst()->LayerCheck(MonsterLayer, TileLayer);
+	CCollisionMgr::GetInst()->LayerCheck(MonsterLayer, CameraLayer);
+
 	CCollisionMgr::GetInst()->LayerCheck(7, 6);
 }
 

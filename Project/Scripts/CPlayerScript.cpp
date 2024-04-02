@@ -4,7 +4,7 @@
 #include <Engine/CKeyMgr.h>
 
 CPlayerScript::CPlayerScript()
-	: CFieldObject((UINT)SCRIPT_TYPE::PLAYERSCRIPT)
+	: CCharacterScript((UINT)SCRIPT_TYPE::PLAYERSCRIPT)
 	, InputKey()
 	, m_fJumpInitSpeed(6.7f)
 	, m_fJumpTimer(0.f)
@@ -155,7 +155,7 @@ void CPlayerScript::tick()
 void CPlayerScript::BeginOverlap(CCollider2D* _Collider
 	, CGameObject* _OtherObj, CCollider2D* _OtherCollider)
 {
-	CFieldObject::BeginOverlap(_Collider, _OtherObj, _OtherCollider);
+	CCharacterScript::BeginOverlap(_Collider, _OtherObj, _OtherCollider);
 	auto script = _OtherObj->GetScript<CTile>();
 	if (script)
 	{
@@ -174,13 +174,10 @@ void CPlayerScript::BeginOverlap(CCollider2D* _Collider
 
 void CPlayerScript::Overlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCollider2D* _OtherCollider)
 {
-	CFieldObject::Overlap(_Collider, _OtherObj, _OtherCollider);
+	CCharacterScript::Overlap(_Collider, _OtherObj, _OtherCollider);
 }
 
 void CPlayerScript::EndOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCollider2D* _OtherCollider)
 {
-	CFieldObject::EndOverlap(_Collider, _OtherObj, _OtherCollider);
-	/*auto script = _OtherObj->GetScript<CTile>();
-	if (script)
-		SetGround(false);*/
+	CCharacterScript::EndOverlap(_Collider, _OtherObj, _OtherCollider);
 }

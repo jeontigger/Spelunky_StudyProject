@@ -1,0 +1,5 @@
+fsm\SnakeState.fsm
+3
+CSnakeAttackState
+CSnakeEntryState
+CSnakeIdleState

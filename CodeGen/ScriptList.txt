@@ -5,3 +5,4 @@ CTile
 CCameraMovement
 CTileBoundary
 CPlayerScript
+CSnakeScript

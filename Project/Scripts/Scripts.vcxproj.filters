@@ -65,7 +65,7 @@
       <Filter>02. Scripts\Tile\Boundary</Filter>
     </ClInclude>
     <ClInclude Include="CPlayerScript.h">
-      <Filter>02. Scripts\Character</Filter>
+      <Filter>02. Scripts\Camera\Character</Filter>
     </ClInclude>
     <ClInclude Include="CStateMgr.h">
       <Filter>01. CodeGenMgr</Filter>
@@ -84,6 +84,18 @@
     </ClInclude>
     <ClInclude Include="struct.h">
       <Filter>00. Default</Filter>
+    </ClInclude>
+    <ClInclude Include="CSnakeScript.h">
+      <Filter>02. Scripts\Camera\Character\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="CSnakeEntryState.h">
+      <Filter>08. States\Snake</Filter>
+    </ClInclude>
+    <ClInclude Include="CSnakeIdleState.h">
+      <Filter>08. States\Snake\Idle</Filter>
+    </ClInclude>
+    <ClInclude Include="CSnakeAttackState.h">
+      <Filter>08. States\Snake\Attack</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -139,7 +151,7 @@
       <Filter>02. Scripts\Tile\Boundary</Filter>
     </ClCompile>
     <ClCompile Include="CPlayerScript.cpp">
-      <Filter>02. Scripts\Character</Filter>
+      <Filter>02. Scripts\Camera\Character</Filter>
     </ClCompile>
     <ClCompile Include="CStateMgr.cpp">
       <Filter>01. CodeGenMgr</Filter>
@@ -155,6 +167,18 @@
     </ClCompile>
     <ClCompile Include="CPlayerStartState.cpp">
       <Filter>08. States\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="CSnakeScript.cpp">
+      <Filter>02. Scripts\Camera\Character\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="CSnakeEntryState.cpp">
+      <Filter>08. States\Snake</Filter>
+    </ClCompile>
+    <ClCompile Include="CSnakeIdleState.cpp">
+      <Filter>08. States\Snake\Idle</Filter>
+    </ClCompile>
+    <ClCompile Include="CSnakeAttackState.cpp">
+      <Filter>08. States\Snake\Attack</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -206,9 +230,6 @@
     <Filter Include="02. Scripts\Tile\Boundary">
       <UniqueIdentifier>{3e904ac0-05ae-46e2-84a6-dd0dae688986}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. Scripts\Character">
-      <UniqueIdentifier>{037aa803-d0ad-402a-940a-037d950dc050}</UniqueIdentifier>
-    </Filter>
     <Filter Include="07. Character">
       <UniqueIdentifier>{a560a08d-6734-4e23-b84c-5ad08e5a7b5c}</UniqueIdentifier>
     </Filter>
@@ -226,6 +247,21 @@
     </Filter>
     <Filter Include="08. States\Player\Walk">
       <UniqueIdentifier>{d41939b6-6d07-4a89-8524-adc7c2a13a24}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Scripts\Camera\Character">
+      <UniqueIdentifier>{037aa803-d0ad-402a-940a-037d950dc050}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Scripts\Camera\Character\Monster">
+      <UniqueIdentifier>{97c8672b-4f25-440b-83a9-0bad48e1050f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="08. States\Snake">
+      <UniqueIdentifier>{68f17c6a-fbe5-4fba-9328-8b2f992271bc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="08. States\Snake\Idle">
+      <UniqueIdentifier>{c3fd625a-1d44-48a7-bae2-8c8cd229a425}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="08. States\Snake\Attack">
+      <UniqueIdentifier>{47b8a106-ae2d-4ce3-8af0-9cf84b77d91c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

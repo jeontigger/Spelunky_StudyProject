@@ -1,9 +1,9 @@
 #pragma once
 
-#include "CFieldObject.h"
+#include "CCharacterScript.h"
 
 class CPlayerScript :
-    public CFieldObject
+    public CCharacterScript
 {
 private:
     PlayerKey InputKey;

@@ -4,12 +4,18 @@
 #include "CPlayerIdleState.h"
 #include "CPlayerWalkState.h"
 #include "CPlayerStartState.h"
+#include "CSnakeEntryState.h"
+#include "CSnakeIdleState.h"
+#include "CSnakeAttackState.h"
 
 void CStateMgr::GetStateInfo(vector<wstring>& _vec)
 {
 	_vec.push_back(L"CPlayerIdleState");
 	_vec.push_back(L"CPlayerWalkState");
 	_vec.push_back(L"CPlayerStartState");
+	_vec.push_back(L"CSnakeEntryState");
+	_vec.push_back(L"CSnakeIdleState");
+	_vec.push_back(L"CSnakeAttackState");
 }
 
 CState * CStateMgr::GetState(const wstring& _strStateName)
@@ -20,6 +26,12 @@ CState * CStateMgr::GetState(const wstring& _strStateName)
 		return new CPlayerWalkState;
 	if (L"CPlayerStartState" == _strStateName)
 		return new CPlayerStartState;
+	if (L"CSnakeEntryState" == _strStateName)
+		return new CSnakeEntryState;
+	if (L"CSnakeIdleState" == _strStateName)
+		return new CSnakeIdleState;
+	if (L"CSnakeAttackState" == _strStateName)
+		return new CSnakeAttackState;
 	return nullptr;
 }
 
@@ -35,6 +47,15 @@ CState * CStateMgr::GetState(UINT _iStateType)
 		break;
 	case (UINT)STATE_TYPE::PLAYERSTARTSTATE:
 		return new CPlayerStartState;
+		break;
+	case (UINT)STATE_TYPE::SNAKEENTRYSTATE:
+		return new CSnakeEntryState;
+		break;
+	case (UINT)STATE_TYPE::SNAKEIDLESTATE:
+		return new CSnakeIdleState;
+		break;
+	case (UINT)STATE_TYPE::SNAKEATTACKSTATE:
+		return new CSnakeAttackState;
 		break;
 	}
 	return nullptr;
@@ -54,6 +75,18 @@ const wchar_t * CStateMgr::GetStateName(CState * _pState)
 
 	case STATE_TYPE::PLAYERSTARTSTATE:
 		return L"CPlayerStartState";
+		break;
+
+	case STATE_TYPE::SNAKEENTRYSTATE:
+		return L"CSnakeEntryState";
+		break;
+
+	case STATE_TYPE::SNAKEIDLESTATE:
+		return L"CSnakeIdleState";
+		break;
+
+	case STATE_TYPE::SNAKEATTACKSTATE:
+		return L"CSnakeAttackState";
 		break;
 
 	}

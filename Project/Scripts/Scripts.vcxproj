@@ -173,6 +173,10 @@ call CodeGen.exe</Command>
     <ClInclude Include="CPlayerWalkState.h" />
     <ClInclude Include="CRandomMgr.h" />
     <ClInclude Include="CScriptMgr.h" />
+    <ClInclude Include="CSnakeAttackState.h" />
+    <ClInclude Include="CSnakeEntryState.h" />
+    <ClInclude Include="CSnakeIdleState.h" />
+    <ClInclude Include="CSnakeScript.h" />
     <ClInclude Include="CStage.h" />
     <ClInclude Include="CStagePack.h" />
     <ClInclude Include="CStagePackMgr.h" />
@@ -203,6 +207,10 @@ call CodeGen.exe</Command>
     <ClCompile Include="CPlayerWalkState.cpp" />
     <ClCompile Include="CRandomMgr.cpp" />
     <ClCompile Include="CScriptMgr.cpp" />
+    <ClCompile Include="CSnakeAttackState.cpp" />
+    <ClCompile Include="CSnakeEntryState.cpp" />
+    <ClCompile Include="CSnakeIdleState.cpp" />
+    <ClCompile Include="CSnakeScript.cpp" />
     <ClCompile Include="CStage.cpp" />
     <ClCompile Include="CStagePack.cpp" />
     <ClCompile Include="CStagePackMgr.cpp" />
