@@ -1,5 +1,7 @@
 #pragma once
 
+#define StrPlayerName L"Player"
+#define StrMonsterHitColliderName L"HitCollider"
 
 #define TilePrefKey L"prefab\\Tile.pref"
 #define PlayerPefKey L"prefab\\Player.pref"
@@ -20,6 +22,9 @@
 #define AnimPlayerIdle L"anim\\PlayerIdle.anim"
 #define AnimPlayerJumpUp L"anim\\PlayerJumpUp.anim"
 #define AnimPlayerWalk L"anim\\PlayerWalk.anim"
+#define AnimSnakeIdle L"anim\\SnakeIdle.anim"
+#define AnimSnakeWalk L"anim\\SnakeWalk.anim"
+#define AnimSnakeAttack L"anim\\SnakeAttack.anim"
 
 #define StatePlayerIdle L"CPlayerIdleState"
 

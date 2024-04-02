@@ -65,7 +65,7 @@
       <Filter>02. Scripts\Tile\Boundary</Filter>
     </ClInclude>
     <ClInclude Include="CPlayerScript.h">
-      <Filter>02. Scripts\Camera\Character</Filter>
+      <Filter>02. Scripts\Character</Filter>
     </ClInclude>
     <ClInclude Include="CStateMgr.h">
       <Filter>01. CodeGenMgr</Filter>
@@ -85,9 +85,6 @@
     <ClInclude Include="struct.h">
       <Filter>00. Default</Filter>
     </ClInclude>
-    <ClInclude Include="CSnakeScript.h">
-      <Filter>02. Scripts\Camera\Character\Monster</Filter>
-    </ClInclude>
     <ClInclude Include="CSnakeEntryState.h">
       <Filter>08. States\Snake</Filter>
     </ClInclude>
@@ -96,6 +93,12 @@
     </ClInclude>
     <ClInclude Include="CSnakeAttackState.h">
       <Filter>08. States\Snake\Attack</Filter>
+    </ClInclude>
+    <ClInclude Include="CSnakeScript.h">
+      <Filter>02. Scripts\Character\Monster\Snake</Filter>
+    </ClInclude>
+    <ClInclude Include="CMonsterHitCollider.h">
+      <Filter>02. Scripts\Character\Monster\Collider</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -151,7 +154,7 @@
       <Filter>02. Scripts\Tile\Boundary</Filter>
     </ClCompile>
     <ClCompile Include="CPlayerScript.cpp">
-      <Filter>02. Scripts\Camera\Character</Filter>
+      <Filter>02. Scripts\Character</Filter>
     </ClCompile>
     <ClCompile Include="CStateMgr.cpp">
       <Filter>01. CodeGenMgr</Filter>
@@ -168,9 +171,6 @@
     <ClCompile Include="CPlayerStartState.cpp">
       <Filter>08. States\Player</Filter>
     </ClCompile>
-    <ClCompile Include="CSnakeScript.cpp">
-      <Filter>02. Scripts\Camera\Character\Monster</Filter>
-    </ClCompile>
     <ClCompile Include="CSnakeEntryState.cpp">
       <Filter>08. States\Snake</Filter>
     </ClCompile>
@@ -179,6 +179,12 @@
     </ClCompile>
     <ClCompile Include="CSnakeAttackState.cpp">
       <Filter>08. States\Snake\Attack</Filter>
+    </ClCompile>
+    <ClCompile Include="CSnakeScript.cpp">
+      <Filter>02. Scripts\Character\Monster\Snake</Filter>
+    </ClCompile>
+    <ClCompile Include="CMonsterHitCollider.cpp">
+      <Filter>02. Scripts\Character\Monster\Collider</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -233,11 +239,23 @@
     <Filter Include="07. Character">
       <UniqueIdentifier>{a560a08d-6734-4e23-b84c-5ad08e5a7b5c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="08. States">
-      <UniqueIdentifier>{853ddb1c-247f-4a83-80b1-4b974435b9b2}</UniqueIdentifier>
-    </Filter>
     <Filter Include="01. CodeGenMgr">
       <UniqueIdentifier>{b42de7fc-e585-40cf-9c65-79e91e2b59d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Scripts\Character">
+      <UniqueIdentifier>{037aa803-d0ad-402a-940a-037d950dc050}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Scripts\Character\Monster">
+      <UniqueIdentifier>{97c8672b-4f25-440b-83a9-0bad48e1050f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Scripts\Character\Monster\Snake">
+      <UniqueIdentifier>{7679c3a2-ce57-4748-9ed4-6dd2ae9ccc3f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Scripts\Character\Monster\Collider">
+      <UniqueIdentifier>{d195d166-5886-4ee6-a166-72ae83fd314e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="08. States">
+      <UniqueIdentifier>{853ddb1c-247f-4a83-80b1-4b974435b9b2}</UniqueIdentifier>
     </Filter>
     <Filter Include="08. States\Player">
       <UniqueIdentifier>{c17df28e-cd3a-4a14-91a6-ca74a97e7b62}</UniqueIdentifier>
@@ -247,12 +265,6 @@
     </Filter>
     <Filter Include="08. States\Player\Walk">
       <UniqueIdentifier>{d41939b6-6d07-4a89-8524-adc7c2a13a24}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. Scripts\Camera\Character">
-      <UniqueIdentifier>{037aa803-d0ad-402a-940a-037d950dc050}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. Scripts\Camera\Character\Monster">
-      <UniqueIdentifier>{97c8672b-4f25-440b-83a9-0bad48e1050f}</UniqueIdentifier>
     </Filter>
     <Filter Include="08. States\Snake">
       <UniqueIdentifier>{68f17c6a-fbe5-4fba-9328-8b2f992271bc}</UniqueIdentifier>

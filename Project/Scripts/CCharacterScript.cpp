@@ -41,6 +41,11 @@ CCharacterScript::~CCharacterScript()
 {
 }
 
+void CCharacterScript::Hit()
+{
+	int a = 0;
+}
+
 bool CCharacterScript::IsLookRight()
 {
 	return m_bMoveRight;

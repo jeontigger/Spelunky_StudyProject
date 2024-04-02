@@ -12,7 +12,7 @@ void CPlayerStartState::finaltick()
 void CPlayerStartState::Enter()
 {
 	auto obj = GetFSM()->GetStateMachine()->GetOwner();
-	GetFSM()->GetStateMachine()->AddBlackboardData(L"bbdatakey", BB_DATA::INT, &m_temp);
+	//GetFSM()->GetStateMachine()->AddBlackboardData(L"bbdatakey", BB_DATA::INT, &m_temp);
 	GetFSM()->GetStateMachine()->AddBlackboardData(BBOwnerKey, BB_DATA::OBJECT, obj);
 
 	auto state = GetFSM()->GetState<CPlayerIdleState>();

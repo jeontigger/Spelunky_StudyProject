@@ -4,14 +4,16 @@ class CSnakeScript
 	: public CCharacterScript
 {
 private:
+    float m_fDetectRange;
+
+public:
+    bool DetectFrontTile();
 
 public:
     virtual void begin() override;
     virtual void skill() {};
 
 public:
-
-
     virtual void SaveToFile(FILE* _File) {};
     virtual void SaveToFile(ofstream& _File) {};
     virtual void LoadFromFile(FILE* _File) {};

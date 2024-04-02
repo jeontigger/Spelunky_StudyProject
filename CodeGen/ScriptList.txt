@@ -6,3 +6,4 @@ CCameraMovement
 CTileBoundary
 CPlayerScript
 CSnakeScript
+CMonsterHitCollider

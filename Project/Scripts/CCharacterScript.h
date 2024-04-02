@@ -10,6 +10,7 @@ private:
 
 public:
 	virtual void Die() {}
+	virtual void Hit();
 
 protected:
 	bool m_bLastMoveDir; // 0 : left, 1 : right

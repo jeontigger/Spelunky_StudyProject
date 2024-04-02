@@ -99,6 +99,7 @@ void CPlayerScript::tick()
 }
 
 #include "CTile.h"
+#include "CMonsterHitCollider.h"
 
 void CPlayerScript::BeginOverlap(CCollider2D* _Collider
 	, CGameObject* _OtherObj, CCollider2D* _OtherCollider)
@@ -108,7 +109,6 @@ void CPlayerScript::BeginOverlap(CCollider2D* _Collider
 	if (script)
 	{
 		if (!IsJumpUp()) {
-			
 			if (IsMoving()) {
 				Animator2D()->Play(AnimPlayerWalk);
 			}
@@ -116,7 +116,11 @@ void CPlayerScript::BeginOverlap(CCollider2D* _Collider
 				Animator2D()->Play(AnimPlayerIdle);
 			}
 		}
-		
+	}
+	if (_OtherObj->GetScript<CMonsterHitCollider>())
+	{
+		SetGround(true);
+		Jump();
 	}
 }
 

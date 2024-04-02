@@ -101,7 +101,7 @@ CStage::CStage()
 
 	// Player Object »ý¼º
 	pObj = new CGameObject;
-	pObj->SetName(L"Player");
+	pObj->SetName(StrPlayerName);
 
 	pObj->AddComponent(new CTransform);
 	pObj->AddComponent(new CMeshRender);
@@ -502,9 +502,9 @@ void CStage::begin()
 	CCollisionMgr::GetInst()->LayerCheck(L"Tile", L"Camera");
 	CCollisionMgr::GetInst()->LayerCheck(PlayerLayer, CameraLayer);
 	CCollisionMgr::GetInst()->LayerCheck(PlayerLayer, TileLayer);
+	CCollisionMgr::GetInst()->LayerCheck(PlayerLayer, MonsterColliderLayer);
 	CCollisionMgr::GetInst()->LayerCheck(MonsterLayer, TileLayer);
 	CCollisionMgr::GetInst()->LayerCheck(MonsterLayer, CameraLayer);
-
 	CCollisionMgr::GetInst()->LayerCheck(7, 6);
 }
 

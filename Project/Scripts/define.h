@@ -22,6 +22,7 @@
 #define PlayerLayer 3
 #define CameraLayer 6
 #define MonsterLayer 7
+#define MonsterColliderLayer 8
 
 #define RandomAccuracy 100
 #define GETRANDOM(bound) CRandomMgr::GetInst()->GetRandom(bound)
