@@ -127,15 +127,15 @@ CStage::CStage()
 	if (test) {
 		Ptr<CPrefab> prefab;
 		CGameObject* obj;
-		for (int i = 0; i < 10; i++) {
+		for (int i = 0; i < 5; i++) {
 			prefab = CAssetMgr::GetInst()->Load<CPrefab>(TilePrefKey, TilePrefKey);
 			obj = prefab->Instantiate();
-			obj->Transform()->SetRelativePos(Vec3(-5 * TileScaleX + i * TileScaleX, -400, TileZ));
+			obj->Transform()->SetRelativePos(Vec3(-2 * TileScaleX + i * TileScaleX, -400, TileZ));
 
 			AddObject(obj, TileLayer);
 		}
 		obj = prefab->Instantiate();
-		obj->Transform()->SetRelativePos(Vec3(-6 * TileScaleX, -400 + TileScaleY, TileZ));
+		obj->Transform()->SetRelativePos(Vec3(-2 * TileScaleX, -400 + TileScaleY, TileZ));
 		AddObject(obj, TileLayer);
 		/*obj = prefab->Instantiate();
 		obj->Transform()->SetRelativePos(Vec3(5 * TileScaleX, -400 + TileScaleY, TileZ));
@@ -503,6 +503,7 @@ void CStage::begin()
 	CCollisionMgr::GetInst()->LayerCheck(PlayerLayer, CameraLayer);
 	CCollisionMgr::GetInst()->LayerCheck(PlayerLayer, TileLayer);
 	CCollisionMgr::GetInst()->LayerCheck(PlayerLayer, MonsterColliderLayer);
+	CCollisionMgr::GetInst()->LayerCheck(PlayerLayer, MonsterLayer);
 	CCollisionMgr::GetInst()->LayerCheck(TileLayer, MonsterColliderLayer);
 	CCollisionMgr::GetInst()->LayerCheck(MonsterLayer, TileLayer);
 	CCollisionMgr::GetInst()->LayerCheck(MonsterLayer, CameraLayer);

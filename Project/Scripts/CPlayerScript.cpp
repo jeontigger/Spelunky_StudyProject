@@ -11,7 +11,7 @@ CPlayerScript::CPlayerScript()
 	, m_fJumpMaxTime(.3f)
 	, m_fJumpWeightSpeed(1.5f)
 {
-	
+	SetSpeed(6.f);
 }
 
 CPlayerScript::~CPlayerScript()

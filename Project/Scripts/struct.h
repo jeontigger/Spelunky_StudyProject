@@ -18,3 +18,14 @@ public:
 		LookUp = UP; LookDown = DOWN; Attack = X; Bomb = C; Rope = D;
 	}
 };
+
+struct CharacterInfo {
+
+	int Health;
+	int Damage;
+	float Speed;
+	bool Dead;
+
+public:
+	CharacterInfo(): Health(3), Damage(1), Speed(2), Dead(false) {	}
+};

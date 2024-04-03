@@ -17,6 +17,8 @@ public:
     virtual void tick() override;
     virtual void skill() {};
 
+    virtual void BeginOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCollider2D* _OtherCollider);
+
 public:
     virtual void SaveToFile(FILE* _File) {};
     virtual void SaveToFile(ofstream& _File) {};

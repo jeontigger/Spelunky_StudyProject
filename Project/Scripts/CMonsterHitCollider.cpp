@@ -27,6 +27,6 @@ void CMonsterHitCollider::BeginOverlap(CCollider2D* _Collider, CGameObject* _Oth
 {
 	auto script = _OtherObj->GetScript<CPlayerScript>();
 	if (script) {
-		m_parent->GetScript<CCharacterScript>()->Hit();
+		m_parent->GetScript<CCharacterScript>()->Hit(script->GetDamage());
 	}
 }

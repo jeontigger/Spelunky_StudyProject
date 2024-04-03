@@ -11,14 +11,14 @@ void CCharacterScript::tick()
 	}
 
 	if (m_bMoveRight) {
-		vel.x = m_fRunSpeed;
+		vel.x = m_tInfo.Speed;
 		Vec3 rotation = Transform()->GetRelativeRotation();
 		rotation.y = 0;
 		Transform()->SetRelativeRotation(rotation);
 	}
 
 	if (m_bMoveLeft) {
-		vel.x = -m_fRunSpeed;
+		vel.x = -m_tInfo.Speed;
 		Vec3 rotation = Transform()->GetRelativeRotation();
 		rotation.y = -XM_PI;
 		Transform()->SetRelativeRotation(rotation);
@@ -33,7 +33,7 @@ void CCharacterScript::tick()
 
 CCharacterScript::CCharacterScript(UINT type)
 	: CFieldObject(type)
-	, m_fRunSpeed(6.f)
+	, m_tInfo()
 {
 }
 
@@ -41,9 +41,13 @@ CCharacterScript::~CCharacterScript()
 {
 }
 
-void CCharacterScript::Hit()
+void CCharacterScript::Hit(int _damage)
 {
-	int a = 0;
+	m_tInfo.Health -= _damage;
+
+	if (m_tInfo.Health <= 0) {
+		Die();
+	}
 }
 
 bool CCharacterScript::IsLookRight()
