@@ -1,7 +1,7 @@
 #include "pch.h"
-#include "CMonsterDetectCollider.h"
+#include "CDetectCollider.h"
 
-void CMonsterDetectCollider::Set(CGameObject* parent, Vec3 vOffsetPos, Vec3 vOffsetScale)
+void CDetectCollider::Set(CGameObject* parent, Vec3 vOffsetPos, Vec3 vOffsetScale)
 {
 	m_parent = parent;
 	GetOwner()->SetName(StrMonsterDetectColliderName);
@@ -11,19 +11,19 @@ void CMonsterDetectCollider::Set(CGameObject* parent, Vec3 vOffsetPos, Vec3 vOff
 	Transform()->SetRelativeScale(vOffsetScale);
 }
 
-CMonsterDetectCollider::CMonsterDetectCollider()
-	: CScript((UINT)SCRIPT_TYPE::MONSTERDETECTCOLLIDER)
+CDetectCollider::CDetectCollider()
+	: CScript((UINT)SCRIPT_TYPE::DETECTCOLLIDER)
 	, m_iTileCnt(0)
 {
 }
 
-CMonsterDetectCollider::~CMonsterDetectCollider()
+CDetectCollider::~CDetectCollider()
 {
 }
 
 #include "CTile.h"
 #include "CPlayerScript.h"
-void CMonsterDetectCollider::BeginOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCollider2D* _OtherCollider)
+void CDetectCollider::BeginOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCollider2D* _OtherCollider)
 {
 	if (_OtherObj->GetScript<CTile>()) {
 		m_iTileCnt++;
@@ -33,7 +33,7 @@ void CMonsterDetectCollider::BeginOverlap(CCollider2D* _Collider, CGameObject* _
 	}
 }
 
-void CMonsterDetectCollider::EndOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCollider2D* _OtherCollider)
+void CDetectCollider::EndOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCollider2D* _OtherCollider)
 {
 	if (_OtherObj->GetScript<CTile>()) {
 		m_iTileCnt--;

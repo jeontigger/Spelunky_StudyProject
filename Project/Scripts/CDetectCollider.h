@@ -1,6 +1,6 @@
 #pragma once
 #include <Engine/CScript.h>
-class CMonsterDetectCollider :
+class CDetectCollider :
     public CScript
 {
 private:
@@ -25,8 +25,8 @@ public:
     virtual void LoadFromFile(FILE* _File) {};
     virtual void LoadFromFile(ifstream& _File) {};
 public:
-    CLONE(CMonsterDetectCollider);
-    CMonsterDetectCollider();
-    ~CMonsterDetectCollider();
+    CLONE(CDetectCollider);
+    CDetectCollider();
+    ~CDetectCollider();
 };
 

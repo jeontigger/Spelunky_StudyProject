@@ -3,6 +3,8 @@
 
 #include <Engine/CKeyMgr.h>
 
+#include "CDetectCollider.h"
+
 CPlayerScript::CPlayerScript()
 	: CCharacterScript((UINT)SCRIPT_TYPE::PLAYERSCRIPT)
 	, InputKey()
@@ -16,6 +18,13 @@ CPlayerScript::CPlayerScript()
 
 CPlayerScript::~CPlayerScript()
 {
+
+}
+
+void CPlayerScript::Hit(int _damage)
+{
+	CCharacterScript::Hit(_damage);
+
 
 }
 
@@ -51,6 +60,9 @@ void CPlayerScript::begin()
 	AddScriptParam(SCRIPT_PARAM::INT, "Is ground", &m_bGround);
 	AddScriptParam(SCRIPT_PARAM::INT, "Is left", &m_bLeftBump);
 	AddScriptParam(SCRIPT_PARAM::INT, "Is right", &m_bRightBump);
+
+
+
 }
 
 void CPlayerScript::tick()

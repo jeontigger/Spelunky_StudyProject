@@ -5,6 +5,9 @@
 class CPlayerScript :
     public CCharacterScript
 {
+public:
+    virtual void Hit(int _damage) override;
+
 private:
     PlayerKey InputKey;
 

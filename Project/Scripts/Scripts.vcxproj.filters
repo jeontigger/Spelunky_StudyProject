@@ -97,11 +97,11 @@
     <ClInclude Include="CSnakeScript.h">
       <Filter>02. Scripts\Character\Monster\Snake</Filter>
     </ClInclude>
-    <ClInclude Include="CMonsterHitCollider.h">
-      <Filter>02. Scripts\Character\Monster\Collider</Filter>
+    <ClInclude Include="CDetectCollider.h">
+      <Filter>02. Scripts\Collider</Filter>
     </ClInclude>
-    <ClInclude Include="CMonsterDetectCollider.h">
-      <Filter>02. Scripts\Character\Monster\Collider</Filter>
+    <ClInclude Include="CMonsterHitCollider.h">
+      <Filter>02. Scripts\Collider</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -186,11 +186,11 @@
     <ClCompile Include="CSnakeScript.cpp">
       <Filter>02. Scripts\Character\Monster\Snake</Filter>
     </ClCompile>
-    <ClCompile Include="CMonsterHitCollider.cpp">
-      <Filter>02. Scripts\Character\Monster\Collider</Filter>
+    <ClCompile Include="CDetectCollider.cpp">
+      <Filter>02. Scripts\Collider</Filter>
     </ClCompile>
-    <ClCompile Include="CMonsterDetectCollider.cpp">
-      <Filter>02. Scripts\Character\Monster\Collider</Filter>
+    <ClCompile Include="CMonsterHitCollider.cpp">
+      <Filter>02. Scripts\Collider</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -257,9 +257,6 @@
     <Filter Include="02. Scripts\Character\Monster\Snake">
       <UniqueIdentifier>{7679c3a2-ce57-4748-9ed4-6dd2ae9ccc3f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. Scripts\Character\Monster\Collider">
-      <UniqueIdentifier>{d195d166-5886-4ee6-a166-72ae83fd314e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="08. States">
       <UniqueIdentifier>{853ddb1c-247f-4a83-80b1-4b974435b9b2}</UniqueIdentifier>
     </Filter>
@@ -280,6 +277,9 @@
     </Filter>
     <Filter Include="08. States\Snake\Attack">
       <UniqueIdentifier>{47b8a106-ae2d-4ce3-8af0-9cf84b77d91c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Scripts\Collider">
+      <UniqueIdentifier>{d195d166-5886-4ee6-a166-72ae83fd314e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
