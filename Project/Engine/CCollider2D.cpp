@@ -12,6 +12,7 @@ CCollider2D::CCollider2D()
 	, m_vOffsetScale(1, 1, 1)
 	, m_bAbsolute(false)
 	, m_Type(COLLIDER2D_TYPE::RECT)
+	, m_bActive(true)
 {
 }
 
@@ -22,6 +23,7 @@ CCollider2D::CCollider2D(const CCollider2D& _OriginCollider2D)
 	, m_CollisionCount(0)
 	, m_bAbsolute(_OriginCollider2D.m_bAbsolute)
 	, m_Type(_OriginCollider2D.m_Type)
+	, m_bActive(true)
 {
 }
 

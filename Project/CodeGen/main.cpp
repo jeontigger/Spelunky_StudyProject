@@ -18,6 +18,7 @@ void NameInput() {
 	wstring line;
 	wstring header;
 	bool isheader = false;
+	wcout << L"Script!!=======================" << endl;
 	while (getline(fin, line))
 	{
 
@@ -53,6 +54,7 @@ void StateNameInput() {
 	wstring line;
 	wstring header;
 	bool isheader = false;
+	wcout <<endl <<  L"States!!=======================" << endl;
 	while (getline(fin, line))
 	{
 
@@ -77,6 +79,7 @@ void StateNameInput() {
 		}
 
 	}
+	getchar();
 }
 
 int main()

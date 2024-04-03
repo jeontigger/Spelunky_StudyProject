@@ -126,6 +126,10 @@ void CCollisionMgr::CollisionBtwLayer(UINT _left, UINT _right)
 
 bool CCollisionMgr::CollisionBtwCollider(CCollider2D* _pLeft, CCollider2D* _pRight)
 {
+	if ( !_pLeft->IsActivate() || !_pRight->IsActivate()) {
+		return false;
+	}
+
 	const Matrix& matLeft = _pLeft->GetColliderWorldMat();
 	const Matrix& matRight = _pRight->GetColliderWorldMat();
 
