@@ -10,7 +10,7 @@ protected:
     int m_iPlayerCnt;
 
 public:
-    void Set(CGameObject* parent, Vec3 vOffsetPos, Vec3 vOffsetScale);
+    virtual void Set(CGameObject* parent, Vec3 vOffsetPos, Vec3 vOffsetScale);
     bool DetectTile() { 
         return m_iTileCnt > 0;
     }

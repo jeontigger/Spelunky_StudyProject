@@ -142,8 +142,8 @@ CStage::CStage()
 		AddObject(obj, TileLayer);*/
 
 		prefab = CAssetMgr::GetInst()->Load<CPrefab>(PlayerPefKey, PlayerPefKey);
-		obj = prefab->Instantiate();
-		AddObject(obj, PlayerLayer);
+		m_Player = prefab->Instantiate();
+		AddObject(m_Player, PlayerLayer);
 
 		prefab = CAssetMgr::GetInst()->Load<CPrefab>(SnakePrefKey, SnakePrefKey);
 		obj = prefab->Instantiate();
@@ -453,10 +453,19 @@ void CStage::tick()
 	CLevel::tick();
 }
 
+#include <Engine/CFontMgr.h>
 void CStage::finaltick()
 {
 	CLevel::finaltick();
 
+
+	if (KEY_TAP(RBTN)) {
+		Vec2 mousepos = CKeyMgr::GetInst()->GetMousePos();
+		m_Player->Transform()->SetRelativePos(Vec3(mousepos.x, mousepos.y, PlayerZ));
+
+		int a = 0;
+
+	}
 	if (test)
 		return;
 
@@ -492,6 +501,7 @@ void CStage::finaltick()
 			ChangeState(StageState::TILE_INSTANCING);
 		}
 	}
+
 }
 
 void CStage::begin()
@@ -502,9 +512,10 @@ void CStage::begin()
 	CCollisionMgr::GetInst()->LayerCheck(L"Tile", L"Camera");
 	CCollisionMgr::GetInst()->LayerCheck(PlayerLayer, CameraLayer);
 	CCollisionMgr::GetInst()->LayerCheck(PlayerLayer, TileLayer);
-	CCollisionMgr::GetInst()->LayerCheck(PlayerLayer, DetectColliderLayer);
 	CCollisionMgr::GetInst()->LayerCheck(PlayerLayer, MonsterLayer);
+	CCollisionMgr::GetInst()->LayerCheck(PlayerLayer, DetectColliderLayer);
 	CCollisionMgr::GetInst()->LayerCheck(TileLayer, DetectColliderLayer);
+	CCollisionMgr::GetInst()->LayerCheck(MonsterLayer, PlayerHitLayer);
 	CCollisionMgr::GetInst()->LayerCheck(MonsterLayer, TileLayer);
 	CCollisionMgr::GetInst()->LayerCheck(MonsterLayer, CameraLayer);
 	CCollisionMgr::GetInst()->LayerCheck(7, 6);

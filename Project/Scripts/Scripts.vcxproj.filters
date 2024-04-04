@@ -109,6 +109,9 @@
     <ClInclude Include="CWallCollider.h">
       <Filter>02. Scripts\Collider</Filter>
     </ClInclude>
+    <ClInclude Include="CPlayerHitCollider.h">
+      <Filter>02. Scripts\Collider</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -202,6 +205,9 @@
       <Filter>02. Scripts\Collider</Filter>
     </ClCompile>
     <ClCompile Include="CWallCollider.cpp">
+      <Filter>02. Scripts\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlayerHitCollider.cpp">
       <Filter>02. Scripts\Collider</Filter>
     </ClCompile>
   </ItemGroup>

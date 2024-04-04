@@ -5,6 +5,9 @@
 class CPlayerScript :
     public CCharacterScript
 {
+private:
+    class CPlayerHitCollider* m_HitCollider;
+
 public:
     virtual void Hit(int _damage) override;
 

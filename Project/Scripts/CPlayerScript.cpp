@@ -12,6 +12,7 @@ CPlayerScript::CPlayerScript()
 	, m_fJumpWeightSpeed(1.5f)
 {
 	SetSpeed(6.f);
+	SetHealth(50);
 }
 
 CPlayerScript::~CPlayerScript()
@@ -45,6 +46,7 @@ void CPlayerScript::skill()
 }
 
 #include "CPlayerStartState.h"
+#include "CPlayerHitCollider.h"
 void CPlayerScript::begin()
 {
 	CCharacterScript::begin();
@@ -57,6 +59,22 @@ void CPlayerScript::begin()
 	AddScriptParam(SCRIPT_PARAM::INT, "Is ground", &m_bGround);
 	AddScriptParam(SCRIPT_PARAM::INT, "Is left", &m_bLeftBump);
 	AddScriptParam(SCRIPT_PARAM::INT, "Is right", &m_bRightBump);
+
+
+	Vec2 ColliderCenterPos = Collider2D()->GetRelativePos();
+	Vec2 ColliderScale = Collider2D()->GetRelativeScale();
+
+	float ownerZ = Transform()->GetRelativePos().z;
+
+	CGameObject* obj;
+
+	m_HitCollider = new CPlayerHitCollider;
+	obj = new CGameObject;
+	obj->AddComponent(m_HitCollider);
+	m_HitCollider->Set(GetOwner(), Vec3(Collider2D()->GetRelativePos().x, Collider2D()->GetRelativePos().y, ownerZ)
+		, Vec3(Collider2D()->GetRelativeScale().x, Collider2D()->GetRelativeScale().y, 1));
+	GetOwner()->AddChild(obj);
+	GamePlayStatic::SpawnGameObject(obj, PlayerHitLayer);
 
 }
 

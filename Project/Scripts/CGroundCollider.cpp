@@ -34,7 +34,7 @@ void CGroundCollider::BeginOverlap(CCollider2D* _Collider, CGameObject* _OtherOb
 		float velY = m_parent->GetScript<CFieldObject>()->GetVelocity().y;
 		float prevObjUnderY = objUnderY - velY * DT;
 		float TileTopY = TileColPos.y + TileColScale.y / 2.f;
-		float tileJudgeY = TileColPos.y + TileColScale.y / 2.f * 0.95f;
+		float tileJudgeY = TileColPos.y + TileColScale.y / 2.f * 0.7f;
 
 		if (velY < 0 && prevObjUnderY - tileJudgeY > 0) {
 			float OwnerY = m_parent->Transform()->GetRelativePos().y;

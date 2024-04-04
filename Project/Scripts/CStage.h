@@ -17,6 +17,9 @@ enum class StageState {
 class CStage :
     public CLevel
 {
+private:
+    CGameObject* m_Player;
+
     // 시각화용
 private:
     StageState m_state;

@@ -10,3 +10,4 @@ CDetectCollider
 CMonsterHitCollider
 CGroundCollider
 CWallCollider
+CPlayerHitCollider
