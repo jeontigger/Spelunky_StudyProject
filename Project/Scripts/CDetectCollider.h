@@ -3,11 +3,12 @@
 class CDetectCollider :
     public CScript
 {
-private:
+protected:
     class CGameObject* m_parent;
 
     int m_iTileCnt;
     int m_iPlayerCnt;
+
 public:
     void Set(CGameObject* parent, Vec3 vOffsetPos, Vec3 vOffsetScale);
     bool DetectTile() { 
@@ -27,6 +28,7 @@ public:
 public:
     CLONE(CDetectCollider);
     CDetectCollider();
+    CDetectCollider(UINT _type);
     ~CDetectCollider();
 };
 

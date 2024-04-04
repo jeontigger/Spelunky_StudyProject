@@ -3,8 +3,6 @@
 
 #include <Engine/CKeyMgr.h>
 
-#include "CDetectCollider.h"
-
 CPlayerScript::CPlayerScript()
 	: CCharacterScript((UINT)SCRIPT_TYPE::PLAYERSCRIPT)
 	, InputKey()
@@ -31,14 +29,11 @@ void CPlayerScript::Hit(int _damage)
 void CPlayerScript::Jump()
 {
 	if (IsGrounded()) {
-		//auto pos = Transform()->GetRelativePos();
-		//pos.y += 1.f;
-		//Transform()->SetRelativePos(pos);
 		SetVelocity(Vec2(0.f, m_fJumpInitSpeed));
 		m_fJumpTimer = m_fJumpMaxTime;
 		m_bJumpup = true;
 		GetOwner()->Animator2D()->Play(AnimPlayerJumpUp, false);
-		m_bGround = 0;
+		SetGround(false);
 	}
 	if (m_fJumpTimer > 0) {
 		AddVelocity(Vec2(0.f, m_fJumpWeightSpeed * DT));
@@ -52,6 +47,8 @@ void CPlayerScript::skill()
 #include "CPlayerStartState.h"
 void CPlayerScript::begin()
 {
+	CCharacterScript::begin();
+
 	GetOwner()->GetScript<CFieldObject>()->ImPlayer();
 	auto state = GetOwner()->StateMachine()->GetFSM()->GetState<CPlayerStartState>();
 	GetOwner()->StateMachine()->GetFSM()->ChangeState(CStateMgr::GetStateName(state));
@@ -60,8 +57,6 @@ void CPlayerScript::begin()
 	AddScriptParam(SCRIPT_PARAM::INT, "Is ground", &m_bGround);
 	AddScriptParam(SCRIPT_PARAM::INT, "Is left", &m_bLeftBump);
 	AddScriptParam(SCRIPT_PARAM::INT, "Is right", &m_bRightBump);
-
-
 
 }
 
@@ -90,20 +85,20 @@ void CPlayerScript::tick()
 	}
 
 	if (KEY_TAP(InputKey.MoveLeft)) {
-		MoveLeft();
+		TurnLeft();
 		if(IsGrounded())
 			Animator2D()->Play(AnimPlayerWalk);
 	}
 	if (KEY_TAP(InputKey.MoveRight)) {
-		MoveRight();
+		TurnRight();
 		if (IsGrounded())
 			Animator2D()->Play(AnimPlayerWalk);
 	}
 	if (KEY_RELEASED(InputKey.MoveLeft)) {
-		m_bMoveLeft = false;
+		m_bTurnLeft = false;
 	}
 	if (KEY_RELEASED(InputKey.MoveRight)) {
-		m_bMoveRight = false;
+		m_bTurnRight = false;
 	}
 
 	m_vPrevPos = m_vCurPos;

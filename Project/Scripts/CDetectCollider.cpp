@@ -17,6 +17,11 @@ CDetectCollider::CDetectCollider()
 {
 }
 
+CDetectCollider::CDetectCollider(UINT _type)
+	: CScript((UINT)_type)
+{
+}
+
 CDetectCollider::~CDetectCollider()
 {
 }

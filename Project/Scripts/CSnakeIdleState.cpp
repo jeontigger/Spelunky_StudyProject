@@ -45,13 +45,12 @@ void CSnakeIdleState::finaltick()
 	}
 
 	if (GoRight) {
-		m_pScript->SetLeftBump(false);
-		m_pScript->MoveRight();
+		m_pScript->TurnRight();
 	}
 	else {
-		m_pScript->SetRightBump(false);
-		m_pScript->MoveLeft();
+		m_pScript->TurnLeft();
 	}
+	m_pScript->MoveFront();
 	
 }
 

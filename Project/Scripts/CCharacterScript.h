@@ -6,6 +6,11 @@ class CCharacterScript
 	: public CFieldObject
 {
 private:
+	class CDetectCollider* m_BackCollider;
+	class CDetectCollider* m_FrontCollider;
+	class CDetectCollider* m_TopCollider;
+
+private:
 	CharacterInfo m_tInfo;
 
 public:
@@ -23,20 +28,25 @@ public:
 
 protected:
 	bool m_bLastMoveDir; // 0 : left, 1 : right
-	bool m_bMoveLeft;
-	bool m_bMoveRight;
+	bool m_bTurnLeft;
+	bool m_bTurnRight;
+	bool m_bMoveFront;
+	bool m_bMoveBack;
 
 public:
-	
+	void DontMove() { m_bMoveFront = false; m_bMoveBack = false; }
 	bool IsLookRight();
-	void MoveLeft();
-	void MoveRight();
+	void TurnLeft();
+	void TurnRight();
+	void MoveFront();
+	void MoveBack();
 	bool IsMoving() {
-		return m_bMoveRight || m_bMoveLeft;
+		return m_bTurnRight || m_bTurnLeft;
 	}
 
 public:
 	virtual void tick() override;
+	virtual void begin() override;
 
 public:
 	CCharacterScript(UINT type);

@@ -6,6 +6,9 @@ class CFieldObject :
     public CScript
 {
 private:
+    class CDetectCollider* m_ButtomCollider;
+
+private:
     bool isPlayer;
 
 public:
@@ -19,7 +22,7 @@ private:
     Vec2 m_vVelocity;
 
 protected:
-    int m_bGround;
+    bool m_bGround;
     bool m_bLeftBump;
     int m_bRightBump;
     int m_iTileCnt;
@@ -33,7 +36,7 @@ public:
 
     inline bool IsMove() { return m_fGravity != 0.f; }
 
-    inline void SetGround(bool _b) { _b? m_bGround++ : m_bGround--; }
+    inline void SetGround(bool _b) { m_bGround = _b; }
     inline bool IsGrounded() { return m_bGround > 0; }
 
     inline void SetLeftBump(bool _b) { _b ? m_bLeftBump = true : m_bLeftBump = false; }

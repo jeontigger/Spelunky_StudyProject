@@ -36,6 +36,9 @@ public:
     bool IsAbsolute() { return m_bAbsolute; }
     Vec2 GetOffsetPos() { return Vec2(m_vOffsetPos.x, m_vOffsetPos.y); }
     Vec2 GetOffsetScale() { return Vec2(m_vOffsetScale.x, m_vOffsetScale.y); }
+
+    Vec2 GetRelativePos();
+    Vec2 GetRelativeScale();
     COLLIDER2D_TYPE GetType() { return m_Type; }
 
     const Matrix& GetColliderWorldMat() { return m_matColWorld; }

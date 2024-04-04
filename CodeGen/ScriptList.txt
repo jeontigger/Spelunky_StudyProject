@@ -8,3 +8,5 @@ CPlayerScript
 CSnakeScript
 CDetectCollider
 CMonsterHitCollider
+CGroundCollider
+CWallCollider

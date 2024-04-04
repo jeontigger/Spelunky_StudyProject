@@ -22,10 +22,12 @@ void CPlayerIdleState::finaltick()
 			m_PlayerScript->Jump();
 	}
 	if (KEY_PRESSED(input.MoveLeft)) {
-		m_PlayerScript->MoveLeft();
+		m_PlayerScript->TurnLeft();
+		m_PlayerScript->MoveFront();
 	}
 	if (KEY_PRESSED(input.MoveRight)) {
-		m_PlayerScript->MoveRight();
+		m_PlayerScript->TurnRight();
+		m_PlayerScript->MoveFront();
 	}
 }
 

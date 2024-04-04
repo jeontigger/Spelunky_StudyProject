@@ -31,6 +31,18 @@ CCollider2D::~CCollider2D()
 {
 }
 
+Vec2 CCollider2D::GetRelativePos()
+{
+	Vec3 ownerScale = Transform()->GetRelativeScale();
+	return Vec2(ownerScale.x * m_vOffsetPos.x, ownerScale.y * m_vOffsetPos.y);
+}
+
+Vec2 CCollider2D::GetRelativeScale()
+{
+	Vec3 ownerScale = Transform()->GetRelativeScale();
+	return Vec2(ownerScale.x * m_vOffsetScale.x, ownerScale.y * m_vOffsetScale.y);
+}
+
 void CCollider2D::finaltick()
 {
 	// 충돌체의 로컬 행렬 계산

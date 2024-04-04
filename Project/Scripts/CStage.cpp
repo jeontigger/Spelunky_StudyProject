@@ -502,9 +502,9 @@ void CStage::begin()
 	CCollisionMgr::GetInst()->LayerCheck(L"Tile", L"Camera");
 	CCollisionMgr::GetInst()->LayerCheck(PlayerLayer, CameraLayer);
 	CCollisionMgr::GetInst()->LayerCheck(PlayerLayer, TileLayer);
-	CCollisionMgr::GetInst()->LayerCheck(PlayerLayer, MonsterColliderLayer);
+	CCollisionMgr::GetInst()->LayerCheck(PlayerLayer, DetectColliderLayer);
 	CCollisionMgr::GetInst()->LayerCheck(PlayerLayer, MonsterLayer);
-	CCollisionMgr::GetInst()->LayerCheck(TileLayer, MonsterColliderLayer);
+	CCollisionMgr::GetInst()->LayerCheck(TileLayer, DetectColliderLayer);
 	CCollisionMgr::GetInst()->LayerCheck(MonsterLayer, TileLayer);
 	CCollisionMgr::GetInst()->LayerCheck(MonsterLayer, CameraLayer);
 	CCollisionMgr::GetInst()->LayerCheck(7, 6);
