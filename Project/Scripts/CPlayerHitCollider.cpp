@@ -26,7 +26,6 @@ void CPlayerHitCollider::BeginOverlap(CCollider2D* _Collider, CGameObject* _Othe
 	auto script = _OtherObj->GetScript<CCharacterScript>();
 	if (script) {
 		CPlayerScript* playerScript = m_parent->GetScript<CPlayerScript>();
-		playerScript->Hit(script->GetDamage());
 
 		Vec3 OwnerPos = m_parent->Transform()->GetRelativePos();
 		Vec2 OwnerScale = m_parent->Collider2D()->GetRelativeScale();
@@ -38,11 +37,12 @@ void CPlayerHitCollider::BeginOverlap(CCollider2D* _Collider, CGameObject* _Othe
 		// 오브젝트가 오른쪽
 		if (OwnerPos.x - TilePos.x > 0) {
 			playerScript->AddVelocity(Vec2(50.f, 3.f));
-			playerScript->SetGround(false);
 		}
 		else {
-			playerScript->AddVelocity(Vec2(-5.f, .5f));
-			playerScript->SetGround(false);
+			playerScript->AddVelocity(Vec2(-5.f, 3.f));
 		}
+		playerScript->SetGround(false);
+		playerScript->Hit(script->GetDamage());
+
 	}
 }

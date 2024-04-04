@@ -6,6 +6,7 @@ class CSnakeAttackState :
 {
 private:
     float m_fDuration;
+    Vec2 m_vOriginOffsetScale;
 
 private:
     CGameObject* m_pPlayer;
@@ -15,7 +16,7 @@ private:
 public:
     virtual void finaltick();
     virtual void Enter();
-    virtual void Exit(){};
+    virtual void Exit();
 
 public:
     CSnakeAttackState();

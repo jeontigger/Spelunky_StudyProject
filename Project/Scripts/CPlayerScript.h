@@ -7,6 +7,8 @@ class CPlayerScript :
 {
 private:
     class CPlayerHitCollider* m_HitCollider;
+    float m_fInvincibility;
+    float m_fInvincibilityTimer;
 
 public:
     virtual void Hit(int _damage) override;

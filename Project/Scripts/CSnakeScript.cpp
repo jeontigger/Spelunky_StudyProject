@@ -10,6 +10,12 @@ CSnakeScript::CSnakeScript()
 {
 	SetSpeed(2.f);
 	SetHealth(1);
+	SetDamage(1);
+}
+
+CSnakeScript::CSnakeScript(const CSnakeScript& _origin)
+	: CCharacterScript(_origin)
+{
 }
 
 CSnakeScript::~CSnakeScript()
@@ -41,12 +47,12 @@ void CSnakeScript::begin()
 
 	float z = GetOwner()->Transform()->GetRelativePos().z;
 
-	//CGameObject* hitcollider = new CGameObject;
-	//m_HitCollider = new CMonsterHitCollider;
-	//hitcollider->AddComponent(m_HitCollider);
-	//m_HitCollider->Set(GetOwner(), Vec3(0, 0, z), Vec3(60, 20, z));
-	//GetOwner()->AddChild(hitcollider);
-	//GamePlayStatic::SpawnGameObject(hitcollider, DetectColliderLayer);
+	CGameObject* hitcollider = new CGameObject;
+	m_HitCollider = new CMonsterHitCollider;
+	hitcollider->AddComponent(m_HitCollider);
+	m_HitCollider->Set(GetOwner(), Vec3(0, 0, z), Vec3(60, 20, z));
+	GetOwner()->AddChild(hitcollider);
+	GamePlayStatic::SpawnGameObject(hitcollider, DetectColliderLayer);
 
 	CGameObject* detectcollider = new CGameObject;
 	m_DetectTileCollider = new CDetectCollider;
@@ -81,9 +87,4 @@ void CSnakeScript::tick()
 void CSnakeScript::BeginOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCollider2D* _OtherCollider)
 {
 	CCharacterScript::BeginOverlap(_Collider, _OtherObj, _OtherCollider);
-
-	auto script = _OtherObj->GetScript<CPlayerScript>();
-	if (script) {
-		script->Hit(GetDamage());
-	}
 }

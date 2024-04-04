@@ -3,6 +3,8 @@
 
 #include <Engine/CKeyMgr.h>
 
+#include "CPlayerHitCollider.h"
+
 CPlayerScript::CPlayerScript()
 	: CCharacterScript((UINT)SCRIPT_TYPE::PLAYERSCRIPT)
 	, InputKey()
@@ -10,6 +12,7 @@ CPlayerScript::CPlayerScript()
 	, m_fJumpTimer(0.f)
 	, m_fJumpMaxTime(.3f)
 	, m_fJumpWeightSpeed(1.5f)
+	, m_fInvincibility(1.f)
 {
 	SetSpeed(6.f);
 	SetHealth(50);
@@ -24,7 +27,9 @@ void CPlayerScript::Hit(int _damage)
 {
 	CCharacterScript::Hit(_damage);
 
+	m_HitCollider->Collider2D()->Activate(false);
 
+	m_fInvincibilityTimer = m_fInvincibility;
 }
 
 void CPlayerScript::Jump()
@@ -46,7 +51,6 @@ void CPlayerScript::skill()
 }
 
 #include "CPlayerStartState.h"
-#include "CPlayerHitCollider.h"
 void CPlayerScript::begin()
 {
 	CCharacterScript::begin();
@@ -59,6 +63,7 @@ void CPlayerScript::begin()
 	AddScriptParam(SCRIPT_PARAM::INT, "Is ground", &m_bGround);
 	AddScriptParam(SCRIPT_PARAM::INT, "Is left", &m_bLeftBump);
 	AddScriptParam(SCRIPT_PARAM::INT, "Is right", &m_bRightBump);
+	AddScriptParam(SCRIPT_PARAM::INT, "Health", &m_tInfo.Health);
 
 
 	Vec2 ColliderCenterPos = Collider2D()->GetRelativePos();
@@ -121,6 +126,22 @@ void CPlayerScript::tick()
 
 	m_vPrevPos = m_vCurPos;
 	m_vCurPos = GetOwner()->Transform()->GetRelativePos();
+
+	if (!m_HitCollider->Collider2D()->IsActivate()) {
+		m_fInvincibilityTimer -= DT;
+		auto collider = GetOwner()->Collider2D();
+		if (collider->IsActivate()) {
+			collider->Activate(false);
+		}
+		else {
+			collider->Activate(true);
+		}
+
+		if (m_fInvincibilityTimer < 0) {
+			m_HitCollider->Collider2D()->Activate(true);
+			collider->Activate(true);
+		}
+	}
 }
 
 #include "CTile.h"

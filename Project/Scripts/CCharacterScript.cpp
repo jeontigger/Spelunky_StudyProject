@@ -11,6 +11,12 @@ CCharacterScript::CCharacterScript(UINT type)
 {
 }
 
+CCharacterScript::CCharacterScript(const CCharacterScript& _origin)
+	:CFieldObject(_origin)
+	, m_tInfo(_origin.m_tInfo)
+{
+}
+
 CCharacterScript::~CCharacterScript()
 {
 }

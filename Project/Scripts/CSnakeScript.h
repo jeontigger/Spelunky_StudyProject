@@ -29,6 +29,7 @@ public:
 public:
     CLONE(CSnakeScript);
 	CSnakeScript();
+    CSnakeScript(const CSnakeScript& _origin);
 	~CSnakeScript();
 };
 

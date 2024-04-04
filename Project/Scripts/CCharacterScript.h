@@ -10,7 +10,7 @@ private:
 	class CDetectCollider* m_FrontCollider;
 	class CDetectCollider* m_TopCollider;
 
-private:
+protected:
 	CharacterInfo m_tInfo;
 
 public:
@@ -50,6 +50,7 @@ public:
 
 public:
 	CCharacterScript(UINT type);
+	CCharacterScript(const CCharacterScript& _origin);
 	~CCharacterScript();
 };
 

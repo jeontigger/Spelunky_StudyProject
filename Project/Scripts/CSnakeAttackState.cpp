@@ -35,4 +35,12 @@ void CSnakeAttackState::Enter()
 	m_pOwner->Animator2D()->Play(AnimSnakeAttack, false);
 	auto anim = m_pOwner->Animator2D()->GetCurAnim();
 	m_fDuration = CAnimator2D::GetAnimDuration(anim);
+
+	m_vOriginOffsetScale = m_pOwner->Collider2D()->GetOffsetScale();
+	m_pOwner->Collider2D()->SetOffsetScale(Vec2(m_vOriginOffsetScale.x * 1.5f, m_vOriginOffsetScale.y));
+}
+
+void CSnakeAttackState::Exit()
+{
+	m_pOwner->Collider2D()->SetOffsetScale(m_vOriginOffsetScale);
 }
