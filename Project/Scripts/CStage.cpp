@@ -514,6 +514,7 @@ void CStage::begin()
 	CCollisionMgr::GetInst()->LayerCheck(PlayerLayer, TileLayer);
 	CCollisionMgr::GetInst()->LayerCheck(PlayerLayer, MonsterLayer);
 	CCollisionMgr::GetInst()->LayerCheck(PlayerLayer, DetectColliderLayer);
+	CCollisionMgr::GetInst()->LayerCheck(PlayerLayer, MonsterHitLayer);
 	CCollisionMgr::GetInst()->LayerCheck(TileLayer, DetectColliderLayer);
 	CCollisionMgr::GetInst()->LayerCheck(MonsterLayer, PlayerHitLayer);
 	CCollisionMgr::GetInst()->LayerCheck(MonsterLayer, TileLayer);

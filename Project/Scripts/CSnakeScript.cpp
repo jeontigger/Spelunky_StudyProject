@@ -52,7 +52,7 @@ void CSnakeScript::begin()
 	hitcollider->AddComponent(m_HitCollider);
 	m_HitCollider->Set(GetOwner(), Vec3(0, 0, z), Vec3(60, 20, z));
 	GetOwner()->AddChild(hitcollider);
-	GamePlayStatic::SpawnGameObject(hitcollider, DetectColliderLayer);
+	GamePlayStatic::SpawnGameObject(hitcollider, MonsterHitLayer);
 
 	CGameObject* detectcollider = new CGameObject;
 	m_DetectTileCollider = new CDetectCollider;
