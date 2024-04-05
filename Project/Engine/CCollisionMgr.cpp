@@ -19,6 +19,7 @@ CCollisionMgr::~CCollisionMgr()
 
 }
 
+#include "CChronoMgr.h"
 void CCollisionMgr::tick()
 {
 	for (UINT iRow = 0; iRow < LAYER_MAX; ++iRow)
@@ -27,9 +28,12 @@ void CCollisionMgr::tick()
 		{
 			if (!(m_matrix[iRow] & (1 << iCol)) )			
 				continue;
-			
+			CChronoMgr::GetInst()->Start();
 			// iRow 레이어와 iCol 레이어는 서로 충돌검사를 진행한다.
 			CollisionBtwLayer(iRow, iCol);
+			auto time = CChronoMgr::GetInst()->End();
+			int a = 0;
+
 		}
 	}
 }

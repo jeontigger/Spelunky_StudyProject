@@ -50,7 +50,10 @@ void CSnakeIdleState::finaltick()
 	else {
 		m_pScript->TurnLeft();
 	}
-	m_pScript->MoveFront();
+	if (m_pScript->IsGrounded()) {
+		m_pScript->MoveFront();
+	}
+	
 	
 }
 

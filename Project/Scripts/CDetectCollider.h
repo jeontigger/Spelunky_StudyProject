@@ -6,6 +6,10 @@ class CDetectCollider :
 protected:
     class CGameObject* m_parent;
 
+public:
+    CGameObject* GetParent() { return m_parent; }
+
+private:
     int m_iTileCnt;
     int m_iPlayerCnt;
 

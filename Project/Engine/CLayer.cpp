@@ -40,7 +40,7 @@ void CLayer::tick()
 {
 	for (size_t i = 0; i < m_vecParent.size(); ++i)
 	{
-		m_vecParent[i]->tick();
+			m_vecParent[i]->tick();
 	}
 }
 

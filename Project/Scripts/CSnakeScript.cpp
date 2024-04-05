@@ -41,7 +41,6 @@ void CSnakeScript::begin()
 {
 	CCharacterScript::begin();
 
-	GetOwner()->GetScript<CFieldObject>()->ImPlayer();
 	auto state = GetOwner()->StateMachine()->GetFSM()->GetState<CSnakeEntryState>();
 	GetOwner()->StateMachine()->GetFSM()->ChangeState(CStateMgr::GetStateName(state));
 

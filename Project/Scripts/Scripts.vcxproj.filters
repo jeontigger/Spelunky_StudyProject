@@ -112,6 +112,9 @@
     <ClInclude Include="CPlayerHitCollider.h">
       <Filter>02. Scripts\Collider</Filter>
     </ClInclude>
+    <ClInclude Include="CTileMgr.h">
+      <Filter>05. Manager\TileMgr</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -210,6 +213,9 @@
     <ClCompile Include="CPlayerHitCollider.cpp">
       <Filter>02. Scripts\Collider</Filter>
     </ClCompile>
+    <ClCompile Include="CTileMgr.cpp">
+      <Filter>05. Manager\TileMgr</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="00. Default">
@@ -298,6 +304,9 @@
     </Filter>
     <Filter Include="02. Scripts\Collider">
       <UniqueIdentifier>{d195d166-5886-4ee6-a166-72ae83fd314e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05. Manager\TileMgr">
+      <UniqueIdentifier>{9cb3cc12-1066-4be0-b7ed-d5aa45568602}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

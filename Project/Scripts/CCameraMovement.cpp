@@ -11,6 +11,7 @@ CCameraMovement::CCameraMovement()
 	: CScript((UINT)SCRIPT_TYPE::CAMERAMOVEMENT)
 	, m_fSpeed(500)
 {
+	
 }
 CCameraMovement::~CCameraMovement()
 {
@@ -77,11 +78,37 @@ void CCameraMovement::tick()
 	}
 }
 
+#include "CPlayerScript.h"
+#include "CCharacterScript.h"
+#include "CFieldObject.h"
+#include "CTile.h"
+#include <Engine/CLevelMgr.h>
+#include <Engine/CLevel.h>
+#include <Engine/CLayer.h>
+
 void CCameraMovement::BeginOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCollider2D* _OtherCollider)
 {
 	CMeshRender* render = _OtherObj->MeshRender();
 	if (render) {
 		render->setRenderActive(true);
+	}
+
+	auto script = _OtherObj->GetScript<CFieldObject>();
+	if (script) {
+		script->Activate(true);
+	}
+	auto monsterScript = _OtherObj->GetScript<CCharacterScript>();
+	if (monsterScript) {
+		if (_OtherObj->GetScript<CPlayerScript>()) {
+			return;
+		}
+		_OtherObj->DisconnectWithLayer();
+		CLevelMgr::GetInst()->GetCurrentLevel()->GetLayer(MonsterLayer)->AddObject(_OtherObj, false);
+	}
+	auto tileScript = _OtherObj->GetScript<CTile>();
+	if (tileScript) {
+		_OtherObj->DisconnectWithLayer();
+		CLevelMgr::GetInst()->GetCurrentLevel()->GetLayer(TileLayer)->AddObject(_OtherObj, false);
 	}
 	
 }
@@ -106,6 +133,24 @@ void CCameraMovement::EndOverlap(CCollider2D* _Collider, CGameObject* _OtherObj,
 	CMeshRender* render = _OtherObj->MeshRender();
 	if (render) {
 		render->setRenderActive(false);
+	}
+	auto script = _OtherObj->GetScript<CFieldObject>();
+	if (script) {
+		script->Activate(false);
+	}
+
+	auto monsterScript = _OtherObj->GetScript<CCharacterScript>();
+	if (monsterScript) {
+		if (_OtherObj->GetScript<CPlayerScript>())
+			return;
+		_OtherObj->DisconnectWithLayer();
+		CLevelMgr::GetInst()->GetCurrentLevel()->GetLayer(TileEmergencyLayer)->AddObject(_OtherObj, false);
+	}
+
+	auto tileScript = _OtherObj->GetScript<CTile>();
+	if (tileScript) {
+		_OtherObj->DisconnectWithLayer();
+		CLevelMgr::GetInst()->GetCurrentLevel()->GetLayer(TileEmergencyLayer)->AddObject(_OtherObj, false);
 	}
 
 }

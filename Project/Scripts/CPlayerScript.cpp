@@ -163,11 +163,6 @@ void CPlayerScript::BeginOverlap(CCollider2D* _Collider
 			}
 		}
 	}
-	if (_OtherObj->GetScript<CMonsterHitCollider>())
-	{
-		SetGround(true);
-		Jump();
-	}
 }
 
 void CPlayerScript::Overlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCollider2D* _OtherCollider)

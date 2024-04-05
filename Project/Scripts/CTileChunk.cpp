@@ -3,6 +3,7 @@
 
 #include "CTile.h"
 #include "CRandomMgr.h"
+#include "CTileMgr.h"
 
 CTileChunk::CTileChunk()
 {
@@ -35,13 +36,11 @@ void CTileChunk::SetTileType(BlockTileType type, int row, int col)
 	}
 }
 
-void CTileChunk::Instancing(int _row, int _col)
+void CTileChunk::Instancing(int _StageRow, int _StageCol, int _BlockRow, int _BlockCol)
 {
 	auto tilepref = CAssetMgr::GetInst()->Load<CPrefab>(TilePrefKey, TilePrefKey);
 	for (int row = 0; row < m_row; row++) {
 		for (int col = 0; col < m_col; col++) {
-			int colpos = _col + col * TileScaleX;
-			int rowpos = _row + row * TileScaleY;
 			auto tile = tilepref->Instantiate();
 			auto script = tile->GetScript<CTile>();
 			TileType tiletype = TileType::Blank;
@@ -84,8 +83,11 @@ void CTileChunk::Instancing(int _row, int _col)
 				delete tile;
 			}
 			else {
-				script->Instancing(tiletype, colpos, rowpos);
-				GamePlayStatic::SpawnGameObject(tile, TileLayer);
+				script->SetTileType(tiletype);
+				Vec3 vPos(_StageCol * TileBlockScaleX + (0.5f + _BlockCol + col) * TileScaleX, -_StageRow * TileBlockScaleY - (0.5f + _BlockRow + row) * TileScaleY, TileZ);
+				tile->Transform()->SetRelativePos(vPos);
+				CTileMgr::GetInst()->SetTile(tile, _StageRow, _StageCol, _BlockRow, _BlockCol);
+				GamePlayStatic::SpawnGameObject(tile, TileEmergencyLayer);
 			}
 		}
 	}

@@ -20,7 +20,7 @@ public:
 	void SetTileType(BlockTileType type, int row, int col);
 	void SetType(ChunkType type) { m_Type = type; }
 
-	void Instancing(int row, int col);
+	void Instancing(int _StageRow, int _StageCol, int _BlockRow, int _BlockCol);
 
 public:
 	CTileChunk();

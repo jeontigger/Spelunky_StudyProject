@@ -25,7 +25,7 @@ CTile::~CTile()
 void CTile::Instancing(TileType type, int row, int col)
 {
 	SetTileType(type);
-	Vec3 pos = Vec3(row, col, TileZ);
+	Vec3 pos = Vec3(col, row, TileZ);
 	if (type == TileType::Door) {
 		pos.x += TileScaleX;
 		pos.y -= TileScaleY/2;
@@ -58,7 +58,7 @@ void CTile::tick()
 
 void CTile::begin()
 {
-	SetTileType(TileType::Blank);
+	//SetTileType(TileType::Blank);
 }
 
 #include "CFieldObject.h"

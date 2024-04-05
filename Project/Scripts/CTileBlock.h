@@ -43,6 +43,7 @@ public:
 	inline TileBlockType GetBlockType() { return m_Type; }
 
 	void TileInstancing(int row, int col);
+	void MonsterGenerating(int row, int col);
 
 public:
 	friend ifstream& operator>>(ifstream& fin, CTileBlock& tileblock);

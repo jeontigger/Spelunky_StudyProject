@@ -11,6 +11,7 @@ enum class StageState {
     ATTACH_TILEBLOCK,
     REGIST_BACKGROUND,
     TILE_INSTANCING,
+    MONSTER_GENERATING,
     END,
 };
 
@@ -58,6 +59,7 @@ private:
     void SelectBlock();
     void RegistBackground();
     void TileInstancing();
+    void MonsterGenerating();
 
 private:
     void PrintChangeState(const wchar_t* _content);

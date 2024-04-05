@@ -43,8 +43,6 @@ void CAnimator2D::finaltick()
 	{
 		m_CurAnim->Reset();
 	}
-
-	m_CurAnim->finaltick();
 }
 
 void CAnimator2D::UpdateData()

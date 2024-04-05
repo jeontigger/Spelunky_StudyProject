@@ -9,6 +9,7 @@ CFieldObject::CFieldObject(UINT type)
 	, m_fMass(1.f)
 	, isPlayer(false)
 	, m_bGround(false)
+	, m_bActivate(false)
 {
 
 }
@@ -35,6 +36,9 @@ void CFieldObject::AddGravity()
 
 void CFieldObject::tick()
 {
+	if (!IsActivate()) {
+		return;
+	}
 	m_vPrevPos = m_vPos;
 
 	m_vPos = Transform()->GetRelativePos();

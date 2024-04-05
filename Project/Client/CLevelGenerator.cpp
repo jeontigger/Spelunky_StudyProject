@@ -25,5 +25,4 @@ void CLevelGenerator::LoadLevels()
 	if (fout.is_open()) {
 		fout << "seed: " << seed << endl;
 	}
-
 }

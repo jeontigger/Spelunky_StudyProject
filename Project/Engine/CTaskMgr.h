@@ -32,6 +32,7 @@ struct tTask
 	TASK_TYPE Type;
 	UINT_PTR  Param_1;
 	UINT_PTR  Param_2;
+	UINT_PTR  Param_3;
 };
 
 
@@ -42,6 +43,7 @@ class CTaskMgr
 
 private:
 	vector<tTask>	m_vecTask;
+	vector<tTask>	m_vecDelayTask;
 
 	bool			m_bCreateObject;
 	bool			m_bDeleteObject;
@@ -56,5 +58,6 @@ public:
 
 private:
 	void Clear();
+	void PushTask();
 };
 

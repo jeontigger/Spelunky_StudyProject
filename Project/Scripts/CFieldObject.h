@@ -15,6 +15,7 @@ public:
     void ImPlayer() { isPlayer = true; }
 
 private:
+    bool m_bActivate;
     float m_fMass;
     float m_fGravity;
     Vec3 m_vPos;
@@ -28,6 +29,9 @@ protected:
     int m_iTileCnt;
 
 public:
+    inline void Activate(bool _b) { m_bActivate = _b; }
+    inline bool IsActivate() { return m_bActivate; }
+
     inline void SetMass(UINT _mass) { m_fMass = _mass; }
     inline UINT GetMass() { return m_fMass; }
 

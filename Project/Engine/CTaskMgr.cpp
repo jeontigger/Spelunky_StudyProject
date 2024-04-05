@@ -8,6 +8,7 @@
 
 #include "CAssetMgr.h"
 #include "CRenderMgr.h"
+#include "CTimeMgr.h"
 
 CTaskMgr::CTaskMgr()
 	: m_bCreateObject(false)
@@ -18,13 +19,12 @@ CTaskMgr::CTaskMgr()
 
 CTaskMgr::~CTaskMgr()
 {
-
 }
 
 void CTaskMgr::tick()
 {
 	Clear();
-
+	PushTask();
 
 	for (size_t i = 0; i < m_vecTask.size(); ++i)
 	{
@@ -34,16 +34,26 @@ void CTaskMgr::tick()
 		{
 			int LayerIdx = (int)m_vecTask[i].Param_1;
 			CGameObject* Object = (CGameObject*)m_vecTask[i].Param_2;
+			float delay = (float)m_vecTask[i].Param_3;
+
+			if (delay > 0) {
+				delay -= DT;
+				m_vecTask[i].Param_3 = (DWORD_PTR)delay;
+				m_vecDelayTask.push_back(m_vecTask[i]);
+				continue;
+			}
 
 			CLevel* pCurLevel = CLevelMgr::GetInst()->GetCurrentLevel();
 			pCurLevel->AddObject(Object, LayerIdx, true);
 
 			m_bCreateObject = true;
 
-		    /*if (LEVEL_STATE::PLAY == pCurLevel->GetState())
+			
+
+		    if (LEVEL_STATE::PLAY == pCurLevel->GetState())
 			{
 				Object->begin();
-			}*/
+			}
 		}		
 			break;
 		case TASK_TYPE::DELETE_OBJECT:
@@ -144,4 +154,13 @@ void CTaskMgr::Clear()
 	}		
 
 	m_bAssetChange = false;
+}
+
+void CTaskMgr::PushTask()
+{
+	for (int i = 0; i < m_vecDelayTask.size(); i++) {
+		m_vecTask.push_back(m_vecDelayTask[i]);
+	}
+
+	m_vecDelayTask.clear();
 }

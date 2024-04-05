@@ -6,7 +6,7 @@ class CAsset;
 
 namespace GamePlayStatic
 {
-	void SpawnGameObject(CGameObject* _Target, int _LayerIdx);
+	void SpawnGameObject(CGameObject* _Target, int _LayerIdx, float _delay = 0.f);
 	void DestroyGameObject(CGameObject* _Target);
 
 	void AddAsset(CAsset* _Asset);

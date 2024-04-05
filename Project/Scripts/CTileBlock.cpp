@@ -6,6 +6,7 @@
 
 #include "CRandomMgr.h"
 #include "CStagePackMgr.h"
+#include "CTileMgr.h"
 
 CTileBlock::CTileBlock()
 	: m_Type(TileBlockType::NONE)
@@ -49,17 +50,11 @@ void CTileBlock::TileInstancing(int _row, int _col)
 	auto tilepref = CAssetMgr::GetInst()->Load<CPrefab>(TilePrefKey, TilePrefKey);
 	for (int row = 0; row < TILEBLOCKSIZEY; row++) {
 		for (int col = 0; col < TILEBLOCKSIZEX; col++) {
-			int rowpos = _row + TileScaleY * (TILEBLOCKSIZEY / 2) - TileScaleY / 2 - row * TileScaleY;
-			int colpos = _col - TileScaleX * (TILEBLOCKSIZEX / 2) + TileScaleX / 2 + col * TileScaleX;
-
 			auto type = m_Tiles[row][col];
 			auto tile = tilepref->Instantiate();
 			auto script = tile->GetScript<CTile>();
 			TileType tiletype = TileType::Blank;
-			//if (type != BlockTileType::ChunkDoor) {
-			//	delete tile;
-			//	continue;
-			//}
+
 			switch (type)
 			{
 			case BlockTileType::Blank:
@@ -100,25 +95,26 @@ void CTileBlock::TileInstancing(int _row, int _col)
 			{
 				CStagePack* sp = CStagePackMgr::GetInst()->GetStagePack(StagePackList::Dwelling);
 				auto chunk = sp->GetRandomChunk(ChunkType::Ground);
-				chunk.Instancing(rowpos, colpos);
+				chunk.Instancing(_row, _col, row, col);
 			}
 				break;
 			case BlockTileType::ChunkAir:
 			{
 				CStagePack* sp = CStagePackMgr::GetInst()->GetStagePack(StagePackList::Dwelling);
 				auto chunk = sp->GetRandomChunk(ChunkType::Air);
-				chunk.Instancing(rowpos, colpos);
+				chunk.Instancing(_row, _col, row, col);
 			}
 				break;
 			case BlockTileType::ChunkDoor:
 			{
 				tiletype = TileType::Door;
-				script->Instancing(tiletype, colpos, rowpos);
+				script->SetTileType(tiletype);
+				tile->Transform()->SetRelativePos(Vec3(_col * TileBlockScaleX + (0.5f + col) * TileScaleX, -_row * TileBlockScaleY - (1.f + row) * TileScaleY, TileZ));
 				tile->Transform()->SetRelativeScale(Vec3(TileScaleX * 3, TileScaleY * 2, 1));
 				tile->Collider2D()->SetOffsetScale(Vec2(0.33f, 0.5f));
 				tile->Collider2D()->SetOffsetPos(Vec2(0.f, -0.25f));
-				GamePlayStatic::SpawnGameObject(tile, TileLayer);
-
+				CTileMgr::GetInst()->SetTile(tile, _row, _col, row, col);
+				GamePlayStatic::SpawnGameObject(tile, TileEmergencyLayer);
 			}
 				break;
 			case BlockTileType::END:
@@ -132,9 +128,38 @@ void CTileBlock::TileInstancing(int _row, int _col)
 			if (tiletype == TileType::Blank) {
 				delete tile;
 			}
-			else {
-				script->Instancing(tiletype, colpos, rowpos);
-				GamePlayStatic::SpawnGameObject(tile, TileLayer);
+			else if(tiletype != TileType::Door){
+				script->SetTileType(tiletype);
+				tile->Transform()->SetRelativePos(Vec3(_col * TileBlockScaleX + (0.5f + col) * TileScaleX, -_row * TileBlockScaleY - (0.5f + row) * TileScaleY, TileZ));
+				CTileMgr::GetInst()->SetTile(tile, _row, _col, row, col);
+				GamePlayStatic::SpawnGameObject(tile, TileEmergencyLayer);
+			}
+		}
+	}
+}
+
+#include "CFieldObject.h"
+void CTileBlock::MonsterGenerating(int _row, int _col)
+{
+	auto idx = CTileMgr::GetInst()->PosToIdx(Vec3(1.f, 129.f, 0));
+
+	for (int row = 0; row < TILEBLOCKSIZEY - 1; row++) {
+		for (int col = 0; col < TILEBLOCKSIZEX; col++) {
+			auto tile = CTileMgr::GetInst()->GetTile(_row, _col, row, col);
+			if (!tile) {
+				auto under = CTileMgr::GetInst()->GetTile(_row, _col, row+1, col);
+				if (under&& (under->GetTileType() == TileType::Soil || under->GetTileType() == TileType::Tree)) {
+					int ran = GETRANDOM(100);
+					if (ran < 95)
+						continue;
+
+					Ptr<CPrefab> prefab = CAssetMgr::GetInst()->Load<CPrefab>(SnakePrefKey, SnakePrefKey);
+					auto obj = prefab->Instantiate();
+					Vec3 pos = CTileMgr::GetInst()->IdxToPos(_row, _col, row, col);
+					pos.z = MonsterZ;
+					obj->Transform()->SetRelativePos(pos);
+					GamePlayStatic::SpawnGameObject(obj, MonsterLayer);
+				}
 			}
 		}
 	}
