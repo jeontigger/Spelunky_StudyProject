@@ -66,21 +66,12 @@ void CEngine::progress()
 	// Manager Update
 	CTimeMgr::GetInst()->tick();
 	CKeyMgr::GetInst()->tick();
-	CChronoMgr::GetInst()->Start();
 	// FMOD Update
 	CSound::g_pFMOD->update();
-	auto time = CChronoMgr::GetInst()->End();
-	CChronoMgr::GetInst()->Start();
 	// Level Update	
 	CLevelMgr::GetInst()->tick();
-	time = CChronoMgr::GetInst()->End();
-	CChronoMgr::GetInst()->Start();
 	CTimeMgr::GetInst()->render();
-	time = CChronoMgr::GetInst()->End();
-	CChronoMgr::GetInst()->Start();
 	CFontMgr::GetInst()->render();
-	time = CChronoMgr::GetInst()->End();
-	CChronoMgr::GetInst()->Start();
 
 	// GC
 	CGC::GetInst()->tick();

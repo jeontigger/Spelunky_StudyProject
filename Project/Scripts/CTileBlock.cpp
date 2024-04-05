@@ -114,7 +114,7 @@ void CTileBlock::TileInstancing(int _row, int _col)
 				tile->Collider2D()->SetOffsetScale(Vec2(0.33f, 0.5f));
 				tile->Collider2D()->SetOffsetPos(Vec2(0.f, -0.25f));
 				CTileMgr::GetInst()->SetTile(tile, _row, _col, row, col);
-				GamePlayStatic::SpawnGameObject(tile, TileEmergencyLayer);
+				GamePlayStatic::SpawnGameObject(tile, TileLayer);
 			}
 				break;
 			case BlockTileType::END:
@@ -132,7 +132,7 @@ void CTileBlock::TileInstancing(int _row, int _col)
 				script->SetTileType(tiletype);
 				tile->Transform()->SetRelativePos(Vec3(_col * TileBlockScaleX + (0.5f + col) * TileScaleX, -_row * TileBlockScaleY - (0.5f + row) * TileScaleY, TileZ));
 				CTileMgr::GetInst()->SetTile(tile, _row, _col, row, col);
-				GamePlayStatic::SpawnGameObject(tile, TileEmergencyLayer);
+				GamePlayStatic::SpawnGameObject(tile, TileLayer);
 			}
 		}
 	}
