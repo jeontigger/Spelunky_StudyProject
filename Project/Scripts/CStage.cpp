@@ -56,7 +56,7 @@ CStage::CStage()
 	pCamObj->AddComponent(new CCameraMovement);
 	
 
-	pCamObj->Transform()->SetRelativePos(Vec3(TileBlockScaleX * STAGETILECOL/2.f, -TileBlockScaleY * STAGETILEROW/2.f, 0.f));
+	pCamObj->Transform()->SetRelativePos(Vec3(TileBlockScaleX/2.f, -TileBlockScaleY/2.f, 0.f));
 	pCamObj->Transform()->SetRelativeRotation(Vec3(0.f, 0.f, 0.f));
 	pCamObj->Transform()->SetRelativeScale(Vec3(1.f, 1.f, 1.f));
 
@@ -127,28 +127,15 @@ CStage::CStage()
 	if (test) {
 		Ptr<CPrefab> prefab;
 		CGameObject* obj;
-		for (int i = 0; i < 5; i++) {
-			prefab = CAssetMgr::GetInst()->Load<CPrefab>(TilePrefKey, TilePrefKey);
-			obj = prefab->Instantiate();
-			obj->Transform()->SetRelativePos(Vec3(TileBlockScaleX* 2.f + i * TileScaleX - 2.5 * TileScaleX, -TileBlockScaleY*2.f - TileScaleY * 2, TileZ));
-
-			AddObject(obj, TileLayer);
-		}
-		obj = prefab->Instantiate();
-		obj->Transform()->SetRelativePos(Vec3(TileBlockScaleX * 2.f - 2.5 * TileScaleX, -TileBlockScaleY * 2.f, TileZ));
-		AddObject(obj, TileLayer);
-		/*obj = prefab->Instantiate();
-		obj->Transform()->SetRelativePos(Vec3(5 * TileScaleX, -400 + TileScaleY, TileZ));
-		AddObject(obj, TileLayer);*/
 
 		prefab = CAssetMgr::GetInst()->Load<CPrefab>(PlayerPefKey, PlayerPefKey);
 		m_Player = prefab->Instantiate();
-		m_Player->Transform()->SetRelativePos(Vec3(TileBlockScaleX * 2.f, -TileBlockScaleY * 2.f, PlayerZ));
+		m_Player->Transform()->SetRelativePos(Vec3(TileBlockScaleX / 2.f, -TileBlockScaleY / 2.f - TileScaleY, PlayerZ));
 		AddObject(m_Player, PlayerLayer);
 
 		prefab = CAssetMgr::GetInst()->Load<CPrefab>(SnakePrefKey, SnakePrefKey);
 		obj = prefab->Instantiate();
-		obj->Transform()->SetRelativePos(Vec3(TileBlockScaleX * 2.f - TileScaleX, -TileBlockScaleY * 2.f, MonsterZ));
+		obj->Transform()->SetRelativePos(Vec3(TileBlockScaleX / 2.f - TileScaleX, -TileBlockScaleY / 2.f - TileScaleY, MonsterZ));
 		AddObject(obj, MonsterLayer);
 
 		pCamObj->Camera()->SetScale(CameraNormalScale);
@@ -547,6 +534,12 @@ void CStage::begin()
 	CCollisionMgr::GetInst()->LayerCheck(7, 6);
 
 	CTileMgr::GetInst()->CheckLayer(DetectColliderLayer);
+
+	if (test) {
+		m_arrTileBlocks[0][0].SetBlockType(TileBlockType::Entrance);
+		m_arrTileBlocks[0][0] = m_SP->GetRandomBlock(m_arrTileBlocks[0][0].GetBlockType());
+		m_arrTileBlocks[0][0].TileInstancing(0, 0);
+	}
 }
 
 void CStage::PrintChangeState(const wchar_t* _content)

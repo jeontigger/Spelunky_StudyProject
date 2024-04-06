@@ -62,6 +62,7 @@ void CFieldObject::begin()
 	CGameObject* obj = new CGameObject;
 	obj->AddComponent(m_ButtomCollider);
 	m_ButtomCollider->Set(GetOwner(), Vec3(ColliderCenterPos.x, ColliderCenterPos.y - ColliderScale.y / 2.f - 1.f, ownerZ), Vec3(ColliderScale.x * 0.95, 0, 1));
+	m_ButtomCollider->SetName("GroundCollider");
 	GetOwner()->AddChild(obj);
 	GamePlayStatic::SpawnGameObject(obj, DetectColliderLayer);
 

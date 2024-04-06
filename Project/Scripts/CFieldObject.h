@@ -5,7 +5,7 @@
 class CFieldObject :
     public CScript
 {
-private:
+protected:
     class CDetectCollider* m_ButtomCollider;
 
 private:

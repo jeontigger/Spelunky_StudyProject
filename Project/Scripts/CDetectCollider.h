@@ -8,6 +8,7 @@ protected:
 
 public:
     CGameObject* GetParent() { return m_parent; }
+    void SetName(const string& _name);
 
 private:
     int m_iTileCnt;

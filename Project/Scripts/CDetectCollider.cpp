@@ -1,6 +1,11 @@
 #include "pch.h"
 #include "CDetectCollider.h"
 
+void CDetectCollider::SetName(const string& _name)
+{
+	GetOwner()->SetName(_name);
+}
+
 void CDetectCollider::Set(CGameObject* parent, Vec3 vOffsetPos, Vec3 vOffsetScale)
 {
 	m_parent = parent;

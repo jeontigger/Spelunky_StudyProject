@@ -81,6 +81,7 @@ void CPlayerScript::begin()
 	GetOwner()->AddChild(obj);
 	GamePlayStatic::SpawnGameObject(obj, PlayerHitLayer);
 
+	m_ButtomCollider->SetName("PlayerGroundCollider");
 }
 
 void CPlayerScript::tick()
