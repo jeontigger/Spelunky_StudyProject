@@ -86,11 +86,6 @@ void CCameraMovement::BeginOverlap(CCollider2D* _Collider, CGameObject* _OtherOb
 	if (render) {
 		render->setRenderActive(true);
 	}
-
-	auto script = _OtherObj->GetScript<CFieldObject>();
-	if (script) {
-		script->Activate(true);
-	}
 }
 
 void CCameraMovement::Overlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCollider2D* _OtherCollider)
@@ -113,11 +108,6 @@ void CCameraMovement::EndOverlap(CCollider2D* _Collider, CGameObject* _OtherObj,
 	CMeshRender* render = _OtherObj->MeshRender();
 	if (render) {
 		render->setRenderActive(false);
-	}
-
-	auto script = _OtherObj->GetScript<CFieldObject>();
-	if (script) {
-		script->Activate(false);
 	}
 }
 
