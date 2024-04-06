@@ -63,8 +63,6 @@ void CTile::begin()
 
 #include "CFieldObject.h"
 void CTile::BeginOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCollider2D* _OtherCollider) {
-
-	
 }
 
 void CTile::EndOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCollider2D* _OtherCollider) {

@@ -2,4 +2,4 @@ fsm\PlayerState.fsm
 3
 CPlayerIdleState
 CPlayerStartState
-CPlayerWalkState
+CPlayerDownState

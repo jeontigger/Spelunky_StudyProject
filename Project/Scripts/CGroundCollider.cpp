@@ -22,6 +22,9 @@ void CGroundCollider::BeginOverlap(CCollider2D* _Collider, CGameObject* _OtherOb
 
 	auto script = _OtherObj->GetScript<CTile>();
 	if (script) {
+		if (script->GetTileType() == TileType::Door) {
+			return;
+		}
 		auto objmat = _Collider->GetColliderWorldMat();
 		auto tilemat = _OtherCollider->GetColliderWorldMat();
 
@@ -54,6 +57,9 @@ void CGroundCollider::EndOverlap(CCollider2D* _Collider, CGameObject* _OtherObj,
 
 	auto script = _OtherObj->GetScript<CTile>();
 	if (script) {
+		if (script->GetTileType() == TileType::Door) {
+			return;
+		}
 		auto objmat = _Collider->GetColliderWorldMat();
 		auto tilemat = _OtherCollider->GetColliderWorldMat();
 

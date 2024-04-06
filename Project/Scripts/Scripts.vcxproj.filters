@@ -76,8 +76,8 @@
     <ClInclude Include="CPlayerIdleState.h">
       <Filter>08. States\Player\Idle</Filter>
     </ClInclude>
-    <ClInclude Include="CPlayerWalkState.h">
-      <Filter>08. States\Player\Walk</Filter>
+    <ClInclude Include="CPlayerDownState.h">
+      <Filter>08. States\Player\Down</Filter>
     </ClInclude>
     <ClInclude Include="CPlayerStartState.h">
       <Filter>08. States\Player</Filter>
@@ -180,8 +180,8 @@
     <ClCompile Include="CPlayerIdleState.cpp">
       <Filter>08. States\Player\Idle</Filter>
     </ClCompile>
-    <ClCompile Include="CPlayerWalkState.cpp">
-      <Filter>08. States\Player\Walk</Filter>
+    <ClCompile Include="CPlayerDownState.cpp">
+      <Filter>08. States\Player\Down</Filter>
     </ClCompile>
     <ClCompile Include="CPlayerStartState.cpp">
       <Filter>08. States\Player</Filter>
@@ -290,9 +290,6 @@
     <Filter Include="08. States\Player\Idle">
       <UniqueIdentifier>{b570fd3a-d764-40a5-9c1b-bc8df6624c69}</UniqueIdentifier>
     </Filter>
-    <Filter Include="08. States\Player\Walk">
-      <UniqueIdentifier>{d41939b6-6d07-4a89-8524-adc7c2a13a24}</UniqueIdentifier>
-    </Filter>
     <Filter Include="08. States\Snake">
       <UniqueIdentifier>{68f17c6a-fbe5-4fba-9328-8b2f992271bc}</UniqueIdentifier>
     </Filter>
@@ -307,6 +304,9 @@
     </Filter>
     <Filter Include="05. Manager\TileMgr">
       <UniqueIdentifier>{9cb3cc12-1066-4be0-b7ed-d5aa45568602}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="08. States\Player\Down">
+      <UniqueIdentifier>{d41939b6-6d07-4a89-8524-adc7c2a13a24}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

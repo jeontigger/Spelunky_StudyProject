@@ -92,13 +92,23 @@ void CCameraMovement::Overlap(CCollider2D* _Collider, CGameObject* _OtherObj, CC
 {
 	if (_OtherObj->GetName() == CameraColliderWallName) {
 		auto pos = Transform()->GetRelativePos();
-		pos.x = m_vPrevPos.x;
+		if (pos.x <= _OtherObj->Transform()->GetRelativePos().x) {
+			pos.x = _OtherObj->Transform()->GetRelativePos().x - (Collider2D()->GetRelativeScale().x + _OtherObj->Transform()->GetRelativeScale().x) / 2.f;
+		}
+		else {
+			pos.x = _OtherObj->Transform()->GetRelativePos().x + (Collider2D()->GetRelativeScale().x + _OtherObj->Transform()->GetRelativeScale().x) / 2.f;
+		}
 		Transform()->SetRelativePos(pos);
 	}
 
 	if (_OtherObj->GetName() == CameraColliderPlatformName) {
 		auto pos = Transform()->GetRelativePos();
-		pos.y = m_vPrevPos.y;
+		if (pos.y <= _OtherObj->Transform()->GetRelativePos().y) {
+			pos.y = _OtherObj->Transform()->GetRelativePos().y - (Collider2D()->GetRelativeScale().y + _OtherObj->Transform()->GetRelativeScale().y) / 2.f;
+		}
+		else {
+			pos.y = _OtherObj->Transform()->GetRelativePos().y + (Collider2D()->GetRelativeScale().y + _OtherObj->Transform()->GetRelativeScale().y) / 2.f;
+		}
 		Transform()->SetRelativePos(pos);
 	}
 }

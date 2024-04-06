@@ -12,6 +12,7 @@ enum class StageState {
     REGIST_BACKGROUND,
     TILE_INSTANCING,
     MONSTER_GENERATING,
+    PLAYER_SETTING,
     END,
 };
 
@@ -20,6 +21,7 @@ class CStage :
 {
 private:
     CGameObject* m_Player;
+    CGameObject* m_MainCamera;
 
     // 시각화용
 private:
@@ -60,6 +62,7 @@ private:
     void RegistBackground();
     void TileInstancing();
     void MonsterGenerating();
+    void PlayerSetting();
 
 private:
     void PrintChangeState(const wchar_t* _content);

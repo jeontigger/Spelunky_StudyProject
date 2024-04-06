@@ -35,7 +35,10 @@ CDetectCollider::~CDetectCollider()
 #include "CPlayerScript.h"
 void CDetectCollider::BeginOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCollider2D* _OtherCollider)
 {
-	if (_OtherObj->GetScript<CTile>()) {
+	auto tile = _OtherObj->GetScript<CTile>();
+	if (tile) {
+		if (tile->GetTileType() == TileType::Door)
+			return;
 		m_iTileCnt++;
 	}
 	else if (_OtherObj->GetScript<CPlayerScript>()) {
@@ -45,7 +48,10 @@ void CDetectCollider::BeginOverlap(CCollider2D* _Collider, CGameObject* _OtherOb
 
 void CDetectCollider::EndOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCollider2D* _OtherCollider)
 {
-	if (_OtherObj->GetScript<CTile>()) {
+	auto tile = _OtherObj->GetScript<CTile>();
+	if (tile) {
+		if (tile->GetTileType() == TileType::Door)
+			return;
 		m_iTileCnt--;
 	}
 	else if (_OtherObj->GetScript<CPlayerScript>()) {

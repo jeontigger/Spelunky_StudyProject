@@ -27,6 +27,9 @@ private:
     class CGameObject* m_arrTiles[STAGETILEROW][STAGETILECOL][TILEBLOCKSIZEY][TILEBLOCKSIZEX];
 
 public:
+    Vec3 GetEntrancePos();
+
+public:
     void SetTile(CGameObject* tile, int _blockRow, int _blockCol, int _tileRow, int _tileCol);
     CTile* GetTile(Vec2 _idx);
     CTile* GetTile(int _blockRow, int _blockCol, int _tileRow, int _tileCol);

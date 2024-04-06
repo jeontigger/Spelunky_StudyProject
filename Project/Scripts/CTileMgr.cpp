@@ -8,6 +8,26 @@ void CTileMgr::CheckLayer(UINT _layer)
 	m_LayerCheck |= (1 << _layer);
 }
 
+Vec3 CTileMgr::GetEntrancePos()
+{
+	for (int blockCol = 0; blockCol < STAGETILECOL; blockCol++) {
+		for (int row = 0; row < TILEBLOCKSIZEY; row++) {
+			for (int col = 0; col < TILEBLOCKSIZEX; col++)
+			{
+				auto obj = m_arrTiles[0][blockCol][row][col];
+				if (!obj) continue;
+				auto tile = obj->GetScript<CTile>();
+				if (tile->GetTileType() == TileType::Door)
+				{
+					return tile->Transform()->GetRelativePos();
+				}
+			}
+		}
+	}
+
+	return Vec3();
+}
+
 void CTileMgr::SetTile(CGameObject* tile, int _blockRow, int _blockCol, int _tileRow, int _tileCol)
 {
 	m_arrTiles[_blockRow][_blockCol][_tileRow][_tileCol] = tile;

@@ -14,6 +14,8 @@
 #include <Engine/CLayer.h>
 
 #include "CRandomMgr.h"
+#include "CTileMgr.h"
+
 #include "CCameraMovement.h"
 #include "CStagePack.h"
 #include "CTile.h"
@@ -48,28 +50,28 @@ CStage::CStage()
 
 
 	 //Main Camera Object 持失
-	CGameObject* pCamObj = new CGameObject;
-	pCamObj->SetName(L"MainCamera");
-	pCamObj->AddComponent(new CTransform);
-	pCamObj->AddComponent(new CCamera);
-	pCamObj->AddComponent(new CCollider2D);
-	pCamObj->AddComponent(new CCameraMovement);
+	m_MainCamera = new CGameObject;
+	m_MainCamera->SetName(L"MainCamera");
+	m_MainCamera->AddComponent(new CTransform);
+	m_MainCamera->AddComponent(new CCamera);
+	m_MainCamera->AddComponent(new CCollider2D);
+	m_MainCamera->AddComponent(new CCameraMovement);
 	
 
-	pCamObj->Transform()->SetRelativePos(Vec3(TileBlockScaleX * 2.f, -TileBlockScaleY * 2.f, 0.f));
-	pCamObj->Transform()->SetRelativeRotation(Vec3(0.f, 0.f, 0.f));
-	pCamObj->Transform()->SetRelativeScale(Vec3(1.f, 1.f, 1.f));
+	m_MainCamera->Transform()->SetRelativePos(Vec3(TileBlockScaleX * 2.f, -TileBlockScaleY * 2.f, 0.f));
+	m_MainCamera->Transform()->SetRelativeRotation(Vec3(0.f, 0.f, 0.f));
+	m_MainCamera->Transform()->SetRelativeScale(Vec3(1.f, 1.f, 1.f));
 
-	pCamObj->Collider2D()->SetOffsetScale(Vec2(TileBlockScaleX * 2, TileBlockScaleY + TileScaleY));
+	m_MainCamera->Collider2D()->SetOffsetScale(Vec2(TileBlockScaleX * 2, TileBlockScaleY + TileScaleY));
 
-	pCamObj->Camera()->SetProjType(PROJ_TYPE::ORTHOGRAPHIC);
-	pCamObj->Camera()->SetCameraPriority(0);
-	pCamObj->Camera()->LayerCheckAll();
-	pCamObj->Camera()->LayerCheck(31, false);
+	m_MainCamera->Camera()->SetProjType(PROJ_TYPE::ORTHOGRAPHIC);
+	m_MainCamera->Camera()->SetCameraPriority(0);
+	m_MainCamera->Camera()->LayerCheckAll();
+	m_MainCamera->Camera()->LayerCheck(31, false);
 
 
 
-	AddObject(pCamObj, L"Camera");
+	AddObject(m_MainCamera, L"Camera");
 
 	//Main Camera Block 持失
 	pObj = new CGameObject;
@@ -142,9 +144,9 @@ CStage::CStage()
 		obj->Transform()->SetRelativePos(Vec3(TileBlockScaleX / 2.f - TileScaleX * 2, -TileBlockScaleY / 2.f - TileScaleY, MonsterZ));
 		AddObject(obj, MonsterLayer);
 
-		pCamObj->Camera()->SetScale(CameraNormalScale);
+		m_MainCamera->Camera()->SetScale(CameraNormalScale);
 
-		pCamObj->Transform()->SetRelativePos(Vec3(TileBlockScaleX / 2.f, -TileBlockScaleY / 2.f, 0.f));
+		m_MainCamera->Transform()->SetRelativePos(Vec3(TileBlockScaleX / 2.f, -TileBlockScaleY / 2.f, 0.f));
 	}
 }
 
@@ -192,6 +194,11 @@ void CStage::ChangeState(StageState _state)
 	case StageState::MONSTER_GENERATING:
 		MonsterGenerating();
 		break;
+
+	case StageState::PLAYER_SETTING:
+		PlayerSetting();
+		break;
+
 	case StageState::END:
 		break;
 	default:
@@ -456,7 +463,19 @@ void CStage::MonsterGenerating()
 	}
 }
 
-#include "CTileMgr.h"
+void CStage::PlayerSetting()
+{
+	auto prefab = CAssetMgr::GetInst()->Load<CPrefab>(PlayerPefKey, PlayerPefKey);
+	m_Player = prefab->Instantiate();
+	Vec3 vPos = CTileMgr::GetInst()->GetEntrancePos();
+	vPos.z = PlayerZ;
+	m_Player->Transform()->SetRelativePos(vPos);
+	GamePlayStatic::SpawnGameObject(m_Player, PlayerLayer);
+
+	m_MainCamera->Transform()->SetRelativePos(vPos);
+	m_MainCamera->Camera()->SetScale(CameraNormalScale);
+}
+
 
 void CStage::tick()
 {
@@ -518,6 +537,11 @@ void CStage::finaltick()
 			ChangeState(StageState::MONSTER_GENERATING);
 		}
 	}
+	else if (m_state == StageState::MONSTER_GENERATING) {
+		if (KEY_TAP(LBTN)) {
+			ChangeState(StageState::PLAYER_SETTING);
+		}
+	}
 
 }
 
@@ -545,6 +569,7 @@ void CStage::begin()
 		m_arrTileBlocks[0][0] = m_SP->GetBlock(TileBlockType::Entrance, 1);
 		m_arrTileBlocks[0][0].TileInstancing(0, 0);
 	}
+
 }
 
 void CStage::PrintChangeState(const wchar_t* _content)

@@ -1,6 +1,6 @@
 #pragma once
 #include <Engine/CState.h>
-class CPlayerWalkState :
+class CPlayerDownState :
     public CState
 {
 public:
@@ -9,7 +9,7 @@ public:
     virtual void Exit() {}
 
 public:
-    CPlayerWalkState();
-    ~CPlayerWalkState();
+    CPlayerDownState();
+    ~CPlayerDownState();
 };
 
