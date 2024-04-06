@@ -72,32 +72,32 @@ CStage::CStage()
 	AddObject(pCamObj, L"Camera");
 
 	//Main Camera Block 持失
-	pCamObj = new CGameObject;
-	pCamObj->SetName(CameraColliderWallName);
-	pCamObj->AddComponent(new CTransform);
-	pCamObj->AddComponent(new CCollider2D);
+	pObj = new CGameObject;
+	pObj->SetName(CameraColliderWallName);
+	pObj->AddComponent(new CTransform);
+	pObj->AddComponent(new CCollider2D);
 
-	pCamObj->Transform()->SetRelativePos(Vec3(TileBlockScaleX * STAGETILECOL + TileScaleX * 3 , - TileBlockScaleY * STAGETILEROW / 2.f, 0.f));
-	pCamObj->Transform()->SetRelativeScale(Vec3(TileScaleX * 2, TileBlockScaleY * 4, 1.f));
-	AddObject(pCamObj, L"CameraCollider");
+	pObj->Transform()->SetRelativePos(Vec3(TileBlockScaleX * STAGETILECOL + TileScaleX * 3 , - TileBlockScaleY * STAGETILEROW / 2.f, 0.f));
+	pObj->Transform()->SetRelativeScale(Vec3(TileScaleX * 2, TileBlockScaleY * 4, 1.f));
+	AddObject(pObj, L"CameraCollider");
 
-	pCamObj = pCamObj->Clone();
-	pCamObj->Transform()->SetRelativePos(Vec3(-TileScaleX * 3, -TileBlockScaleY * STAGETILEROW / 2.f, 0.f));
-	AddObject(pCamObj, L"CameraCollider");
+	pObj = pObj->Clone();
+	pObj->Transform()->SetRelativePos(Vec3(-TileScaleX * 3, -TileBlockScaleY * STAGETILEROW / 2.f, 0.f));
+	AddObject(pObj, L"CameraCollider");
 
-	pCamObj = new CGameObject;
-	pCamObj->SetName(CameraColliderPlatformName);
-	pCamObj->AddComponent(new CTransform);
-	pCamObj->AddComponent(new CCollider2D);
+	pObj = new CGameObject;
+	pObj->SetName(CameraColliderPlatformName);
+	pObj->AddComponent(new CTransform);
+	pObj->AddComponent(new CCollider2D);
 
-	pCamObj->Transform()->SetRelativePos(Vec3(TileBlockScaleX * STAGETILECOL / 2.f, TileScaleY * 3, 0.f));
-	pCamObj->Transform()->SetRelativeScale(Vec3(TileBlockScaleX * 4, TileScaleY * 2, 1.f));
+	pObj->Transform()->SetRelativePos(Vec3(TileBlockScaleX * STAGETILECOL / 2.f, TileScaleY * 3, 0.f));
+	pObj->Transform()->SetRelativeScale(Vec3(TileBlockScaleX * 4, TileScaleY * 2, 1.f));
 
-	AddObject(pCamObj, L"CameraCollider");
+	AddObject(pObj, L"CameraCollider");
 
-	pCamObj = pCamObj->Clone();
-	pCamObj->Transform()->SetRelativePos(Vec3(TileBlockScaleX * STAGETILECOL / 2.f, -(TileBlockScaleY * STAGETILEROW + TileScaleY * 3), 0.f));
-	AddObject(pCamObj, L"CameraCollider");
+	pObj = pObj->Clone();
+	pObj->Transform()->SetRelativePos(Vec3(TileBlockScaleX * STAGETILECOL / 2.f, -(TileBlockScaleY * STAGETILEROW + TileScaleY * 3), 0.f));
+	AddObject(pObj, L"CameraCollider");
 
 	// Player Object 持失
 	pObj = new CGameObject;
@@ -123,19 +123,19 @@ CStage::CStage()
 
 	CLevelMgr::GetInst()->ChangeLevel(this, LEVEL_STATE::PLAY);
 
-	test = false;
+	test = true;
 	if (test) {
 		Ptr<CPrefab> prefab;
 		CGameObject* obj;
 		for (int i = 0; i < 5; i++) {
 			prefab = CAssetMgr::GetInst()->Load<CPrefab>(TilePrefKey, TilePrefKey);
 			obj = prefab->Instantiate();
-			obj->Transform()->SetRelativePos(Vec3(-2 * TileScaleX + i * TileScaleX, -400, TileZ));
+			obj->Transform()->SetRelativePos(Vec3(TileBlockScaleX* 2.f + i * TileScaleX - 2.5 * TileScaleX, -TileBlockScaleY*2.f - TileScaleY * 2, TileZ));
 
 			AddObject(obj, TileLayer);
 		}
 		obj = prefab->Instantiate();
-		obj->Transform()->SetRelativePos(Vec3(-2 * TileScaleX, -400 + TileScaleY, TileZ));
+		obj->Transform()->SetRelativePos(Vec3(TileBlockScaleX * 2.f - 2.5 * TileScaleX, -TileBlockScaleY * 2.f, TileZ));
 		AddObject(obj, TileLayer);
 		/*obj = prefab->Instantiate();
 		obj->Transform()->SetRelativePos(Vec3(5 * TileScaleX, -400 + TileScaleY, TileZ));
@@ -143,11 +143,15 @@ CStage::CStage()
 
 		prefab = CAssetMgr::GetInst()->Load<CPrefab>(PlayerPefKey, PlayerPefKey);
 		m_Player = prefab->Instantiate();
+		m_Player->Transform()->SetRelativePos(Vec3(TileBlockScaleX * 2.f, -TileBlockScaleY * 2.f, PlayerZ));
 		AddObject(m_Player, PlayerLayer);
 
 		prefab = CAssetMgr::GetInst()->Load<CPrefab>(SnakePrefKey, SnakePrefKey);
 		obj = prefab->Instantiate();
+		obj->Transform()->SetRelativePos(Vec3(TileBlockScaleX * 2.f - TileScaleX, -TileBlockScaleY * 2.f, MonsterZ));
 		AddObject(obj, MonsterLayer);
+
+		pCamObj->Camera()->SetScale(CameraNormalScale);
 
 	}
 }
