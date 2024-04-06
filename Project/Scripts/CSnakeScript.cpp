@@ -37,9 +37,14 @@ bool CSnakeScript::DetectPlayer()
 	return m_DetectWallAndPlayerCollider->DetectPlayer();
 }
 
+static int cnt = 0;
+
 void CSnakeScript::begin()
 {
 	CCharacterScript::begin();
+
+	GetOwner()->SetName("Snake" + to_string(cnt));
+	cnt++;
 
 	auto state = GetOwner()->StateMachine()->GetFSM()->GetState<CSnakeEntryState>();
 	GetOwner()->StateMachine()->GetFSM()->ChangeState(CStateMgr::GetStateName(state));

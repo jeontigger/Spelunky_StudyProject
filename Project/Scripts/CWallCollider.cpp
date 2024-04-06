@@ -35,7 +35,7 @@ void CWallCollider::BeginOverlap(CCollider2D* _Collider, CGameObject* _OtherObj,
 		}
 		m_parent->Transform()->SetRelativePos(OwnerPos);
 		auto objScript = m_parent->GetScript<CCharacterScript>();
-		objScript->DontMove();
+		objScript->Stop();
 		Vec2 vel = objScript->GetVelocity();
 		vel.x = 0;
 		objScript->SetVelocity(vel);

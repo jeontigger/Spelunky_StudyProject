@@ -5,7 +5,7 @@
 class CCharacterScript
 	: public CFieldObject
 {
-private:
+protected:
 	class CDetectCollider* m_BackCollider;
 	class CDetectCollider* m_FrontCollider;
 	class CDetectCollider* m_TopCollider;
@@ -18,7 +18,7 @@ public:
 	virtual void Hit(int _damage);
 
 	void SetSpeed(float _speed) { m_tInfo.Speed = _speed; }
-	int GetSpeed() { return m_tInfo.Speed; }
+	float GetSpeed() { return m_tInfo.Speed; }
 
 	void SetDamage(int _damage) { m_tInfo.Damage = _damage; }
 	int GetDamage() { return m_tInfo.Damage; }
@@ -27,21 +27,18 @@ public:
 	int GetHealth() { return m_tInfo.Health; }
 
 protected:
-	bool m_bLastMoveDir; // 0 : left, 1 : right
-	bool m_bTurnLeft;
-	bool m_bTurnRight;
 	bool m_bMoveFront;
 	bool m_bMoveBack;
 
 public:
-	void DontMove() { m_bMoveFront = false; m_bMoveBack = false; }
+	void Stop() { m_bMoveFront = false; m_bMoveBack = false;  m_vVelocity.x = 0.f; }
 	bool IsLookRight();
 	void TurnLeft();
 	void TurnRight();
 	void MoveFront();
 	void MoveBack();
 	bool IsMoving() {
-		return m_bTurnRight || m_bTurnLeft;
+		return m_bMoveFront || m_bMoveBack;
 	}
 
 public:

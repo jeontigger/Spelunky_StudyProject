@@ -14,7 +14,7 @@ private:
 public:
     void ImPlayer() { isPlayer = true; }
 
-private:
+protected:
     float m_fMass;
     float m_fGravity;
     Vec3 m_vPos;
@@ -37,7 +37,8 @@ public:
     inline bool IsMove() { return m_fGravity != 0.f; }
 
     inline void SetGround(bool _b) { m_bGround = _b; }
-    inline bool IsGrounded() { return m_bGround > 0; }
+    inline bool IsGrounded() { 
+        return m_bGround > 0; }
 
     inline void SetLeftBump(bool _b) { _b ? m_bLeftBump = true : m_bLeftBump = false; }
     inline bool IsLeftBump() { return m_bLeftBump > 0; }

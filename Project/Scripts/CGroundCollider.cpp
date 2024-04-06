@@ -40,7 +40,7 @@ void CGroundCollider::BeginOverlap(CCollider2D* _Collider, CGameObject* _OtherOb
 			float OwnerY = m_parent->Transform()->GetRelativePos().y;
 
 			Vec3 pos = m_parent->Transform()->GetRelativePos();
-			pos.y = TileTopY + OwnerY - objUnderY;
+			pos.y = TileTopY + OwnerY - objUnderY - 2.f;
 			m_parent->Transform()->SetRelativePos(pos);
 
 			m_parent->GetScript<CFieldObject>()->SetGround(true);

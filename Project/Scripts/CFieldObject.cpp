@@ -28,9 +28,6 @@ void CFieldObject::AddGravity()
 		m_bGround = 0;
 	}
 
-	if (IsLeftBump()||IsRightBump()) {
-		m_vVelocity.x = 0;
-	}
 }
 
 void CFieldObject::tick()
@@ -43,8 +40,6 @@ void CFieldObject::tick()
 	m_vPos.x += m_vVelocity.x * TileScaleX * DT;
 	m_vPos.y += m_vVelocity.y * TileScaleX * DT;
 	Transform()->SetRelativePos(m_vPos);
-	
-	m_vPos = Transform()->GetRelativePos();
 }
 
 #include "CGroundCollider.h"
@@ -61,7 +56,7 @@ void CFieldObject::begin()
 	m_ButtomCollider = new CGroundCollider;
 	CGameObject* obj = new CGameObject;
 	obj->AddComponent(m_ButtomCollider);
-	m_ButtomCollider->Set(GetOwner(), Vec3(ColliderCenterPos.x, ColliderCenterPos.y - ColliderScale.y / 2.f - 1.f, ownerZ), Vec3(ColliderScale.x * 0.95, 0, 1));
+	m_ButtomCollider->Set(GetOwner(), Vec3(ColliderCenterPos.x, ColliderCenterPos.y - ColliderScale.y / 2.f - 1.f, ownerZ), Vec3(ColliderScale.x * 0.95, 1, 1));
 	m_ButtomCollider->SetName("GroundCollider");
 	GetOwner()->AddChild(obj);
 	GamePlayStatic::SpawnGameObject(obj, DetectColliderLayer);

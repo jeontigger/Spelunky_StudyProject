@@ -12,7 +12,7 @@ CSnakeIdleState::CSnakeIdleState()
 	: CState((UINT)STATE_TYPE::SNAKEIDLESTATE)
 	, m_pPlayer(nullptr)
 {
-
+	m_fDuration = 0.1f;
 }
 
 CSnakeIdleState::~CSnakeIdleState()
@@ -21,46 +21,34 @@ CSnakeIdleState::~CSnakeIdleState()
 
 void CSnakeIdleState::finaltick()
 {
+	m_pOwner = (CGameObject*)GetBlackboardData(BBOwnerKey);
+	m_pScript = m_pOwner->GetScript<CSnakeScript>();
+	m_pPlayer = (CGameObject*)GetBlackboardData(StrPlayerName);
+
 	if (m_pScript->DetectPlayer()) {
 		auto state = GetFSM()->GetState<CSnakeAttackState>();
 		ChangeState(CStateMgr::GetStateName(state));
 	}
 
-	Vec3 targetPos = m_pPlayer->Transform()->GetRelativePos();
-
-	static bool GoRight = false;
-	static bool prev = GoRight;
-	if (m_pScript->IsGrounded() && (!m_pScript->DetectFrontTile()|| m_pScript->DetectFrontWall())) {
-		if (prev == GoRight) {
-			if (m_pScript->IsLookRight()) {
-				GoRight = false;
-			}
-			else {
-				GoRight = true;
-			}
-		}
-		else {
-			prev = GoRight;
-		}
-	}
-
-	if (GoRight) {
-		m_pScript->TurnRight();
-	}
-	else {
-		m_pScript->TurnLeft();
-	}
 	if (m_pScript->IsGrounded()) {
+		if (!m_pScript->DetectFrontTile() || m_pScript->DetectFrontWall()) {
+			if (m_fDuration < m_fAccTime) {
+				if (m_pScript->IsLookRight()) {
+					m_pScript->TurnLeft();
+				}
+				else if (!m_pScript->IsLookRight()) {
+					m_pScript->TurnRight();
+				}
+				m_fAccTime = 0.f;
+			}
+			m_fAccTime += DT;
+		}
 		m_pScript->MoveFront();
 	}
-	
-	
 }
 
 void CSnakeIdleState::Enter()
 {
 	m_pOwner = (CGameObject*)GetBlackboardData(BBOwnerKey);
 	m_pOwner->Animator2D()->Play(AnimSnakeWalk);
-	m_pScript = m_pOwner->GetScript<CSnakeScript>();
-	m_pPlayer = (CGameObject*)GetBlackboardData(StrPlayerName);
 }

@@ -59,11 +59,7 @@ void CPlayerScript::begin()
 	auto state = GetOwner()->StateMachine()->GetFSM()->GetState<CPlayerStartState>();
 	GetOwner()->StateMachine()->GetFSM()->ChangeState(CStateMgr::GetStateName(state));
 
-	AddScriptParam(SCRIPT_PARAM::FLOAT, "JumpTimer", &m_fJumpTimer);
-	AddScriptParam(SCRIPT_PARAM::INT, "Is ground", &m_bGround);
-	AddScriptParam(SCRIPT_PARAM::INT, "Is left", &m_bLeftBump);
-	AddScriptParam(SCRIPT_PARAM::INT, "Is right", &m_bRightBump);
-	AddScriptParam(SCRIPT_PARAM::INT, "Health", &m_tInfo.Health);
+	AddScriptParam(SCRIPT_PARAM::INT, "MoveFront", &m_bMoveFront);
 
 
 	Vec2 ColliderCenterPos = Collider2D()->GetRelativePos();
@@ -87,6 +83,7 @@ void CPlayerScript::begin()
 void CPlayerScript::tick()
 {
 	CCharacterScript::tick();
+
 	// Jump
 	if (m_bJumpup) {
 		if (m_fJumpTimer > 0) {
@@ -99,34 +96,14 @@ void CPlayerScript::tick()
 	}
 	else {
 		if (IsGrounded()) {
-			if (!IsMoving()) {
+			if (KEY_NONE(InputKey.MoveLeft) && KEY_NONE(InputKey.MoveRight)) {
 				Animator2D()->Play(AnimPlayerIdle);
 			}
 			else {
-				//Animator2D()->Play(AnimPlayerIdle);
 			}
 		}
 	}
 
-	if (KEY_TAP(InputKey.MoveLeft)) {
-		TurnLeft();
-		if(IsGrounded())
-			Animator2D()->Play(AnimPlayerWalk);
-	}
-	if (KEY_TAP(InputKey.MoveRight)) {
-		TurnRight();
-		if (IsGrounded())
-			Animator2D()->Play(AnimPlayerWalk);
-	}
-	if (KEY_RELEASED(InputKey.MoveLeft)) {
-		m_bTurnLeft = false;
-	}
-	if (KEY_RELEASED(InputKey.MoveRight)) {
-		m_bTurnRight = false;
-	}
-
-	m_vPrevPos = m_vCurPos;
-	m_vCurPos = GetOwner()->Transform()->GetRelativePos();
 
 	if (!m_HitCollider->Collider2D()->IsActivate()) {
 		m_fInvincibilityTimer -= DT;
@@ -152,18 +129,6 @@ void CPlayerScript::BeginOverlap(CCollider2D* _Collider
 	, CGameObject* _OtherObj, CCollider2D* _OtherCollider)
 {
 	CCharacterScript::BeginOverlap(_Collider, _OtherObj, _OtherCollider);
-	auto script = _OtherObj->GetScript<CTile>();
-	if (script)
-	{
-		if (!IsJumpUp()) {
-			if (IsMoving()) {
-				Animator2D()->Play(AnimPlayerWalk);
-			}
-			else {
-				Animator2D()->Play(AnimPlayerIdle);
-			}
-		}
-	}
 }
 
 void CPlayerScript::Overlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCollider2D* _OtherCollider)

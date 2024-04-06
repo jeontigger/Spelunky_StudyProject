@@ -18,7 +18,7 @@
 #include "CStagePack.h"
 #include "CTile.h"
 
-bool test;
+bool test = false;
 
 CStage::CStage()
 	: m_state(StageState::NONE)
@@ -123,7 +123,6 @@ CStage::CStage()
 
 	CLevelMgr::GetInst()->ChangeLevel(this, LEVEL_STATE::PLAY);
 
-	test = true;
 	if (test) {
 		Ptr<CPrefab> prefab;
 		CGameObject* obj;

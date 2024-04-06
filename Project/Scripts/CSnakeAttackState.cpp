@@ -22,14 +22,11 @@ void CSnakeAttackState::finaltick()
 		auto state = GetFSM()->GetState<CSnakeIdleState>();
 		ChangeState(CStateMgr::GetStateName(state));
 	}
-
 	m_fDuration -= DT;
 }
 void CSnakeAttackState::Enter()
 {
 	m_pOwner = (CGameObject*)GetBlackboardData(BBOwnerKey);
-	m_pScript = m_pOwner->GetScript<CSnakeScript>();
-	m_pPlayer = (CGameObject*)GetBlackboardData(StrPlayerName);
 
 
 	m_pOwner->Animator2D()->Play(AnimSnakeAttack, false);
@@ -42,5 +39,6 @@ void CSnakeAttackState::Enter()
 
 void CSnakeAttackState::Exit()
 {
+	m_pOwner = (CGameObject*)GetBlackboardData(BBOwnerKey);
 	m_pOwner->Collider2D()->SetOffsetScale(m_vOriginOffsetScale);
 }

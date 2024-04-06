@@ -24,34 +24,6 @@ CCharacterScript::~CCharacterScript()
 void CCharacterScript::tick()
 {
 	CFieldObject::tick();
-
-	// Move
-	Vec2 vel = GetVelocity();
-	if (m_bTurnRight && m_bTurnLeft) {
-		m_bLastMoveDir ? m_bTurnLeft = false : m_bTurnRight = false;
-	}
-
-	if (m_bTurnRight) {
-		vel.x = m_tInfo.Speed;
-		Vec3 rotation = Transform()->GetRelativeRotation();
-		rotation.y = 0;
-		Transform()->SetRelativeRotation(rotation);
-	}
-
-	if (m_bTurnLeft) {
-		vel.x = -m_tInfo.Speed;
-		Vec3 rotation = Transform()->GetRelativeRotation();
-		rotation.y = -XM_PI;
-		Transform()->SetRelativeRotation(rotation);
-	}
-
-	if (!m_bMoveBack && !m_bMoveFront) {
-		vel.x = 0;
-	}
-	m_bMoveBack = false;
-	m_bMoveFront = false;
-
-	SetVelocity(vel);
 }
 
 void CCharacterScript::begin()
@@ -68,14 +40,14 @@ void CCharacterScript::begin()
 	m_BackCollider = new CWallCollider;
 	obj = new CGameObject;
 	obj->AddComponent(m_BackCollider);
-	m_BackCollider->Set(GetOwner(), Vec3(ColliderCenterPos.x - ColliderScale.x/2.f - 1.f, ColliderCenterPos.y, ownerZ), Vec3(0, ColliderScale.y * 0.95, 1));
+	m_BackCollider->Set(GetOwner(), Vec3(ColliderCenterPos.x - ColliderScale.x/2.f - 1.f, ColliderCenterPos.y, ownerZ), Vec3(0, ColliderScale.y * 0.9, 1));
 	GetOwner()->AddChild(obj);
 	GamePlayStatic::SpawnGameObject(obj, DetectColliderLayer);
 
 	m_FrontCollider = new CWallCollider;
 	obj = new CGameObject;
 	obj->AddComponent(m_FrontCollider);
-	m_FrontCollider->Set(GetOwner(), Vec3(ColliderCenterPos.x + ColliderScale.x / 2.f + 1.f, ColliderCenterPos.y, ownerZ), Vec3(0, ColliderScale.y * 0.95, 1));
+	m_FrontCollider->Set(GetOwner(), Vec3(ColliderCenterPos.x + ColliderScale.x / 2.f + 1.f, ColliderCenterPos.y, ownerZ), Vec3(0, ColliderScale.y * 0.9, 1));
 	GetOwner()->AddChild(obj);
 	GamePlayStatic::SpawnGameObject(obj, DetectColliderLayer);
 
@@ -103,20 +75,28 @@ bool CCharacterScript::IsLookRight()
 
 void CCharacterScript::TurnLeft()
 {
-	m_bLastMoveDir = 0;
-	m_bTurnLeft = true;
+	Vec3 rotation = Transform()->GetRelativeRotation();
+	rotation.y = -XM_PI;
+	Transform()->SetRelativeRotation(rotation);
 }
 
 void CCharacterScript::TurnRight()
 {
-	m_bLastMoveDir = 1;
-	m_bTurnRight = true;
+	Vec3 rotation = Transform()->GetRelativeRotation();
+	rotation.y = 0;
+	Transform()->SetRelativeRotation(rotation);
 }
 
 void CCharacterScript::MoveFront()
 {
 	if (!m_FrontCollider->DetectTile()) {
 		m_bMoveFront = true;
+		if (IsLookRight()) {
+			SetVelocity(Vec2(GetSpeed(), GetVelocity().y));
+		}
+		else {
+			SetVelocity(Vec2(-GetSpeed(), GetVelocity().y));
+		}
 	}
 }
 
