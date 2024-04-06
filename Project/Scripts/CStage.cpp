@@ -56,7 +56,7 @@ CStage::CStage()
 	pCamObj->AddComponent(new CCameraMovement);
 	
 
-	pCamObj->Transform()->SetRelativePos(Vec3(TileBlockScaleX/2.f, -TileBlockScaleY/2.f, 0.f));
+	pCamObj->Transform()->SetRelativePos(Vec3(TileBlockScaleX * 2.f, -TileBlockScaleY * 2.f, 0.f));
 	pCamObj->Transform()->SetRelativeRotation(Vec3(0.f, 0.f, 0.f));
 	pCamObj->Transform()->SetRelativeScale(Vec3(1.f, 1.f, 1.f));
 
@@ -138,8 +138,14 @@ CStage::CStage()
 		obj->Transform()->SetRelativePos(Vec3(TileBlockScaleX / 2.f - TileScaleX, -TileBlockScaleY / 2.f - TileScaleY, MonsterZ));
 		AddObject(obj, MonsterLayer);
 
+		prefab = CAssetMgr::GetInst()->Load<CPrefab>(SnakePrefKey, SnakePrefKey);
+		obj = prefab->Instantiate();
+		obj->Transform()->SetRelativePos(Vec3(TileBlockScaleX / 2.f - TileScaleX * 2, -TileBlockScaleY / 2.f - TileScaleY, MonsterZ));
+		AddObject(obj, MonsterLayer);
+
 		pCamObj->Camera()->SetScale(CameraNormalScale);
 
+		pCamObj->Transform()->SetRelativePos(Vec3(TileBlockScaleX / 2.f, -TileBlockScaleY / 2.f, 0.f));
 	}
 }
 
@@ -537,7 +543,7 @@ void CStage::begin()
 
 	if (test) {
 		m_arrTileBlocks[0][0].SetBlockType(TileBlockType::Entrance);
-		m_arrTileBlocks[0][0] = m_SP->GetRandomBlock(m_arrTileBlocks[0][0].GetBlockType());
+		m_arrTileBlocks[0][0] = m_SP->GetBlock(TileBlockType::Entrance, 1);
 		m_arrTileBlocks[0][0].TileInstancing(0, 0);
 	}
 }

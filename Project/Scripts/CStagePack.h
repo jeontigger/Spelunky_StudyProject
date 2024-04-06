@@ -25,6 +25,7 @@ public:
     void SetBackground(Ptr<CTexture> _bg) { m_texBackground = _bg; }
     Ptr<CTexture> GetBackground() { return m_texBackground; }
     CTileBlock GetRandomBlock(TileBlockType _type);
+    CTileBlock GetBlock(TileBlockType _type, int idx);
     CTileChunk GetRandomChunk(ChunkType _type);
 
 public:
