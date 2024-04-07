@@ -17,9 +17,8 @@ void CCeilCollider::BeginOverlap(CCollider2D* _Collider, CGameObject* _OtherObj,
 {
 	auto script = _OtherObj->GetScript<CTile>();
 	if (script) {
-		if (script->GetTileType() == TileType::Door) {
-			return;
-		}
+		TileType type = script->GetTileType();
+		if (type == TileType::Door || type == TileType::Ladder || type == TileType::LadderHalf || type == TileType::Half || type == TileType::Spike) return;
 		
 		CCharacterScript* script = m_parent->GetScript<CCharacterScript>();
 		Vec2 vel = script->GetVelocity();
