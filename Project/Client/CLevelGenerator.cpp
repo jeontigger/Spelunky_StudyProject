@@ -53,7 +53,10 @@ void CLevelGenerator::Init()
 	pObj->Collider2D()->SetOffsetScale(Vec2(100.f, 100.f));
 	pObj->Collider2D()->SetOffsetPos(Vec2(0.f, 0.f));
 
+	m_pTempLevel->AddObject(pObj, PlayerLayer);
+
 	DestroyStages();
+	LoadTempLevel();
 }
 
 void CLevelGenerator::MakeStages()
@@ -79,6 +82,11 @@ CStage* CLevelGenerator::GetLevel(int _level)
 	return m_arrStages[_level];
 }
 
+void CLevelGenerator::LoadTempLevel()
+{
+	CLevelMgr::GetInst()->ChangeLevel_Task(m_pTempLevel, LEVEL_STATE::STOP);
+}
+
 void CLevelGenerator::DestroyStages()
 {
 	for (int i = 0; i < StageCnt; i++) {
@@ -86,7 +94,6 @@ void CLevelGenerator::DestroyStages()
 			delete m_arrStages[i];
 	}
 
-	CLevelMgr::GetInst()->ChangeLevel_Task(m_pTempLevel, LEVEL_STATE::STOP);
 }
 
 void CLevelGenerator::Destroy()

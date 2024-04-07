@@ -191,6 +191,7 @@ void MenuUI::Level()
             if (LEVEL_STATE::STOP == pCurLevel->GetState())
             {
                 CRandomMgr::GetInst()->init();
+                CLevelGenerator::DestroyStages();
                 CLevelGenerator::MakeStages();
                 CLevel* level = (CLevel*)CLevelGenerator::GetLevel(0);
                 CLevelMgr::GetInst()->ChangeLevel(level, LEVEL_STATE::PLAY);
@@ -201,8 +202,6 @@ void MenuUI::Level()
         if (ImGui::MenuItem("RePlay", nullptr, nullptr, StopEnable && PlayOnce))
         {
             CLevelGenerator::DestroyStages();
-
-            
             UINT seed = CRandomMgr::GetInst()->GetSeed();
             CRandomMgr::GetInst()->SetSeed(seed);
             CLevelGenerator::MakeStages();
@@ -210,16 +209,15 @@ void MenuUI::Level()
             CLevelMgr::GetInst()->ChangeLevel(level, LEVEL_STATE::PLAY);
         }
 
-        if (ImGui::MenuItem("Pause", nullptr, nullptr, PauseEnable))
-        {
-            CLevelMgr::GetInst()->ChangeLevelState(LEVEL_STATE::PAUSE);
-        }
+        //if (ImGui::MenuItem("Pause", nullptr, nullptr, PauseEnable))
+        //{
+        //    CLevelMgr::GetInst()->ChangeLevelState(LEVEL_STATE::PAUSE);
+        //}
 
         if (ImGui::MenuItem("Stop", nullptr, nullptr, StopEnable))
         {
             //CLevel* pLoadedLevel = CLevelSaveLoad::LoadLevel(L"Level//temp.lv");
-            CLevelGenerator::DestroyStages();
-
+            CLevelGenerator::LoadTempLevel();
             // Inspector 의 타겟정보를 nullptr 로 되돌리기
             Inspector* pInspector = (Inspector*)CImGuiMgr::GetInst()->FindUI("##Inspector");
             pInspector->SetTargetObject(nullptr);
