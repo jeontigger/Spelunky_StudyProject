@@ -489,7 +489,7 @@ void CStage::finaltick()
 	CTileMgr::GetInst()->tick();
 
 
-	if (KEY_TAP(RBTN)) {
+	if (KEY_TAP(Y)) {
 		Vec2 mousepos = CKeyMgr::GetInst()->GetMousePos();
 		m_Player->Transform()->SetRelativePos(Vec3(mousepos.x, mousepos.y, PlayerZ));
 
@@ -503,41 +503,41 @@ void CStage::finaltick()
 		return;
 
 	if (m_state == StageState::NONE) {
-		if (KEY_TAP(LBTN)) {
+		if (KEY_TAP(RBTN)) {
 			ChangeState(StageState::CREATE_BLOCK);
 		}
 	}else if(m_state == StageState::CREATE_BLOCK) {
-		if (KEY_TAP(LBTN)) {
+		if (KEY_TAP(RBTN)) {
 			ChangeState(StageState::SELECT_ENTRANCE);
 		}
 	}else if (m_state == StageState::SELECT_ENTRANCE) {
-		if (KEY_TAP(LBTN)) {
+		if (KEY_TAP(RBTN)) {
 			ChangeState(StageState::SELECT_EXIT);
 		}
 	}else if (m_state == StageState::SELECT_EXIT) {
-		if (KEY_TAP(LBTN)) {
+		if (KEY_TAP(RBTN)) {
 			ChangeState(StageState::GENERATE_PATH);
 		}
 	}else if (m_state == StageState::GENERATE_PATH) {
 		PathVisualization();
 	}
 	else if (m_state == StageState::ATTACH_TILEBLOCK) {
-		if (KEY_TAP(LBTN)) {
+		if (KEY_TAP(RBTN)) {
 			ChangeState(StageState::REGIST_BACKGROUND);
 		}
 	}
 	else if (m_state == StageState::REGIST_BACKGROUND) {
-		if (KEY_TAP(LBTN)) {
+		if (KEY_TAP(RBTN)) {
 			ChangeState(StageState::TILE_INSTANCING);
 		}
 	}
 	else if (m_state == StageState::TILE_INSTANCING) {
-		if (KEY_TAP(LBTN)) {
+		if (KEY_TAP(RBTN)) {
 			ChangeState(StageState::MONSTER_GENERATING);
 		}
 	}
 	else if (m_state == StageState::MONSTER_GENERATING) {
-		if (KEY_TAP(LBTN)) {
+		if (KEY_TAP(RBTN)) {
 			ChangeState(StageState::PLAYER_SETTING);
 		}
 	}

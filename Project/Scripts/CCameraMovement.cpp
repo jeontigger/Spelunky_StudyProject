@@ -44,6 +44,14 @@ void CCameraMovement::tick()
 		Transform()->SetRelativePos(vPos);
 	}
 
+	if (KEY_TAP(P)) {
+		if (Collider2D()->GetOffsetScale() == CameraViewAll) {
+			Collider2D()->SetOffsetScale(CameraViewNormal);
+		}
+		else {
+			Collider2D()->SetOffsetScale(CameraViewAll);
+		}
+	}
 
 	if (Camera()->GetProjType() == PROJ_TYPE::ORTHOGRAPHIC) {
 		auto pos = Transform()->GetRelativePos();
