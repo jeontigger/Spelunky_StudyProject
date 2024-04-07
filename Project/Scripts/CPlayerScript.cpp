@@ -95,6 +95,10 @@ void CPlayerScript::tick()
 	if (m_bJumpup) {
 		if (m_fJumpTimer > 0) {
 			m_fJumpTimer -= DT;
+			if (IsGrounded()) {
+				m_bJumpup = false;
+				m_fJumpTimer = 0;
+			}
 		}
 		else {
 			m_bJumpup = false;
