@@ -62,7 +62,7 @@ CStage::CStage()
 	m_MainCamera->Transform()->SetRelativeRotation(Vec3(0.f, 0.f, 0.f));
 	m_MainCamera->Transform()->SetRelativeScale(Vec3(1.f, 1.f, 1.f));
 
-	m_MainCamera->Collider2D()->SetOffsetScale(Vec2(TileBlockScaleX * 2, TileBlockScaleY + TileScaleY));
+	m_MainCamera->Collider2D()->SetOffsetScale(Vec2(TileBlockScaleX * 1.3, TileBlockScaleY + TileScaleY));
 
 	m_MainCamera->Camera()->SetProjType(PROJ_TYPE::ORTHOGRAPHIC);
 	m_MainCamera->Camera()->SetCameraPriority(0);
@@ -569,6 +569,8 @@ void CStage::begin()
 		m_arrTileBlocks[0][0] = m_SP->GetBlock(TileBlockType::Normal, 0);
 		m_arrTileBlocks[0][0].TileInstancing(0, 0);
 	}
+
+	m_MainCamera->GetScript<CCameraMovement>()->SetTarget(m_Player);
 
 }
 

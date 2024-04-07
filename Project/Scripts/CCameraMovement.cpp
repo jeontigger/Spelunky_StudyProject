@@ -9,7 +9,7 @@
 
 CCameraMovement::CCameraMovement()
 	: CScript((UINT)SCRIPT_TYPE::CAMERAMOVEMENT)
-	, m_fSpeed(500)
+	, m_fSpeed(700)
 {
 	
 }
@@ -20,6 +20,32 @@ CCameraMovement::~CCameraMovement()
 
 void CCameraMovement::tick()
 {
+	if (m_Target) {
+		Vec3 vPos = Transform()->GetRelativePos();
+		Vec3 TargetPos = m_Target->Transform()->GetRelativePos();
+		TargetPos.z = vPos.z;
+
+		Vec3 Dir = TargetPos - vPos;
+		if (m_bCameraWallBlocked) {
+			TargetPos.x = 0;
+		}
+
+		if (m_bCameraPlatformBlocked) {
+			TargetPos.y = 0;
+		}
+		if (Vec3::Distance(vPos, TargetPos) < 1.f) {
+			return;
+		}
+		
+
+		Dir.Normalize();
+
+		vPos += Dir * m_fSpeed * DT;
+
+		Transform()->SetRelativePos(vPos);
+	}
+
+
 	if (Camera()->GetProjType() == PROJ_TYPE::ORTHOGRAPHIC) {
 		auto pos = Transform()->GetRelativePos();
 		m_vPrevPos = pos;
@@ -90,6 +116,8 @@ void CCameraMovement::BeginOverlap(CCollider2D* _Collider, CGameObject* _OtherOb
 
 void CCameraMovement::Overlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCollider2D* _OtherCollider)
 {
+	m_bCameraWallBlocked = false;
+	m_bCameraPlatformBlocked = false;
 	if (_OtherObj->GetName() == CameraColliderWallName) {
 		auto pos = Transform()->GetRelativePos();
 		if (pos.x <= _OtherObj->Transform()->GetRelativePos().x) {
@@ -99,6 +127,7 @@ void CCameraMovement::Overlap(CCollider2D* _Collider, CGameObject* _OtherObj, CC
 			pos.x = _OtherObj->Transform()->GetRelativePos().x + (Collider2D()->GetRelativeScale().x + _OtherObj->Transform()->GetRelativeScale().x) / 2.f;
 		}
 		Transform()->SetRelativePos(pos);
+		m_bCameraWallBlocked = true;
 	}
 
 	if (_OtherObj->GetName() == CameraColliderPlatformName) {
@@ -110,6 +139,7 @@ void CCameraMovement::Overlap(CCollider2D* _Collider, CGameObject* _OtherObj, CC
 			pos.y = _OtherObj->Transform()->GetRelativePos().y + (Collider2D()->GetRelativeScale().y + _OtherObj->Transform()->GetRelativeScale().y) / 2.f;
 		}
 		Transform()->SetRelativePos(pos);
+		m_bCameraPlatformBlocked = true;
 	}
 }
 
@@ -118,6 +148,9 @@ void CCameraMovement::EndOverlap(CCollider2D* _Collider, CGameObject* _OtherObj,
 	CMeshRender* render = _OtherObj->MeshRender();
 	if (render) {
 		render->setRenderActive(false);
+	}
+	if (_OtherObj->GetName() == CameraColliderWallName) {
+		auto pos = Transform()->GetRelativePos();
 	}
 }
 

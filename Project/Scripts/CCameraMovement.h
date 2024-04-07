@@ -9,6 +9,13 @@ private:
     Vec3 m_vPrevPos;
     Vec3 m_vMoveDir;
 
+    CGameObject* m_Target;
+    bool m_bCameraWallBlocked;
+    bool m_bCameraPlatformBlocked;
+
+public:
+    void SetTarget(CGameObject* _target) { m_Target = _target; }
+
 public:
     virtual void tick() override;
 
