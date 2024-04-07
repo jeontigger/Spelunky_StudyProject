@@ -3,6 +3,8 @@
 
 #include <Engine/CLayer.h>
 #include <Engine/CLevelMgr.h>
+#include <Engine/CGameObject.h>
+#include <Engine/components.h>
 
 #include	<Scripts/CStage.h>
 #include <Scripts/CStagePack.h>
@@ -35,6 +37,21 @@ UINT32 CLevelGenerator::GetSeed()
 void CLevelGenerator::Init()
 {
 	m_pTempLevel = new CLevel;
+	// Player Object »ý¼º
+	CGameObject* pObj = new CGameObject;
+	pObj->SetName(StrPlayerName);
+
+	pObj->AddComponent(new CTransform);
+	pObj->AddComponent(new CMeshRender);
+	pObj->AddComponent(new CCollider2D);
+	pObj->AddComponent(new CAnimator2D);
+
+	pObj->Transform()->SetRelativePos(Vec3(-9000.f, 0.f, 500.f));
+	pObj->Transform()->SetRelativeScale(Vec3(200.f, 200.f, 1.f));
+
+	pObj->Collider2D()->SetAbsolute(true);
+	pObj->Collider2D()->SetOffsetScale(Vec2(100.f, 100.f));
+	pObj->Collider2D()->SetOffsetPos(Vec2(0.f, 0.f));
 
 	DestroyStages();
 }

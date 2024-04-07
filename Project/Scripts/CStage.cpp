@@ -47,8 +47,6 @@ CStage::CStage()
 
 	CGameObject* pObj = nullptr;
 
-
-
 	 //Main Camera Object 持失
 	m_MainCamera = new CGameObject;
 	m_MainCamera->SetName(L"MainCamera");
@@ -68,8 +66,6 @@ CStage::CStage()
 	m_MainCamera->Camera()->SetCameraPriority(0);
 	m_MainCamera->Camera()->LayerCheckAll();
 	m_MainCamera->Camera()->LayerCheck(31, false);
-
-
 
 	AddObject(m_MainCamera, L"Camera");
 
@@ -94,33 +90,11 @@ CStage::CStage()
 
 	pObj->Transform()->SetRelativePos(Vec3(TileBlockScaleX * STAGETILECOL / 2.f, TileScaleY * 3, 0.f));
 	pObj->Transform()->SetRelativeScale(Vec3(TileBlockScaleX * 4, TileScaleY * 2, 1.f));
-
 	AddObject(pObj, L"CameraCollider");
 
 	pObj = pObj->Clone();
 	pObj->Transform()->SetRelativePos(Vec3(TileBlockScaleX * STAGETILECOL / 2.f, -(TileBlockScaleY * STAGETILEROW + TileScaleY * 3), 0.f));
 	AddObject(pObj, L"CameraCollider");
-
-	// Player Object 持失
-	pObj = new CGameObject;
-	pObj->SetName(StrPlayerName);
-
-	pObj->AddComponent(new CTransform);
-	pObj->AddComponent(new CMeshRender);
-	pObj->AddComponent(new CCollider2D);
-	pObj->AddComponent(new CAnimator2D);
-
-	pObj->Transform()->SetRelativePos(Vec3(-9000.f, 0.f, 500.f));
-	pObj->Transform()->SetRelativeScale(Vec3(200.f, 200.f, 1.f));
-
-	pObj->Collider2D()->SetAbsolute(true);
-	pObj->Collider2D()->SetOffsetScale(Vec2(100.f, 100.f));
-	pObj->Collider2D()->SetOffsetPos(Vec2(0.f, 0.f));
-
-	pObj->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
-	pObj->MeshRender()->SetMaterial(CAssetMgr::GetInst()->FindAsset<CMaterial>(L"Std2DMtrl"));
-
-	AddObject(pObj, L"Player", false);
 
 	if (test) {
 		Ptr<CPrefab> prefab;

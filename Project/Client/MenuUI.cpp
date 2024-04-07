@@ -49,13 +49,16 @@ void MenuUI::render_update()
 
     Level();
 
-    Animation();
+    auto stoplevel = CLevelMgr::GetInst()->GetCurrentLevel();
+    if (stoplevel == CLevelGenerator::GetTempLevel()) {
+        Animation();
 
-    TileMaker();
+        TileMaker();
 
-    GameObject();
-    
-    Asset();
+        GameObject();
+
+        Asset();
+    }
 }
 
 void MenuUI::File()

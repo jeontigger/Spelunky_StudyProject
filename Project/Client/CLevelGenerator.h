@@ -13,6 +13,7 @@ public:
 	static void Init();
 	static void MakeStages();
 	static CStage* GetLevel(int _level);
+	static CLevel* GetTempLevel() { return m_pTempLevel; }
 	static void DestroyStages();
 	static void Destroy();
 
