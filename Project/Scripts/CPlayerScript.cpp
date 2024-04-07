@@ -29,6 +29,10 @@ void CPlayerScript::Hit(int _damage)
 }
 
 #include "CPlayerStartState.h"
+bool CPlayerScript::IsMoving()
+{	
+	return KEY_NONE(InputKey.MoveLeft) && KEY_NONE(InputKey.MoveRight) ? false : true;
+}
 void CPlayerScript::begin()
 {
 	CCharacterScript::begin();
@@ -56,11 +60,15 @@ void CPlayerScript::begin()
 	GamePlayStatic::SpawnGameObject(obj, PlayerHitLayer);
 
 	m_ButtomCollider->SetName("PlayerGroundCollider");
+
+	StateMachine()->AddBlackboardData(BBJumpDelay, BB_DATA::FLOAT, &m_fJumpDelayTimer);
+
 }
 
 void CPlayerScript::tick()
 {
 	CCharacterScript::tick();
+	*(float*)StateMachine()->GetBlackboardData(BBJumpDelay) -= DT;
 
 
 	if (!m_HitCollider->Collider2D()->IsActivate()) {

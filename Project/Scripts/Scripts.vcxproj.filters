@@ -130,7 +130,9 @@
     <ClInclude Include="CPlayerFallDownState.h">
       <Filter>08. States\Player\Jump</Filter>
     </ClInclude>
-    <ClInclude Include="CPlayerWalkState.h" />
+    <ClInclude Include="CPlayerWalkState.h">
+      <Filter>08. States\Player\Walk</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -247,7 +249,9 @@
     <ClCompile Include="CPlayerFallDownState.cpp">
       <Filter>08. States\Player\Jump</Filter>
     </ClCompile>
-    <ClCompile Include="CPlayerWalkState.cpp" />
+    <ClCompile Include="CPlayerWalkState.cpp">
+      <Filter>08. States\Player\Walk</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="00. Default">

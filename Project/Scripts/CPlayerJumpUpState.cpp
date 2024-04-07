@@ -39,8 +39,6 @@ void CPlayerJumpUpState::Enter()
 
 void CPlayerJumpUpState::finaltick()
 {
-	*(float*)GetBlackboardData(BBJumpDelay) -= DT;
-
 	if (m_fJumpTimer > 0) {
 		m_Script->AddVelocity(Vec2(0.f, m_fJumpWeightSpeed * DT));
 	}
@@ -52,7 +50,19 @@ void CPlayerJumpUpState::finaltick()
 		ChangeState(StatePlayerIdle);
 	}
 
-	m_fJumpTimer -= DT;
+	if (KEY_TAP(m_Script->GetInputKeys().MoveLeft)) {
+		m_Script->TurnLeft();
+	}
+	if (KEY_TAP(m_Script->GetInputKeys().MoveRight)) {
+		m_Script->TurnRight();
+	}
+
+	if (m_Script->IsMoving()) {
+		m_Script->MoveFront();
+	}
+	else {
+		m_Script->Stop();
+	}
 }
 
 void CPlayerJumpUpState::Exit()

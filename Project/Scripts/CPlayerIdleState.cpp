@@ -26,36 +26,20 @@ void CPlayerIdleState::finaltick()
 		}
 	}
 
-	if (KEY_TAP(input.MoveLeft)) {
+	if (KEY_PRESSED(input.MoveLeft)) {
 		m_PlayerScript->TurnLeft();
-		if (m_PlayerScript->IsGrounded())
-			m_PlayerScript->Animator2D()->Play(AnimPlayerWalk);
+		ChangeState(StatePlayerWalk);
 	}
-	if(KEY_TAP(input.MoveRight)) {
+	if(KEY_PRESSED(input.MoveRight)) {
 		m_PlayerScript->TurnRight();
-		if(m_PlayerScript->IsGrounded())
-			m_PlayerScript->Animator2D()->Play(AnimPlayerWalk);
+		ChangeState(StatePlayerWalk);
 	}
 
-	if (KEY_PRESSED(input.MoveLeft)|| KEY_PRESSED(input.MoveRight)) {
-		if (KEY_NONE(input.MoveLeft)) {
-			m_PlayerScript->TurnRight();
-		}
-		else if (KEY_NONE(input.MoveRight)) {
-			m_PlayerScript->TurnLeft();
-		}
-		m_PlayerScript->MoveFront();
-	}
-
-	if (KEY_NONE(input.MoveLeft) && KEY_NONE(input.MoveRight)) {
-		m_PlayerScript->Stop();
-	}
 
 	if (KEY_TAP(input.LookDown)) {
 		ChangeState(StatePlayerDown);
 	}
 
-	*(float*)GetBlackboardData(BBJumpDelay) -= DT;
 }
 
 void CPlayerIdleState::Enter()

@@ -10,6 +10,8 @@ private:
     float m_fInvincibility;
     float m_fInvincibilityTimer;
 
+    float m_fJumpDelayTimer;
+
 public:
     virtual void Hit(int _damage) override;
 
@@ -24,6 +26,8 @@ private:
     Vec3 m_vPrevPos;
     Vec3 m_vCurPos;
 
+public:
+    bool IsMoving();
 
 public:
     virtual void begin() override;

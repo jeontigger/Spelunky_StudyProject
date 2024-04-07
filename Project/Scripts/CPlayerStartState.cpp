@@ -14,8 +14,6 @@ void CPlayerStartState::Enter()
 	auto obj = GetFSM()->GetStateMachine()->GetOwner();
 	//GetFSM()->GetStateMachine()->AddBlackboardData(L"bbdatakey", BB_DATA::INT, &m_temp);
 	GetFSM()->GetStateMachine()->AddBlackboardData(BBOwnerKey, BB_DATA::OBJECT, obj);
-	GetFSM()->GetStateMachine()->AddBlackboardData(BBJumpDelay, BB_DATA::FLOAT, &m_fJumpDelayTimer);
-
 	auto state = GetFSM()->GetState<CPlayerIdleState>();
 	ChangeState(CStateMgr::GetStateName(state));
 }

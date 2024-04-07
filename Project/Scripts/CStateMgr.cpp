@@ -9,6 +9,7 @@
 #include "CSnakeAttackState.h"
 #include "CPlayerJumpUpState.h"
 #include "CPlayerFallDownState.h"
+#include "CPlayerWalkState.h"
 
 void CStateMgr::GetStateInfo(vector<wstring>& _vec)
 {
@@ -20,6 +21,7 @@ void CStateMgr::GetStateInfo(vector<wstring>& _vec)
 	_vec.push_back(L"CSnakeAttackState");
 	_vec.push_back(L"CPlayerJumpUpState");
 	_vec.push_back(L"CPlayerFallDownState");
+	_vec.push_back(L"CPlayerWalkState");
 }
 
 CState * CStateMgr::GetState(const wstring& _strStateName)
@@ -40,6 +42,8 @@ CState * CStateMgr::GetState(const wstring& _strStateName)
 		return new CPlayerJumpUpState;
 	if (L"CPlayerFallDownState" == _strStateName)
 		return new CPlayerFallDownState;
+	if (L"CPlayerWalkState" == _strStateName)
+		return new CPlayerWalkState;
 	return nullptr;
 }
 
@@ -70,6 +74,9 @@ CState * CStateMgr::GetState(UINT _iStateType)
 		break;
 	case (UINT)STATE_TYPE::PLAYERFALLDOWNSTATE:
 		return new CPlayerFallDownState;
+		break;
+	case (UINT)STATE_TYPE::PLAYERWALKSTATE:
+		return new CPlayerWalkState;
 		break;
 	}
 	return nullptr;
@@ -109,6 +116,10 @@ const wchar_t * CStateMgr::GetStateName(CState * _pState)
 
 	case STATE_TYPE::PLAYERFALLDOWNSTATE:
 		return L"CPlayerFallDownState";
+		break;
+
+	case STATE_TYPE::PLAYERWALKSTATE:
+		return L"CPlayerWalkState";
 		break;
 
 	}
