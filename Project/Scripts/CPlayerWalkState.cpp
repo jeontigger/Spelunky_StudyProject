@@ -23,6 +23,22 @@ void CPlayerWalkState::Enter()
 
 void CPlayerWalkState::finaltick()
 {
+
+	if (KEY_PRESSED(m_Script->GetInputKeys().Jump)) {
+		if (*(float*)GetBlackboardData(BBJumpDelay) < 0.f) {
+			if(m_Script->IsGrounded())
+				ChangeState(StatePlayerJumpUp);
+		}
+	}
+
+
+	if (KEY_TAP(m_Script->GetInputKeys().MoveLeft)) {
+		m_Script->TurnLeft();
+	}
+	if (KEY_TAP(m_Script->GetInputKeys().MoveRight)) {
+		m_Script->TurnRight();
+	}
+
 	if (m_Script->IsMoving()) {
 		m_Script->MoveFront();
 	}
@@ -30,15 +46,8 @@ void CPlayerWalkState::finaltick()
 		ChangeState(StatePlayerIdle);
 	}
 
-	if (KEY_TAP(m_Script->GetInputKeys().Jump)) {
-		ChangeState(StatePlayerJumpUp);
-	}
-
-	if (KEY_TAP(m_Script->GetInputKeys().MoveLeft)) {
-		m_Script->TurnLeft();
-	}
-	if (KEY_TAP(m_Script->GetInputKeys().MoveRight)) {
-		m_Script->TurnRight();
+	if (KEY_PRESSED(m_Script->GetInputKeys().LookDown)) {
+		ChangeState(StatePlayerDown);
 	}
 
 }

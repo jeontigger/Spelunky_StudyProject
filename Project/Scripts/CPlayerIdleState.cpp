@@ -22,21 +22,27 @@ void CPlayerIdleState::finaltick()
 	
 	if (KEY_PRESSED(input.Jump)) { 
 		if (*(float*)GetBlackboardData(BBJumpDelay) < 0.f) {
+			if (m_PlayerScript->IsGrounded())
 			ChangeState(StatePlayerJumpUp);
 		}
 	}
 
-	if (KEY_PRESSED(input.MoveLeft)) {
+	if (KEY_TAP(m_PlayerScript->GetInputKeys().MoveLeft)) {
 		m_PlayerScript->TurnLeft();
-		ChangeState(StatePlayerWalk);
 	}
-	if(KEY_PRESSED(input.MoveRight)) {
+	if (KEY_TAP(m_PlayerScript->GetInputKeys().MoveRight)) {
 		m_PlayerScript->TurnRight();
-		ChangeState(StatePlayerWalk);
+	}
+
+	if (m_PlayerScript->IsMoving()) {
+		m_PlayerScript->MoveFront();
+	}
+	else {
+		m_PlayerScript->Stop();
 	}
 
 
-	if (KEY_TAP(input.LookDown)) {
+	if (KEY_PRESSED(input.LookDown)) {
 		ChangeState(StatePlayerDown);
 	}
 

@@ -49,5 +49,6 @@ public:
     ~CPlayerScript();
 
     friend class CPlayerIdleState;
+    friend class CPlayerDownState;
 };
 
