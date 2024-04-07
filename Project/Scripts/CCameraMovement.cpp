@@ -120,10 +120,10 @@ void CCameraMovement::Overlap(CCollider2D* _Collider, CGameObject* _OtherObj, CC
 	if (_OtherObj->GetName() == CameraColliderWallName) {
 		auto pos = Transform()->GetRelativePos();
 		if (pos.x <= _OtherObj->Transform()->GetRelativePos().x) {
-			pos.x = _OtherObj->Transform()->GetRelativePos().x - (Collider2D()->GetRelativeScale().x + _OtherObj->Transform()->GetRelativeScale().x) / 2.f;
+			pos.x = _OtherObj->Transform()->GetRelativePos().x - (Collider2D()->GetRelativeScale().x + _OtherObj->Transform()->GetRelativeScale().x) / 2.f -1.f;
 		}
 		else {
-			pos.x = _OtherObj->Transform()->GetRelativePos().x + (Collider2D()->GetRelativeScale().x + _OtherObj->Transform()->GetRelativeScale().x) / 2.f;
+			pos.x = _OtherObj->Transform()->GetRelativePos().x + (Collider2D()->GetRelativeScale().x + _OtherObj->Transform()->GetRelativeScale().x) / 2.f + 1.f;
 		}
 		Transform()->SetRelativePos(pos);
 		m_bCameraWallBlocked = true;
@@ -132,10 +132,10 @@ void CCameraMovement::Overlap(CCollider2D* _Collider, CGameObject* _OtherObj, CC
 	if (_OtherObj->GetName() == CameraColliderPlatformName) {
 		auto pos = Transform()->GetRelativePos();
 		if (pos.y <= _OtherObj->Transform()->GetRelativePos().y) {
-			pos.y = _OtherObj->Transform()->GetRelativePos().y - (Collider2D()->GetRelativeScale().y + _OtherObj->Transform()->GetRelativeScale().y) / 2.f;
+			pos.y = _OtherObj->Transform()->GetRelativePos().y - (Collider2D()->GetRelativeScale().y + _OtherObj->Transform()->GetRelativeScale().y) / 2.f -1.f;
 		}
 		else {
-			pos.y = _OtherObj->Transform()->GetRelativePos().y + (Collider2D()->GetRelativeScale().y + _OtherObj->Transform()->GetRelativeScale().y) / 2.f;
+			pos.y = _OtherObj->Transform()->GetRelativePos().y + (Collider2D()->GetRelativeScale().y + _OtherObj->Transform()->GetRelativeScale().y) / 2.f + 1.f;
 		}
 		Transform()->SetRelativePos(pos);
 		m_bCameraPlatformBlocked = true;

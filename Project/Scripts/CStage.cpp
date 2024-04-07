@@ -20,7 +20,7 @@
 #include "CStagePack.h"
 #include "CTile.h"
 
-bool test = true;
+bool test = false;
 
 CStage::CStage()
 	: m_state(StageState::NONE)
@@ -474,6 +474,7 @@ void CStage::PlayerSetting()
 
 	m_MainCamera->Transform()->SetRelativePos(vPos);
 	m_MainCamera->Camera()->SetScale(CameraNormalScale);
+	m_MainCamera->GetScript<CCameraMovement>()->SetTarget(m_Player);
 }
 
 
@@ -568,9 +569,9 @@ void CStage::begin()
 		m_arrTileBlocks[0][0].SetBlockType(TileBlockType::Normal);
 		m_arrTileBlocks[0][0] = m_SP->GetBlock(TileBlockType::Normal, 0);
 		m_arrTileBlocks[0][0].TileInstancing(0, 0);
+		m_MainCamera->GetScript<CCameraMovement>()->SetTarget(m_Player);
 	}
 
-	m_MainCamera->GetScript<CCameraMovement>()->SetTarget(m_Player);
 
 }
 
