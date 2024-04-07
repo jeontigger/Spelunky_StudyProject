@@ -564,6 +564,8 @@ void CStage::PathVisualization()
 	static int i = 1;
 
 	if (i >= m_Path.size() - 1) {
+		acc = 0.f;
+		i = 1;
 		ChangeState(StageState::ATTACH_TILEBLOCK);
 		return;
 	}

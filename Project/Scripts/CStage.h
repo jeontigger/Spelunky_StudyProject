@@ -68,4 +68,3 @@ private:
     void PrintChangeState(const wchar_t* _content);
     void PathVisualization();
 };
-
