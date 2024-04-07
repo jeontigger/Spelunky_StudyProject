@@ -13,6 +13,7 @@ CPlayerScript::CPlayerScript()
 	, m_fJumpMaxTime(.3f)
 	, m_fJumpWeightSpeed(1.5f)
 	, m_fInvincibility(1.f)
+	, m_fJumpDelay(0.5f)
 {
 	SetSpeed(6.f);
 	SetHealth(50);
@@ -34,7 +35,12 @@ void CPlayerScript::Hit(int _damage)
 
 void CPlayerScript::Jump()
 {
+	if (m_fJumpDelayTimer > 0) {
+		return;
+	}
+
 	if (IsGrounded()) {
+		m_fJumpDelayTimer = m_fJumpDelay;
 		SetVelocity(Vec2(0.f, m_fJumpInitSpeed));
 		m_fJumpTimer = m_fJumpMaxTime;
 		m_bJumpup = true;
@@ -103,7 +109,7 @@ void CPlayerScript::tick()
 			}
 		}
 	}
-
+	m_fJumpDelayTimer -= DT;
 
 	if (!m_HitCollider->Collider2D()->IsActivate()) {
 		m_fInvincibilityTimer -= DT;

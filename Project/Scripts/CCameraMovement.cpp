@@ -33,11 +33,10 @@ void CCameraMovement::tick()
 		if (m_bCameraPlatformBlocked) {
 			TargetPos.y = 0;
 		}
-		if (Vec3::Distance(vPos, TargetPos) < 1.f) {
+		if (Vec3::Distance(vPos, TargetPos) < 3.f) {
 			return;
 		}
 		
-
 		Dir.Normalize();
 
 		vPos += Dir * m_fSpeed * DT;

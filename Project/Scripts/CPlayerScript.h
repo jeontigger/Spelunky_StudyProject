@@ -29,7 +29,10 @@ private:
     float m_fJumpWeightSpeed;
     float m_fJumpMaxTime;
     float m_fJumpTimer;
+    float m_fJumpDelay;
+    float m_fJumpDelayTimer;
     bool m_bJumpup;
+    bool m_bJumpWalkAnimPlay;
 
 public:
     void Jump();
