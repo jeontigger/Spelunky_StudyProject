@@ -122,9 +122,6 @@ CStage::CStage()
 
 	AddObject(pObj, L"Player", false);
 
-
-	CLevelMgr::GetInst()->ChangeLevel(this, LEVEL_STATE::PLAY);
-
 	if (test) {
 		Ptr<CPrefab> prefab;
 		CGameObject* obj;

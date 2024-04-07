@@ -18,8 +18,7 @@
 #include "CImGuiMgr.h"
 #include "Inspector.h"
 #include "CLevelSaveLoad.h"
-
-
+#include "CLevelGenerator.h"
 
 MenuUI::MenuUI()
 	: UI("Menu", "##Menu")
@@ -183,13 +182,14 @@ void MenuUI::Level()
 
         
         if (ImGui::MenuItem("Play", nullptr, nullptr, PlayEnable))
-        {   
+        {
+            CLevel* level = nullptr;
             if (LEVEL_STATE::STOP == pCurLevel->GetState())
             {
-                CLevelSaveLoad::SaveLevel(pCurLevel, L"Level//temp.lv");
+                level = (CLevel*)CLevelGenerator::LoadLevels(0);
             }
             
-            CLevelMgr::GetInst()->ChangeLevelState(LEVEL_STATE::PLAY);
+            CLevelMgr::GetInst()->ChangeLevel(level, LEVEL_STATE::PLAY);
         }
 
         if (ImGui::MenuItem("Pause", nullptr, nullptr, PauseEnable))
@@ -199,8 +199,8 @@ void MenuUI::Level()
 
         if (ImGui::MenuItem("Stop", nullptr, nullptr, StopEnable))
         {
-            CLevel* pLoadedLevel = CLevelSaveLoad::LoadLevel(L"Level//temp.lv");
-            CLevelMgr::GetInst()->ChangeLevel(pLoadedLevel, LEVEL_STATE::STOP);
+            //CLevel* pLoadedLevel = CLevelSaveLoad::LoadLevel(L"Level//temp.lv");
+            CLevelGenerator::LoadTempLevel();
 
             // Inspector 의 타겟정보를 nullptr 로 되돌리기
             Inspector* pInspector = (Inspector*)CImGuiMgr::GetInst()->FindUI("##Inspector");

@@ -92,8 +92,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     // ImGui 초기화
     CImGuiMgr::GetInst()->init(hWnd, DEVICE, CONTEXT);
 #endif
-
-    CLevelGenerator::LoadLevels();
+    CLevelGenerator::Init();
 
 
     SetWindowText(CEngine::GetInst()->GetMainWind(), L"Spelunky");
