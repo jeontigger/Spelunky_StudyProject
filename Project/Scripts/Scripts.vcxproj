@@ -173,10 +173,13 @@ call CodeGen.exe</Command>
     <ClInclude Include="CDetectCollider.h" />
     <ClInclude Include="CMonsterHitCollider.h" />
     <ClInclude Include="CMonsterScript.h" />
+    <ClInclude Include="CPlayerFallDownState.h" />
     <ClInclude Include="CPlayerHitCollider.h" />
+    <ClInclude Include="CPlayerJumpUpState.h" />
     <ClInclude Include="CPlayerScript.h" />
     <ClInclude Include="CPlayerStartState.h" />
     <ClInclude Include="CPlayerDownState.h" />
+    <ClInclude Include="CPlayerWalkState.h" />
     <ClInclude Include="CRandomMgr.h" />
     <ClInclude Include="CRock.h" />
     <ClInclude Include="CScriptMgr.h" />
@@ -216,10 +219,13 @@ call CodeGen.exe</Command>
     <ClCompile Include="CDetectCollider.cpp" />
     <ClCompile Include="CMonsterHitCollider.cpp" />
     <ClCompile Include="CMonsterScript.cpp" />
+    <ClCompile Include="CPlayerFallDownState.cpp" />
     <ClCompile Include="CPlayerHitCollider.cpp" />
+    <ClCompile Include="CPlayerJumpUpState.cpp" />
     <ClCompile Include="CPlayerScript.cpp" />
     <ClCompile Include="CPlayerStartState.cpp" />
     <ClCompile Include="CPlayerDownState.cpp" />
+    <ClCompile Include="CPlayerWalkState.cpp" />
     <ClCompile Include="CRandomMgr.cpp" />
     <ClCompile Include="CRock.cpp" />
     <ClCompile Include="CScriptMgr.cpp" />

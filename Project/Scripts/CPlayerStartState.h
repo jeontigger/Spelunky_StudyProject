@@ -4,7 +4,7 @@ class CPlayerStartState :
     public CState
 {
 private:
-    int m_temp;
+    float m_fJumpDelayTimer;
 
 public:
     virtual void finaltick();

@@ -24,19 +24,6 @@ private:
     Vec3 m_vPrevPos;
     Vec3 m_vCurPos;
 
-private:
-    float m_fJumpInitSpeed;
-    float m_fJumpWeightSpeed;
-    float m_fJumpMaxTime;
-    float m_fJumpTimer;
-    float m_fJumpDelay;
-    float m_fJumpDelayTimer;
-    bool m_bJumpup;
-    bool m_bJumpWalkAnimPlay;
-
-public:
-    void Jump();
-    bool IsJumpUp() { return m_bJumpup; }
 
 public:
     virtual void begin() override;

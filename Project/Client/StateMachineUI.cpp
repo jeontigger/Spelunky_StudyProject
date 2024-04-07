@@ -32,8 +32,8 @@ void StateMachineUI::render_update()
 
 	// 현재 스테이트 출력
 	if (m_FSM.Get())
-		CurState();
-	// 스테이트 목록 출력 + change state
+		//CurState();
+	 // 스테이트 목록 출력 + change state
 	if(m_FSM.Get())
 		StateList();
 

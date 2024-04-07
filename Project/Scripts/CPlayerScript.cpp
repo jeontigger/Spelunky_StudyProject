@@ -8,12 +8,7 @@
 CPlayerScript::CPlayerScript()
 	: CCharacterScript((UINT)SCRIPT_TYPE::PLAYERSCRIPT)
 	, InputKey()
-	, m_fJumpInitSpeed(6.7f)
-	, m_fJumpTimer(0.f)
-	, m_fJumpMaxTime(.3f)
-	, m_fJumpWeightSpeed(1.5f)
 	, m_fInvincibility(1.f)
-	, m_fJumpDelay(0.5f)
 {
 	SetSpeed(6.f);
 	SetHealth(50);
@@ -31,26 +26,6 @@ void CPlayerScript::Hit(int _damage)
 	m_HitCollider->Collider2D()->Activate(false);
 
 	m_fInvincibilityTimer = m_fInvincibility;
-}
-
-void CPlayerScript::Jump()
-{
-	if (m_fJumpDelayTimer > 0) {
-		return;
-	}
-
-	if (IsGrounded()) {
-		m_bJumpWalkAnimPlay = false;
-		m_fJumpDelayTimer = m_fJumpDelay;
-		SetVelocity(Vec2(0.f, m_fJumpInitSpeed));
-		m_fJumpTimer = m_fJumpMaxTime;
-		m_bJumpup = true;
-		GetOwner()->Animator2D()->Play(AnimPlayerJumpUp, false);
-		SetGround(false);
-	}
-	if (m_fJumpTimer > 0) {
-		AddVelocity(Vec2(0.f, m_fJumpWeightSpeed * DT));
-	}
 }
 
 #include "CPlayerStartState.h"
@@ -87,34 +62,6 @@ void CPlayerScript::tick()
 {
 	CCharacterScript::tick();
 
-	// Jump
-	if (m_bJumpup) {
-		if (m_fJumpTimer > 0) {
-			m_fJumpTimer -= DT;
-			if (IsGrounded()) {
-				m_bJumpup = false;
-				m_fJumpTimer = 0;
-			}
-		}
-		else {
-			m_bJumpup = false;
-			m_fJumpTimer = 0;
-		}
-	}
-	else {
-		if (IsGrounded()) {
-			if (KEY_NONE(InputKey.MoveLeft) && KEY_NONE(InputKey.MoveRight)) {
-				Animator2D()->Play(AnimPlayerIdle);
-			}
-			else {
-				if (!m_bJumpWalkAnimPlay) {
-					m_bJumpWalkAnimPlay = true;
-					Animator2D()->Play(AnimPlayerWalk);
-				}
-			}
-		}
-	}
-	m_fJumpDelayTimer -= DT;
 
 	if (!m_HitCollider->Collider2D()->IsActivate()) {
 		m_fInvincibilityTimer -= DT;

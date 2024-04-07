@@ -11,6 +11,7 @@
 #define RockPrefKey L"prefab\\Rock.pref"
 
 #define BBOwnerKey L"Owner"
+#define BBJumpDelay L"JumpDelay"
 
 #define ChunkPath L"stage\\DwellingChunk.ck"
 
@@ -24,12 +25,18 @@
 #define AnimPlayerIdle L"anim\\PlayerIdle.anim"
 #define AnimPlayerJumpUp L"anim\\PlayerJumpUp.anim"
 #define AnimPlayerWalk L"anim\\PlayerWalk.anim"
+#define AnimPlayerDown L"anim\\PlayerDown.anim"
+#define AnimPlayerUp L"anim\\PlayerUp.anim"
 #define AnimSnakeIdle L"anim\\SnakeIdle.anim"
 #define AnimSnakeWalk L"anim\\SnakeWalk.anim"
 #define AnimSnakeAttack L"anim\\SnakeAttack.anim"
 #define AnimRock L"anim\\Rock.anim"
 
 #define StatePlayerIdle L"CPlayerIdleState"
+#define StatePlayerDown L"CPlayerDownState"
+#define StatePlayerJumpUp L"CPlayerJumpUpState"
+#define StatePlayerFallDown L"CPlayerFallDownState"
+#define StatePlayerWalk L"CPlayerWalkState"
 
 
 #define StateEndSymbol "STATE_END"

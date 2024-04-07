@@ -39,7 +39,6 @@ void CMonsterHitCollider::BeginOverlap(CCollider2D* _Collider, CGameObject* _Oth
 
 			if (velY < 0 && prevObjUnderY - tileJudgeY > 0) {
 				playerScript->SetGround(true);
-				playerScript->Jump();
 				GetParent()->GetScript<CCharacterScript>()->Hit(playerScript->GetDamage());
 			}
 		}

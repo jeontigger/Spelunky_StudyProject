@@ -19,9 +19,13 @@ void CPlayerIdleState::finaltick()
 {
 	PlayerKey input = m_PlayerScript->GetInputKeys();
 
+	
 	if (KEY_PRESSED(input.Jump)) { 
-			m_PlayerScript->Jump();
+		if (*(float*)GetBlackboardData(BBJumpDelay) < 0.f) {
+			ChangeState(StatePlayerJumpUp);
+		}
 	}
+
 	if (KEY_TAP(input.MoveLeft)) {
 		m_PlayerScript->TurnLeft();
 		if (m_PlayerScript->IsGrounded())
@@ -46,6 +50,12 @@ void CPlayerIdleState::finaltick()
 	if (KEY_NONE(input.MoveLeft) && KEY_NONE(input.MoveRight)) {
 		m_PlayerScript->Stop();
 	}
+
+	if (KEY_TAP(input.LookDown)) {
+		ChangeState(StatePlayerDown);
+	}
+
+	*(float*)GetBlackboardData(BBJumpDelay) -= DT;
 }
 
 void CPlayerIdleState::Enter()

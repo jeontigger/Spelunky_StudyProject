@@ -1,5 +1,7 @@
 fsm\PlayerState.fsm
-3
-CPlayerIdleState
-CPlayerStartState
+5
 CPlayerDownState
+CPlayerFallDownState
+CPlayerIdleState
+CPlayerJumpUpState
+CPlayerStartState

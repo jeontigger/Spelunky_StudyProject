@@ -124,6 +124,13 @@
     <ClInclude Include="CRock.h">
       <Filter>02. Scripts\Item</Filter>
     </ClInclude>
+    <ClInclude Include="CPlayerJumpUpState.h">
+      <Filter>08. States\Player\Jump</Filter>
+    </ClInclude>
+    <ClInclude Include="CPlayerFallDownState.h">
+      <Filter>08. States\Player\Jump</Filter>
+    </ClInclude>
+    <ClInclude Include="CPlayerWalkState.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -234,6 +241,13 @@
     <ClCompile Include="CRock.cpp">
       <Filter>02. Scripts\Item</Filter>
     </ClCompile>
+    <ClCompile Include="CPlayerJumpUpState.cpp">
+      <Filter>08. States\Player\Jump</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlayerFallDownState.cpp">
+      <Filter>08. States\Player\Jump</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlayerWalkState.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="00. Default">
@@ -331,6 +345,12 @@
     </Filter>
     <Filter Include="02. Scripts\Item">
       <UniqueIdentifier>{c4152dec-389d-4835-9aa7-b5322c21f9fb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="08. States\Player\Walk">
+      <UniqueIdentifier>{ee1cde0a-4c5c-4f91-b5d9-e1f6085450f5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="08. States\Player\Jump">
+      <UniqueIdentifier>{732f2fe3-0123-4b7a-8e22-8e536d62c3d9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
