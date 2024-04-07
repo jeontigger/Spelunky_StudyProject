@@ -14,6 +14,7 @@
 #include "CGroundCollider.h"
 #include "CWallCollider.h"
 #include "CPlayerHitCollider.h"
+#include "CCeilCollider.h"
 
 void CScriptMgr::GetScriptInfo(vector<wstring>& _vec)
 {
@@ -30,6 +31,7 @@ void CScriptMgr::GetScriptInfo(vector<wstring>& _vec)
 	_vec.push_back(L"CGroundCollider");
 	_vec.push_back(L"CWallCollider");
 	_vec.push_back(L"CPlayerHitCollider");
+	_vec.push_back(L"CCeilCollider");
 }
 
 CScript * CScriptMgr::GetScript(const wstring& _strScriptName)
@@ -60,6 +62,8 @@ CScript * CScriptMgr::GetScript(const wstring& _strScriptName)
 		return new CWallCollider;
 	if (L"CPlayerHitCollider" == _strScriptName)
 		return new CPlayerHitCollider;
+	if (L"CCeilCollider" == _strScriptName)
+		return new CCeilCollider;
 	return nullptr;
 }
 
@@ -105,6 +109,9 @@ CScript * CScriptMgr::GetScript(UINT _iScriptType)
 		break;
 	case (UINT)SCRIPT_TYPE::PLAYERHITCOLLIDER:
 		return new CPlayerHitCollider;
+		break;
+	case (UINT)SCRIPT_TYPE::CEILCOLLIDER:
+		return new CCeilCollider;
 		break;
 	}
 	return nullptr;
@@ -164,6 +171,10 @@ const wchar_t * CScriptMgr::GetScriptName(CScript * _pScript)
 
 	case SCRIPT_TYPE::PLAYERHITCOLLIDER:
 		return L"CPlayerHitCollider";
+		break;
+
+	case SCRIPT_TYPE::CEILCOLLIDER:
+		return L"CCeilCollider";
 		break;
 
 	}

@@ -115,6 +115,9 @@
     <ClInclude Include="CTileMgr.h">
       <Filter>05. Manager\TileMgr</Filter>
     </ClInclude>
+    <ClInclude Include="CCeilCollider.h">
+      <Filter>02. Scripts\Collider</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -215,6 +218,9 @@
     </ClCompile>
     <ClCompile Include="CTileMgr.cpp">
       <Filter>05. Manager\TileMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="CCeilCollider.cpp">
+      <Filter>02. Scripts\Collider</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -20,7 +20,7 @@
 #include "CStagePack.h"
 #include "CTile.h"
 
-bool test = false;
+bool test = true;
 
 CStage::CStage()
 	: m_state(StageState::NONE)
@@ -565,8 +565,8 @@ void CStage::begin()
 	CTileMgr::GetInst()->CheckLayer(DetectColliderLayer);
 
 	if (test) {
-		m_arrTileBlocks[0][0].SetBlockType(TileBlockType::Entrance);
-		m_arrTileBlocks[0][0] = m_SP->GetBlock(TileBlockType::Entrance, 1);
+		m_arrTileBlocks[0][0].SetBlockType(TileBlockType::Normal);
+		m_arrTileBlocks[0][0] = m_SP->GetBlock(TileBlockType::Normal, 0);
 		m_arrTileBlocks[0][0].TileInstancing(0, 0);
 	}
 

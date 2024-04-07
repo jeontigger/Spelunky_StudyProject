@@ -86,7 +86,7 @@ void CTileChunk::Instancing(int _StageRow, int _StageCol, int _BlockRow, int _Bl
 				script->SetTileType(tiletype);
 				Vec3 vPos(_StageCol * TileBlockScaleX + (0.5f + _BlockCol + col) * TileScaleX, -_StageRow * TileBlockScaleY - (0.5f + _BlockRow + row) * TileScaleY, TileZ);
 				tile->Transform()->SetRelativePos(vPos);
-				CTileMgr::GetInst()->SetTile(tile, _StageRow, _StageCol, _BlockRow, _BlockCol);
+				CTileMgr::GetInst()->SetTile(tile, _StageRow, _StageCol, _BlockRow + row, _BlockCol + col);
 				GamePlayStatic::SpawnGameObject(tile, TileLayer);
 			}
 		}

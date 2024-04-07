@@ -11,3 +11,4 @@ CMonsterHitCollider
 CGroundCollider
 CWallCollider
 CPlayerHitCollider
+CCeilCollider

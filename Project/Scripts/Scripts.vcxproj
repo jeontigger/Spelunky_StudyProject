@@ -164,6 +164,7 @@ call CodeGen.exe</Command>
   <ItemGroup>
     <ClInclude Include="CCameraMovement.h" />
     <ClInclude Include="CBackgroundScript.h" />
+    <ClInclude Include="CCeilCollider.h" />
     <ClInclude Include="CCharacterScript.h" />
     <ClInclude Include="CFieldObject.h" />
     <ClInclude Include="CGroundCollider.h" />
@@ -204,6 +205,7 @@ call CodeGen.exe</Command>
   <ItemGroup>
     <ClCompile Include="CCameraMovement.cpp" />
     <ClCompile Include="CBackgroundScript.cpp" />
+    <ClCompile Include="CCeilCollider.cpp" />
     <ClCompile Include="CCharacterScript.cpp" />
     <ClCompile Include="CFieldObject.cpp" />
     <ClCompile Include="CGroundCollider.cpp" />

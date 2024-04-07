@@ -4,6 +4,7 @@
 #include "CDetectCollider.h"
 #include "CGroundCollider.h"
 #include "CWallCollider.h"
+#include "CCeilCollider.h"
 
 CCharacterScript::CCharacterScript(UINT type)
 	: CFieldObject(type)
@@ -51,7 +52,7 @@ void CCharacterScript::begin()
 	GetOwner()->AddChild(obj);
 	GamePlayStatic::SpawnGameObject(obj, DetectColliderLayer);
 
-	m_TopCollider = new CDetectCollider;
+	m_TopCollider = new CCeilCollider;
 	obj = new CGameObject;
 	obj->AddComponent(m_TopCollider);
 	m_TopCollider->Set(GetOwner(), Vec3(ColliderCenterPos.x, ColliderCenterPos.y + ColliderScale.y / 2.f + 1.f, ownerZ), Vec3(ColliderScale.x * 0.95, 1, 1));
