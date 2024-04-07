@@ -93,7 +93,6 @@ void CLevelGenerator::DestroyStages()
 		if (m_arrStages[i])
 			delete m_arrStages[i];
 	}
-
 }
 
 void CLevelGenerator::Destroy()

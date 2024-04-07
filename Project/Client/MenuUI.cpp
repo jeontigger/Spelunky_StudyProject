@@ -202,6 +202,7 @@ void MenuUI::Level()
         if (ImGui::MenuItem("RePlay", nullptr, nullptr, StopEnable && PlayOnce))
         {
             CLevelGenerator::DestroyStages();
+            CLevelGenerator::LoadTempLevel();
             UINT seed = CRandomMgr::GetInst()->GetSeed();
             CRandomMgr::GetInst()->SetSeed(seed);
             CLevelGenerator::MakeStages();
