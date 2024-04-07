@@ -18,14 +18,12 @@ public:
     void ChangeLevel(CLevel* _NextLevel, LEVEL_STATE _NextStartState);
     void ChangeLevelState(LEVEL_STATE _State);
 
-private:
+public:
     void ChangeLevel_Task(CLevel* _NextLevel, LEVEL_STATE _NextLevelState);
 
 
 public:
     CLevel* GetCurrentLevel() { return m_CurLevel; }
-
-
     friend class CTaskMgr;
 };
 

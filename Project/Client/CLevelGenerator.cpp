@@ -10,19 +10,16 @@
 #include <Scripts/CRandomMgr.h>
 
 CLevel* CLevelGenerator::m_pTempLevel = nullptr;
-CStage* CLevelGenerator::m_arrStages[4] = {};
-
-CLevelGenerator::CLevelGenerator()
-{
-}
-
-CLevelGenerator::~CLevelGenerator()
-{
-	if (m_pTempLevel)
-		delete m_pTempLevel;
-}
+CStage* CLevelGenerator::m_arrStages[StageCnt] = {};
 
 void CLevelGenerator::Init()
+{
+	m_pTempLevel = new CLevel;
+
+	DestroyStages();
+}
+
+void CLevelGenerator::MakeStages()
 {
 	CStage* stage = new CStage;
 
@@ -40,17 +37,30 @@ void CLevelGenerator::Init()
 	if (fout.is_open()) {
 		fout << "seed: " << seed << endl;
 	}
-
-	m_pTempLevel = new CLevel;
-	LoadTempLevel();
 }
 
-CStage* CLevelGenerator::LoadLevels(int _level)
+CStage* CLevelGenerator::GetLevel(int _level)
 {
 	return m_arrStages[_level];
 }
 
-void CLevelGenerator::LoadTempLevel()
+void CLevelGenerator::DestroyStages()
 {
-	CLevelMgr::GetInst()->ChangeLevel(m_pTempLevel, LEVEL_STATE::STOP);
+	for (int i = 0; i < StageCnt; i++) {
+		if (m_arrStages[i])
+			delete m_arrStages[i];
+	}
+
+	CLevelMgr::GetInst()->ChangeLevel_Task(m_pTempLevel, LEVEL_STATE::STOP);
+}
+
+void CLevelGenerator::Destroy()
+{
+	if (m_pTempLevel)
+		delete m_pTempLevel;
+
+	for (int i = 0; i < StageCnt; i++) {
+		if (m_arrStages[i])
+			delete m_arrStages[i];
+	}
 }

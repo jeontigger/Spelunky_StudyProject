@@ -20,8 +20,8 @@ CLevelMgr::CLevelMgr()
 
 CLevelMgr::~CLevelMgr()
 {
-	if (nullptr != m_CurLevel)
-		delete m_CurLevel;
+	//if (nullptr != m_CurLevel)
+	//	delete m_CurLevel;
 }
 
 void CLevelMgr::init()
@@ -76,8 +76,8 @@ void CLevelMgr::ChangeLevel_Task(CLevel* _NextLevel, LEVEL_STATE _NextLevelState
 {
 	assert(!(m_CurLevel == _NextLevel));
 		
-	if (nullptr != m_CurLevel)
-		delete m_CurLevel;
+	/*if (nullptr != m_CurLevel)
+		delete m_CurLevel;*/
 
 	m_CurLevel = _NextLevel;
 

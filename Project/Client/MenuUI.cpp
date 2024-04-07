@@ -183,13 +183,12 @@ void MenuUI::Level()
         
         if (ImGui::MenuItem("Play", nullptr, nullptr, PlayEnable))
         {
-            CLevel* level = nullptr;
             if (LEVEL_STATE::STOP == pCurLevel->GetState())
             {
-                level = (CLevel*)CLevelGenerator::LoadLevels(0);
+                CLevelGenerator::MakeStages();
+                CLevel* level = (CLevel*)CLevelGenerator::GetLevel(0);
+                CLevelMgr::GetInst()->ChangeLevel(level, LEVEL_STATE::PLAY);
             }
-            
-            CLevelMgr::GetInst()->ChangeLevel(level, LEVEL_STATE::PLAY);
         }
 
         if (ImGui::MenuItem("Pause", nullptr, nullptr, PauseEnable))
@@ -200,7 +199,7 @@ void MenuUI::Level()
         if (ImGui::MenuItem("Stop", nullptr, nullptr, StopEnable))
         {
             //CLevel* pLoadedLevel = CLevelSaveLoad::LoadLevel(L"Level//temp.lv");
-            CLevelGenerator::LoadTempLevel();
+            CLevelGenerator::DestroyStages();
 
             // Inspector 의 타겟정보를 nullptr 로 되돌리기
             Inspector* pInspector = (Inspector*)CImGuiMgr::GetInst()->FindUI("##Inspector");
