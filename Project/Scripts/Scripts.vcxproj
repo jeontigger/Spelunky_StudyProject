@@ -168,6 +168,7 @@ call CodeGen.exe</Command>
     <ClInclude Include="CCharacterScript.h" />
     <ClInclude Include="CFieldObject.h" />
     <ClInclude Include="CGroundCollider.h" />
+    <ClInclude Include="CItem.h" />
     <ClInclude Include="CMissileScript.h" />
     <ClInclude Include="CDetectCollider.h" />
     <ClInclude Include="CMonsterHitCollider.h" />
@@ -177,6 +178,7 @@ call CodeGen.exe</Command>
     <ClInclude Include="CPlayerStartState.h" />
     <ClInclude Include="CPlayerDownState.h" />
     <ClInclude Include="CRandomMgr.h" />
+    <ClInclude Include="CRock.h" />
     <ClInclude Include="CScriptMgr.h" />
     <ClInclude Include="CSnakeAttackState.h" />
     <ClInclude Include="CSnakeEntryState.h" />
@@ -209,6 +211,7 @@ call CodeGen.exe</Command>
     <ClCompile Include="CCharacterScript.cpp" />
     <ClCompile Include="CFieldObject.cpp" />
     <ClCompile Include="CGroundCollider.cpp" />
+    <ClCompile Include="CItem.cpp" />
     <ClCompile Include="CMissileScript.cpp" />
     <ClCompile Include="CDetectCollider.cpp" />
     <ClCompile Include="CMonsterHitCollider.cpp" />
@@ -218,6 +221,7 @@ call CodeGen.exe</Command>
     <ClCompile Include="CPlayerStartState.cpp" />
     <ClCompile Include="CPlayerDownState.cpp" />
     <ClCompile Include="CRandomMgr.cpp" />
+    <ClCompile Include="CRock.cpp" />
     <ClCompile Include="CScriptMgr.cpp" />
     <ClCompile Include="CSnakeAttackState.cpp" />
     <ClCompile Include="CSnakeEntryState.cpp" />

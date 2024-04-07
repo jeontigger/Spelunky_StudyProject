@@ -39,9 +39,6 @@ public:
     bool IsJumpUp() { return m_bJumpup; }
 
 public:
-    virtual void skill() override;
-
-public:
     virtual void begin() override;
     virtual void tick() override;
 

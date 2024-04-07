@@ -71,7 +71,7 @@
       <Filter>01. CodeGenMgr</Filter>
     </ClInclude>
     <ClInclude Include="CCharacterScript.h">
-      <Filter>07. Character</Filter>
+      <Filter>06. FieldObject\Character</Filter>
     </ClInclude>
     <ClInclude Include="CPlayerIdleState.h">
       <Filter>08. States\Player\Idle</Filter>
@@ -117,6 +117,12 @@
     </ClInclude>
     <ClInclude Include="CCeilCollider.h">
       <Filter>02. Scripts\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="CItem.h">
+      <Filter>06. FieldObject\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="CRock.h">
+      <Filter>02. Scripts\Item</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -178,7 +184,7 @@
       <Filter>01. CodeGenMgr</Filter>
     </ClCompile>
     <ClCompile Include="CCharacterScript.cpp">
-      <Filter>07. Character</Filter>
+      <Filter>06. FieldObject\Character</Filter>
     </ClCompile>
     <ClCompile Include="CPlayerIdleState.cpp">
       <Filter>08. States\Player\Idle</Filter>
@@ -221,6 +227,12 @@
     </ClCompile>
     <ClCompile Include="CCeilCollider.cpp">
       <Filter>02. Scripts\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="CItem.cpp">
+      <Filter>06. FieldObject\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="CRock.cpp">
+      <Filter>02. Scripts\Item</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -272,9 +284,6 @@
     <Filter Include="02. Scripts\Tile\Boundary">
       <UniqueIdentifier>{3e904ac0-05ae-46e2-84a6-dd0dae688986}</UniqueIdentifier>
     </Filter>
-    <Filter Include="07. Character">
-      <UniqueIdentifier>{a560a08d-6734-4e23-b84c-5ad08e5a7b5c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="01. CodeGenMgr">
       <UniqueIdentifier>{b42de7fc-e585-40cf-9c65-79e91e2b59d4}</UniqueIdentifier>
     </Filter>
@@ -313,6 +322,15 @@
     </Filter>
     <Filter Include="08. States\Player\Down">
       <UniqueIdentifier>{d41939b6-6d07-4a89-8524-adc7c2a13a24}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="06. FieldObject\Item">
+      <UniqueIdentifier>{afcfde6f-5319-4750-89f2-8c10fdc50bc3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="06. FieldObject\Character">
+      <UniqueIdentifier>{a560a08d-6734-4e23-b84c-5ad08e5a7b5c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Scripts\Item">
+      <UniqueIdentifier>{c4152dec-389d-4835-9aa7-b5322c21f9fb}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -53,10 +53,6 @@ void CPlayerScript::Jump()
 	}
 }
 
-void CPlayerScript::skill()
-{
-}
-
 #include "CPlayerStartState.h"
 void CPlayerScript::begin()
 {

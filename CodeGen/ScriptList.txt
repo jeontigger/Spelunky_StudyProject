@@ -12,3 +12,4 @@ CGroundCollider
 CWallCollider
 CPlayerHitCollider
 CCeilCollider
+CRock
