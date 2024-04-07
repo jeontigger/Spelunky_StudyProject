@@ -46,3 +46,8 @@ int CRandomMgr::GetRandom(int _bound)
 {
     return  m_DistGenerator(m_GenEngine)%_bound;
 }
+
+bool CRandomMgr::RandomSucceed(int _probability, int _bound)
+{
+    return GETRANDOM(_bound) < _probability ? true : false;
+}

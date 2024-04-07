@@ -12,6 +12,7 @@ enum class StageState {
     REGIST_BACKGROUND,
     TILE_INSTANCING,
     MONSTER_GENERATING,
+    ITEM_GENERATING,
     PLAYER_SETTING,
     END,
 };
@@ -62,6 +63,7 @@ private:
     void RegistBackground();
     void TileInstancing();
     void MonsterGenerating();
+    void ItemGenerating();
     void PlayerSetting();
 
 private:

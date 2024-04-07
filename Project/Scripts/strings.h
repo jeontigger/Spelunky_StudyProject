@@ -8,6 +8,7 @@
 #define PlayerPefKey L"prefab\\Player.pref"
 #define OutlineWallKey L"prefab\\OutlineWall.pref"
 #define SnakePrefKey L"prefab\\Snake.pref"
+#define RockPrefKey L"prefab\\Rock.pref"
 
 #define BBOwnerKey L"Owner"
 
@@ -26,6 +27,7 @@
 #define AnimSnakeIdle L"anim\\SnakeIdle.anim"
 #define AnimSnakeWalk L"anim\\SnakeWalk.anim"
 #define AnimSnakeAttack L"anim\\SnakeAttack.anim"
+#define AnimRock L"anim\\Rock.anim"
 
 #define StatePlayerIdle L"CPlayerIdleState"
 

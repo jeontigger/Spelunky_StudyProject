@@ -17,6 +17,7 @@ public:
     void init();
 
     int GetRandom(int _bound);
+    bool RandomSucceed(int _probability, int _bound);
 
     void GenNewSeed(UINT32 _seed);
 

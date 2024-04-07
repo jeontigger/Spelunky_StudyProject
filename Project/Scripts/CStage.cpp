@@ -167,6 +167,10 @@ void CStage::ChangeState(StageState _state)
 		MonsterGenerating();
 		break;
 
+	case StageState::ITEM_GENERATING:
+		ItemGenerating();
+		break;
+
 	case StageState::PLAYER_SETTING:
 		PlayerSetting();
 		break;
@@ -435,6 +439,17 @@ void CStage::MonsterGenerating()
 	}
 }
 
+void CStage::ItemGenerating()
+{
+	PrintChangeState(L"Item Generating");
+
+	for (int row = 0; row < STAGETILEROW; row++) {
+		for (int col = 0; col < STAGETILECOL; col++) {
+			m_arrTileBlocks[row][col].ItemGenerating(row, col);
+		}
+	}
+}
+
 void CStage::PlayerSetting()
 {
 	auto prefab = CAssetMgr::GetInst()->Load<CPrefab>(PlayerPefKey, PlayerPefKey);
@@ -512,6 +527,11 @@ void CStage::finaltick()
 	}
 	else if (m_state == StageState::MONSTER_GENERATING) {
 		if (KEY_TAP(RBTN)) {
+			ChangeState(StageState::ITEM_GENERATING);
+		}
+	}
+	else if (m_state == StageState::ITEM_GENERATING) {
+		if (KEY_TAP(RBTN)) {
 			ChangeState(StageState::PLAYER_SETTING);
 		}
 	}
@@ -533,6 +553,7 @@ void CStage::begin()
 	CCollisionMgr::GetInst()->LayerCheck(MonsterHitLayer, DetectColliderLayer);
 	CCollisionMgr::GetInst()->LayerCheck(MonsterLayer, PlayerHitLayer);
 	CCollisionMgr::GetInst()->LayerCheck(MonsterLayer, CameraLayer);
+	CCollisionMgr::GetInst()->LayerCheck(ItemLayer, CameraLayer);
 	CCollisionMgr::GetInst()->LayerCheck(7, 6);
 
 	CTileMgr::GetInst()->CheckLayer(DetectColliderLayer);

@@ -164,3 +164,27 @@ void CTileBlock::MonsterGenerating(int _row, int _col)
 		}
 	}
 }
+
+void CTileBlock::ItemGenerating(int _row, int _col)
+{
+	for (int row = 0; row < TILEBLOCKSIZEY - 1; row++) {
+		for (int col = 0; col < TILEBLOCKSIZEX; col++) {
+			auto tile = CTileMgr::GetInst()->GetTile(_row, _col, row, col);
+			if (!tile) {
+				auto under = CTileMgr::GetInst()->GetTile(_row, _col, row + 1, col);
+				if (under && (under->GetTileType() == TileType::Soil || under->GetTileType() == TileType::Tree)) {
+					if (!CRandomMgr::GetInst()->RandomSucceed(5, 100)) {
+						continue;
+					}
+
+					Ptr<CPrefab> prefab = CAssetMgr::GetInst()->Load<CPrefab>(RockPrefKey, RockPrefKey);
+					auto obj = prefab->Instantiate();
+					Vec3 pos = CTileMgr::GetInst()->IdxToPos(_row, _col, row, col);
+					pos.z = ItemZ;
+					obj->Transform()->SetRelativePos(pos);
+					GamePlayStatic::SpawnGameObject(obj, ItemLayer);
+				}
+			}
+		}
+	}
+}
