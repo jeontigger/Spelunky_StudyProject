@@ -15,6 +15,7 @@ CPlayerDownState::CPlayerDownState()
 	, m_fCameraDown(1.f)
 	, m_ChangeColliderPos(0.f, -0.2f)
 	, m_ChangeColliderScale(1.3f, 0.5f)
+	, m_fCrawlingSpeed(1.5f)
 {
 
 }
@@ -27,6 +28,10 @@ void CPlayerDownState::finaltick()
 {
 	if (KEY_RELEASED(m_Script->GetInputKeys().LookDown)) {
 		ChangeState(StatePlayerIdle);
+	}
+
+	if (!m_Script->IsGrounded()) {
+		ChangeState(StatePlayerFallDown);
 	}
 
 	if (m_fCameraDownTimer < 0) {
@@ -43,10 +48,30 @@ void CPlayerDownState::finaltick()
 		}
 	}
 	if (KEY_TAP(m_Script->GetInputKeys().MoveLeft)) {
+		m_Player->Animator2D()->Play(AnimPlayerCrawl);
 		m_Script->TurnLeft();
 	}
 	if (KEY_TAP(m_Script->GetInputKeys().MoveRight)) {
+		m_Player->Animator2D()->Play(AnimPlayerCrawl);
 		m_Script->TurnRight();
+	}
+	if (KEY_RELEASED(m_Script->GetInputKeys().MoveLeft)) {
+		if (KEY_PRESSED(m_Script->GetInputKeys().MoveRight)) {
+			m_Player->Animator2D()->Play(AnimPlayerCrawl);
+			m_Script->TurnRight();
+		}
+		else {
+			m_Player->Animator2D()->Play(AnimPlayerDownIdle, false);
+		}
+	}
+	if (KEY_RELEASED(m_Script->GetInputKeys().MoveRight)) {
+		if (KEY_PRESSED(m_Script->GetInputKeys().MoveLeft)) {
+			m_Player->Animator2D()->Play(AnimPlayerCrawl);
+			m_Script->TurnLeft();
+		}
+		else {
+			m_Player->Animator2D()->Play(AnimPlayerDownIdle, false);
+		}
 	}
 
 	if (m_Script->IsMoving()) {
@@ -71,6 +96,13 @@ void CPlayerDownState::Enter()
 
 	m_Script->m_HitCollider->Collider2D()->SetOffsetPos(m_ChangeColliderPos);
 	m_Script->m_HitCollider->Collider2D()->SetOffsetScale(m_ChangeColliderScale);
+
+	m_fOriginSpeed = m_Script->GetSpeed();
+	m_Script->SetSpeed(m_fCrawlingSpeed);
+
+	if (m_Script->IsMoving()) {
+		m_Player->Animator2D()->Play(AnimPlayerCrawl);
+	}
 }
 
 void CPlayerDownState::Exit()
@@ -85,4 +117,6 @@ void CPlayerDownState::Exit()
 	auto player2 = m_Player;
 	auto player3 = (CGameObject*)GetBlackboardData(BBOwnerKey);
 	stage->GetMainCamera()->GetScript<CCameraMovement>()->SetTarget(player);
+
+	m_Script->SetSpeed(m_fOriginSpeed);
 }

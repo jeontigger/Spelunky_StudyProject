@@ -135,14 +135,14 @@ void CLevelSaveLoad::SaveGameObject(CGameObject* _Obj, ofstream& fout)
 	}
 
 	// 자식 오브젝트가 있으면 자식 오브젝트 정보 저장
-	const vector<CGameObject*>& vecChild = _Obj->GetChild();
-	size_t childcount = vecChild.size();
-	fout << childcount << endl;;
+	//const vector<CGameObject*>& vecChild = _Obj->GetChild();
+	//size_t childcount = vecChild.size();
+	//fout << childcount << endl;;
 
-	for (size_t i = 0; i < childcount; ++i)
-	{
-		SaveGameObject(vecChild[i], fout);
-	}
+	//for (size_t i = 0; i < childcount; ++i)
+	//{
+	//	SaveGameObject(vecChild[i], fout);
+	//}
 }
 
 CLevel* CLevelSaveLoad::LoadLevel(const wstring& _strLevelPath)
@@ -359,14 +359,14 @@ CGameObject* CLevelSaveLoad::LoadGameObject(ifstream& fin)
 		pScript->LoadFromFile(fin);
 	}
 
-	// 자식 오브젝트가 있으면 자식 오브젝트 정보 저장	
-	size_t childcount = 0;
-	fin >> childcount;
+	//// 자식 오브젝트가 있으면 자식 오브젝트 정보 저장	
+	//size_t childcount = 0;
+	//fin >> childcount;
 
-	for (size_t i = 0; i < childcount; ++i)
-	{
-		pObject->AddChild(LoadGameObject(fin));
-	}
+	//for (size_t i = 0; i < childcount; ++i)
+	//{
+	//	pObject->AddChild(LoadGameObject(fin));
+	//}
 
 	return pObject;
 }

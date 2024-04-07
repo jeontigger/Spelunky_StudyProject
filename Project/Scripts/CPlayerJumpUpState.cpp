@@ -50,19 +50,7 @@ void CPlayerJumpUpState::finaltick()
 		ChangeState(StatePlayerIdle);
 	}
 
-	if (KEY_TAP(m_Script->GetInputKeys().MoveLeft)) {
-		m_Script->TurnLeft();
-	}
-	if (KEY_TAP(m_Script->GetInputKeys().MoveRight)) {
-		m_Script->TurnRight();
-	}
-
-	if (m_Script->IsMoving()) {
-		m_Script->MoveFront();
-	}
-	else {
-		m_Script->Stop();
-	}
+	PlayerMoveDefault;
 }
 
 void CPlayerJumpUpState::Exit()

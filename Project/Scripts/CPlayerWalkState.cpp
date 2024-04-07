@@ -39,6 +39,17 @@ void CPlayerWalkState::finaltick()
 		m_Script->TurnRight();
 	}
 
+	if (KEY_RELEASED(m_Script->GetInputKeys().MoveLeft)) {
+		if (KEY_PRESSED(m_Script->GetInputKeys().MoveRight)) {
+			m_Script->TurnRight();
+		}
+	}
+	if (KEY_RELEASED(m_Script->GetInputKeys().MoveRight)) {
+		if (KEY_PRESSED(m_Script->GetInputKeys().MoveLeft)) {
+			m_Script->TurnLeft();
+		}
+	}
+
 	if (m_Script->IsMoving()) {
 		m_Script->MoveFront();
 	}

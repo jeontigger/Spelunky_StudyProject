@@ -34,6 +34,31 @@
 #define RandomAccuracy 100
 #define GETRANDOM(bound) CRandomMgr::GetInst()->GetRandom(bound)
 
+#define PlayerMoveDefault 	if (KEY_TAP(m_Script->GetInputKeys().MoveLeft)) {\
+m_Script->TurnLeft();\
+	}\
+	if (KEY_TAP(m_Script->GetInputKeys().MoveRight)) {\
+		m_Script->TurnRight();\
+	}\
+\
+	if (KEY_RELEASED(m_Script->GetInputKeys().MoveLeft)) {\
+		if (KEY_PRESSED(m_Script->GetInputKeys().MoveRight)) {\
+			m_Script->TurnRight();\
+		}\
+	}\
+	if (KEY_RELEASED(m_Script->GetInputKeys().MoveRight)) {\
+		if (KEY_PRESSED(m_Script->GetInputKeys().MoveLeft)) {\
+			m_Script->TurnLeft();\
+		}\
+	}\
+\
+	if (m_Script->IsMoving()) {\
+		m_Script->MoveFront();\
+	}\
+	else {\
+		m_Script->Stop();\
+	}\
+
 enum class StagePackList {
     Dwelling,
     END,

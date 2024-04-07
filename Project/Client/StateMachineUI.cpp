@@ -140,6 +140,10 @@ void StateMachineUI::Blackboard()
 
 void StateMachineUI::CurState()
 {
+	if (!m_StateMachine->m_FSM_Inst.Get()) {
+		return;
+	}
+
 	CState* state = m_StateMachine->m_FSM_Inst->m_CurState;
 	ImGui::Text("CurState");
 	ImGui::SameLine();

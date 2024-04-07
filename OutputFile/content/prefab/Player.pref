@@ -1,8 +1,8 @@
 Player
 0
-501 246 0
+506 157 0
 128 128 1
-0 -3.14159 0
+0 0 0
 1
 1
 0 -0.1 0
@@ -10,7 +10,20 @@ Player
 0
 0
 3
-5
+8
+anim\PlayerCrawl.anim
+7
+0.0625 0.0625 0.3125 0.0625 0 0 0.0625 0.0625 0.0625
+0.0625 0.0625 0.375 0.0625 0 0 0.0625 0.0625 0.0625
+0.0625 0.0625 0.4375 0.0625 0 0 0.0625 0.0625 0.0625
+0.0625 0.0625 0.5 0.0625 0 0 0.0625 0.0625 0.0625
+0.0625 0.0625 0.5625 0.0625 0 0 0.0625 0.0625 0.0625
+0.0625 0.0625 0.625 0.0625 0 0 0.0625 0.0625 0.0625
+0.0625 0.0625 0.6875 0.0625 0 0 0.0625 0.0625 0.0625
+1
+texture\atlas\char_cerulean.png
+0
+texture\atlas\char_cerulean.png
 anim\PlayerDown.anim
 3
 0.0625 0.0625 0 0.0625 0 0 0.0625 0.0625 0.0625
@@ -20,9 +33,23 @@ anim\PlayerDown.anim
 texture\atlas\char_cerulean.png
 0
 texture\atlas\char_cerulean.png
+anim\PlayerDownIdle.anim
+1
+0.0625 0.0625 0.125 0.0625 0 0 0.0625 0.0625 0.0625
+1
+texture\atlas\char_cerulean.png
+0
+texture\atlas\char_cerulean.png
 anim\PlayerIdle.anim
 1
 0.0625 0.0625 0 0 0 0 0.0625 0.0625 0.0625
+1
+texture\atlas\char_cerulean.png
+0
+texture\atlas\char_cerulean.png
+anim\PlayerJumpFall.anim
+1
+0.0625 0.0625 0.4375 0.5625 0 0 0.0625 0.0625 0.0625
 1
 texture\atlas\char_cerulean.png
 0
@@ -74,4 +101,3 @@ Std2DMtrl
 15
 1
 CPlayerScript
-0

@@ -9,6 +9,9 @@ private:
     Vec2 m_OriginColliderPos;
     Vec2 m_OriginColliderScale;
 
+    float m_fCrawlingSpeed;
+    float m_fOriginSpeed;
+
 private:
     class CGameObject* m_Player;
     class CPlayerScript* m_Script;
