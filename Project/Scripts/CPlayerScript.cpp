@@ -40,6 +40,7 @@ void CPlayerScript::Jump()
 	}
 
 	if (IsGrounded()) {
+		m_bJumpWalkAnimPlay = false;
 		m_fJumpDelayTimer = m_fJumpDelay;
 		SetVelocity(Vec2(0.f, m_fJumpInitSpeed));
 		m_fJumpTimer = m_fJumpMaxTime;
@@ -106,6 +107,10 @@ void CPlayerScript::tick()
 				Animator2D()->Play(AnimPlayerIdle);
 			}
 			else {
+				if (!m_bJumpWalkAnimPlay) {
+					m_bJumpWalkAnimPlay = true;
+					Animator2D()->Play(AnimPlayerWalk);
+				}
 			}
 		}
 	}
