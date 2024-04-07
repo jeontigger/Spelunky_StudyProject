@@ -36,6 +36,7 @@ void CPlayerIdleState::finaltick()
 
 	if (m_PlayerScript->IsMoving()) {
 		m_PlayerScript->MoveFront();
+		ChangeState(StatePlayerWalk);
 	}
 	else {
 		m_PlayerScript->Stop();

@@ -42,6 +42,8 @@ private:
 public:
     void SetStagePack(CStagePack* _sp) { m_SP = _sp; };
 
+    CGameObject* GetMainCamera() { return m_MainCamera; }
+
 public:
     virtual void tick() override;
     virtual void finaltick() override;

@@ -18,6 +18,17 @@ CCameraMovement::~CCameraMovement()
 }
 
 
+void CCameraMovement::SetTarget(CGameObject* _target)
+{
+	m_Target = _target; 
+}
+
+void CCameraMovement::SetTarget(Vec3 _target)
+{
+	m_Target = nullptr;
+	m_vTargetPos = _target;
+}
+
 void CCameraMovement::tick()
 {
 	if (m_Target) {
@@ -37,6 +48,28 @@ void CCameraMovement::tick()
 			return;
 		}
 		
+		Dir.Normalize();
+
+		vPos += Dir * m_fSpeed * DT;
+
+		Transform()->SetRelativePos(vPos);
+	}
+	else if (m_vTargetPos) {
+		Vec3 vPos = Transform()->GetRelativePos();
+		m_vTargetPos.z = vPos.z;
+
+		Vec3 Dir = m_vTargetPos - vPos;
+		if (m_bCameraWallBlocked) {
+			m_vTargetPos.x = 0;
+		}
+
+		if (m_bCameraPlatformBlocked) {
+			m_vTargetPos.y = 0;
+		}
+		if (Vec3::Distance(vPos, m_vTargetPos) < 3.f) {
+			return;
+		}
+
 		Dir.Normalize();
 
 		vPos += Dir * m_fSpeed * DT;

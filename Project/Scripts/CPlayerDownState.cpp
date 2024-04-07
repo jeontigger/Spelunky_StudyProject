@@ -2,9 +2,13 @@
 #include "CPlayerDownState.h"
 
 #include <Engine/CGameObject.h>
+#include <Engine/CLevelMgr.h>
+#include <Engine/CLevel.h>
 
 #include "CPlayerScript.h"
 #include "CPlayerHitCollider.h"
+#include "CStage.h"
+#include "CCameraMovement.h"
 
 CPlayerDownState::CPlayerDownState()
 	: CState((UINT)STATE_TYPE::PLAYERDOWNSTATE)
@@ -21,12 +25,15 @@ CPlayerDownState::~CPlayerDownState()
 
 void CPlayerDownState::finaltick()
 {
-	if (KEY_RELEASED(m_Script->GetInputKeys().LookDown) || KEY_NONE(m_Script->GetInputKeys().LookDown)) {
+	if (KEY_RELEASED(m_Script->GetInputKeys().LookDown)) {
 		ChangeState(StatePlayerIdle);
 	}
 
 	if (m_fCameraDownTimer < 0) {
-
+		CStage* stage = (CStage*)CLevelMgr::GetInst()->GetCurrentLevel();
+		Vec3 vPos = m_Player->Transform()->GetRelativePos();
+		vPos.y -= 300.f;
+		stage->GetMainCamera()->GetScript<CCameraMovement>()->SetTarget(vPos);
 	}
 
 	if (KEY_PRESSED(m_Script->GetInputKeys().Jump)) {
@@ -48,6 +55,8 @@ void CPlayerDownState::finaltick()
 	else {
 		m_Script->Stop();
 	}
+
+	m_fCameraDownTimer -= DT;
 }
 
 void CPlayerDownState::Enter()
@@ -68,4 +77,12 @@ void CPlayerDownState::Exit()
 {
 	m_Script->m_HitCollider->Collider2D()->SetOffsetPos(m_OriginColliderPos);
 	m_Script->m_HitCollider->Collider2D()->SetOffsetScale(m_OriginColliderScale);
+
+	m_fCameraDownTimer = m_fCameraDown;
+
+	CStage* stage = (CStage*)CLevelMgr::GetInst()->GetCurrentLevel();
+	auto player = stage->FindObjectByName(L"Player");
+	auto player2 = m_Player;
+	auto player3 = (CGameObject*)GetBlackboardData(BBOwnerKey);
+	stage->GetMainCamera()->GetScript<CCameraMovement>()->SetTarget(player);
 }
