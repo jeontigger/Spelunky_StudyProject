@@ -24,12 +24,12 @@ void CPlayerIdleState::finaltick()
 	}
 	if (KEY_TAP(input.MoveLeft)) {
 		m_PlayerScript->TurnLeft();
-		if (!m_PlayerScript->IsJumpUp())
+		if (m_PlayerScript->IsGrounded())
 			m_PlayerScript->Animator2D()->Play(AnimPlayerWalk);
 	}
 	if(KEY_TAP(input.MoveRight)) {
 		m_PlayerScript->TurnRight();
-		if(!m_PlayerScript->IsJumpUp())
+		if(m_PlayerScript->IsGrounded())
 			m_PlayerScript->Animator2D()->Play(AnimPlayerWalk);
 	}
 
