@@ -24,11 +24,16 @@ void CRandomMgr::GenNewSeed(UINT32 _seed)
 
     m_strPrint = L"Seed == " + std::to_wstring(m_seed);
     Font data = {};
-    data._fPosX = 30.f;
-    data._fPosY = 20.f;
+    data._fPosX = 1250.f;
+    data._fPosY = 30.f;
     data._fFontSize = 32;
     data._Color = FONT_RGBA(255, 30, 30, 255);
     CFontMgr::GetInst()->DrawFont(m_strPrint.c_str(), data, 1.f);
+}
+
+void CRandomMgr::SetSeed(UINT32 _seed)
+{
+    GenNewSeed(_seed);
 }
 
 void CRandomMgr::init()

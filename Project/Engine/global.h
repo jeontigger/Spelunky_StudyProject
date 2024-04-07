@@ -39,6 +39,9 @@ using std::endl;
 
 namespace fs = filesystem;
 
+#include <sstream>
+using std::istringstream;
+
 
 // Directx 11 헤더 및 라이브러리 참조
 #include <d3d11.h>

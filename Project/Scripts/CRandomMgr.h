@@ -17,8 +17,12 @@ public:
     void init();
 
     int GetRandom(int _bound);
-    UINT32 GetSeed() { return m_seed; }
+
     void GenNewSeed(UINT32 _seed);
+
+    UINT32 GetSeed() { return m_seed; }
+    void SetSeed(UINT32 _seed);
+
 public:
     CRandomMgr();
     ~CRandomMgr();

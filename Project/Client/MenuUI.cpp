@@ -13,6 +13,8 @@
 #include <Engine/components.h>
 
 #include <Scripts/CScriptMgr.h>
+#include <Scripts/CRandomMgr.h>
+
 #include <Engine/CScript.h>
 
 #include "CImGuiMgr.h"
@@ -180,15 +182,29 @@ void MenuUI::Level()
         else
             StopEnable = false;
 
-        
+        static bool PlayOnce = false;
         if (ImGui::MenuItem("Play", nullptr, nullptr, PlayEnable))
         {
             if (LEVEL_STATE::STOP == pCurLevel->GetState())
             {
+                CRandomMgr::GetInst()->init();
                 CLevelGenerator::MakeStages();
                 CLevel* level = (CLevel*)CLevelGenerator::GetLevel(0);
                 CLevelMgr::GetInst()->ChangeLevel(level, LEVEL_STATE::PLAY);
+                PlayOnce = true;
             }
+        }
+
+        if (ImGui::MenuItem("RePlay", nullptr, nullptr, StopEnable && PlayOnce))
+        {
+            CLevelGenerator::DestroyStages();
+
+            
+            UINT seed = CRandomMgr::GetInst()->GetSeed();
+            CRandomMgr::GetInst()->SetSeed(seed);
+            CLevelGenerator::MakeStages();
+            CLevel* level = (CLevel*)CLevelGenerator::GetLevel(0);
+            CLevelMgr::GetInst()->ChangeLevel(level, LEVEL_STATE::PLAY);
         }
 
         if (ImGui::MenuItem("Pause", nullptr, nullptr, PauseEnable))

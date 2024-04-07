@@ -145,6 +145,7 @@ CStage::CStage()
 
 		m_MainCamera->Transform()->SetRelativePos(Vec3(TileBlockScaleX / 2.f, -TileBlockScaleY / 2.f, 0.f));
 	}
+	CTileMgr::GetInst()->Init();
 }
 
 CStage::~CStage()
@@ -569,14 +570,13 @@ void CStage::begin()
 		m_MainCamera->GetScript<CCameraMovement>()->SetTarget(m_Player);
 	}
 
-
 }
 
 void CStage::PrintChangeState(const wchar_t* _content)
 {
 	Font data = {};
 	data._fPosX = 30.f;
-	data._fPosY = 20.f;
+	data._fPosY = 50.f;
 	data._fFontSize = 32;
 	data._Color = FONT_RGBA(255, 30, 30, 255);
 	CFontMgr::GetInst()->DrawFont(_content, data, 1.f);

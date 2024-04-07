@@ -28,6 +28,21 @@ Vec3 CTileMgr::GetEntrancePos()
 	return Vec3();
 }
 
+void CTileMgr::Init()
+{
+	for (int blockrow = 0; blockrow < STAGETILEROW; blockrow++) {
+		for (int blockcol = 0; blockcol < STAGETILECOL; blockcol++) {
+			for (int row = 0; row < TILEBLOCKSIZEY; row++) {
+				for (int col = 0; col < TILEBLOCKSIZEX; col++) {
+					m_arrTiles[blockrow][blockcol][row][col] = nullptr;
+				}
+			}
+		}
+	}
+
+	m_LayerCheck = 0;
+}
+
 void CTileMgr::SetTile(CGameObject* tile, int _blockRow, int _blockCol, int _tileRow, int _tileCol)
 {
 	m_arrTiles[_blockRow][_blockCol][_tileRow][_tileCol] = tile;
@@ -246,22 +261,4 @@ bool CTileMgr::CheckCollision(CCollider2D* _pLeft, CCollider2D* _pRight)
 
 	// 4번의 테스트동안 분리할 수 없었다.
 	return true;
-}
-
-CTileMgr::CTileMgr()
-	: m_LayerCheck(0)
-{
-	for (int blockrow = 0; blockrow < STAGETILEROW; blockrow++) {
-		for (int blockcol = 0; blockcol < STAGETILECOL; blockcol++) {
-			for (int row = 0; row < TILEBLOCKSIZEY; row++) {
-				for (int col = 0; col < TILEBLOCKSIZEX; col++) {
-					m_arrTiles[blockrow][blockcol][row][col] = nullptr;
-				}
-			}
-		}
-	}
-}
-
-CTileMgr::~CTileMgr()
-{
 }

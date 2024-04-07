@@ -12,6 +12,26 @@
 CLevel* CLevelGenerator::m_pTempLevel = nullptr;
 CStage* CLevelGenerator::m_arrStages[StageCnt] = {};
 
+UINT32 CLevelGenerator::GetSeed()
+{
+	string logpath = ToString(CPathMgr::GetContentPath()) + GameLogPath;
+	ifstream fin(logpath);
+	string str;
+	istringstream iss;
+	while (true) {
+		if (!getline(fin, str))
+			break;
+		if (str.find("seed")) {
+			iss.str(str);
+			string temp;
+			UINT32 seed;
+			iss >> temp >> seed;
+			return seed;
+		}
+	}
+	return 0;
+}
+
 void CLevelGenerator::Init()
 {
 	m_pTempLevel = new CLevel;
@@ -27,8 +47,6 @@ void CLevelGenerator::MakeStages()
 	stage->SetStagePack(sp);
 
 	m_arrStages[0] = stage;
-
-	CRandomMgr::GetInst()->init();
 
 	UINT32 seed = CRandomMgr::GetInst()->GetSeed();
 

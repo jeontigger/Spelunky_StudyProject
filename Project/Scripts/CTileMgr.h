@@ -30,6 +30,7 @@ public:
     Vec3 GetEntrancePos();
 
 public:
+    void Init();
     void SetTile(CGameObject* tile, int _blockRow, int _blockCol, int _tileRow, int _tileCol);
     CTile* GetTile(Vec2 _idx);
     CTile* GetTile(int _blockRow, int _blockCol, int _tileRow, int _tileCol);
@@ -43,9 +44,5 @@ public:
     void tick();
     void CollisionWithTile(int _layer);
     bool CheckCollision(CCollider2D* _left, CCollider2D* _right);
-
-public:
-    CTileMgr();
-    ~CTileMgr();
 };
 
