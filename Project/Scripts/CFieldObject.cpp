@@ -9,7 +9,9 @@ CFieldObject::CFieldObject(UINT type)
 	, m_fMass(1.f)
 	, isPlayer(false)
 	, m_bGround(false)
-	, m_fFriction(3.f)
+	, m_fAirFriction(3.f)
+	, m_fGroundFriction(8.f)
+
 {
 
 }
@@ -42,13 +44,23 @@ void CFieldObject::tick()
 	m_vPos.y += m_vVelocity.y * TileScaleX * DT;
 
 	if (m_vVelocity.x > 0) {
-		m_vVelocity -= m_fFriction * DT;
+		if (IsGrounded()) {
+			m_vVelocity -= m_fGroundFriction * DT;
+		}
+		else {
+			m_vVelocity -= m_fAirFriction * DT;
+		}
 		if (m_vVelocity.x <= 0) {
 			m_vVelocity.x = 0;
 		}
 	}
 	else if (m_vVelocity.x < 0) {
-		m_vVelocity += m_fFriction * DT;
+		if (IsGrounded()) {
+			m_vVelocity += m_fGroundFriction * DT;
+		}
+		else {
+			m_vVelocity += m_fAirFriction * DT;
+		}
 		if (m_vVelocity.x >= 0) {
 			m_vVelocity.x = 0;
 		}

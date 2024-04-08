@@ -7,9 +7,9 @@
 CPlayerJumpUpState::CPlayerJumpUpState()
 	: CState((UINT)STATE_TYPE::PLAYERJUMPUPSTATE)
 	, m_fJumpDelayTime(0.5f)
-	, m_fJumpInitSpeed(6.7f)
+	, m_fJumpInitSpeed(8.7f)
 	, m_fJumpMaxTime(0.3f)
-	, m_fJumpWeightSpeed(1.5f)
+	, m_fJumpWeightSpeed(4.5f)
 {
 }
 
