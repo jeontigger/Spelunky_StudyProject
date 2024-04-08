@@ -5,7 +5,8 @@
 #define StrMonsterDetectColliderName L"DetectCollider"
 
 #define TilePrefKey L"prefab\\Tile.pref"
-#define PlayerPefKey L"prefab\\Player.pref"
+#define PlayerPrefKey L"prefab\\Player.pref"
+#define WhipPrefKey L"prefab\\Whip.pref"
 #define OutlineWallKey L"prefab\\OutlineWall.pref"
 #define SnakePrefKey L"prefab\\Snake.pref"
 #define RockPrefKey L"prefab\\Rock.pref"
@@ -32,6 +33,9 @@
 #define AnimPlayerUp L"anim\\PlayerUp.anim"
 #define AnimPlayerCrawl L"anim\\PlayerCrawl.anim"
 #define AnimPlayerThrow L"anim\\PlayerThrow.anim"
+
+#define AnimWhip L"anim\\Whip.anim"
+
 #define AnimSnakeIdle L"anim\\SnakeIdle.anim"
 #define AnimSnakeWalk L"anim\\SnakeWalk.anim"
 #define AnimSnakeAttack L"anim\\SnakeAttack.anim"

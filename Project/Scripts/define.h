@@ -29,6 +29,7 @@
 #define PlayerHitLayer 9
 #define MonsterHitLayer 10
 #define ItemLayer 11
+#define PlayerAttackLayer 12
 #define TileEmergencyLayer 30
 
 #define RandomAccuracy 100

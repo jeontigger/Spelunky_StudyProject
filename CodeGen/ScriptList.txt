@@ -4,7 +4,6 @@ CMonsterScript
 CTile
 CCameraMovement
 CTileBoundary
-CPlayerScript
 CSnakeScript
 CDetectCollider
 CMonsterHitCollider
@@ -13,3 +12,5 @@ CWallCollider
 CPlayerHitCollider
 CCeilCollider
 CRock
+CPlayerScript
+CWhip

@@ -5,6 +5,7 @@
 
 #include "CPlayerHitCollider.h"
 #include "CItem.h"
+#include "CWhip.h"
 
 CPlayerScript::CPlayerScript()
 	: CCharacterScript((UINT)SCRIPT_TYPE::PLAYERSCRIPT)
@@ -70,6 +71,11 @@ void CPlayerScript::Skill()
 	Animator2D()->Play(AnimPlayerThrow, false);
 }
 
+void CPlayerScript::Attack()
+{
+	m_Whip->Attack();
+}
+
 #include "CPlayerStartState.h"
 bool CPlayerScript::IsMoving()
 {	
@@ -117,13 +123,19 @@ void CPlayerScript::begin()
 
 	StateMachine()->AddBlackboardData(BBJumpDelay, BB_DATA::FLOAT, &m_fJumpDelayTimer);
 
+	auto prefab = CAssetMgr::GetInst()->Load<CPrefab>(WhipPrefKey, WhipPrefKey);
+	obj = prefab->Instantiate();
+	obj->Transform()->SetRelativePos(Vec3(0, 0, -1));
+	GetOwner()->AddChild(obj);
+	m_Whip = obj->GetScript<CWhip>();
+	GamePlayStatic::SpawnGameObject(obj, PlayerAttackLayer);
+
 }
 
 void CPlayerScript::tick()
 {
 	CCharacterScript::tick();
 	*(float*)StateMachine()->GetBlackboardData(BBJumpDelay) -= DT;
-
 
 	if (!m_HitCollider->Collider2D()->IsActivate()) {
 		m_fInvincibilityTimer -= DT;

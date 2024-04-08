@@ -173,6 +173,7 @@ call CodeGen.exe</Command>
     <ClInclude Include="CDetectCollider.h" />
     <ClInclude Include="CMonsterHitCollider.h" />
     <ClInclude Include="CMonsterScript.h" />
+    <ClInclude Include="CPlayerAttackState.h" />
     <ClInclude Include="CPlayerFallDownState.h" />
     <ClInclude Include="CPlayerHitCollider.h" />
     <ClInclude Include="CPlayerJumpUpState.h" />
@@ -198,6 +199,7 @@ call CodeGen.exe</Command>
     <ClInclude Include="CTileChunk.h" />
     <ClInclude Include="CTileMgr.h" />
     <ClInclude Include="CWallCollider.h" />
+    <ClInclude Include="CWhip.h" />
     <ClInclude Include="define.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="global.h" />
@@ -220,6 +222,7 @@ call CodeGen.exe</Command>
     <ClCompile Include="CDetectCollider.cpp" />
     <ClCompile Include="CMonsterHitCollider.cpp" />
     <ClCompile Include="CMonsterScript.cpp" />
+    <ClCompile Include="CPlayerAttackState.cpp" />
     <ClCompile Include="CPlayerFallDownState.cpp" />
     <ClCompile Include="CPlayerHitCollider.cpp" />
     <ClCompile Include="CPlayerJumpUpState.cpp" />
@@ -245,6 +248,7 @@ call CodeGen.exe</Command>
     <ClCompile Include="CTileChunk.cpp" />
     <ClCompile Include="CTileMgr.cpp" />
     <ClCompile Include="CWallCollider.cpp" />
+    <ClCompile Include="CWhip.cpp" />
     <ClCompile Include="extern.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

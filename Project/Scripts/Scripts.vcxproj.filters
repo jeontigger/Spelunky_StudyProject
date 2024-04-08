@@ -64,9 +64,6 @@
     <ClInclude Include="CTileBoundary.h">
       <Filter>02. Scripts\Tile\Boundary</Filter>
     </ClInclude>
-    <ClInclude Include="CPlayerScript.h">
-      <Filter>02. Scripts\Character</Filter>
-    </ClInclude>
     <ClInclude Include="CStateMgr.h">
       <Filter>01. CodeGenMgr</Filter>
     </ClInclude>
@@ -136,6 +133,15 @@
     <ClInclude Include="CPlayerThrowState.h">
       <Filter>08. States\Player\Throw</Filter>
     </ClInclude>
+    <ClInclude Include="CPlayerAttackState.h">
+      <Filter>08. States\Player\Attack</Filter>
+    </ClInclude>
+    <ClInclude Include="CPlayerScript.h">
+      <Filter>02. Scripts\Character\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="CWhip.h">
+      <Filter>02. Scripts\Character\Player</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -188,9 +194,6 @@
     </ClCompile>
     <ClCompile Include="CTileBoundary.cpp">
       <Filter>02. Scripts\Tile\Boundary</Filter>
-    </ClCompile>
-    <ClCompile Include="CPlayerScript.cpp">
-      <Filter>02. Scripts\Character</Filter>
     </ClCompile>
     <ClCompile Include="CStateMgr.cpp">
       <Filter>01. CodeGenMgr</Filter>
@@ -257,6 +260,15 @@
     </ClCompile>
     <ClCompile Include="CPlayerThrowState.cpp">
       <Filter>08. States\Player\Throw</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlayerAttackState.cpp">
+      <Filter>08. States\Player\Attack</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlayerScript.cpp">
+      <Filter>02. Scripts\Character\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="CWhip.cpp">
+      <Filter>02. Scripts\Character\Player</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -364,6 +376,12 @@
     </Filter>
     <Filter Include="08. States\Player\Throw">
       <UniqueIdentifier>{8eb7e97e-61cb-46c2-86b9-e152a216c8c2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="08. States\Player\Attack">
+      <UniqueIdentifier>{ef225b8d-b0ec-425b-96f4-58a50fcb1840}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Scripts\Character\Player">
+      <UniqueIdentifier>{23bd4049-2595-4317-82ab-087f85fc0a83}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

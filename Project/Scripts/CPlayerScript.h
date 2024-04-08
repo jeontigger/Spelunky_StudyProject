@@ -13,8 +13,8 @@ private:
 
 private:
     class CItem* m_HandleItem;
+    class CWhip* m_Whip;
 
-private:
     PlayerKey InputKey;
 
     Vec3 m_vPrevPos;
@@ -25,6 +25,8 @@ private:
     Vec2 m_DownForce;
 
 public:
+    CWhip* GetWhip() { return m_Whip; }
+
     PlayerKey GetInputKeys() { return InputKey; }
     void SetInputKey(PlayerKey _key) { InputKey = _key; }
 
@@ -42,6 +44,7 @@ public:
 public:
     virtual void Hit(int _damage) override;
     virtual void Skill();
+    virtual void Attack();
 
 public:
     virtual void begin() override;

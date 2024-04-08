@@ -100,7 +100,7 @@ CStage::CStage()
 		Ptr<CPrefab> prefab;
 		CGameObject* obj;
 
-		prefab = CAssetMgr::GetInst()->Load<CPrefab>(PlayerPefKey, PlayerPefKey);
+		prefab = CAssetMgr::GetInst()->Load<CPrefab>(PlayerPrefKey, PlayerPrefKey);
 		m_Player = prefab->Instantiate();
 		m_Player->Transform()->SetRelativePos(Vec3(TileBlockScaleX / 2.f, -TileBlockScaleY / 2.f - TileScaleY, PlayerZ));
 		AddObject(m_Player, PlayerLayer);
@@ -453,7 +453,7 @@ void CStage::ItemGenerating()
 
 void CStage::PlayerSetting()
 {
-	auto prefab = CAssetMgr::GetInst()->Load<CPrefab>(PlayerPefKey, PlayerPefKey);
+	auto prefab = CAssetMgr::GetInst()->Load<CPrefab>(PlayerPrefKey, PlayerPrefKey);
 	m_Player = prefab->Instantiate();
 	Vec3 vPos = CTileMgr::GetInst()->GetEntrancePos();
 	vPos.z = PlayerZ;
@@ -546,6 +546,7 @@ void CStage::begin()
 
 	CCollisionMgr::GetInst()->LayerCheck(L"Camera", L"CameraCollider");
 	CCollisionMgr::GetInst()->LayerCheck(L"Tile", L"Camera");
+	CCollisionMgr::GetInst()->LayerCheck(PlayerAttackLayer, CameraLayer);
 	CCollisionMgr::GetInst()->LayerCheck(PlayerLayer, CameraLayer);
 	CCollisionMgr::GetInst()->LayerCheck(PlayerLayer, MonsterLayer);
 	CCollisionMgr::GetInst()->LayerCheck(PlayerLayer, ItemLayer);
