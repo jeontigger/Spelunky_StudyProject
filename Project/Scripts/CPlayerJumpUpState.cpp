@@ -46,6 +46,19 @@ void CPlayerJumpUpState::finaltick()
 		ChangeState(StatePlayerFallDown);
 	}
 
+	// 공격
+	if (KEY_TAP(m_Script->GetInputKeys().Attack)) {
+		// 채찍
+		if (!m_Script->IsHandling()) {
+
+		}
+		// 던지기
+		else {
+			m_Script->Skill();
+		}
+	}
+
+
 	if (m_Script->IsGrounded()) {
 		ChangeState(StatePlayerIdle);
 	}

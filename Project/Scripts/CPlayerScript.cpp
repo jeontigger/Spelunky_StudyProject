@@ -50,6 +50,8 @@ void CPlayerScript::Skill()
 	Vec2 force = m_Force;
 	if (!IsLookRight())
 		force.x = -m_Force.x;
+
+	force += GetVelocity();
 	m_HandleItem->skill(force);
 	m_HandleItem->OutPlayerScript();
 	m_HandleItem = nullptr;
