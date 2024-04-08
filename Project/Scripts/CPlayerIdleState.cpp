@@ -64,5 +64,10 @@ void CPlayerIdleState::Enter()
 {
 	m_Player = (CGameObject*)GetBlackboardData(BBOwnerKey);
 	m_PlayerScript = m_Player->GetScript<CPlayerScript>();
-	m_Player->Animator2D()->Play(AnimPlayerIdle);
+	if (m_PlayerScript->IsHandling()) {
+		m_Player->Animator2D()->Play(AnimPlayerHandleIdle);
+	}
+	else {
+		m_Player->Animator2D()->Play(AnimPlayerIdle);
+	}
 }

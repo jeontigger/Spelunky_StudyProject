@@ -105,15 +105,15 @@ CStage::CStage()
 		m_Player->Transform()->SetRelativePos(Vec3(TileBlockScaleX / 2.f, -TileBlockScaleY / 2.f - TileScaleY, PlayerZ));
 		AddObject(m_Player, PlayerLayer);
 
-		prefab = CAssetMgr::GetInst()->Load<CPrefab>(SnakePrefKey, SnakePrefKey);
-		obj = prefab->Instantiate();
-		obj->Transform()->SetRelativePos(Vec3(TileBlockScaleX / 2.f - TileScaleX, -TileBlockScaleY / 2.f - TileScaleY, MonsterZ));
-		AddObject(obj, MonsterLayer);
+		//prefab = CAssetMgr::GetInst()->Load<CPrefab>(SnakePrefKey, SnakePrefKey);
+		//obj = prefab->Instantiate();
+		//obj->Transform()->SetRelativePos(Vec3(TileBlockScaleX / 2.f - TileScaleX, -TileBlockScaleY / 2.f - TileScaleY, MonsterZ));
+		//AddObject(obj, MonsterLayer);
 
-		prefab = CAssetMgr::GetInst()->Load<CPrefab>(SnakePrefKey, SnakePrefKey);
+		prefab = CAssetMgr::GetInst()->Load<CPrefab>(RockPrefKey, RockPrefKey);
 		obj = prefab->Instantiate();
-		obj->Transform()->SetRelativePos(Vec3(TileBlockScaleX / 2.f - TileScaleX * 2, -TileBlockScaleY / 2.f - TileScaleY, MonsterZ));
-		AddObject(obj, MonsterLayer);
+		obj->Transform()->SetRelativePos(Vec3(TileBlockScaleX / 2.f, -TileBlockScaleY / 2.f - TileScaleY, PlayerZ));
+		AddObject(obj, ItemLayer);
 
 		m_MainCamera->Camera()->SetScale(CameraNormalScale);
 
@@ -548,6 +548,7 @@ void CStage::begin()
 	CCollisionMgr::GetInst()->LayerCheck(L"Tile", L"Camera");
 	CCollisionMgr::GetInst()->LayerCheck(PlayerLayer, CameraLayer);
 	CCollisionMgr::GetInst()->LayerCheck(PlayerLayer, MonsterLayer);
+	CCollisionMgr::GetInst()->LayerCheck(PlayerLayer, ItemLayer);
 	CCollisionMgr::GetInst()->LayerCheck(PlayerLayer, MonsterHitLayer);
 	CCollisionMgr::GetInst()->LayerCheck(PlayerLayer, DetectColliderLayer);
 	CCollisionMgr::GetInst()->LayerCheck(MonsterHitLayer, DetectColliderLayer);

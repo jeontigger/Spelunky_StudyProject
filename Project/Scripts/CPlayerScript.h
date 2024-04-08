@@ -9,11 +9,10 @@ private:
     class CPlayerHitCollider* m_HitCollider;
     float m_fInvincibility;
     float m_fInvincibilityTimer;
-
     float m_fJumpDelayTimer;
 
-public:
-    virtual void Hit(int _damage) override;
+private:
+    class CItem* m_HandleItem;
 
 private:
     PlayerKey InputKey;
@@ -25,9 +24,15 @@ public:
 private:
     Vec3 m_vPrevPos;
     Vec3 m_vCurPos;
+    Vec3 m_vSocketPos;
 
 public:
     bool IsMoving();
+    bool IsHandling();
+    Vec3 GetItemSocketPos();
+
+public:
+    virtual void Hit(int _damage) override;
 
 public:
     virtual void begin() override;
@@ -50,5 +55,8 @@ public:
 
     friend class CPlayerIdleState;
     friend class CPlayerDownState;
+
+private:
+    void HandOn(CGameObject* item);
 };
 

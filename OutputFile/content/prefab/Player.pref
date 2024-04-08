@@ -10,7 +10,7 @@ Player
 0
 0
 3
-8
+9
 anim\PlayerCrawl.anim
 7
 0.0625 0.0625 0.3125 0.0625 0 0 0.0625 0.0625 0.0625
@@ -36,6 +36,13 @@ texture\atlas\char_cerulean.png
 anim\PlayerDownIdle.anim
 1
 0.0625 0.0625 0.125 0.0625 0 0 0.0625 0.0625 0.0625
+1
+texture\atlas\char_cerulean.png
+0
+texture\atlas\char_cerulean.png
+anim\PlayerHandleIdle.anim
+1
+0.0625 0.0625 0.6875 0.125 0 0 0.0625 0.0625 0.0625
 1
 texture\atlas\char_cerulean.png
 0

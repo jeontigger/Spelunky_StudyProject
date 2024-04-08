@@ -26,14 +26,17 @@ CPlayerDownState::~CPlayerDownState()
 
 void CPlayerDownState::finaltick()
 {
+	// 일어나기
 	if (KEY_RELEASED(m_Script->GetInputKeys().LookDown)) {
 		ChangeState(StatePlayerIdle);
 	}
 
+	// 엎드린채로 떨어지기
 	if (!m_Script->IsGrounded()) {
 		ChangeState(StatePlayerFallDown);
 	}
 
+	// 카메라 조절
 	if (m_fCameraDownTimer < 0) {
 		CStage* stage = (CStage*)CLevelMgr::GetInst()->GetCurrentLevel();
 		Vec3 vPos = m_Player->Transform()->GetRelativePos();
@@ -41,12 +44,15 @@ void CPlayerDownState::finaltick()
 		stage->GetMainCamera()->GetScript<CCameraMovement>()->SetTarget(vPos);
 	}
 
+	// 점프
 	if (KEY_PRESSED(m_Script->GetInputKeys().Jump)) {
 		if (*(float*)GetBlackboardData(BBJumpDelay) < 0) {
 			if (m_Script->IsGrounded())
 				ChangeState(StatePlayerJumpUp);
 		}
 	}
+
+	// 무빙
 	if (KEY_TAP(m_Script->GetInputKeys().MoveLeft)) {
 		m_Player->Animator2D()->Play(AnimPlayerCrawl);
 		m_Script->TurnLeft();

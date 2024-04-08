@@ -4,11 +4,13 @@
 #include <Engine/CKeyMgr.h>
 
 #include "CPlayerHitCollider.h"
+#include "CItem.h"
 
 CPlayerScript::CPlayerScript()
 	: CCharacterScript((UINT)SCRIPT_TYPE::PLAYERSCRIPT)
 	, InputKey()
 	, m_fInvincibility(1.f)
+	, m_vSocketPos(25.f, -22.f, 0.f)
 {
 	SetSpeed(6.f);
 	SetHealth(50);
@@ -17,6 +19,12 @@ CPlayerScript::CPlayerScript()
 CPlayerScript::~CPlayerScript()
 {
 
+}
+
+void CPlayerScript::HandOn(CGameObject* item)
+{
+	m_HandleItem = item->GetScript<CItem>();
+	m_HandleItem->SetPlayerScript(this);
 }
 
 void CPlayerScript::Hit(int _damage)
@@ -32,6 +40,18 @@ void CPlayerScript::Hit(int _damage)
 bool CPlayerScript::IsMoving()
 {	
 	return KEY_NONE(InputKey.MoveLeft) && KEY_NONE(InputKey.MoveRight) ? false : true;
+}
+bool CPlayerScript::IsHandling()
+{
+	return m_HandleItem ? true : false;
+}
+Vec3 CPlayerScript::GetItemSocketPos()
+{
+	Vec3 pos = m_vSocketPos;
+	if (!IsLookRight()) {
+		pos.x = -m_vSocketPos.x;
+	}
+	return pos + Transform()->GetRelativePos(); 
 }
 void CPlayerScript::begin()
 {
@@ -100,6 +120,15 @@ void CPlayerScript::BeginOverlap(CCollider2D* _Collider
 void CPlayerScript::Overlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCollider2D* _OtherCollider)
 {
 	CCharacterScript::Overlap(_Collider, _OtherObj, _OtherCollider);
+
+	if (_OtherObj->GetScript<CItem>()) {
+		auto state = StateMachine()->GetFSM()->GetCurState();
+		if (state->GetStateType() == (UINT)STATE_TYPE::PLAYERDOWNSTATE) {
+			if (KEY_TAP(InputKey.Attack)) {
+				HandOn(_OtherObj);
+			}
+		}
+	}
 }
 
 void CPlayerScript::EndOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCollider2D* _OtherCollider)

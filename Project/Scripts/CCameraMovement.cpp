@@ -21,6 +21,7 @@ CCameraMovement::~CCameraMovement()
 void CCameraMovement::SetTarget(CGameObject* _target)
 {
 	m_Target = _target; 
+	m_vTargetPos = Vec3(0.f, 0.f, 0.f);
 }
 
 void CCameraMovement::SetTarget(Vec3 _target)
@@ -54,7 +55,7 @@ void CCameraMovement::tick()
 
 		Transform()->SetRelativePos(vPos);
 	}
-	else if (m_vTargetPos) {
+	else if (m_vTargetPos != Vec3(0.f, 0.f, 0.f)) {
 		Vec3 vPos = Transform()->GetRelativePos();
 		m_vTargetPos.z = vPos.z;
 

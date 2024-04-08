@@ -23,6 +23,7 @@
 #define OutlineWallName L"OutlineWall"
 
 #define AnimPlayerIdle L"anim\\PlayerIdle.anim"
+#define AnimPlayerHandleIdle L"anim\\PlayerHandleIdle.anim"
 #define AnimPlayerJumpUp L"anim\\PlayerJumpUp.anim"
 #define AnimPlayerJumpFall L"anim\\PlayerJumpFall.anim"
 #define AnimPlayerWalk L"anim\\PlayerWalk.anim"
