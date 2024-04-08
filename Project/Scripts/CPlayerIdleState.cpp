@@ -36,7 +36,7 @@ void CPlayerIdleState::finaltick()
 	if (KEY_TAP(input.Attack)) {
 		// 채찍
 		if (!m_PlayerScript->IsHandling()) {
-			m_PlayerScript->Attack();
+			ChangeState(StatePlayerAttack);
 		}
 		// 던지기
 		else {

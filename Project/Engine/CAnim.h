@@ -46,6 +46,7 @@ public:
     void Create(CAnimator2D* _Animator, Ptr<CTexture> _Atlas, const vector<tAnimFrm>& _frms);
 
     tAnimFrm GetCurFrm() { return m_vecFrm[m_CurFrmIdx]; }
+    int GetIdx() { return m_CurFrmIdx; }
 
     void SaveToFile(FILE* _File);
     void SaveToFile(ofstream& _File);

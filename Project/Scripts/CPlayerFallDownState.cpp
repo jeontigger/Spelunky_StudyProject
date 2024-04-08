@@ -20,7 +20,7 @@ void CPlayerFallDownState::finaltick()
 	if (KEY_TAP(m_Script->GetInputKeys().Attack)) {
 		// 채찍
 		if (!m_Script->IsHandling()) {
-
+			ChangeState(StatePlayerAttack);
 		}
 		// 던지기
 		else {
