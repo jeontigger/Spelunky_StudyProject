@@ -66,6 +66,8 @@ void CPlayerScript::Skill()
 	m_HandleItem->skill(force);
 	m_HandleItem->OutPlayerScript();
 	m_HandleItem = nullptr;
+
+	Animator2D()->Play(AnimPlayerThrow, false);
 }
 
 #include "CPlayerStartState.h"

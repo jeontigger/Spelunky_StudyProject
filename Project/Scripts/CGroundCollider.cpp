@@ -11,6 +11,7 @@ CGroundCollider::~CGroundCollider()
 
 #include "CFieldObject.h"
 #include "CTile.h"
+#include "CItem.h"
 
 void CGroundCollider::tick()
 {
@@ -34,12 +35,17 @@ void CGroundCollider::BeginOverlap(CCollider2D* _Collider, CGameObject* _OtherOb
 		Vec3 TileColScale = tilemat.Scale();
 
 		float objUnderY = ObjColPos.y - ObjColScale.y / 2.f;
-		float velY = m_parent->GetScript<CFieldObject>()->GetVelocity().y;
+		Vec2 vel = m_parent->GetScript<CFieldObject>()->GetVelocity();
+		float velY = vel.y;
 		float prevObjUnderY = objUnderY - velY * DT;
 		float TileTopY = TileColPos.y + TileColScale.y / 2.f;
 		float tileJudgeY = TileColPos.y + TileColScale.y / 2.f * 0.5f;
-
-		if (velY < 0 && prevObjUnderY - tileJudgeY > 0) {
+		if (velY < -10.f && m_parent->GetScript<CItem>()) {
+			Vec2 vel = m_parent->GetScript<CFieldObject>()->GetVelocity();
+			vel.y = abs(vel.y) * 0.5f;
+			m_parent->GetScript<CFieldObject>()->SetVelocity(vel);
+		}
+		else if (velY < 0 && prevObjUnderY - tileJudgeY > 0) {
 			float OwnerY = m_parent->Transform()->GetRelativePos().y;
 
 			Vec3 pos = m_parent->Transform()->GetRelativePos();

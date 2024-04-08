@@ -31,6 +31,7 @@
 #define AnimPlayerDownIdle L"anim\\PlayerDownIdle.anim"
 #define AnimPlayerUp L"anim\\PlayerUp.anim"
 #define AnimPlayerCrawl L"anim\\PlayerCrawl.anim"
+#define AnimPlayerThrow L"anim\\PlayerThrow.anim"
 #define AnimSnakeIdle L"anim\\SnakeIdle.anim"
 #define AnimSnakeWalk L"anim\\SnakeWalk.anim"
 #define AnimSnakeAttack L"anim\\SnakeAttack.anim"

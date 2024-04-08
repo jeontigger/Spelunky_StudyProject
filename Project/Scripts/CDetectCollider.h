@@ -10,7 +10,7 @@ public:
     CGameObject* GetParent() { return m_parent; }
     void SetName(const string& _name);
 
-private:
+protected:
     int m_iTileCnt;
     int m_iPlayerCnt;
 
