@@ -9,6 +9,9 @@ private:
     Vec2 m_OriginColliderPos;
     Vec2 m_OriginColliderScale;
 
+    Vec3 m_vChangeSocketPos;
+    Vec3 m_vOriginSocketPos;
+
     float m_fCrawlingSpeed;
     float m_fOriginSpeed;
 

@@ -17,19 +17,24 @@ private:
 private:
     PlayerKey InputKey;
 
-public:
-    PlayerKey GetInputKeys() { return InputKey; }
-    void SetInputKey(PlayerKey _key) { InputKey = _key; }
-
-private:
     Vec3 m_vPrevPos;
     Vec3 m_vCurPos;
     Vec3 m_vSocketPos;
 
 public:
+    PlayerKey GetInputKeys() { return InputKey; }
+    void SetInputKey(PlayerKey _key) { InputKey = _key; }
+
+    Vec3 GetSocketPos() { return m_vSocketPos; }
+    void SetSocketPos(Vec3 _pos) { m_vSocketPos = _pos; }
+
+public:
     bool IsMoving();
     bool IsHandling();
     Vec3 GetItemSocketPos();
+
+    void HandOn(CGameObject* item);
+    void PutDown();
 
 public:
     virtual void Hit(int _damage) override;
@@ -48,15 +53,13 @@ public:
     virtual void LoadFromFile(FILE* _File) override {};
     virtual void LoadFromFile(ifstream& fin) override {};
 
-    CLONE(CPlayerScript);
 public:
+    CLONE(CPlayerScript);
     CPlayerScript();
     ~CPlayerScript();
 
     friend class CPlayerIdleState;
     friend class CPlayerDownState;
 
-private:
-    void HandOn(CGameObject* item);
 };
 

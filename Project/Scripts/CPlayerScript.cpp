@@ -27,6 +27,14 @@ void CPlayerScript::HandOn(CGameObject* item)
 	m_HandleItem->SetPlayerScript(this);
 }
 
+void CPlayerScript::PutDown()
+{
+	if (!m_HandleItem) return;
+
+	m_HandleItem->PutDown();
+	m_HandleItem = nullptr;
+}
+
 void CPlayerScript::Hit(int _damage)
 {
 	CCharacterScript::Hit(_damage);
@@ -125,7 +133,12 @@ void CPlayerScript::Overlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCol
 		auto state = StateMachine()->GetFSM()->GetCurState();
 		if (state->GetStateType() == (UINT)STATE_TYPE::PLAYERDOWNSTATE) {
 			if (KEY_TAP(InputKey.Attack)) {
-				HandOn(_OtherObj);
+				if (!IsHandling()) {
+					HandOn(_OtherObj);
+				}
+				else {
+					PutDown();
+				}
 			}
 		}
 	}

@@ -16,6 +16,7 @@ CPlayerDownState::CPlayerDownState()
 	, m_ChangeColliderPos(0.f, -0.2f)
 	, m_ChangeColliderScale(1.3f, 0.5f)
 	, m_fCrawlingSpeed(1.5f)
+	, m_vChangeSocketPos(20.f, -40.f, HandleZ)
 {
 
 }
@@ -109,6 +110,9 @@ void CPlayerDownState::Enter()
 	if (m_Script->IsMoving()) {
 		m_Player->Animator2D()->Play(AnimPlayerCrawl);
 	}
+
+	m_vOriginSocketPos = m_Script->GetSocketPos();
+	m_Script->SetSocketPos(m_vChangeSocketPos);
 }
 
 void CPlayerDownState::Exit()
@@ -125,4 +129,6 @@ void CPlayerDownState::Exit()
 	stage->GetMainCamera()->GetScript<CCameraMovement>()->SetTarget(player);
 
 	m_Script->SetSpeed(m_fOriginSpeed);
+
+	m_Script->SetSocketPos(m_vOriginSocketPos);
 }

@@ -8,6 +8,20 @@ void CItem::SetPlayerScript(CPlayerScript* _script)
 	m_PlayerScript = _script;
 }
 
+void CItem::PutDown()
+{
+	Vec3 pos = GetOwner()->Transform()->GetRelativePos();
+	if (m_PlayerScript->IsLookRight()) {
+		pos.x += 20.f;
+	}
+	else {
+		pos.x -= 20.f;
+	}
+	GetOwner()->Transform()->SetRelativePos(pos);
+
+	m_PlayerScript = nullptr;
+}
+
 void CItem::tick()
 {
 	CFieldObject::tick();
