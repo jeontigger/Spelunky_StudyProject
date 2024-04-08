@@ -6,11 +6,6 @@ class CCharacterScript
 	: public CFieldObject
 {
 protected:
-	class CDetectCollider* m_BackCollider;
-	class CDetectCollider* m_FrontCollider;
-	class CDetectCollider* m_TopCollider;
-
-protected:
 	CharacterInfo m_tInfo;
 
 public:
@@ -31,7 +26,7 @@ protected:
 	bool m_bMoveBack;
 
 public:
-	void Stop() { m_bMoveFront = false; m_bMoveBack = false;  m_vVelocity.x = 0.f; }
+	void Stop() { CFieldObject::Stop(); m_bMoveFront = false; m_bMoveBack = false; }
 	bool IsLookRight();
 	void TurnLeft();
 	void TurnRight();

@@ -69,6 +69,8 @@ void CFieldObject::tick()
 }
 
 #include "CGroundCollider.h"
+#include "CWallCollider.h"
+#include "CCeilCollider.h"
 
 void CFieldObject::begin()
 {
@@ -87,6 +89,26 @@ void CFieldObject::begin()
 	GetOwner()->AddChild(obj);
 	GamePlayStatic::SpawnGameObject(obj, DetectColliderLayer);
 
+	m_BackCollider = new CWallCollider;
+	obj = new CGameObject;
+	obj->AddComponent(m_BackCollider);
+	m_BackCollider->Set(GetOwner(), Vec3(ColliderCenterPos.x - ColliderScale.x / 2.f - 1.f, ColliderCenterPos.y, ownerZ), Vec3(0, ColliderScale.y * 0.9, 1));
+	GetOwner()->AddChild(obj);
+	GamePlayStatic::SpawnGameObject(obj, DetectColliderLayer);
+
+	m_FrontCollider = new CWallCollider;
+	obj = new CGameObject;
+	obj->AddComponent(m_FrontCollider);
+	m_FrontCollider->Set(GetOwner(), Vec3(ColliderCenterPos.x + ColliderScale.x / 2.f + 1.f, ColliderCenterPos.y, ownerZ), Vec3(0, ColliderScale.y * 0.9, 1));
+	GetOwner()->AddChild(obj);
+	GamePlayStatic::SpawnGameObject(obj, DetectColliderLayer);
+
+	m_TopCollider = new CCeilCollider;
+	obj = new CGameObject;
+	obj->AddComponent(m_TopCollider);
+	m_TopCollider->Set(GetOwner(), Vec3(ColliderCenterPos.x, ColliderCenterPos.y + ColliderScale.y / 2.f + 1.f, ownerZ), Vec3(ColliderScale.x * 0.95, 1, 1));
+	GetOwner()->AddChild(obj);
+	GamePlayStatic::SpawnGameObject(obj, DetectColliderLayer);
 }
 
 void CFieldObject::skill(Vec2 _force)

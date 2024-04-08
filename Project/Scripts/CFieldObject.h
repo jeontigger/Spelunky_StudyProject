@@ -7,6 +7,9 @@ class CFieldObject :
 {
 protected:
     class CDetectCollider* m_ButtomCollider;
+    class CDetectCollider* m_BackCollider;
+    class CDetectCollider* m_FrontCollider;
+    class CDetectCollider* m_TopCollider;
 
 private:
     bool isPlayer;
@@ -36,6 +39,7 @@ public:
     inline void SetGravity(float _gravity) { m_fGravity = _gravity; }
     inline float GetGravity() { return m_fGravity; }
 
+    void Stop() { m_vVelocity.x = 0.f; }
     inline bool IsMove() { return m_fGravity != 0.f; }
 
     inline void SetGround(bool _b) { m_bGround = _b; }

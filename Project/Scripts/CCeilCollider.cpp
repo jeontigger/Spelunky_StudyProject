@@ -10,7 +10,7 @@ CCeilCollider::~CCeilCollider()
 {
 }
 
-#include "CCharacterScript.h"
+#include "CFieldObject.h"
 #include "CTile.h"
 
 void CCeilCollider::BeginOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCollider2D* _OtherCollider)
@@ -20,7 +20,7 @@ void CCeilCollider::BeginOverlap(CCollider2D* _Collider, CGameObject* _OtherObj,
 		TileType type = script->GetTileType();
 		if (type == TileType::Door || type == TileType::Ladder || type == TileType::LadderHalf || type == TileType::Half || type == TileType::Spike) return;
 		
-		CCharacterScript* script = m_parent->GetScript<CCharacterScript>();
+		CFieldObject* script = m_parent->GetScript<CFieldObject>();
 		Vec2 vel = script->GetVelocity();
 		vel.y = -(abs(vel.y));
 		script->SetVelocity(vel);
