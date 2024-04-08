@@ -24,7 +24,7 @@ void CPlayerFallDownState::finaltick()
 		}
 		// ´øÁö±â
 		else {
-			m_Script->Skill();
+			ChangeState(StatePlayerThrow);
 		}
 	}
 

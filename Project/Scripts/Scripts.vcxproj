@@ -179,6 +179,7 @@ call CodeGen.exe</Command>
     <ClInclude Include="CPlayerScript.h" />
     <ClInclude Include="CPlayerStartState.h" />
     <ClInclude Include="CPlayerDownState.h" />
+    <ClInclude Include="CPlayerThrowState.h" />
     <ClInclude Include="CPlayerWalkState.h" />
     <ClInclude Include="CRandomMgr.h" />
     <ClInclude Include="CRock.h" />
@@ -225,6 +226,7 @@ call CodeGen.exe</Command>
     <ClCompile Include="CPlayerScript.cpp" />
     <ClCompile Include="CPlayerStartState.cpp" />
     <ClCompile Include="CPlayerDownState.cpp" />
+    <ClCompile Include="CPlayerThrowState.cpp" />
     <ClCompile Include="CPlayerWalkState.cpp" />
     <ClCompile Include="CRandomMgr.cpp" />
     <ClCompile Include="CRock.cpp" />

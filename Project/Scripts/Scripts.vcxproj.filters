@@ -133,6 +133,9 @@
     <ClInclude Include="CPlayerWalkState.h">
       <Filter>08. States\Player\Walk</Filter>
     </ClInclude>
+    <ClInclude Include="CPlayerThrowState.h">
+      <Filter>08. States\Player\Throw</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -252,6 +255,9 @@
     <ClCompile Include="CPlayerWalkState.cpp">
       <Filter>08. States\Player\Walk</Filter>
     </ClCompile>
+    <ClCompile Include="CPlayerThrowState.cpp">
+      <Filter>08. States\Player\Throw</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="00. Default">
@@ -355,6 +361,9 @@
     </Filter>
     <Filter Include="08. States\Player\Jump">
       <UniqueIdentifier>{732f2fe3-0123-4b7a-8e22-8e536d62c3d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="08. States\Player\Throw">
+      <UniqueIdentifier>{8eb7e97e-61cb-46c2-86b9-e152a216c8c2}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

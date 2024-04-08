@@ -40,7 +40,7 @@ void CPlayerIdleState::finaltick()
 		}
 		// ´øÁö±â
 		else {
-			m_PlayerScript->Skill();
+			ChangeState(StatePlayerThrow);
 		}
 	}
 

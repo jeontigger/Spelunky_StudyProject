@@ -42,6 +42,7 @@
 #define StatePlayerJumpUp L"CPlayerJumpUpState"
 #define StatePlayerFallDown L"CPlayerFallDownState"
 #define StatePlayerWalk L"CPlayerWalkState"
+#define StatePlayerThrow L"CPlayerThrowState"
 
 
 #define StateEndSymbol "STATE_END"
