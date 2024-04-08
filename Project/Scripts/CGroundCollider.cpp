@@ -73,7 +73,7 @@ void CGroundCollider::EndOverlap(CCollider2D* _Collider, CGameObject* _OtherObj,
 		float prevObjUnderY = objUnderY - velY * DT;
 		float TileTopY = TileColPos.y + TileColScale.y / 2.f;
 
-		if (velY >= 0) {
+		if (velY >= -0.2f) {
 			if (!DetectTile()) {
 				m_parent->GetScript<CFieldObject>()->SetGround(false);
 			}
