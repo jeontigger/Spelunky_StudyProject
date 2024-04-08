@@ -12,7 +12,7 @@ enum KEY
 	A, S, D, F, G, H, J, K, L,
 	Z, X, C, V, B, N, M,
 
-	F1, F2, F3,
+	F1, F2, F3, F4, F5, F6,
 
 	TAB, LSHIFT, LALT, LCTRL, SPACE,
 	ESC, ENTER, BACK, DEL,

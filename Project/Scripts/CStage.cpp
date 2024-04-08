@@ -118,6 +118,7 @@ CStage::CStage()
 		m_MainCamera->Camera()->SetScale(CameraNormalScale);
 
 		m_MainCamera->Transform()->SetRelativePos(Vec3(TileBlockScaleX / 2.f, -TileBlockScaleY / 2.f, 0.f));
+
 	}
 	CTileMgr::GetInst()->Init();
 }
