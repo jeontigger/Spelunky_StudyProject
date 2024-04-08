@@ -20,6 +20,7 @@ private:
     Vec3 m_vPrevPos;
     Vec3 m_vCurPos;
     Vec3 m_vSocketPos;
+    Vec2 m_Force;
 
 public:
     PlayerKey GetInputKeys() { return InputKey; }
@@ -38,6 +39,7 @@ public:
 
 public:
     virtual void Hit(int _damage) override;
+    virtual void Skill();
 
 public:
     virtual void begin() override;

@@ -11,6 +11,7 @@ CPlayerScript::CPlayerScript()
 	, InputKey()
 	, m_fInvincibility(1.f)
 	, m_vSocketPos(25.f, -22.f, 0.f)
+	, m_Force(3.f, 5.f)
 {
 	SetSpeed(6.f);
 	SetHealth(50);
@@ -42,6 +43,16 @@ void CPlayerScript::Hit(int _damage)
 	m_HitCollider->Collider2D()->Activate(false);
 
 	m_fInvincibilityTimer = m_fInvincibility;
+}
+
+void CPlayerScript::Skill()
+{
+	Vec2 force = m_Force;
+	if (!IsLookRight())
+		force.x = -m_Force.x;
+	m_HandleItem->skill(force);
+	m_HandleItem->OutPlayerScript();
+	m_HandleItem = nullptr;
 }
 
 #include "CPlayerStartState.h"

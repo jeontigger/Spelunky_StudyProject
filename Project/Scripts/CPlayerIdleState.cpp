@@ -19,7 +19,7 @@ void CPlayerIdleState::finaltick()
 {
 	PlayerKey input = m_PlayerScript->GetInputKeys();
 
-	
+	// 점프
 	if (KEY_PRESSED(input.Jump)) { 
 		if (*(float*)GetBlackboardData(BBJumpDelay) < 0.f) {
 			if (m_PlayerScript->IsGrounded())
@@ -27,6 +27,24 @@ void CPlayerIdleState::finaltick()
 		}
 	}
 
+	// 아래 보기
+	if (KEY_PRESSED(input.LookDown)) {
+		ChangeState(StatePlayerDown);
+	}
+	
+	// 공격
+	if (KEY_TAP(input.Attack)) {
+		// 채찍
+		if (!m_PlayerScript->IsHandling()) {
+
+		}
+		// 던지기
+		else {
+			m_PlayerScript->Skill();
+		}
+	}
+
+	// 움직임
 	if (KEY_TAP(m_PlayerScript->GetInputKeys().MoveLeft)) {
 		m_PlayerScript->TurnLeft();
 	}
@@ -51,11 +69,6 @@ void CPlayerIdleState::finaltick()
 	}
 	else {
 		m_PlayerScript->Stop();
-	}
-
-
-	if (KEY_PRESSED(input.LookDown)) {
-		ChangeState(StatePlayerDown);
 	}
 
 }

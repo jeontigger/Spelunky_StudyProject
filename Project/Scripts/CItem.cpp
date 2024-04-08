@@ -8,6 +8,11 @@ void CItem::SetPlayerScript(CPlayerScript* _script)
 	m_PlayerScript = _script;
 }
 
+void CItem::OutPlayerScript()
+{
+	m_PlayerScript = nullptr;
+}
+
 void CItem::PutDown()
 {
 	Vec3 pos = GetOwner()->Transform()->GetRelativePos();
@@ -18,7 +23,7 @@ void CItem::PutDown()
 		pos.x -= 20.f;
 	}
 	GetOwner()->Transform()->SetRelativePos(pos);
-
+	SetVelocity(Vec2(0, 0));
 	m_PlayerScript = nullptr;
 }
 
@@ -37,6 +42,7 @@ void CItem::tick()
 CItem::CItem(UINT type)
 	:CFieldObject(type)
 {
+	SetVelocity(Vec2(0, 0));
 }
 
 CItem::~CItem()

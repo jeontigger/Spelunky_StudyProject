@@ -8,6 +8,7 @@ private:
 
 public:
     void SetPlayerScript(CPlayerScript* _player);
+    void OutPlayerScript();
     void PutDown();
 
 public:

@@ -9,6 +9,7 @@ CFieldObject::CFieldObject(UINT type)
 	, m_fMass(1.f)
 	, isPlayer(false)
 	, m_bGround(false)
+	, m_fFriction(3.f)
 {
 
 }
@@ -39,6 +40,19 @@ void CFieldObject::tick()
 
 	m_vPos.x += m_vVelocity.x * TileScaleX * DT;
 	m_vPos.y += m_vVelocity.y * TileScaleX * DT;
+
+	if (m_vVelocity.x > 0) {
+		m_vVelocity -= m_fFriction * DT;
+		if (m_vVelocity.x <= 0) {
+			m_vVelocity.x = 0;
+		}
+	}
+	else if (m_vVelocity.x < 0) {
+		m_vVelocity += m_fFriction * DT;
+		if (m_vVelocity.x >= 0) {
+			m_vVelocity.x = 0;
+		}
+	}
 	Transform()->SetRelativePos(m_vPos);
 }
 
@@ -65,7 +79,8 @@ void CFieldObject::begin()
 
 void CFieldObject::skill(Vec2 _force)
 {
-	AddVelocity(_force);
+	SetGround(false);
+	SetVelocity(_force);
 }
 
 #include "CTile.h"

@@ -17,6 +17,7 @@ public:
 protected:
     float m_fMass;
     float m_fGravity;
+    float m_fFriction;
     Vec3 m_vPos;
     Vec3 m_vPrevPos;
     Vec2 m_vVelocity;

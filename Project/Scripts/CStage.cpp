@@ -464,7 +464,6 @@ void CStage::PlayerSetting()
 	m_MainCamera->GetScript<CCameraMovement>()->SetTarget(m_Player);
 }
 
-
 void CStage::tick()
 {
 	CLevel::tick();
