@@ -11,7 +11,9 @@ CPlayerScript::CPlayerScript()
 	, InputKey()
 	, m_fInvincibility(1.f)
 	, m_vSocketPos(25.f, -22.f, 0.f)
-	, m_Force(6.f, 8.f)
+	, m_UpForce(6.f, 8.f)
+	, m_FrontForce(6.f, 5.f)
+	, m_DownForce(6.f, -2.f)
 {
 	SetSpeed(6.f);
 	SetHealth(50);
@@ -47,9 +49,18 @@ void CPlayerScript::Hit(int _damage)
 
 void CPlayerScript::Skill()
 {
-	Vec2 force = m_Force;
+	Vec2 force;
+	if (KEY_PRESSED(InputKey.LookUp)) {
+		force = m_UpForce;
+	}
+	else if (KEY_PRESSED(InputKey.LookDown)) {
+		force = m_DownForce;
+	}
+	else {
+		force = m_FrontForce;
+	}
 	if (!IsLookRight())
-		force.x = -m_Force.x;
+		force.x = -force.x;
 
 	force += GetVelocity();
 	m_HandleItem->skill(force);

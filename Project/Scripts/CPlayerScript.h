@@ -20,7 +20,9 @@ private:
     Vec3 m_vPrevPos;
     Vec3 m_vCurPos;
     Vec3 m_vSocketPos;
-    Vec2 m_Force;
+    Vec2 m_FrontForce;
+    Vec2 m_UpForce;
+    Vec2 m_DownForce;
 
 public:
     PlayerKey GetInputKeys() { return InputKey; }
