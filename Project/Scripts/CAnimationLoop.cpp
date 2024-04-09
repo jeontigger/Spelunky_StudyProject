@@ -29,7 +29,9 @@ void CAnimationLoop::PlayFront()
 		anim->SetName(animName);
 		Animator2D()->AddAnim(anim);
 	}
-	Animator2D()->Play(animName);
+	Animator2D()->Play(animName, false);
+
+	m_listWait.pop_front();
 }
 
 void CAnimationLoop::Set(const wstring& _animName, int _loopCnt)
@@ -39,6 +41,22 @@ void CAnimationLoop::Set(const wstring& _animName, int _loopCnt)
 	}
 }
 
+CGameObject* CAnimationLoop::Instantiate()
+{
+	CGameObject* obj = new CGameObject;
+	obj->AddComponent(new CTransform);
+	obj->AddComponent(new CCollider2D);
+	obj->AddComponent(new CAnimator2D);
+	obj->AddComponent(new CMeshRender);
+	obj->AddComponent(new CAnimationLoop);
+	obj->SetName(L"AnimationLoopObject");
+
+	obj->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
+	obj->MeshRender()->SetMaterial(CAssetMgr::GetInst()->FindAsset<CMaterial>(L"Std2DMtrl"));
+
+	return obj;
+}
+
 void CAnimationLoop::begin()
 {
 	PlayFront();
@@ -46,12 +64,13 @@ void CAnimationLoop::begin()
 
 void CAnimationLoop::tick()
 {
-	if (m_listWait.size() == 0 && Animator2D()->GetCurAnim()->IsFinish()) {
-		GamePlayStatic::DestroyGameObject(GetOwner());
-	}
-
 	if (Animator2D()->GetCurAnim()->IsFinish()) {
-		PlayFront();
+		if (m_listWait.size() == 0) {
+			GamePlayStatic::DestroyGameObject(GetOwner());
+		}
+		else {
+			PlayFront();
+		}
 	}
 }
 

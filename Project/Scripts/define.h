@@ -30,6 +30,7 @@
 #define MonsterHitLayer 10
 #define ItemLayer 11
 #define PlayerAttackLayer 12
+#define AnimationPlaylayer 13
 #define UILayer 31
 
 #define RandomAccuracy 100

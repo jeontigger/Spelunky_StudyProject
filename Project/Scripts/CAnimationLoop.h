@@ -17,6 +17,9 @@ public:
             m_listWait.push_back(str);
         }
     }
+
+public:
+    static CGameObject* Instantiate();
     
 public:
     virtual void begin() override;

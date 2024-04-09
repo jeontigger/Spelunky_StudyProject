@@ -7,6 +7,7 @@
 #include "CPlayerScript.h"
 #include "CCameraMovement.h"
 #include "CStage.h"
+#include "CAnimationLoop.h"
 
 
 CBomb::CBomb()
@@ -27,6 +28,11 @@ void CBomb::Bomb()
 {
 	GamePlayStatic::DestroyGameObject(GetOwner());
 	((CStage*)CLevelMgr::GetInst()->GetCurrentLevel())->GetMainCamera()->GetScript<CCameraMovement>()->Shake(0.3, 20);
+	CGameObject* obj = CAnimationLoop::Instantiate();
+	obj->Transform()->SetRelativePos(Transform()->GetRelativePos());
+	obj->GetScript<CAnimationLoop>()->Set({ wstring(AnimPlayerWalk), wstring(AnimPlayerAttack) });
+	obj->Transform()->SetRelativeScale(Transform()->GetRelativeScale());
+	GamePlayStatic::SpawnGameObject(obj, ItemLayer);
 }
 
 void CBomb::tick()
@@ -46,7 +52,7 @@ void CBomb::tick()
 		GetOwner()->Transform()->SetRelativeScale(m_vOriginScale*1.2);
 	}
 
-	if (m_fBombTimer < 0) {
+	if (m_fBombTimer < 0 && !GetOwner()->IsDead()) {
 		Bomb();
 	}
 
