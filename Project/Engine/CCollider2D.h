@@ -34,6 +34,7 @@ public:
     void SetOffsetScale(Vec2 _vOffsetScale) { m_vOffsetScale = Vec3(_vOffsetScale.x, _vOffsetScale.y, 1.f); }
     void SetColliderType(COLLIDER2D_TYPE _Type) { m_Type = _Type; }
     void SetRadius(float _radius) { m_fRadius = _radius; }
+    float GetRadius() { return m_fRadius; }
 
     bool IsAbsolute() { return m_bAbsolute; }
     Vec2 GetOffsetPos() { return Vec2(m_vOffsetPos.x, m_vOffsetPos.y); }

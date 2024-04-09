@@ -588,7 +588,8 @@ namespace DirectX
             Vector3 Translation() const { return Vector3(_41, _42, _43); }
             void Translation(const Vector3& v) { _41 = v.x; _42 = v.y; _43 = v.z; }
 
-            Vector3 Pos() { return Vector3(_41, _42, _43); }
+            Vector3 Pos() const { return Vector3(_41, _42, _43); }
+            Vector3 Pos(Matrix& result) const { return Vector3(result._41, result._42, result._43); }
             Vector3 Scale() { return Vector3(_11, _22, _33); }
 
             // Matrix operations

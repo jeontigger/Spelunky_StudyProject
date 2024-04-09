@@ -134,6 +134,29 @@ bool CCollisionMgr::CollisionBtwCollider(CCollider2D* _pLeft, CCollider2D* _pRig
 	const Matrix& matLeft = _pLeft->GetColliderWorldMat();
 	const Matrix& matRight = _pRight->GetColliderWorldMat();
 
+	if (_pLeft->GetType() == COLLIDER2D_TYPE::CIRCLE || _pRight->GetType() == COLLIDER2D_TYPE::CIRCLE) {
+		if (_pLeft->GetType() == COLLIDER2D_TYPE::RECT) {
+			auto temp = _pRight;
+			_pRight = _pLeft;
+			_pLeft = temp;
+		}
+		float minScale = min(_pRight->GetOffsetScale().x, _pRight->GetOffsetScale().y);
+		Vec3 vRightPos = matRight.Pos();
+		Vec3 vLeftPos = matLeft.Pos();
+
+		vRightPos.z = 0;
+		vLeftPos.z = 0;
+
+		float distance = Vec3::Distance(vLeftPos, vRightPos);
+
+		if (distance < _pLeft->GetRadius() + minScale) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
 	// Rect Local
 	// 0 -- 1
 	// |    |
