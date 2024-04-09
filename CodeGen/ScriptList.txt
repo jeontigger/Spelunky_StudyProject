@@ -17,3 +17,4 @@ CWhip
 CUI
 CBomb
 CAnimationLoop
+CBombExplosion

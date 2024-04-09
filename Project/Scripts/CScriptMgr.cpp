@@ -20,6 +20,7 @@
 #include "CUI.h"
 #include "CBomb.h"
 #include "CAnimationLoop.h"
+#include "CBombExplosion.h"
 
 void CScriptMgr::GetScriptInfo(vector<wstring>& _vec)
 {
@@ -42,6 +43,7 @@ void CScriptMgr::GetScriptInfo(vector<wstring>& _vec)
 	_vec.push_back(L"CUI");
 	_vec.push_back(L"CBomb");
 	_vec.push_back(L"CAnimationLoop");
+	_vec.push_back(L"CBombExplosion");
 }
 
 CScript * CScriptMgr::GetScript(const wstring& _strScriptName)
@@ -84,6 +86,8 @@ CScript * CScriptMgr::GetScript(const wstring& _strScriptName)
 		return new CBomb;
 	if (L"CAnimationLoop" == _strScriptName)
 		return new CAnimationLoop;
+	if (L"CBombExplosion" == _strScriptName)
+		return new CBombExplosion;
 	return nullptr;
 }
 
@@ -147,6 +151,9 @@ CScript * CScriptMgr::GetScript(UINT _iScriptType)
 		break;
 	case (UINT)SCRIPT_TYPE::ANIMATIONLOOP:
 		return new CAnimationLoop;
+		break;
+	case (UINT)SCRIPT_TYPE::BOMBEXPLOSION:
+		return new CBombExplosion;
 		break;
 	}
 	return nullptr;
@@ -230,6 +237,10 @@ const wchar_t * CScriptMgr::GetScriptName(CScript * _pScript)
 
 	case SCRIPT_TYPE::ANIMATIONLOOP:
 		return L"CAnimationLoop";
+		break;
+
+	case SCRIPT_TYPE::BOMBEXPLOSION:
+		return L"CBombExplosion";
 		break;
 
 	}

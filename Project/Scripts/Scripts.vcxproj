@@ -165,6 +165,7 @@ call CodeGen.exe</Command>
   <ItemGroup>
     <ClInclude Include="CAnimationLoop.h" />
     <ClInclude Include="CBomb.h" />
+    <ClInclude Include="CBombExplosion.h" />
     <ClInclude Include="CCameraMovement.h" />
     <ClInclude Include="CBackgroundScript.h" />
     <ClInclude Include="CCeilCollider.h" />
@@ -217,6 +218,7 @@ call CodeGen.exe</Command>
   <ItemGroup>
     <ClCompile Include="CAnimationLoop.cpp" />
     <ClCompile Include="CBomb.cpp" />
+    <ClCompile Include="CBombExplosion.cpp" />
     <ClCompile Include="CCameraMovement.cpp" />
     <ClCompile Include="CBackgroundScript.cpp" />
     <ClCompile Include="CCeilCollider.cpp" />

@@ -24,6 +24,7 @@ enum class SCRIPT_TYPE
 	UI,
 	BOMB,
 	ANIMATIONLOOP,
+	BOMBEXPLOSION,
 	END,
 };
 

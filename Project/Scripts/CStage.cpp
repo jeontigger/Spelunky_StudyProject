@@ -574,9 +574,11 @@ void CStage::begin()
 
 	CCollisionMgr::GetInst()->LayerCheck(PlayerAttackLayer, MonsterLayer);
 	CCollisionMgr::GetInst()->LayerCheck(PlayerAttackLayer, ItemLayer);
+	CCollisionMgr::GetInst()->LayerCheck(ItemLayer, ItemLayer);
 
 
 	CTileMgr::GetInst()->CheckLayer(DetectColliderLayer);
+	CTileMgr::GetInst()->CheckLayer(ItemLayer);
 
 	if (test) {
 		m_arrTileBlocks[0][0].SetBlockType(TileBlockType::Normal);

@@ -151,6 +151,9 @@
     <ClInclude Include="CAnimationLoop.h">
       <Filter>02. Scripts\Once</Filter>
     </ClInclude>
+    <ClInclude Include="CBombExplosion.h">
+      <Filter>02. Scripts\Item</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -287,6 +290,9 @@
     </ClCompile>
     <ClCompile Include="CAnimationLoop.cpp">
       <Filter>02. Scripts\Once</Filter>
+    </ClCompile>
+    <ClCompile Include="CBombExplosion.cpp">
+      <Filter>02. Scripts\Item</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -24,6 +24,8 @@ CBomb::~CBomb()
 {
 }
 
+#include "CBombExplosion.h"
+
 void CBomb::Bomb()
 {
 	GamePlayStatic::DestroyGameObject(GetOwner());
@@ -33,7 +35,7 @@ void CBomb::Bomb()
 	obj->GetScript<CAnimationLoop>()->Set({ wstring(AnimBombExplosion)});
 	obj->Transform()->SetRelativeScale(Vec3(128 * 3, 128 * 3, 0));
 	obj->Collider2D()->SetColliderType(COLLIDER2D_TYPE::CIRCLE);
-	obj->Collider2D()->SetRadius(128 * 1.8);
+	obj->AddComponent(new CBombExplosion);
 	GamePlayStatic::SpawnGameObject(obj, ItemLayer);
 }
 
