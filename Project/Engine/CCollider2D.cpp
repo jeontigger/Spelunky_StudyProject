@@ -13,6 +13,7 @@ CCollider2D::CCollider2D()
 	, m_bAbsolute(false)
 	, m_Type(COLLIDER2D_TYPE::RECT)
 	, m_bActive(true)
+	, m_fRadius(1.f)
 {
 }
 
@@ -24,6 +25,7 @@ CCollider2D::CCollider2D(const CCollider2D& _OriginCollider2D)
 	, m_bAbsolute(_OriginCollider2D.m_bAbsolute)
 	, m_Type(_OriginCollider2D.m_Type)
 	, m_bActive(true)
+	, m_fRadius(1.f)
 {
 }
 
@@ -70,14 +72,28 @@ void CCollider2D::finaltick()
 	// 충돌중이면 Red, 충돌하고 있지 않으면 Green
 	if (CRenderMgr::GetInst()->IsDebugPosition() == false)
 		return;
-	if (0 == m_CollisionCount)
-	{
-		GamePlayStatic::DrawDebugRect(m_matColWorld, Vec3(0.f, 1.f, 0.f), false);
+	if (m_Type == COLLIDER2D_TYPE::RECT) {
+		if (0 == m_CollisionCount)
+		{
+			GamePlayStatic::DrawDebugRect(m_matColWorld, Vec3(0.f, 1.f, 0.f), false);
+		}
+		else
+		{
+			GamePlayStatic::DrawDebugRect(m_matColWorld, Vec3(1.f, 0.f, 0.f), false);
+		}
 	}
-	else
-	{
-		GamePlayStatic::DrawDebugRect(m_matColWorld, Vec3(1.f, 0.f, 0.f), false);
+	else {
+		if (0 == m_CollisionCount)
+		{
+			GamePlayStatic::DrawDebugCircle(m_matColWorld.Pos(), m_fRadius, Vec3(0.f, 1.f, 0.f), false);
+		}
+		else
+		{
+			GamePlayStatic::DrawDebugCircle(m_matColWorld.Pos(), m_fRadius, Vec3(1.f, 0.f, 0.f), false);
+		}
 	}
+
+	
 }
 
 void CCollider2D::BeginOverlap(CCollider2D* _OtherCollider)

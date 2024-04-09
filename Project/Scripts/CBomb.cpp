@@ -32,6 +32,8 @@ void CBomb::Bomb()
 	obj->Transform()->SetRelativePos(Transform()->GetRelativePos());
 	obj->GetScript<CAnimationLoop>()->Set({ wstring(AnimBombExplosion)});
 	obj->Transform()->SetRelativeScale(Vec3(128 * 3, 128 * 3, 0));
+	obj->Collider2D()->SetColliderType(COLLIDER2D_TYPE::CIRCLE);
+	obj->Collider2D()->SetRadius(128 * 1.8);
 	GamePlayStatic::SpawnGameObject(obj, ItemLayer);
 }
 
