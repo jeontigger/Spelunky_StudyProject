@@ -10,6 +10,9 @@
 #define OutlineWallKey L"prefab\\OutlineWall.pref"
 #define SnakePrefKey L"prefab\\Snake.pref"
 #define RockPrefKey L"prefab\\Rock.pref"
+#define HUDBombPrefKey L"prefab\\HUDBomb.pref"
+#define HUDHeartPrefKey L"prefab\\HUDHeart.pref"
+#define HUDRopePrefKey L"prefab\\HUDRope.pref"
 
 #define BBOwnerKey L"Owner"
 #define BBJumpDelay L"JumpDelay"
@@ -41,6 +44,10 @@
 #define AnimSnakeWalk L"anim\\SnakeWalk.anim"
 #define AnimSnakeAttack L"anim\\SnakeAttack.anim"
 #define AnimRock L"anim\\Rock.anim"
+
+#define AnimHUDHeart L"anim\\HUDHeart.anim"
+#define AnimHUDBomb L"anim\\HUDBomb.anim"
+#define AnimHUDRope L"anim\\HUDRope.anim"
 
 #define StatePlayerIdle L"CPlayerIdleState"
 #define StatePlayerDown L"CPlayerDownState"

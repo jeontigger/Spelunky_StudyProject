@@ -21,6 +21,7 @@ enum class SCRIPT_TYPE
 	ROCK,
 	PLAYERSCRIPT,
 	WHIP,
+	UI,
 	END,
 };
 

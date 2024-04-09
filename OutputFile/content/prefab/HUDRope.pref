@@ -1,0 +1,25 @@
+HUDRope
+0
+0 0 0
+80 80 1
+0 0 0
+1
+3
+1
+anim\HUDRope.anim
+1
+0.125 0.125 0.375 0.125 0 0 0.125 0.125 0.0625
+1
+texture\atlas\hud.png
+0
+texture\atlas\hud.png
+9
+1
+RectMesh
+1
+1
+Std2DMtrl
+1
+15
+1
+CUI

@@ -32,7 +32,7 @@
 #define DMtrlSetScalar(type, value) MeshRender()->GetDynamicMaterial()->SetScalarParam(SCALAR_PARAM::type, value);
 #define DMtrlSetTex(type, value) MeshRender()->GetDynamicMaterial()->SetTexParam(TEX_PARAM::type, value);
 
-#define CameraNormalScale 1
+#define CameraNormalScale 1.2
 #define CameraMapGeneratingScale 6
 
 #define MapGenShaderPath L"shader\\MapGeneratorBlock.fx"

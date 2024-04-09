@@ -5,6 +5,7 @@
 #include <Engine/CLevelMgr.h>
 #include <Engine/CGameObject.h>
 #include <Engine/components.h>
+#include <Engine/CDevice.h>
 
 #include	<Scripts/CStage.h>
 #include <Scripts/CStagePack.h>
@@ -59,6 +60,7 @@ void CLevelGenerator::Init()
 	LoadTempLevel();
 }
 
+#include <Scripts/CUI.h>
 void CLevelGenerator::MakeStages()
 {
 	CStage* stage = new CStage;
@@ -75,6 +77,49 @@ void CLevelGenerator::MakeStages()
 	if (fout.is_open()) {
 		fout << "seed: " << seed << endl;
 	}
+
+	Ptr<CPrefab> prefab;
+	CGameObject* obj;
+
+	prefab = CAssetMgr::GetInst()->Load<CPrefab>(HUDHeartPrefKey, HUDHeartPrefKey);
+	obj = prefab->Instantiate();
+	stage->AddObject(obj, UILayer);
+	obj->GetScript<CUI>()->SetScreenPos(Vec2(80, 80));
+	obj->Animator2D()->Play(AnimHUDHeart);
+
+	prefab = CAssetMgr::GetInst()->Load<CPrefab>(HUDBombPrefKey, HUDBombPrefKey);
+	obj = prefab->Instantiate();
+	stage->AddObject(obj, UILayer);
+	obj->GetScript<CUI>()->SetScreenPos(Vec2(200, 80));
+	obj->Animator2D()->Play(AnimHUDBomb);
+
+	prefab = CAssetMgr::GetInst()->Load<CPrefab>(HUDRopePrefKey, HUDRopePrefKey);
+	obj = prefab->Instantiate();
+	stage->AddObject(obj, UILayer);
+	obj->GetScript<CUI>()->SetScreenPos(Vec2(320, 80));
+	obj->Animator2D()->Play(AnimHUDRope);
+
+	Vec2 resolution = CDevice::GetInst()->GetRenderResolution();
+	resolution *= stage->GetUICamera()->Camera()->GetScale();
+
+	prefab = CAssetMgr::GetInst()->Load<CPrefab>(HUDScorePrefKey, HUDScorePrefKey);
+	obj = prefab->Instantiate();
+	stage->AddObject(obj, UILayer);
+	obj->GetScript<CUI>()->SetScreenPos(Vec2((int)resolution.x - 480, 80));
+	obj->Animator2D()->Play(AnimHUDScore);
+
+	prefab = CAssetMgr::GetInst()->Load<CPrefab>(HUDTimePrefKey, HUDTimePrefKey);
+	obj = prefab->Instantiate();
+	stage->AddObject(obj, UILayer);
+	obj->GetScript<CUI>()->SetScreenPos(Vec2((int)resolution.x - 300, 80));
+	obj->Animator2D()->Play(AnimHUDTime);
+
+	prefab = CAssetMgr::GetInst()->Load<CPrefab>(HUDStagePrefKey, HUDStagePrefKey);
+	obj = prefab->Instantiate();
+	stage->AddObject(obj, UILayer);
+	obj->GetScript<CUI>()->SetScreenPos(Vec2((int)resolution.x - 120, 80));
+	obj->Animator2D()->Play(AnimHUDStage);
+		
 }
 
 CStage* CLevelGenerator::GetLevel(int _level)

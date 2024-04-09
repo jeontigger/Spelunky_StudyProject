@@ -10,3 +10,5 @@
 #define PlayerZ 100
 #define WhipFrontZ -1
 #define HandleZ 90
+
+#define UIZ 5

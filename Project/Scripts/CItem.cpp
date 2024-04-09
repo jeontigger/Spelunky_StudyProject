@@ -52,6 +52,7 @@ void CItem::BeginOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCollid
 	}
 }
 
+
 CItem::CItem(UINT type)
 	:CFieldObject(type)
 {

@@ -198,6 +198,7 @@ call CodeGen.exe</Command>
     <ClInclude Include="CTileBoundary.h" />
     <ClInclude Include="CTileChunk.h" />
     <ClInclude Include="CTileMgr.h" />
+    <ClInclude Include="CUI.h" />
     <ClInclude Include="CWallCollider.h" />
     <ClInclude Include="CWhip.h" />
     <ClInclude Include="define.h" />
@@ -247,6 +248,7 @@ call CodeGen.exe</Command>
     <ClCompile Include="CTileBoundary.cpp" />
     <ClCompile Include="CTileChunk.cpp" />
     <ClCompile Include="CTileMgr.cpp" />
+    <ClCompile Include="CUI.cpp" />
     <ClCompile Include="CWallCollider.cpp" />
     <ClCompile Include="CWhip.cpp" />
     <ClCompile Include="extern.cpp" />

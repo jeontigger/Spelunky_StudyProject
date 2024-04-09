@@ -23,6 +23,7 @@ class CStage :
 private:
     CGameObject* m_Player;
     CGameObject* m_MainCamera;
+    CGameObject* m_UICamera;
 
     // 시각화용
 private:
@@ -43,6 +44,7 @@ public:
     void SetStagePack(CStagePack* _sp) { m_SP = _sp; };
 
     CGameObject* GetMainCamera() { return m_MainCamera; }
+    CGameObject* GetUICamera() { return m_UICamera; }
 
 public:
     virtual void tick() override;

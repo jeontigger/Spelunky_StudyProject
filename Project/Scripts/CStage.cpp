@@ -20,7 +20,7 @@
 #include "CStagePack.h"
 #include "CTile.h"
 
-bool test = true;
+bool test = false;
 
 CStage::CStage()
 	: m_state(StageState::NONE)
@@ -60,7 +60,7 @@ CStage::CStage()
 	m_MainCamera->Transform()->SetRelativeRotation(Vec3(0.f, 0.f, 0.f));
 	m_MainCamera->Transform()->SetRelativeScale(Vec3(1.f, 1.f, 1.f));
 
-	m_MainCamera->Collider2D()->SetOffsetScale(Vec2(TileBlockScaleX * 1.3, TileBlockScaleY + TileScaleY));
+	m_MainCamera->Collider2D()->SetOffsetScale(Vec2(TileBlockScaleX * 1.5, TileBlockScaleY + TileScaleY));
 
 	m_MainCamera->Camera()->SetProjType(PROJ_TYPE::ORTHOGRAPHIC);
 	m_MainCamera->Camera()->SetCameraPriority(0);
@@ -68,6 +68,19 @@ CStage::CStage()
 	m_MainCamera->Camera()->LayerCheck(31, false);
 
 	AddObject(m_MainCamera, L"Camera");
+
+	m_UICamera = new CGameObject;
+	m_UICamera->SetName(L"UICamera");
+	m_UICamera->AddComponent(new CTransform);
+	m_UICamera->AddComponent(new CCamera);
+	m_UICamera->Camera()->SetScale(CameraNormalScale);
+
+	m_UICamera->Transform()->SetRelativePos(Vec3(0.5f, 9000.f, 0.f));
+	m_UICamera->Transform()->SetRelativeRotation(Vec3(0.f, 0.f, 0.f));
+
+	m_UICamera->Camera()->SetCameraPriority(1);
+	m_UICamera->Camera()->LayerCheck(31, true);
+	AddObject(m_UICamera, 0);
 
 	//Main Camera Block »ý¼º
 	pObj = new CGameObject;
