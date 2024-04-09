@@ -46,6 +46,10 @@ void CPlayerJumpUpState::finaltick()
 		ChangeState(StatePlayerFallDown);
 	}
 
+	if (KEY_TAP(m_Script->GetInputKeys().Bomb)) {
+		m_Script->Bomb();
+	}
+
 	// °ø°İ
 	if (KEY_TAP(m_Script->GetInputKeys().Attack)) {
 		// Ã¤Âï

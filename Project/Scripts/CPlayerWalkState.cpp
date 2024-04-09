@@ -43,7 +43,10 @@ void CPlayerWalkState::finaltick()
 		}
 	}
 
-	
+	if (KEY_TAP(m_Script->GetInputKeys().Bomb)) {
+		m_Script->Bomb();
+	}
+
 	if (KEY_TAP(m_Script->GetInputKeys().MoveLeft)) {
 		m_Script->TurnLeft();
 	}

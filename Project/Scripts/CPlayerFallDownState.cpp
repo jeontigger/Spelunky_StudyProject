@@ -28,6 +28,10 @@ void CPlayerFallDownState::finaltick()
 		}
 	}
 
+	if (KEY_TAP(m_Script->GetInputKeys().Bomb)) {
+		m_Script->Bomb();
+	}
+
 
 	PlayerMoveDefault;
 }

@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "CBomb.h"
 
+#include "CPlayerScript.h"
 CBomb::CBomb()
 	: CItem((UINT)SCRIPT_TYPE::BOMB)
 	, m_fBombTimer(4.f)
@@ -73,4 +74,11 @@ void CBomb::begin()
 	m_vOriginScale = GetOwner()->Transform()->GetRelativeScale();
 	Animator2D()->Play(AnimBombBlack);
 	m_iAnimationCnt = 2;
+}
+
+void CBomb::BeginOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCollider2D* _OtherCollider)
+{
+	if (!_OtherObj->GetScript<CPlayerScript>()) {
+		CItem::BeginOverlap(_Collider, _OtherObj, _OtherCollider);
+	}
 }

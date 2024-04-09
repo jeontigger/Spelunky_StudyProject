@@ -45,8 +45,6 @@ void CPlayerScript::Bomb()
 	auto prefab = CAssetMgr::GetInst()->Load<CPrefab>(BombPrefKey, BombPrefKey);
 	auto obj = prefab->Instantiate();
 	auto bomb = obj->GetScript<CBomb>();
-	bomb->SetPlayerScript(this);
-	bomb->OutPlayerScript();
 
 	Vec3 vPos = Transform()->GetRelativePos();
 	if (IsLookRight()) {
@@ -60,6 +58,26 @@ void CPlayerScript::Bomb()
 	obj->Transform()->SetRelativePos(vPos);
 
 	GamePlayStatic::SpawnGameObject(obj, ItemLayer);
+	if (StateMachine()->GetFSM()->GetCurState()->GetStateType() == (UINT)STATE_TYPE::PLAYERDOWNSTATE) {
+		return;
+	}
+
+	Vec2 force;
+	if (KEY_PRESSED(InputKey.LookUp)) {
+		force = m_UpForce;
+	}
+	else if (KEY_PRESSED(InputKey.LookDown)) {
+		force = m_DownForce;
+	}
+	else {
+		force = m_FrontForce;
+	}
+	if (!IsLookRight())
+		force.x = -force.x;
+
+	force += GetVelocity();
+	bomb->skill(force);
+
 }
 
 void CPlayerScript::Hit(int _damage)

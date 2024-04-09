@@ -37,6 +37,11 @@ void CPlayerDownState::finaltick()
 		ChangeState(StatePlayerFallDown);
 	}
 
+
+	if (KEY_TAP(m_Script->GetInputKeys().Bomb)) {
+		m_Script->Bomb();
+	}
+
 	// 카메라 조절
 	if (m_fCameraDownTimer < 0) {
 		CStage* stage = (CStage*)CLevelMgr::GetInst()->GetCurrentLevel();
