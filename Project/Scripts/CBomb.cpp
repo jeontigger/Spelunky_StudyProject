@@ -30,8 +30,8 @@ void CBomb::Bomb()
 	((CStage*)CLevelMgr::GetInst()->GetCurrentLevel())->GetMainCamera()->GetScript<CCameraMovement>()->Shake(0.3, 20);
 	CGameObject* obj = CAnimationLoop::Instantiate();
 	obj->Transform()->SetRelativePos(Transform()->GetRelativePos());
-	obj->GetScript<CAnimationLoop>()->Set({ wstring(AnimPlayerWalk), wstring(AnimPlayerAttack) });
-	obj->Transform()->SetRelativeScale(Transform()->GetRelativeScale());
+	obj->GetScript<CAnimationLoop>()->Set({ wstring(AnimBombExplosion)});
+	obj->Transform()->SetRelativeScale(Vec3(128 * 3, 128 * 3, 0));
 	GamePlayStatic::SpawnGameObject(obj, ItemLayer);
 }
 

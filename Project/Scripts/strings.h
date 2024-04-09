@@ -47,6 +47,7 @@
 #define AnimBombBlack L"anim\\BombBlack.anim"
 #define AnimBombRed L"anim\\BombRed.anim"
 #define AnimBombYellow L"anim\\BombYellow.anim"
+#define AnimBombExplosion L"anim\\BombExplosion.anim"
 
 #define AnimSnakeIdle L"anim\\SnakeIdle.anim"
 #define AnimSnakeWalk L"anim\\SnakeWalk.anim"
