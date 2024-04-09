@@ -5,6 +5,15 @@ class CCameraMovement :
     public CScript
 {
 private:
+    float m_fShakingTimer;
+    int m_iShakingPower;
+
+public:
+    void SetShakingTime(float _time) { m_fShakingTimer = _time; }
+    void SetShakingPower(int _power) { m_iShakingPower = _power; }
+    void Shake(float _time, int _power);
+
+private:
     float m_fSpeed;
     Vec3 m_vPrevPos;
     Vec3 m_vMoveDir;
@@ -34,5 +43,9 @@ public:
 public:
     CCameraMovement();
     ~CCameraMovement();
+
+private:
+    void TargetTracking();
+    void CameraMoving();
 };
 

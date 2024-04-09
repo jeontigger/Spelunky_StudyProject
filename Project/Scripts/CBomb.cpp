@@ -1,7 +1,14 @@
 #include "pch.h"
 #include "CBomb.h"
 
+#include <Engine/CLevelMgr.h>
+#include <Engine/CLevel.h>
+
 #include "CPlayerScript.h"
+#include "CCameraMovement.h"
+#include "CStage.h"
+
+
 CBomb::CBomb()
 	: CItem((UINT)SCRIPT_TYPE::BOMB)
 	, m_fBombTimer(4.f)
@@ -19,6 +26,7 @@ CBomb::~CBomb()
 void CBomb::Bomb()
 {
 	GamePlayStatic::DestroyGameObject(GetOwner());
+	((CStage*)CLevelMgr::GetInst()->GetCurrentLevel())->GetMainCamera()->GetScript<CCameraMovement>()->Shake(0.3, 20);
 }
 
 void CBomb::tick()
