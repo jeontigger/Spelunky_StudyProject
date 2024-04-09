@@ -148,6 +148,9 @@
     <ClInclude Include="CBomb.h">
       <Filter>02. Scripts\Item</Filter>
     </ClInclude>
+    <ClInclude Include="CAnimationLoop.h">
+      <Filter>02. Scripts\Once</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -282,6 +285,9 @@
     <ClCompile Include="CBomb.cpp">
       <Filter>02. Scripts\Item</Filter>
     </ClCompile>
+    <ClCompile Include="CAnimationLoop.cpp">
+      <Filter>02. Scripts\Once</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="00. Default">
@@ -397,6 +403,9 @@
     </Filter>
     <Filter Include="02. Scripts\UI">
       <UniqueIdentifier>{248b6c3b-4a20-4e98-909c-45e0608a8603}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Scripts\Once">
+      <UniqueIdentifier>{2defef04-9b8a-498b-8f4e-650411ced52e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -23,6 +23,7 @@ enum class SCRIPT_TYPE
 	WHIP,
 	UI,
 	BOMB,
+	ANIMATIONLOOP,
 	END,
 };
 

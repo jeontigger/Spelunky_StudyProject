@@ -16,3 +16,4 @@ CPlayerScript
 CWhip
 CUI
 CBomb
+CAnimationLoop

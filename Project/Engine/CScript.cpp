@@ -22,12 +22,3 @@ void CScript::Instantiate(Ptr<CPrefab> _Prefab, Vec3 _vWorldPos, int _layerIdx)
 
 	GamePlayStatic::SpawnGameObject(pNewObj, _layerIdx);
 }
-
-void CScript::SaveToFile(FILE* _File)
-{
-
-}
-
-void CScript::LoadFromFile(FILE* _File)
-{
-}

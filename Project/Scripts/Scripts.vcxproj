@@ -123,6 +123,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <LanguageStandard>stdcpp14</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -162,6 +163,7 @@ call CodeGen.exe</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CAnimationLoop.h" />
     <ClInclude Include="CBomb.h" />
     <ClInclude Include="CCameraMovement.h" />
     <ClInclude Include="CBackgroundScript.h" />
@@ -213,6 +215,7 @@ call CodeGen.exe</Command>
     <ClInclude Include="zAxis.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CAnimationLoop.cpp" />
     <ClCompile Include="CBomb.cpp" />
     <ClCompile Include="CCameraMovement.cpp" />
     <ClCompile Include="CBackgroundScript.cpp" />
