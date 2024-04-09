@@ -22,6 +22,7 @@ enum class SCRIPT_TYPE
 	PLAYERSCRIPT,
 	WHIP,
 	UI,
+	BOMB,
 	END,
 };
 

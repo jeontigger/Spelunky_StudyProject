@@ -7,12 +7,17 @@
 #define TilePrefKey L"prefab\\Tile.pref"
 #define PlayerPrefKey L"prefab\\Player.pref"
 #define WhipPrefKey L"prefab\\Whip.pref"
+#define BombPrefKey L"prefab\\Bomb.pref"
+#define RopePrefKey L"prefab\\Rope.pref"
 #define OutlineWallKey L"prefab\\OutlineWall.pref"
 #define SnakePrefKey L"prefab\\Snake.pref"
 #define RockPrefKey L"prefab\\Rock.pref"
 #define HUDBombPrefKey L"prefab\\HUDBomb.pref"
 #define HUDHeartPrefKey L"prefab\\HUDHeart.pref"
 #define HUDRopePrefKey L"prefab\\HUDRope.pref"
+#define HUDScorePrefKey L"prefab\\HUDScore.pref"
+#define HUDTimePrefKey L"prefab\\HUDTime.pref"
+#define HUDStagePrefKey L"prefab\\HUDStage.pref"
 
 #define BBOwnerKey L"Owner"
 #define BBJumpDelay L"JumpDelay"
@@ -39,6 +44,9 @@
 #define AnimPlayerAttack L"anim\\PlayerAttack.anim"
 
 #define AnimWhip L"anim\\Whip.anim"
+#define AnimBombBlack L"anim\\BombBlack.anim"
+#define AnimBombRed L"anim\\BombRed.anim"
+#define AnimBombYellow L"anim\\BombYellow.anim"
 
 #define AnimSnakeIdle L"anim\\SnakeIdle.anim"
 #define AnimSnakeWalk L"anim\\SnakeWalk.anim"
@@ -48,6 +56,9 @@
 #define AnimHUDHeart L"anim\\HUDHeart.anim"
 #define AnimHUDBomb L"anim\\HUDBomb.anim"
 #define AnimHUDRope L"anim\\HUDRope.anim"
+#define AnimHUDScore L"anim\\HUDScore.anim"
+#define AnimHUDTime L"anim\\HUDTime.anim"
+#define AnimHUDStage L"anim\\HUDStage.anim"
 
 #define StatePlayerIdle L"CPlayerIdleState"
 #define StatePlayerDown L"CPlayerDownState"

@@ -18,6 +18,7 @@
 #include "CPlayerScript.h"
 #include "CWhip.h"
 #include "CUI.h"
+#include "CBomb.h"
 
 void CScriptMgr::GetScriptInfo(vector<wstring>& _vec)
 {
@@ -38,6 +39,7 @@ void CScriptMgr::GetScriptInfo(vector<wstring>& _vec)
 	_vec.push_back(L"CPlayerScript");
 	_vec.push_back(L"CWhip");
 	_vec.push_back(L"CUI");
+	_vec.push_back(L"CBomb");
 }
 
 CScript * CScriptMgr::GetScript(const wstring& _strScriptName)
@@ -76,6 +78,8 @@ CScript * CScriptMgr::GetScript(const wstring& _strScriptName)
 		return new CWhip;
 	if (L"CUI" == _strScriptName)
 		return new CUI;
+	if (L"CBomb" == _strScriptName)
+		return new CBomb;
 	return nullptr;
 }
 
@@ -133,6 +137,9 @@ CScript * CScriptMgr::GetScript(UINT _iScriptType)
 		break;
 	case (UINT)SCRIPT_TYPE::UI:
 		return new CUI;
+		break;
+	case (UINT)SCRIPT_TYPE::BOMB:
+		return new CBomb;
 		break;
 	}
 	return nullptr;
@@ -208,6 +215,10 @@ const wchar_t * CScriptMgr::GetScriptName(CScript * _pScript)
 
 	case SCRIPT_TYPE::UI:
 		return L"CUI";
+		break;
+
+	case SCRIPT_TYPE::BOMB:
+		return L"CBomb";
 		break;
 
 	}

@@ -1,0 +1,44 @@
+Bomb
+0
+0 0 0
+128 128 1
+0 0 0
+1
+1
+0 0 0
+0.5 0.5 1
+0
+0
+3
+3
+anim\BombBlack.anim
+1
+0.0625 0.0625 0 0.3125 0 0 0.0625 0.0625 0.0625
+1
+texture\atlas\items.png
+0
+texture\atlas\items.png
+anim\BombRed.anim
+1
+0.0625 0.0625 0.0625 0.3125 0 0 0.0625 0.0625 0.0625
+1
+texture\atlas\items.png
+0
+texture\atlas\items.png
+anim\BombYellow.anim
+1
+0.0625 0.0625 0.125 0.3125 0 0 0.0625 0.0625 0.0625
+1
+texture\atlas\items.png
+0
+texture\atlas\items.png
+9
+1
+RectMesh
+1
+1
+Std2DMtrl
+1
+15
+1
+CBomb

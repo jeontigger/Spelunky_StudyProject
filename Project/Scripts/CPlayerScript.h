@@ -42,6 +42,9 @@ public:
     void PutDown();
 
 public:
+    void Bomb();
+
+public:
     virtual void Hit(int _damage) override;
     virtual void Skill();
     virtual void Attack();

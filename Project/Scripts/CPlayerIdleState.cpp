@@ -44,6 +44,10 @@ void CPlayerIdleState::finaltick()
 		}
 	}
 
+	if (KEY_TAP(input.Bomb)) {
+		m_PlayerScript->Bomb();
+	}
+
 	// ¿òÁ÷ÀÓ
 	if (KEY_TAP(m_PlayerScript->GetInputKeys().MoveLeft)) {
 		m_PlayerScript->TurnLeft();

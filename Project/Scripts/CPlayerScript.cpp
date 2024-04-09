@@ -39,6 +39,29 @@ void CPlayerScript::PutDown()
 	m_HandleItem = nullptr;
 }
 
+#include "CBomb.h"
+void CPlayerScript::Bomb()
+{
+	auto prefab = CAssetMgr::GetInst()->Load<CPrefab>(BombPrefKey, BombPrefKey);
+	auto obj = prefab->Instantiate();
+	auto bomb = obj->GetScript<CBomb>();
+	bomb->SetPlayerScript(this);
+	bomb->OutPlayerScript();
+
+	Vec3 vPos = Transform()->GetRelativePos();
+	if (IsLookRight()) {
+		vPos.x += m_vSocketPos.x;
+	}
+	else {
+		vPos.x -= m_vSocketPos.x;
+	}
+
+	vPos.y += m_vSocketPos.y;
+	obj->Transform()->SetRelativePos(vPos);
+
+	GamePlayStatic::SpawnGameObject(obj, ItemLayer);
+}
+
 void CPlayerScript::Hit(int _damage)
 {
 	CCharacterScript::Hit(_damage);

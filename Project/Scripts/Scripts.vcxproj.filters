@@ -145,6 +145,9 @@
     <ClInclude Include="CUI.h">
       <Filter>02. Scripts\UI</Filter>
     </ClInclude>
+    <ClInclude Include="CBomb.h">
+      <Filter>02. Scripts\Item</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -275,6 +278,9 @@
     </ClCompile>
     <ClCompile Include="CUI.cpp">
       <Filter>02. Scripts\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="CBomb.cpp">
+      <Filter>02. Scripts\Item</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

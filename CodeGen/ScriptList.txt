@@ -15,3 +15,4 @@ CRock
 CPlayerScript
 CWhip
 CUI
+CBomb
