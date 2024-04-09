@@ -82,7 +82,7 @@ void CSnakeScript::tick()
 		CCharacterScript::tick();
 	}
 	else {
-
+		CCharacterScript::tick();
 	}
 }
 

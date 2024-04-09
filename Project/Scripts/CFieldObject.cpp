@@ -118,9 +118,21 @@ void CFieldObject::skill(Vec2 _force)
 }
 
 #include "CTile.h"
+#include "CCharacterScript.h"
+#include "CItem.h"
 
 void CFieldObject::BeginOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCollider2D* _OtherCollider)
 {
+	auto owner = GetOwner()->GetScript<CItem>();
+	auto script = _OtherObj->GetScript<CFieldObject>();
+	if (script && owner) {
+		if (GetVelocity().Length() > 20.f) {
+			auto character = _OtherObj->GetScript<CCharacterScript>();
+			if (character) {
+				character->Hit(1);
+			}
+		}
+	}
 }
 
 void CFieldObject::Overlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCollider2D* _OtherCollider) {

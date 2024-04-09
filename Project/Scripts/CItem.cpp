@@ -39,6 +39,19 @@ void CItem::tick()
 	}
 }
 
+void CItem::BeginOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCollider2D* _OtherCollider)
+{
+	auto script = _OtherObj->GetScript<CFieldObject>();
+	if (script) {
+		if (GetVelocity().Length() > 10.f) {
+			auto character = _OtherObj->GetScript<CCharacterScript>();
+			if (character) {
+				character->Hit(1);
+			}
+		}
+	}
+}
+
 CItem::CItem(UINT type)
 	:CFieldObject(type)
 {
