@@ -4,6 +4,7 @@
 #define StrMonsterHitColliderName L"HitCollider"
 #define StrMonsterDetectColliderName L"DetectCollider"
 
+#define TitleAnyKey L"prefab\\TitleAnyKey.pref"
 #define TitleBackgroundPrefKey L"prefab\\TitleBackground.pref"
 #define TitleGirlPrefKey L"prefab\\TitleGirl.pref"
 #define TilePrefKey L"prefab\\Tile.pref"
@@ -69,6 +70,7 @@
 #define AnimHUDTime L"anim\\HUDTime.anim"
 #define AnimHUDStage L"anim\\HUDStage.anim"
 
+#define AnimTitleAnyKey L"anim\\TitleAnyKey.anim"
 #define AnimTitleBackground L"anim\\TitleBackground.anim"
 #define AnimTitleGirl L"anim\\TitleGirl.anim"
 

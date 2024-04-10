@@ -12,6 +12,7 @@
 #include <Engine\CLight2D.h>
 
 #include "CCameraMovement.h"
+#include "CBlink.h"
 
 
 void CTitleLevel::tick()
@@ -74,8 +75,10 @@ CTitleLevel::CTitleLevel()
 	obj->Animator2D()->Play(AnimTitleGirl);
 	AddObject(obj, BackgroundLayer);
 
-
-
+	obj = CAssetMgr::GetInst()->Load<CPrefab>(TitleAnyKey, TitleAnyKey)->Instantiate();
+	obj->Animator2D()->Play(AnimTitleAnyKey);
+	obj->GetScript<CBlink>()->Set(1, 0.3f);
+	AddObject(obj, BackgroundLayer);
 
 }
 

@@ -22,6 +22,7 @@
 #include "CAnimationLoop.h"
 #include "CBombExplosion.h"
 #include "CParticleOnce.h"
+#include "CBlink.h"
 
 void CScriptMgr::GetScriptInfo(vector<wstring>& _vec)
 {
@@ -46,6 +47,7 @@ void CScriptMgr::GetScriptInfo(vector<wstring>& _vec)
 	_vec.push_back(L"CAnimationLoop");
 	_vec.push_back(L"CBombExplosion");
 	_vec.push_back(L"CParticleOnce");
+	_vec.push_back(L"CBlink");
 }
 
 CScript * CScriptMgr::GetScript(const wstring& _strScriptName)
@@ -92,6 +94,8 @@ CScript * CScriptMgr::GetScript(const wstring& _strScriptName)
 		return new CBombExplosion;
 	if (L"CParticleOnce" == _strScriptName)
 		return new CParticleOnce;
+	if (L"CBlink" == _strScriptName)
+		return new CBlink;
 	return nullptr;
 }
 
@@ -161,6 +165,9 @@ CScript * CScriptMgr::GetScript(UINT _iScriptType)
 		break;
 	case (UINT)SCRIPT_TYPE::PARTICLEONCE:
 		return new CParticleOnce;
+		break;
+	case (UINT)SCRIPT_TYPE::BLINK:
+		return new CBlink;
 		break;
 	}
 	return nullptr;
@@ -252,6 +259,10 @@ const wchar_t * CScriptMgr::GetScriptName(CScript * _pScript)
 
 	case SCRIPT_TYPE::PARTICLEONCE:
 		return L"CParticleOnce";
+		break;
+
+	case SCRIPT_TYPE::BLINK:
+		return L"CBlink";
 		break;
 
 	}

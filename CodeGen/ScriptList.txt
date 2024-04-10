@@ -19,3 +19,4 @@ CBomb
 CAnimationLoop
 CBombExplosion
 CParticleOnce
+CBlink
