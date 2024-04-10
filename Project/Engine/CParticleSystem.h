@@ -40,5 +40,7 @@ public:
     CParticleSystem();
     CParticleSystem(const CParticleSystem& _OriginParticle);
     ~CParticleSystem();
+
+    friend class ParticleUI;
 };
 
