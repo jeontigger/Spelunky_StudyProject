@@ -20,6 +20,9 @@
 #define HUDStagePrefKey L"prefab\\HUDStage.pref"
 #define ParticleCloudPrefKey L"prefab\\ParticleCloud.pref"
 #define ParticleBloodPrefKey L"prefab\\ParticleBlood.pref"
+#define ParticleStarPrefKey L"prefab\\ParticleStar.pref"
+#define ParticleSoilPrefKey L"prefab\\ParticleSoil.pref"
+#define ParticleTreePrefKey L"prefab\\ParticleTree.pref"
 
 #define BBOwnerKey L"Owner"
 #define BBJumpDelay L"JumpDelay"

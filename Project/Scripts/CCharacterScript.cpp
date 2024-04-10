@@ -40,6 +40,10 @@ void CCharacterScript::Hit(int _damage)
 	obj->Transform()->SetRelativePos(Vec3(GetOwner()->Transform()->GetRelativePos().x, GetOwner()->Transform()->GetRelativePos().y, -1));
 	GamePlayStatic::SpawnGameObject(obj, PlayerLayer);
 
+	obj = CParticleOnce::Instantiate(ParticleStarPrefKey, TexParticleSmallAtlas);
+	obj->Transform()->SetRelativePos(Vec3(GetOwner()->Transform()->GetRelativePos().x, GetOwner()->Transform()->GetRelativePos().y, -1));
+	GamePlayStatic::SpawnGameObject(obj, PlayerLayer);
+
 	if (m_tInfo.Health <= 0) {
 		Die();
 	}

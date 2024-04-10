@@ -18,11 +18,7 @@ CGameObject* CParticleOnce::Instantiate(const wstring& _prefKey, const wstring& 
 
 void CParticleOnce::tick()
 {
-	if (m_acctime > 0.5f) {
-		ParticleSystem()->SetSpawnRate(0);
-	}
-
-	if (m_acctime > 1.f) {
+	if (m_acctime > 0.7f) {
 		GamePlayStatic::DestroyGameObject(GetOwner());
 	}
 

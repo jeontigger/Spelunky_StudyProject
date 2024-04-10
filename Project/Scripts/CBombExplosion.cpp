@@ -27,12 +27,22 @@ void CBombExplosion::tick()
 
 #include "CTile.h"
 #include "CFieldObject.h"
+#include "CParticleOnce.h"
 
 void CBombExplosion::BeginOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCollider2D* _OtherCollider)
 {
 	auto tile = _OtherObj->GetScript<CTile>();
 	if (tile) {
 		_OtherCollider->Activate(false);
+
+		wstring typeKey = ParticleSoilPrefKey;
+		if (tile->GetTileType() == TileType::Tree|| tile->GetTileType() == TileType::LadderHalf || tile->GetTileType() == TileType::Ladder) {
+			typeKey = ParticleTreePrefKey;
+		}
+		CGameObject* obj = CParticleOnce::Instantiate(typeKey, TexParticleRubbleAtlas);
+		obj->Transform()->SetRelativePos(Vec3(_OtherObj->Transform()->GetRelativePos().x, _OtherObj->Transform()->GetRelativePos().y, -1));
+		GamePlayStatic::SpawnGameObject(obj, PlayerLayer);
+		
 		GamePlayStatic::DestroyGameObject(_OtherObj);
 		return;
 	}

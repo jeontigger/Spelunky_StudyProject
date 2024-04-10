@@ -17,7 +17,7 @@
 #define DefaultGravity 30.5
 
 #define CameraViewAll Vec2(5200, 4500)
-#define CameraViewNormal Vec2(TileBlockScaleX * 1.3, TileBlockScaleY + TileScaleY)
+#define CameraViewNormal Vec2(TileBlockScaleX * 1.5, TileBlockScaleY + TileScaleY)
 
 
 #define BackgroundLayer 1
