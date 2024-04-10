@@ -24,6 +24,10 @@ private:
     float                   m_Time;
 
 public:
+    void SetParticleTex(const wstring& _texName);
+    void SetParticleTex(Ptr<CTexture> _tex) { m_ParticleTex = _tex; }
+
+public:
     virtual void UpdateData() override;
     virtual void finaltick() override;
     virtual void render() override;

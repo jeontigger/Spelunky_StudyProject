@@ -307,6 +307,9 @@
     <ClInclude Include="StateMachineUI.h">
       <Filter>02. UI\3. Inspector\ComponentUI\StateMachine</Filter>
     </ClInclude>
+    <ClInclude Include="ParticleUI.h">
+      <Filter>02. UI\3. Inspector\ComponentUI\ParticleSystem</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -466,6 +469,9 @@
     </ClCompile>
     <ClCompile Include="StateMachineUI.cpp">
       <Filter>02. UI\3. Inspector\ComponentUI\StateMachine</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleUI.cpp">
+      <Filter>02. UI\3. Inspector\ComponentUI\ParticleSystem</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

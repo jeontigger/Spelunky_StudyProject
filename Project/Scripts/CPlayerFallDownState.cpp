@@ -44,6 +44,7 @@ void CPlayerFallDownState::finaltick()
 
 void CPlayerFallDownState::Exit()
 {
+
 }
 
 CPlayerFallDownState::CPlayerFallDownState()

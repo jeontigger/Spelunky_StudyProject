@@ -10,6 +10,7 @@
 #define UIAddScriptName "##AddScript"
 #define UIStateMachineName "##StateMachine"
 #define UIAnimatorName "##Animator2D"
+#define UIParticleSystemName "##ParticleSystemName"
 
 #define NewBlockName "New"
 

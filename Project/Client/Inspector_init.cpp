@@ -23,6 +23,7 @@ void Inspector::CreateChildUI()
 #include "PrefabUI.h"
 #include "CameraUI.h"
 #include "StateMachineUI.h"
+#include "ParticleUI.h"
 
 void Inspector::CreateComponentUI()
 {
@@ -55,6 +56,10 @@ void Inspector::CreateComponentUI()
 	m_arrComUI[(UINT)COMPONENT_TYPE::STATEMACHINE] = new StateMachineUI;
 	m_arrComUI[(UINT)COMPONENT_TYPE::STATEMACHINE]->Deactivate();
 	AddChildUI(m_arrComUI[(UINT)COMPONENT_TYPE::STATEMACHINE]);
+
+	m_arrComUI[(UINT)COMPONENT_TYPE::PARTICLESYSTEM] = new ParticleUI;
+	m_arrComUI[(UINT)COMPONENT_TYPE::PARTICLESYSTEM]->Deactivate();
+	AddChildUI(m_arrComUI[(UINT)COMPONENT_TYPE::PARTICLESYSTEM]);
 
 }
 

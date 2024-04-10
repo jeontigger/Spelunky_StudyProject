@@ -132,6 +132,18 @@ CStage::CStage()
 
 		m_MainCamera->Transform()->SetRelativePos(Vec3(TileBlockScaleX / 2.f, -TileBlockScaleY / 2.f, 0.f));
 
+
+		obj = new CGameObject;
+		obj->SetName("ParticleTest");
+		obj->AddComponent(new CTransform);
+		obj->AddComponent(new CParticleSystem);
+		obj->AddComponent(new CCollider2D);
+		obj->Transform()->SetRelativeScale(Vec3(128, 128, 1));
+		obj->Transform()->SetRelativePos(Vec3(TileBlockScaleX / 2.f, -TileBlockScaleY / 2.f - TileScaleY, PlayerZ));
+		obj->ParticleSystem()->SetParticleTex(TexParticleAtlas);
+
+		AddObject(obj, PlayerLayer);
+
 	}
 	CTileMgr::GetInst()->Init();
 }
