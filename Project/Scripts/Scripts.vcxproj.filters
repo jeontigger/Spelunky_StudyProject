@@ -160,6 +160,12 @@
     <ClInclude Include="CParticleOnce.h">
       <Filter>02. Scripts\Once</Filter>
     </ClInclude>
+    <ClInclude Include="CTitleLevel.h">
+      <Filter>04. Level\Title</Filter>
+    </ClInclude>
+    <ClInclude Include="CBlink.h">
+      <Filter>02. Scripts\Utils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -306,6 +312,12 @@
     <ClCompile Include="CParticleOnce.cpp">
       <Filter>02. Scripts\Once</Filter>
     </ClCompile>
+    <ClCompile Include="CTitleLevel.cpp">
+      <Filter>04. Level\Title</Filter>
+    </ClCompile>
+    <ClCompile Include="CBlink.cpp">
+      <Filter>02. Scripts\Utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="00. Default">
@@ -427,6 +439,12 @@
     </Filter>
     <Filter Include="08. States\Player\Ladder">
       <UniqueIdentifier>{4df4e6bc-d3e7-40af-ae08-cd1388eae237}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Level\Title">
+      <UniqueIdentifier>{00d62efc-cad4-479e-8cd3-2a643b250454}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Scripts\Utils">
+      <UniqueIdentifier>{b522e95d-26d8-4a8a-a977-c935e6b6dba0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

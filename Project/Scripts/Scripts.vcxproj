@@ -164,6 +164,7 @@ call CodeGen.exe</Command>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="CAnimationLoop.h" />
+    <ClInclude Include="CBlink.h" />
     <ClInclude Include="CBomb.h" />
     <ClInclude Include="CBombExplosion.h" />
     <ClInclude Include="CCameraMovement.h" />
@@ -204,6 +205,7 @@ call CodeGen.exe</Command>
     <ClInclude Include="CTileBoundary.h" />
     <ClInclude Include="CTileChunk.h" />
     <ClInclude Include="CTileMgr.h" />
+    <ClInclude Include="CTitleLevel.h" />
     <ClInclude Include="CUI.h" />
     <ClInclude Include="CWallCollider.h" />
     <ClInclude Include="CWhip.h" />
@@ -219,6 +221,7 @@ call CodeGen.exe</Command>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CAnimationLoop.cpp" />
+    <ClCompile Include="CBlink.cpp" />
     <ClCompile Include="CBomb.cpp" />
     <ClCompile Include="CBombExplosion.cpp" />
     <ClCompile Include="CCameraMovement.cpp" />
@@ -259,6 +262,7 @@ call CodeGen.exe</Command>
     <ClCompile Include="CTileBoundary.cpp" />
     <ClCompile Include="CTileChunk.cpp" />
     <ClCompile Include="CTileMgr.cpp" />
+    <ClCompile Include="CTitleLevel.cpp" />
     <ClCompile Include="CUI.cpp" />
     <ClCompile Include="CWallCollider.cpp" />
     <ClCompile Include="CWhip.cpp" />

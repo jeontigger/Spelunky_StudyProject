@@ -7,13 +7,14 @@
 #include <Engine/components.h>
 #include <Engine/CDevice.h>
 
+#include <Scripts/CTitleLevel.h>
 #include	<Scripts/CStage.h>
 #include <Scripts/CStagePack.h>
 #include <Scripts/CStagePackMgr.h>
 #include <Scripts/CRandomMgr.h>
 
 CLevel* CLevelGenerator::m_pTempLevel = nullptr;
-CStage* CLevelGenerator::m_arrStages[StageCnt] = {};
+CLevel* CLevelGenerator::m_arrStages[StageCnt] = {};
 
 UINT32 CLevelGenerator::GetSeed()
 {
@@ -60,10 +61,18 @@ void CLevelGenerator::Init()
 	LoadTempLevel();
 }
 
+void CLevelGenerator::TitleLevel()
+{
+	CTitleLevel* title = new CTitleLevel;
+	m_arrStages[0] = title;
+
+}
+
 #include <Scripts/CUI.h>
 void CLevelGenerator::MakeStages()
 {
-	CStage* stage = new CStage;
+	TitleLevel();
+	/*CStage* stage = new CStage;
 
 	CStagePack* sp = CStagePackMgr::GetInst()->GetStagePack(StagePackList::Dwelling);
 	stage->SetStagePack(sp);
@@ -118,11 +127,11 @@ void CLevelGenerator::MakeStages()
 	obj = prefab->Instantiate();
 	stage->AddObject(obj, UILayer);
 	obj->GetScript<CUI>()->SetScreenPos(Vec2((int)resolution.x - 120, 80));
-	obj->Animator2D()->Play(AnimHUDStage);
+	obj->Animator2D()->Play(AnimHUDStage);*/
 		
 }
 
-CStage* CLevelGenerator::GetLevel(int _level)
+CLevel* CLevelGenerator::GetLevel(int _level)
 {
 	return m_arrStages[_level];
 }

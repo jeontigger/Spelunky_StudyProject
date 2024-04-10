@@ -4,6 +4,8 @@
 #define StrMonsterHitColliderName L"HitCollider"
 #define StrMonsterDetectColliderName L"DetectCollider"
 
+#define TitleBackgroundPrefKey L"prefab\\TitleBackground.pref"
+#define TitleGirlPrefKey L"prefab\\TitleGirl.pref"
 #define TilePrefKey L"prefab\\Tile.pref"
 #define PlayerPrefKey L"prefab\\Player.pref"
 #define WhipPrefKey L"prefab\\Whip.pref"
@@ -66,6 +68,9 @@
 #define AnimHUDScore L"anim\\HUDScore.anim"
 #define AnimHUDTime L"anim\\HUDTime.anim"
 #define AnimHUDStage L"anim\\HUDStage.anim"
+
+#define AnimTitleBackground L"anim\\TitleBackground.anim"
+#define AnimTitleGirl L"anim\\TitleGirl.anim"
 
 #define StatePlayerIdle L"CPlayerIdleState"
 #define StatePlayerDown L"CPlayerDownState"
