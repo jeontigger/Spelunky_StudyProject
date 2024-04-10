@@ -136,7 +136,7 @@ CStage::CStage()
 		prefab = CAssetMgr::GetInst()->Load<CPrefab>(ParticleBloodPrefKey, ParticleBloodPrefKey);
 		obj = prefab->Instantiate();
 		obj->Transform()->SetRelativePos(Vec3(TileBlockScaleX / 2.f, -TileBlockScaleY / 2.f - TileScaleY* 2, TileZ+10));
-		obj->ParticleSystem()->SetParticleTex(TexParticleRubbleAtlas);
+		obj->ParticleSystem()->SetParticleTex(TexParticleSmallAtlas);
 
 		AddObject(obj, PlayerLayer);
 
