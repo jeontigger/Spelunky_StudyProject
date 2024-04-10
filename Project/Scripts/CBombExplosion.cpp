@@ -33,6 +33,8 @@ void CBombExplosion::BeginOverlap(CCollider2D* _Collider, CGameObject* _OtherObj
 {
 	auto tile = _OtherObj->GetScript<CTile>();
 	if (tile) {
+		if (tile->GetTileType() == TileType::Door) return;
+
 		_OtherCollider->Activate(false);
 
 		wstring typeKey = ParticleSoilPrefKey;
