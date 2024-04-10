@@ -18,7 +18,7 @@ CGameObject* CParticleOnce::Instantiate(const wstring& _prefKey, const wstring& 
 
 void CParticleOnce::tick()
 {
-	if (m_acctime > 0.7f) {
+	if (m_acctime > 0.5f) {
 		GamePlayStatic::DestroyGameObject(GetOwner());
 	}
 
