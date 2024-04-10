@@ -111,6 +111,8 @@ struct tParticleModule
 	// Module On / Off
 	int arrModuleCheck[(UINT)PARTICLE_MODULE::END];
 
+	int AtlasIdx;
+
 	friend ofstream& operator<<(ofstream& fout, tParticleModule& module);
 	friend ifstream& operator>>(ifstream& fin, tParticleModule& module);
 };

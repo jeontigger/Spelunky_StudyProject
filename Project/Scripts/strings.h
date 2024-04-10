@@ -71,7 +71,8 @@
 #define StatePlayerAttack L"CPlayerAttackState"
 #define StatePlayerLadder L"CPlayerLadderState"
 
-#define TexParticleAtlas L"texture\\atlas\\fx_rubble.png"
+#define TexParticleRubbleAtlas L"texture\\atlas\\fx_rubble.png"
+#define TexParticleSmallAtlas L"texture\\atlas\\fx_small.png"
 
 #define StateEndSymbol "STATE_END"
 

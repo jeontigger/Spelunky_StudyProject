@@ -160,7 +160,12 @@ float4 PS_Particle(GS_OUT _in) : SV_Target
     
     if (g_btex_0)
     {
-        float4 vSampleColor = g_tex_0.Sample(g_sam_0, _in.vUV);
+        float2 FrameSize = float2(1.f / 8, 1.f / 8);
+        int row = module.AtlasIdx / 8;
+        int col = module.AtlasIdx % 8;
+        float2 FramePosition = float2(col, row);
+        float2 adjustedUV = FramePosition * FrameSize + _in.vUV * FrameSize;
+        float4 vSampleColor = g_tex_0.Sample(g_sam_0, adjustedUV);
         vOutColor.rgb *= vSampleColor.rgb;
         vOutColor.a = vSampleColor.a;
     }

@@ -92,7 +92,8 @@ struct tParticleModule
     // Module Active Check
     int     arrModuleCheck[7];
     
-    int3    modulepadding;
+    int AtlasIdx;
+    int2    modulepadding;
 };
 
 

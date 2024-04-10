@@ -89,6 +89,7 @@ CParticleSystem::CParticleSystem()
 	m_Module.AlphaBasedLife = 0; // 0 : off, 1 : NomrlizedAge, 2: Age
 	m_Module.AlphaMaxAge = 2.f;
 
+	m_Module.AtlasIdx = 1;
 }
 
 CParticleSystem::CParticleSystem(const CParticleSystem& _OriginParticle)

@@ -139,8 +139,8 @@ CStage::CStage()
 		obj->AddComponent(new CParticleSystem);
 		obj->AddComponent(new CCollider2D);
 		obj->Transform()->SetRelativeScale(Vec3(128, 128, 1));
-		obj->Transform()->SetRelativePos(Vec3(TileBlockScaleX / 2.f, -TileBlockScaleY / 2.f - TileScaleY, PlayerZ));
-		obj->ParticleSystem()->SetParticleTex(TexParticleAtlas);
+		obj->Transform()->SetRelativePos(Vec3(TileBlockScaleX / 2.f, -TileBlockScaleY / 2.f - TileScaleY, TileZ+10));
+		obj->ParticleSystem()->SetParticleTex(TexParticleSmallAtlas);
 
 		AddObject(obj, PlayerLayer);
 
