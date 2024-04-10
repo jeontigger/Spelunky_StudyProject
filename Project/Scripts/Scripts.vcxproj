@@ -177,6 +177,7 @@ call CodeGen.exe</Command>
     <ClInclude Include="CDetectCollider.h" />
     <ClInclude Include="CMonsterHitCollider.h" />
     <ClInclude Include="CMonsterScript.h" />
+    <ClInclude Include="CParticleOnce.h" />
     <ClInclude Include="CPlayerAttackState.h" />
     <ClInclude Include="CPlayerFallDownState.h" />
     <ClInclude Include="CPlayerHitCollider.h" />
@@ -231,6 +232,7 @@ call CodeGen.exe</Command>
     <ClCompile Include="CDetectCollider.cpp" />
     <ClCompile Include="CMonsterHitCollider.cpp" />
     <ClCompile Include="CMonsterScript.cpp" />
+    <ClCompile Include="CParticleOnce.cpp" />
     <ClCompile Include="CPlayerAttackState.cpp" />
     <ClCompile Include="CPlayerFallDownState.cpp" />
     <ClCompile Include="CPlayerHitCollider.cpp" />

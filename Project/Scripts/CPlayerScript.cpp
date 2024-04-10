@@ -6,6 +6,7 @@
 #include "CPlayerHitCollider.h"
 #include "CItem.h"
 #include "CWhip.h"
+#include "CParticleOnce.h"
 
 CPlayerScript::CPlayerScript()
 	: CCharacterScript((UINT)SCRIPT_TYPE::PLAYERSCRIPT)
@@ -117,7 +118,15 @@ void CPlayerScript::Attack()
 	m_Whip->Attack();
 }
 
+void CPlayerScript::CloudSpawn()
+{
+	CGameObject* obj = CParticleOnce::Instantiate(ParticleCloudPrefKey, TexParticleSmallAtlas);
+	obj->Transform()->SetRelativePos(Vec3(GetOwner()->Transform()->GetRelativePos().x, GetOwner()->Transform()->GetRelativePos().y -GetOwner()->Transform()->GetRelativeScale().y / 2.f, -1));
+	GamePlayStatic::SpawnGameObject(obj, PlayerLayer);
+}
+
 #include "CPlayerStartState.h"
+
 bool CPlayerScript::IsMoving()
 {	
 	return KEY_NONE(InputKey.MoveLeft) && KEY_NONE(InputKey.MoveRight) ? false : true;
@@ -174,6 +183,7 @@ void CPlayerScript::begin()
 	GetOwner()->AddChild(obj);
 	m_Whip = obj->GetScript<CWhip>();
 	GamePlayStatic::SpawnGameObject(obj, PlayerAttackLayer);
+
 
 }
 

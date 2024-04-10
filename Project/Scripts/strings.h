@@ -18,6 +18,8 @@
 #define HUDScorePrefKey L"prefab\\HUDScore.pref"
 #define HUDTimePrefKey L"prefab\\HUDTime.pref"
 #define HUDStagePrefKey L"prefab\\HUDStage.pref"
+#define ParticleCloudPrefKey L"prefab\\ParticleCloud.pref"
+#define ParticleBloodPrefKey L"prefab\\ParticleBlood.pref"
 
 #define BBOwnerKey L"Owner"
 #define BBJumpDelay L"JumpDelay"

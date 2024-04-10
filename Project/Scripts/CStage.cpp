@@ -118,10 +118,10 @@ CStage::CStage()
 		m_Player->Transform()->SetRelativePos(Vec3(TileBlockScaleX / 2.f, -TileBlockScaleY / 2.f - TileScaleY, PlayerZ));
 		AddObject(m_Player, PlayerLayer);
 
-		//prefab = CAssetMgr::GetInst()->Load<CPrefab>(SnakePrefKey, SnakePrefKey);
-		//obj = prefab->Instantiate();
-		//obj->Transform()->SetRelativePos(Vec3(TileBlockScaleX / 2.f - TileScaleX, -TileBlockScaleY / 2.f - TileScaleY, MonsterZ));
-		//AddObject(obj, MonsterLayer);
+		prefab = CAssetMgr::GetInst()->Load<CPrefab>(SnakePrefKey, SnakePrefKey);
+		obj = prefab->Instantiate();
+		obj->Transform()->SetRelativePos(Vec3(TileBlockScaleX / 2.f - TileScaleX, -TileBlockScaleY / 2.f - TileScaleY, MonsterZ));
+		AddObject(obj, MonsterLayer);
 
 		prefab = CAssetMgr::GetInst()->Load<CPrefab>(RockPrefKey, RockPrefKey);
 		obj = prefab->Instantiate();
@@ -133,13 +133,9 @@ CStage::CStage()
 		m_MainCamera->Transform()->SetRelativePos(Vec3(TileBlockScaleX / 2.f, -TileBlockScaleY / 2.f, 0.f));
 
 
-		obj = new CGameObject;
-		obj->SetName("ParticleTest");
-		obj->AddComponent(new CTransform);
-		obj->AddComponent(new CParticleSystem);
-		obj->AddComponent(new CCollider2D);
-		obj->Transform()->SetRelativeScale(Vec3(128, 128, 1));
-		obj->Transform()->SetRelativePos(Vec3(TileBlockScaleX / 2.f, -TileBlockScaleY / 2.f - TileScaleY, TileZ+10));
+		prefab = CAssetMgr::GetInst()->Load<CPrefab>(ParticleBloodPrefKey, ParticleBloodPrefKey);
+		obj = prefab->Instantiate();
+		obj->Transform()->SetRelativePos(Vec3(TileBlockScaleX / 2.f, -TileBlockScaleY / 2.f - TileScaleY* 2, TileZ+10));
 		obj->ParticleSystem()->SetParticleTex(TexParticleSmallAtlas);
 
 		AddObject(obj, PlayerLayer);

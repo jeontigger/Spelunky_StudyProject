@@ -31,7 +31,7 @@ ofstream& DirectX::SimpleMath::operator<<(ofstream& fout, Vector4 vec)
     return fout;
 }
 
-ifstream& DirectX::SimpleMath::operator>>(ifstream& fin, Vector4 vec)
+ifstream& DirectX::SimpleMath::operator>>(ifstream& fin, Vector4& vec)
 {
     fin >> vec.x >> vec.y >> vec.z >> vec.w;
     return fin;

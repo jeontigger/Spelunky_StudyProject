@@ -14,6 +14,7 @@ void CPlayerFallDownState::finaltick()
 {
 	if (m_Script->IsGrounded()) {
 		ChangeState(StatePlayerIdle);
+		m_Script->CloudSpawn();
 	}
 
 	// 사다리 타기

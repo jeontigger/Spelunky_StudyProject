@@ -56,16 +56,16 @@ CParticleSystem::CParticleSystem()
 	m_Module.MaxMass = 1.f;
 	m_Module.SpawnShape = 1; // 0 : Sphere, 1 : Box
 	m_Module.Radius = 100.f;
-	m_Module.vSpawnBoxScale = Vec4(1280.f, 1280.f, 0.f, 0.f);
+	m_Module.vSpawnBoxScale = Vec4(128.f, 128.f, 0.f, 0.f);
 	m_Module.SpawnRate = 50;
 
 	// Add Velocity Module
-	m_Module.arrModuleCheck[(UINT)PARTICLE_MODULE::ADD_VELOCITY] = 0;
+	m_Module.arrModuleCheck[(UINT)PARTICLE_MODULE::ADD_VELOCITY] = 1;
 	m_Module.AddVelocityType = 0; // 0 : From Center, 1: To Center, 2: Fix Direction
-	m_Module.MinSpeed = 1;
-	m_Module.MaxSpeed = 1;
-	m_Module.FixedDirection;
-	m_Module.FixedAngle;
+	m_Module.MinSpeed = 100;
+	m_Module.MaxSpeed = 100;
+	m_Module.FixedDirection = Vec4(0, 1, 0, 0);
+	m_Module.FixedAngle = XM_PI/8;
 
 	// Scale
 	m_Module.arrModuleCheck[(UINT)PARTICLE_MODULE::SCALE] = 0;
@@ -81,12 +81,12 @@ CParticleSystem::CParticleSystem()
 	m_Module.DragTime = 0.5f;
 
 	// Calculate Force
-	m_Module.arrModuleCheck[(UINT)PARTICLE_MODULE::CALCULATE_FORCE] = 0;
+	m_Module.arrModuleCheck[(UINT)PARTICLE_MODULE::CALCULATE_FORCE] = 1;
 
 	// Render 
-	m_Module.arrModuleCheck[(UINT)PARTICLE_MODULE::RENDER] = 0;
+	m_Module.arrModuleCheck[(UINT)PARTICLE_MODULE::RENDER] = 1;
 	m_Module.VelocityAlignment = 0; // 속도에 따른 방향 정렬
-	m_Module.AlphaBasedLife = 0; // 0 : off, 1 : NomrlizedAge, 2: Age
+	m_Module.AlphaBasedLife = 1; // 0 : off, 1 : NomrlizedAge, 2: Age
 	m_Module.AlphaMaxAge = 2.f;
 
 	m_Module.AtlasIdx = 1;
@@ -133,7 +133,8 @@ void CParticleSystem::finaltick()
 	if ((1.f / m_Module.SpawnRate) < m_Time)
 	{
 		// 누적 시간을 스폰 간격으로 나눈 값
-		float fSpawnCount = m_Time / (1.f / m_Module.SpawnRate);
+		//float fSpawnCount = m_Time / (1.f / m_Module.SpawnRate);
+		int fSpawnCount = 5;
 
 		// 스폰 간격을 제외한 잔량을 남은 누적시간으로 설정
 		m_Time -= (1.f / m_Module.SpawnRate) * floorf(fSpawnCount);
@@ -191,39 +192,14 @@ void CParticleSystem::UpdateData()
 {
 }
 
-
-void CParticleSystem::SaveToFile(FILE* _File)
+void CParticleSystem::SaveToFile(ofstream& fout)
 {
-	// 파티클 최대 갯수 및 모듈 정보 저장
-	fwrite(&m_MaxParticleCount, sizeof(UINT), 1, _File);
-	fwrite(&m_Module, sizeof(tParticleModule), 1, _File);	
-
-	// 사용하던 CS 가 누군지 저장
-	//SaveAssetRef(m_CSParticleUpdate, _File);
-
-	// 파티클 입자 텍스쳐 정보 저장
-	SaveAssetRef(m_ParticleTex, _File);	
-}
-
-void CParticleSystem::LoadFromFile(FILE* _File)
-{
-	// 파티클 최대 갯수 및 모듈 정보 로드
-	fread(&m_MaxParticleCount, sizeof(UINT), 1, _File);
-	fread(&m_Module, sizeof(tParticleModule), 1, _File);
-
-	// 사용하던 CS 가 누군지 로드
-	/*Ptr<CComputeShader> cs;
-	LoadAssetRef(cs, _File);
-	m_CSParticleUpdate = (CParticleUpdate*)cs.Get();*/
-
-	// 파티클 입자 텍스쳐 정보 로드
-	LoadAssetRef(m_ParticleTex, _File);
+	fout << m_MaxParticleCount << endl;
+	fout << m_Module << endl;
 }
 
 void CParticleSystem::LoadFromFile(ifstream& fin)
 {
 	fin >> m_MaxParticleCount;
 	fin >> m_Module;
-
-	LoadAssetRef(m_ParticleTex, fin);
 }

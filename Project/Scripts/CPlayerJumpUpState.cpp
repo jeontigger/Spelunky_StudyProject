@@ -71,6 +71,7 @@ void CPlayerJumpUpState::finaltick()
 
 	if (m_Script->IsGrounded()) {
 		ChangeState(StatePlayerIdle);
+		m_Script->CloudSpawn();
 	}
 
 	PlayerMoveDefault;

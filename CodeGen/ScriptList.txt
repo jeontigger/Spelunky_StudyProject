@@ -18,3 +18,4 @@ CUI
 CBomb
 CAnimationLoop
 CBombExplosion
+CParticleOnce

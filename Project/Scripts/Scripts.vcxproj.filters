@@ -157,6 +157,9 @@
     <ClInclude Include="CPlayerLadderState.h">
       <Filter>08. States\Player\Ladder</Filter>
     </ClInclude>
+    <ClInclude Include="CParticleOnce.h">
+      <Filter>02. Scripts\Once</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -299,6 +302,9 @@
     </ClCompile>
     <ClCompile Include="CPlayerLadderState.cpp">
       <Filter>08. States\Player\Ladder</Filter>
+    </ClCompile>
+    <ClCompile Include="CParticleOnce.cpp">
+      <Filter>02. Scripts\Once</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

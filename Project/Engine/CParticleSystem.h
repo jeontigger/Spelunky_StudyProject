@@ -26,14 +26,15 @@ private:
 public:
     void SetParticleTex(const wstring& _texName);
     void SetParticleTex(Ptr<CTexture> _tex) { m_ParticleTex = _tex; }
+    void SetMaxParticleCount(int _count) { m_MaxParticleCount = _count; }
+    void SetSpawnRate(int _rate) { m_Module.SpawnRate = _rate; }
 
 public:
     virtual void UpdateData() override;
     virtual void finaltick() override;
     virtual void render() override;
 
-    virtual void SaveToFile(FILE* _File) override;
-    virtual void LoadFromFile(FILE* _File) override;
+    virtual void SaveToFile(ofstream& fout) override;
     virtual void LoadFromFile(ifstream& fin) override;
     CLONE(CParticleSystem);
 public:

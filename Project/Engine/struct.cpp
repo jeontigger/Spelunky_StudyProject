@@ -58,13 +58,17 @@ ofstream& operator<<(ofstream& fout, tParticleModule& module)
     }
     fout << endl;
 
+    fout << module.AtlasIdx;
+
     return fout;
 }
 
 ifstream& operator>>(ifstream& fin, tParticleModule& module)
 {
     
-    fin >> module.vSpawnColor >> module.vSpawnMinScale >> module.vSpawnMaxScale;
+    fin >> module.vSpawnColor;
+    fin >> module.vSpawnMinScale;
+    fin >> module.vSpawnMaxScale;
     fin >> module.MinLife >> module.MaxLife >> module.MinMass >> module.MaxMass;
     fin >> module.SpawnRate >> module.SpaceType >> module.MinMass >> module.MaxMass;
     fin >> module.SpawnRate >> module.SpaceType >> module.SpawnShape >> module.Radius;
@@ -81,6 +85,8 @@ ifstream& operator>>(ifstream& fin, tParticleModule& module)
         fin >> num;
         module.arrModuleCheck[i] = num;
     }
+
+    fin >> module.AtlasIdx;
     return fin;
 }
 

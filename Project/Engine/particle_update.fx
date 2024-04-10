@@ -41,8 +41,8 @@ void CS_ParticleUpdate(uint3 id : SV_DispatchThreadID)
             // 이때 SpawnCount 를 오히려 늘려버리는 현상이 발생할 수 있다. 
             // InterlockedCompareExchange 를 통해서 예상한 값과 일치할 경우에만 
             // 교체를 하도록 하는 함수를 사용한다.
-            //InterlockedCompareExchange(SpawnCount, AliveCount, Exchange, Origin);
-            InterlockedExchange(SpawnCount, Exchange, Origin);
+            InterlockedCompareExchange(SpawnCount, AliveCount, Exchange, Origin);
+            //InterlockedExchange(SpawnCount, Exchange, Origin);
             
             if (AliveCount == Origin)
             {
@@ -155,12 +155,12 @@ void CS_ParticleUpdate(uint3 id : SV_DispatchThreadID)
         {
             if (Particle.NoiseForceTime == 0.f)
             {
-                Particle.vNoiseForce = normalize(Rand.xyz * 2.f - 1.f) * Module.NoiseForceScale;
+                Particle.vNoiseForce.y = normalize(Rand.y * 2.f) * Module.NoiseForceScale;
                 Particle.NoiseForceTime = g_time;
             }
             else if (Module.NoiseForceTerm < g_time - Particle.NoiseForceTime)
             {
-                Particle.vNoiseForce = normalize(Rand.xyz * 2.f - 1.f) * Module.NoiseForceScale;
+                Particle.vNoiseForce.y = normalize(Rand.y * 2.f) * Module.NoiseForceScale;
                 Particle.NoiseForceTime = g_time;
             }
         }         
@@ -170,7 +170,7 @@ void CS_ParticleUpdate(uint3 id : SV_DispatchThreadID)
         // Calculate Force
         if (Module.arrModuleCheck[5])
         {
-            Particle.vForce.xyz += Particle.vNoiseForce.xyz;
+            Particle.vForce.y -= Particle.vNoiseForce.y;
             
             // Force 연산
             // F = M x A

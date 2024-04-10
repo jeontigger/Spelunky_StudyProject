@@ -2,6 +2,7 @@
 #include "CCharacterScript.h"
 
 #include "CDetectCollider.h"
+#include "CParticleOnce.h"
 
 CCharacterScript::CCharacterScript(UINT type)
 	: CFieldObject(type)
@@ -34,6 +35,10 @@ void CCharacterScript::begin()
 void CCharacterScript::Hit(int _damage)
 {
 	m_tInfo.Health -= _damage;
+
+	CGameObject* obj = CParticleOnce::Instantiate(ParticleBloodPrefKey, TexParticleSmallAtlas);
+	obj->Transform()->SetRelativePos(Vec3(GetOwner()->Transform()->GetRelativePos().x, GetOwner()->Transform()->GetRelativePos().y, -1));
+	GamePlayStatic::SpawnGameObject(obj, PlayerLayer);
 
 	if (m_tInfo.Health <= 0) {
 		Die();

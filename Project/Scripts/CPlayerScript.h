@@ -36,6 +36,8 @@ public:
     Vec3 GetSocketPos() { return m_vSocketPos; }
     void SetSocketPos(Vec3 _pos) { m_vSocketPos = _pos; }
 
+    void CloudSpawn();
+
 public:
     bool IsMoving();
     bool IsHandling();

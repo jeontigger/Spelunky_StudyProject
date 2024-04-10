@@ -419,7 +419,7 @@ namespace DirectX
 			operator Vector3 () { return Vector3(x, y, z); }
 
             friend ofstream& operator<<(ofstream& fout, Vector4 vec);
-            friend ifstream& operator>>(ifstream& fin, Vector4 vec);
+            friend ifstream& operator>>(ifstream& fin, Vector4& vec);
 			
 
             // Vector operations
