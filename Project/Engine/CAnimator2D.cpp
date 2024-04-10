@@ -133,6 +133,11 @@ void CAnimator2D::Play(const wstring& _strAnimName, bool _bRepeat)
 	m_CurAnim->Reset();
 }
 
+void CAnimator2D::Stop()
+{
+	m_CurAnim->m_bFinish = true;
+}
+
 void CAnimator2D::SaveToFile(FILE* _File)
 {
 	// 애니메이션 개수 저장

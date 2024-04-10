@@ -12,6 +12,7 @@
 #include "CPlayerWalkState.h"
 #include "CPlayerThrowState.h"
 #include "CPlayerAttackState.h"
+#include "CPlayerLadderState.h"
 
 void CStateMgr::GetStateInfo(vector<wstring>& _vec)
 {
@@ -26,6 +27,7 @@ void CStateMgr::GetStateInfo(vector<wstring>& _vec)
 	_vec.push_back(L"CPlayerWalkState");
 	_vec.push_back(L"CPlayerThrowState");
 	_vec.push_back(L"CPlayerAttackState");
+	_vec.push_back(L"CPlayerLadderState");
 }
 
 CState * CStateMgr::GetState(const wstring& _strStateName)
@@ -52,6 +54,8 @@ CState * CStateMgr::GetState(const wstring& _strStateName)
 		return new CPlayerThrowState;
 	if (L"CPlayerAttackState" == _strStateName)
 		return new CPlayerAttackState;
+	if (L"CPlayerLadderState" == _strStateName)
+		return new CPlayerLadderState;
 	return nullptr;
 }
 
@@ -91,6 +95,9 @@ CState * CStateMgr::GetState(UINT _iStateType)
 		break;
 	case (UINT)STATE_TYPE::PLAYERATTACKSTATE:
 		return new CPlayerAttackState;
+		break;
+	case (UINT)STATE_TYPE::PLAYERLADDERSTATE:
+		return new CPlayerLadderState;
 		break;
 	}
 	return nullptr;
@@ -142,6 +149,10 @@ const wchar_t * CStateMgr::GetStateName(CState * _pState)
 
 	case STATE_TYPE::PLAYERATTACKSTATE:
 		return L"CPlayerAttackState";
+		break;
+
+	case STATE_TYPE::PLAYERLADDERSTATE:
+		return L"CPlayerLadderState";
 		break;
 
 	}

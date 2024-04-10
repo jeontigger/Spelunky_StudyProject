@@ -11,6 +11,9 @@ private:
     float m_fInvincibilityTimer;
     float m_fJumpDelayTimer;
 
+    int m_iLadderCnt;
+    Vec3 m_vRecentLadderPos;
+
 private:
     class CItem* m_HandleItem;
     class CWhip* m_Whip;
@@ -37,6 +40,8 @@ public:
     bool IsMoving();
     bool IsHandling();
     Vec3 GetItemSocketPos();
+    bool DetectLadder();
+    Vec3 GetDetectLadderPos() { return m_vRecentLadderPos; }
 
     void HandOn(CGameObject* item);
     void PutDown();

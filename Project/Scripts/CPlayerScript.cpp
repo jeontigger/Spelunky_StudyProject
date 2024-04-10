@@ -134,6 +134,10 @@ Vec3 CPlayerScript::GetItemSocketPos()
 	}
 	return pos + Transform()->GetRelativePos(); 
 }
+bool CPlayerScript::DetectLadder()
+{
+	return m_iLadderCnt >0;
+}
 void CPlayerScript::begin()
 {
 	CCharacterScript::begin();
@@ -202,6 +206,15 @@ void CPlayerScript::BeginOverlap(CCollider2D* _Collider
 	, CGameObject* _OtherObj, CCollider2D* _OtherCollider)
 {
 	CCharacterScript::BeginOverlap(_Collider, _OtherObj, _OtherCollider);
+
+	auto tile = _OtherObj->GetScript<CTile>();
+	if (tile) {
+		TileType type = tile->GetTileType();
+		if (type == TileType::Ladder || type == TileType::LadderHalf) {
+			m_iLadderCnt++;
+			m_vRecentLadderPos = _OtherObj->Transform()->GetRelativePos();
+		}
+	}
 }
 
 void CPlayerScript::Overlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCollider2D* _OtherCollider)
@@ -226,4 +239,13 @@ void CPlayerScript::Overlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCol
 void CPlayerScript::EndOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCollider2D* _OtherCollider)
 {
 	CCharacterScript::EndOverlap(_Collider, _OtherObj, _OtherCollider);
+
+	auto tile = _OtherObj->GetScript<CTile>();
+
+	if (tile) {
+		TileType type = tile->GetTileType();
+		if (type == TileType::Ladder || type == TileType::LadderHalf) {
+			m_iLadderCnt--;
+		}
+	}
 }

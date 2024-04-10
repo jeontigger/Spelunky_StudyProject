@@ -16,6 +16,12 @@ void CPlayerFallDownState::finaltick()
 		ChangeState(StatePlayerIdle);
 	}
 
+	// 사다리 타기
+	if (KEY_PRESSED(m_Script->GetInputKeys().LookUp)) {
+		if (m_Script->DetectLadder())
+			ChangeState(StatePlayerLadder);
+	}
+
 	// 공격
 	if (KEY_TAP(m_Script->GetInputKeys().Attack)) {
 		// 채찍

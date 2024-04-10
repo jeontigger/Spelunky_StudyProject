@@ -154,6 +154,9 @@
     <ClInclude Include="CBombExplosion.h">
       <Filter>02. Scripts\Item</Filter>
     </ClInclude>
+    <ClInclude Include="CPlayerLadderState.h">
+      <Filter>08. States\Player\Ladder</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -294,6 +297,9 @@
     <ClCompile Include="CBombExplosion.cpp">
       <Filter>02. Scripts\Item</Filter>
     </ClCompile>
+    <ClCompile Include="CPlayerLadderState.cpp">
+      <Filter>08. States\Player\Ladder</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="00. Default">
@@ -412,6 +418,9 @@
     </Filter>
     <Filter Include="02. Scripts\Once">
       <UniqueIdentifier>{2defef04-9b8a-498b-8f4e-650411ced52e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="08. States\Player\Ladder">
+      <UniqueIdentifier>{4df4e6bc-d3e7-40af-ae08-cd1388eae237}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

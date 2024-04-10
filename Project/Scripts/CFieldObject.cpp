@@ -6,11 +6,14 @@
 CFieldObject::CFieldObject(UINT type)
 	: CScript(type)
 	, m_fGravity(DefaultGravity)
+	, m_bUseGravity(true)
 	, m_fMass(1.f)
 	, isPlayer(false)
 	, m_bGround(false)
 	, m_fAirFriction(3.f)
 	, m_fGroundFriction(8.f)
+	, m_bUseVelocityX(true)
+	, m_bUseVelocityY(true)
 
 {
 
@@ -27,7 +30,8 @@ void CFieldObject::AddGravity()
 		m_vVelocity.y = 0;
 	}
 	else {
-		m_vVelocity.y -= m_fGravity * m_fMass *DT;
+		if(m_bUseGravity)
+			m_vVelocity.y -= m_fGravity * m_fMass *DT;
 		m_bGround = 0;
 	}
 
@@ -40,8 +44,10 @@ void CFieldObject::tick()
 	m_vPos = Transform()->GetRelativePos();
 	AddGravity();
 
-	m_vPos.x += m_vVelocity.x * TileScaleX * DT;
-	m_vPos.y += m_vVelocity.y * TileScaleX * DT;
+	if(m_bUseVelocityX)
+		m_vPos.x += m_vVelocity.x * TileScaleX * DT;
+	if(m_bUseVelocityY)
+		m_vPos.y += m_vVelocity.y * TileScaleX * DT;
 
 	if (m_vVelocity.x > 0) {
 		if (IsGrounded()) {

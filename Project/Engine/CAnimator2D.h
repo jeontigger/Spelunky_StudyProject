@@ -30,6 +30,7 @@ public:
     CAnim* FindAnim(const wstring& _strAnimName);
     CAnim* FindAnim(const string& _strAnimName);
     void Play(const wstring& _strAnimName, bool _bRepeat = true);
+    void Stop();
 
     virtual void SaveToFile(FILE* _File) override;
     virtual void SaveToFile(ofstream& fout) override;

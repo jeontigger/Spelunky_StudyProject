@@ -27,6 +27,12 @@ void CPlayerIdleState::finaltick()
 		}
 	}
 
+	// 사다리 타기
+	if (KEY_PRESSED(input.LookUp)) {
+		if(m_PlayerScript->DetectLadder())
+			ChangeState(StatePlayerLadder);
+	}
+
 	// 아래 보기
 	if (KEY_PRESSED(input.LookDown)) {
 		ChangeState(StatePlayerDown);
@@ -44,6 +50,7 @@ void CPlayerIdleState::finaltick()
 		}
 	}
 
+	// 폭탄
 	if (KEY_TAP(input.Bomb)) {
 		m_PlayerScript->Bomb();
 	}

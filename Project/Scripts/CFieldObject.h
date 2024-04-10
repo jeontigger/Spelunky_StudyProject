@@ -20,6 +20,10 @@ public:
 protected:
     float m_fMass;
     float m_fGravity;
+    bool m_bUseGravity;
+    bool m_bUseVelocityX;
+    bool m_bUseVelocityY;
+
     float m_fAirFriction;
     float m_fGroundFriction;
     Vec3 m_vPos;
@@ -38,6 +42,9 @@ public:
 
     inline void SetGravity(float _gravity) { m_fGravity = _gravity; }
     inline float GetGravity() { return m_fGravity; }
+    inline void UseGravity(bool _use) { m_bUseGravity = _use; }
+    inline void UseVelocityX(bool _use) { m_bUseVelocityX= _use; }
+    inline void UseVelocityY(bool _use) { m_bUseVelocityY = _use; }
 
     void Stop() { m_vVelocity.x = 0.f; }
     inline bool IsMove() { return m_fGravity != 0.f; }

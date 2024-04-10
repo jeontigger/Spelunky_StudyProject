@@ -42,6 +42,7 @@
 #define AnimPlayerCrawl L"anim\\PlayerCrawl.anim"
 #define AnimPlayerThrow L"anim\\PlayerThrow.anim"
 #define AnimPlayerAttack L"anim\\PlayerAttack.anim"
+#define AnimPlayerLadder L"anim\\PlayerLadder.anim"
 
 #define AnimWhip L"anim\\Whip.anim"
 #define AnimBombBlack L"anim\\BombBlack.anim"
@@ -68,6 +69,7 @@
 #define StatePlayerWalk L"CPlayerWalkState"
 #define StatePlayerThrow L"CPlayerThrowState"
 #define StatePlayerAttack L"CPlayerAttackState"
+#define StatePlayerLadder L"CPlayerLadderState"
 
 
 #define StateEndSymbol "STATE_END"

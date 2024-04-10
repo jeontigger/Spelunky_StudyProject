@@ -192,6 +192,7 @@ void TileMaker::LoadAllStages()
 
 		CStagePack* stage = new CStagePack;
 		ifstream fin;
+		if (path.find(".ck") != std::string::npos) continue;
 		fin.open(path.c_str());
 		if (fin.is_open()) {
 			fin >> (*stage);

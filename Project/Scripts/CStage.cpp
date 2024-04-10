@@ -118,10 +118,10 @@ CStage::CStage()
 		m_Player->Transform()->SetRelativePos(Vec3(TileBlockScaleX / 2.f, -TileBlockScaleY / 2.f - TileScaleY, PlayerZ));
 		AddObject(m_Player, PlayerLayer);
 
-		prefab = CAssetMgr::GetInst()->Load<CPrefab>(SnakePrefKey, SnakePrefKey);
-		obj = prefab->Instantiate();
-		obj->Transform()->SetRelativePos(Vec3(TileBlockScaleX / 2.f - TileScaleX, -TileBlockScaleY / 2.f - TileScaleY, MonsterZ));
-		AddObject(obj, MonsterLayer);
+		//prefab = CAssetMgr::GetInst()->Load<CPrefab>(SnakePrefKey, SnakePrefKey);
+		//obj = prefab->Instantiate();
+		//obj->Transform()->SetRelativePos(Vec3(TileBlockScaleX / 2.f - TileScaleX, -TileBlockScaleY / 2.f - TileScaleY, MonsterZ));
+		//AddObject(obj, MonsterLayer);
 
 		prefab = CAssetMgr::GetInst()->Load<CPrefab>(RockPrefKey, RockPrefKey);
 		obj = prefab->Instantiate();
@@ -579,10 +579,11 @@ void CStage::begin()
 
 	CTileMgr::GetInst()->CheckLayer(DetectColliderLayer);
 	CTileMgr::GetInst()->CheckLayer(ItemLayer);
+	CTileMgr::GetInst()->CheckLayer(PlayerLayer);
 
 	if (test) {
-		m_arrTileBlocks[0][0].SetBlockType(TileBlockType::Normal);
-		m_arrTileBlocks[0][0] = m_SP->GetBlock(TileBlockType::Normal, 0);
+		m_arrTileBlocks[0][0].SetBlockType(TileBlockType::Entrance);
+		m_arrTileBlocks[0][0] = m_SP->GetBlock(TileBlockType::Entrance, 1);
 		m_arrTileBlocks[0][0].TileInstancing(0, 0);
 		m_MainCamera->GetScript<CCameraMovement>()->SetTarget(m_Player);
 	}

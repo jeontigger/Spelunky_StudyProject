@@ -125,14 +125,6 @@ void TreeUI::render_update()
 		}
 	}
 
-	
-
-
-
-
-
-
-
 	// Delegate »£√‚
 	if (m_bSelectEvent)
 	{

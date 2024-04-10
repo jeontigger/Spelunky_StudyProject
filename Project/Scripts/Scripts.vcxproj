@@ -181,6 +181,7 @@ call CodeGen.exe</Command>
     <ClInclude Include="CPlayerFallDownState.h" />
     <ClInclude Include="CPlayerHitCollider.h" />
     <ClInclude Include="CPlayerJumpUpState.h" />
+    <ClInclude Include="CPlayerLadderState.h" />
     <ClInclude Include="CPlayerScript.h" />
     <ClInclude Include="CPlayerStartState.h" />
     <ClInclude Include="CPlayerDownState.h" />
@@ -234,6 +235,7 @@ call CodeGen.exe</Command>
     <ClCompile Include="CPlayerFallDownState.cpp" />
     <ClCompile Include="CPlayerHitCollider.cpp" />
     <ClCompile Include="CPlayerJumpUpState.cpp" />
+    <ClCompile Include="CPlayerLadderState.cpp" />
     <ClCompile Include="CPlayerScript.cpp" />
     <ClCompile Include="CPlayerStartState.cpp" />
     <ClCompile Include="CPlayerDownState.cpp" />
