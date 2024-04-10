@@ -105,5 +105,6 @@ public:
     ~TreeUI();
 
     friend class TreeNode;
+    friend class MenuUI;
 };
 

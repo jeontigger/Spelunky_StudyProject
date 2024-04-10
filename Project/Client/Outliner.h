@@ -27,5 +27,7 @@ private:
 public:
     Outliner();
     ~Outliner();
+
+    friend class MenuUI;
 };
 

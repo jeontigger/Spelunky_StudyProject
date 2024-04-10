@@ -21,6 +21,8 @@
 #include "Inspector.h"
 #include "CLevelSaveLoad.h"
 #include "CLevelGenerator.h"
+#include "Outliner.h"
+#include "TreeUI.h"
 
 MenuUI::MenuUI()
 	: UI("Menu", "##Menu")
@@ -49,13 +51,13 @@ void MenuUI::render_update()
 
     Level();
 
+    GameObject();
     auto stoplevel = CLevelMgr::GetInst()->GetCurrentLevel();
     if (stoplevel == CLevelGenerator::GetTempLevel()) {
         Animation();
 
         TileMaker();
 
-        GameObject();
 
         Asset();
     }
@@ -169,6 +171,9 @@ void MenuUI::Level()
             CLevelGenerator::MakeStages();
             CLevel* level = (CLevel*)CLevelGenerator::GetLevel(0);
             CLevelMgr::GetInst()->ChangeLevel(level, LEVEL_STATE::PLAY);
+
+            UI* outliner = UIMGR->FindUI(UIOutlinerName);
+            ((Outliner*)outliner)->m_Tree->m_Selected = nullptr;
         }
     }
     if (KEY_TAP(F3)) {
@@ -224,6 +229,9 @@ void MenuUI::Level()
                 CLevel* level = (CLevel*)CLevelGenerator::GetLevel(0);
                 CLevelMgr::GetInst()->ChangeLevel(level, LEVEL_STATE::PLAY);
                 PlayOnce = true;
+
+                UI* outliner = UIMGR->FindUI(UIOutlinerName);
+                ((Outliner*)outliner)->m_Tree->m_Selected = nullptr;
             }
         }
 
