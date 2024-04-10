@@ -188,6 +188,14 @@ void CParticleSystem::SetParticleTex(const wstring& _texName)
 	m_ParticleTex = CAssetMgr::GetInst()->Load<CTexture>(_texName, _texName);
 }
 
+void CParticleSystem::SetParticleScale(int _min, int _max)
+{
+	m_Module.vSpawnMinScale.x = _min;
+	m_Module.vSpawnMinScale.y = _min;
+	m_Module.vSpawnMaxScale.x = _max;
+	m_Module.vSpawnMaxScale.y = _max;
+}
+
 void CParticleSystem::UpdateData()
 {
 }

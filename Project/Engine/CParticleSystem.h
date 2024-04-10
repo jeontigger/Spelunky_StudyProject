@@ -28,6 +28,7 @@ public:
     void SetParticleTex(Ptr<CTexture> _tex) { m_ParticleTex = _tex; }
     void SetMaxParticleCount(int _count) { m_MaxParticleCount = _count; }
     void SetSpawnRate(int _rate) { m_Module.SpawnRate = _rate; }
+    void SetParticleScale(int _min, int _max);
 
 public:
     virtual void UpdateData() override;

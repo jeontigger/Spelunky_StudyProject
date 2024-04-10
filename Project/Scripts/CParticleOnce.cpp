@@ -2,6 +2,7 @@
 #include "CParticleOnce.h"
 CParticleOnce::CParticleOnce()
 	: CScript((UINT)SCRIPT_TYPE::PARTICLEONCE)
+	, m_fDeleteTime(0.5f)
 {
 }
 
@@ -18,9 +19,11 @@ CGameObject* CParticleOnce::Instantiate(const wstring& _prefKey, const wstring& 
 
 void CParticleOnce::tick()
 {
-	//if (m_acctime > 0.5f) {
-	//	GamePlayStatic::DestroyGameObject(GetOwner());
-	//}
+	if (!m_bInfinite) {
+		if (m_acctime >m_fDeleteTime) {
+			GamePlayStatic::DestroyGameObject(GetOwner());
+		}
+	}
 
 	m_acctime += DT;
 }

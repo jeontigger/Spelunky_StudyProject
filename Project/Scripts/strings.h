@@ -4,6 +4,7 @@
 #define StrMonsterHitColliderName L"HitCollider"
 #define StrMonsterDetectColliderName L"DetectCollider"
 
+#define TitleFire L"prefab\\TitleFire.pref"
 #define TitleAnyKey L"prefab\\TitleAnyKey.pref"
 #define TitleBackgroundPrefKey L"prefab\\TitleBackground.pref"
 #define TitleGirlPrefKey L"prefab\\TitleGirl.pref"
@@ -26,6 +27,7 @@
 #define ParticleStarPrefKey L"prefab\\ParticleStar.pref"
 #define ParticleSoilPrefKey L"prefab\\ParticleSoil.pref"
 #define ParticleTreePrefKey L"prefab\\ParticleTree.pref"
+#define ParticleFirePrefKey L"prefab\\ParticleFire.pref"
 
 #define BBOwnerKey L"Owner"
 #define BBJumpDelay L"JumpDelay"

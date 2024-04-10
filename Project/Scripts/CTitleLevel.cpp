@@ -13,6 +13,7 @@
 
 #include "CCameraMovement.h"
 #include "CBlink.h"
+#include "CParticleOnce.h"
 
 
 void CTitleLevel::tick()
@@ -80,6 +81,10 @@ CTitleLevel::CTitleLevel()
 	obj->GetScript<CBlink>()->Set(1, 0.3f);
 	AddObject(obj, BackgroundLayer);
 
+	obj = CAssetMgr::GetInst()->Load<CPrefab>(TitleFire, TitleFire)->Instantiate();
+	obj->GetScript<CParticleOnce>()->Infinite(true);
+	obj->ParticleSystem()->SetParticleTex(TexParticleSmallAtlas);
+	AddObject(obj, BackgroundLayer);
 }
 
 CTitleLevel::~CTitleLevel()
