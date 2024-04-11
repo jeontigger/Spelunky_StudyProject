@@ -13,6 +13,8 @@ private:
 
     CGameObject* m_MainCamera;
 
+    vector<CGameObject*> m_vecAnyKeyObj;
+
 public:
     virtual void tick() override;
     virtual void begin() override;
@@ -23,5 +25,8 @@ public:
 
 private:
     void ChangeLevelState(TitleLevelState _state);
+
+private:
+    void AnyKeyObjectsInit();
 };
 

@@ -81,23 +81,7 @@ CTitleLevel::CTitleLevel()
 
 	AddObject(m_MainCamera, CameraLayer);
 
-	CGameObject* obj = CAssetMgr::GetInst()->Load<CPrefab>(TitleBackgroundPrefKey, TitleBackgroundPrefKey)->Instantiate();
-	obj->Animator2D()->Play(AnimTitleBackground);
-	AddObject(obj, BackgroundLayer);
-
-	obj = CAssetMgr::GetInst()->Load<CPrefab>(TitleGirlPrefKey, TitleGirlPrefKey)->Instantiate();
-	obj->Animator2D()->Play(AnimTitleGirl);
-	AddObject(obj, BackgroundLayer);
-
-	obj = CAssetMgr::GetInst()->Load<CPrefab>(TitleAnyKey, TitleAnyKey)->Instantiate();
-	obj->Animator2D()->Play(AnimTitleAnyKey);
-	obj->GetScript<CBlink>()->Set(1, 0.3f);
-	AddObject(obj, BackgroundLayer);
-
-	obj = CAssetMgr::GetInst()->Load<CPrefab>(TitleFire, TitleFire)->Instantiate();
-	obj->GetScript<CParticleOnce>()->Infinite(true);
-	obj->ParticleSystem()->SetParticleTex(TexParticleSmallAtlas);
-	AddObject(obj, BackgroundLayer);
+	AnyKeyObjectsInit();
 }
 
 CTitleLevel::~CTitleLevel()
@@ -113,9 +97,38 @@ void CTitleLevel::ChangeLevelState(TitleLevelState _state)
 
 		break;
 	case TitleLevelState::Select:
-
+	{
+		for (int i = 0; i < m_vecAnyKeyObj.size(); i++) {
+			GamePlayStatic::DestroyGameObject(m_vecAnyKeyObj[i]);
+		}
 		break;
+	}
 	default:
 		break;
 	}
+}
+
+void CTitleLevel::AnyKeyObjectsInit()
+{
+	CGameObject* obj = CAssetMgr::GetInst()->Load<CPrefab>(TitleBackgroundPrefKey, TitleBackgroundPrefKey)->Instantiate();
+	obj->Animator2D()->Play(AnimTitleBackground);
+	AddObject(obj, BackgroundLayer);
+	m_vecAnyKeyObj.push_back(obj);
+
+	obj = CAssetMgr::GetInst()->Load<CPrefab>(TitleGirlPrefKey, TitleGirlPrefKey)->Instantiate();
+	obj->Animator2D()->Play(AnimTitleGirl);
+	AddObject(obj, BackgroundLayer);
+	m_vecAnyKeyObj.push_back(obj);
+
+	obj = CAssetMgr::GetInst()->Load<CPrefab>(TitleAnyKey, TitleAnyKey)->Instantiate();
+	obj->Animator2D()->Play(AnimTitleAnyKey);
+	obj->GetScript<CBlink>()->Set(1, 0.3f);
+	AddObject(obj, BackgroundLayer);
+	m_vecAnyKeyObj.push_back(obj);
+
+	obj = CAssetMgr::GetInst()->Load<CPrefab>(TitleFire, TitleFire)->Instantiate();
+	obj->GetScript<CParticleOnce>()->Infinite(true);
+	obj->ParticleSystem()->SetParticleTex(TexParticleSmallAtlas);
+	AddObject(obj, BackgroundLayer);
+	m_vecAnyKeyObj.push_back(obj);
 }
