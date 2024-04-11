@@ -38,6 +38,8 @@ void CTitleLevel::tick()
 		if (KEY_TAP(ESC)) {
 			ChangeLevelState(TitleLevelState::AnyKeyPress);
 		}
+
+		CursorMove();
 	}
 }
 
@@ -87,6 +89,8 @@ void CTitleLevel::begin()
 	CCollisionMgr::GetInst()->LayerCheck(CameraLayer, BackgroundLayer);
 	
 	CRenderMgr::GetInst()->SetDebugPosition(false);
+
+	m_iMenuCursor = 0;
 }
 
 
@@ -109,6 +113,7 @@ void CTitleLevel::ChangeLevelState(TitleLevelState _state)
 			GamePlayStatic::DestroyGameObject(m_vecAnyKeyObj[i]);
 		}
 		SelectObjectInit();
+		m_iMenuCursor = 0;
 		break;
 	}
 	default:
@@ -172,4 +177,36 @@ void CTitleLevel::SelectObjectInit()
 	obj->Animator2D()->Play(AnimTitleSelectFloor);
 	AddObject(obj, BackgroundLayer);
 	m_vecSelectObj.push_back(obj);
+
+	// cursor init
+	for (int i = 0; i < (int)TitleMenu::END; i++) {
+		obj = CAssetMgr::GetInst()->Load<CPrefab>(TitleCursor, TitleCursor)->Instantiate();
+		m_arrCursors[i] = obj;
+		obj->Animator2D()->Play(AnimTitleCursor);
+		Vec3 vPos = obj->Transform()->GetRelativePos();
+		vPos.x = CursorHidePosX;
+		vPos.y = CursorStartPosY + i * CursorYSpaceSize;
+		obj->Transform()->SetRelativePos(vPos);
+		AddObject(obj, BackgroundLayer);
+		m_vecSelectObj.push_back(obj);
+	}
+}
+
+void CTitleLevel::CursorMove()
+{
+	for (int i = 0; i < (int)TitleMenu::END; i++) {
+		Vec3 vPos = m_arrCursors[i]->Transform()->GetRelativePos();
+		Vec3 vTarget;
+		if (i == m_iMenuCursor) {
+			vTarget = Vec3(CursorSelectPosX, vPos.y, vPos.z);
+		}
+		else {
+			vTarget = Vec3(CursorHidePosX, vPos.y, vPos.z);
+		}
+		Vec3 vDir = vTarget - vPos;
+		vDir.Normalize();
+
+		vPos += vDir * 300.f * DT;
+		m_arrCursors[i]->Transform()->SetRelativePos(vPos);
+	}
 }

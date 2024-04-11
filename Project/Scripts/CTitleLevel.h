@@ -5,6 +5,17 @@ enum class TitleLevelState {
     AnyKeyPress,
     Select,
 };
+
+enum class TitleMenu {
+    GameStart,
+    Quit,
+    END,
+};
+
+#define CursorHidePosX -580
+#define CursorSelectPosX -422
+#define CursorStartPosY 0
+#define CursorYSpaceSize 60
 class CTitleLevel :
     public CLevel
 {
@@ -15,6 +26,9 @@ private:
 
     vector<CGameObject*> m_vecAnyKeyObj;
     vector<CGameObject*> m_vecSelectObj;
+
+    int m_iMenuCursor;
+    CGameObject* m_arrCursors[(UINT)TitleMenu::END];    
 
 public:
     virtual void tick() override;
@@ -30,5 +44,6 @@ private:
 private:
     void AnyKeyObjectsInit();
     void SelectObjectInit();
+    void CursorMove();
 };
 

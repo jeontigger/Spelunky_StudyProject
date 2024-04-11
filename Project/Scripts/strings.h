@@ -4,6 +4,7 @@
 #define StrMonsterHitColliderName L"HitCollider"
 #define StrMonsterDetectColliderName L"DetectCollider"
 
+#define TitleCursor L"prefab\\TitleCursor.pref"
 #define TitleSelect01 L"prefab\\TitleSelect01.pref"
 #define TitleSelect02 L"prefab\\TitleSelect02.pref"
 #define TitleSelect03 L"prefab\\TitleSelect03.pref"
@@ -81,6 +82,7 @@
 #define AnimTitleAnyKey L"anim\\TitleAnyKey.anim"
 #define AnimTitleBackground L"anim\\TitleBackground.anim"
 #define AnimTitleGirl L"anim\\TitleGirl.anim"
+#define AnimTitleCursor L"anim\\TitleCursor.anim"
 #define AnimTitleSelect01 L"anim\\TitleSelect01.anim"
 #define AnimTitleSelect02 L"anim\\TitleSelect02.anim"
 #define AnimTitleSelect03 L"anim\\TitleSelect03.anim"
