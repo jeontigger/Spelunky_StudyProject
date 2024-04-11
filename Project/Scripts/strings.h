@@ -83,7 +83,7 @@
 #define AnimHUDTime L"anim\\HUDTime.anim"
 #define AnimHUDStage L"anim\\HUDStage.anim"
 
-#define AnimPauseCursor L"anim\\PauseCursor.anim"
+#define AnimPauseCursor L"anim\\PauseMenuCursor.anim"
 #define AnimPauseMenuBoard L"anim\\PauseMenuBoard.anim"
 #define AnimPauseHeader L"anim\\PauseHeader.anim"
 #define AnimPauseRock L"anim\\PauseRock.anim"

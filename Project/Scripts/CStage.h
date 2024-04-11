@@ -29,7 +29,14 @@ enum class PAUSEMENU {
     END,
 };
 
-constexpr int MenuOffsets[(UINT)PAUSEMENU::END] = { -250, -130, -100, 0 };
+enum class MENUTYPE {
+    CONTINUE,
+    STOP,
+    QUIT,
+    END
+};
+
+constexpr int MenuOffsets[(UINT)PAUSEMENU::END] = { -270, -130, 0, 0 };
 
 class CStage :
     public CLevel

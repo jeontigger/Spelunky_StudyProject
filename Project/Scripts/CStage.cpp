@@ -505,6 +505,7 @@ void CStage::finaltick()
 		}
 		else if(m_State == LEVEL_STATE::PLAY){
 			CLevelMgr::GetInst()->GetCurrentLevel()->ChangeState(LEVEL_STATE::PAUSE);
+			m_iCursorIdx = 0;
 		}
 	}
 
@@ -688,7 +689,6 @@ void CStage::PauseMenuControl()
 		Vec2 vTarget = vPos;
 
 		int movepos;
-		// TODO : Pause상태라면
 		if (m_State == LEVEL_STATE::PAUSE) {
 			movepos = PauseBoardOpen;
 		}
@@ -707,10 +707,40 @@ void CStage::PauseMenuControl()
 		float fDistance = vDir.Length();
 		vDir.Normalize();
 
-		vPos += vDir * 2000.f * DT_ENGINE;
+		vPos += vDir * 4000.f * DT_ENGINE;
 
 		if (fDistance > 1.f) {
 			m_vecPauseMenu[i]->GetScript<CUI>()->SetScreenPos(vPos);
+		}
+	}
+
+	if (m_State == LEVEL_STATE::PAUSE) {
+		if (KEY_TAP(UP)) {
+			m_iCursorIdx--;
+		}
+		if (KEY_TAP(DOWN)) {
+			m_iCursorIdx++;
+		}
+
+		m_iCursorIdx %= (UINT)MENUTYPE::END;
+
+		if (KEY_TAP(ENTER)) {
+			switch ((MENUTYPE)m_iCursorIdx)
+			{
+			case MENUTYPE::CONTINUE:
+				CLevelMgr::GetInst()->GetCurrentLevel()->ChangeState(LEVEL_STATE::PLAY);
+				break;
+			case MENUTYPE::STOP:
+
+				break;
+			case MENUTYPE::QUIT:
+				PostQuitMessage(0);
+				break;
+			case MENUTYPE::END:
+				break;
+			default:
+				break;
+			}
 		}
 	}
 }
