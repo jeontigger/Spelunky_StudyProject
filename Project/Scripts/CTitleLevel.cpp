@@ -21,8 +21,15 @@ void CTitleLevel::tick()
 {
 	CLevel::tick();
 
-	if (CKeyMgr::GetInst()->AnyKeyPressed()) {
-		int a = 0;
+	if (m_State == TitleLevelState::AnyKeyPress) {
+		if (CKeyMgr::GetInst()->AnyKeyPressed()) {
+			ChangeLevelState(TitleLevelState::Select);
+		}
+	}
+	else if(m_State==TitleLevelState::Select){
+		if (KEY_TAP(ESC)) {
+			ChangeLevelState(TitleLevelState::AnyKeyPress);
+		}
 	}
 }
 
@@ -36,6 +43,7 @@ void CTitleLevel::begin()
 }
 
 CTitleLevel::CTitleLevel()
+	:m_State(TitleLevelState::AnyKeyPress)
 {
 	m_arrLayer[1]->SetName(L"Background");
 	m_arrLayer[5]->SetName(L"Light");
@@ -94,4 +102,20 @@ CTitleLevel::CTitleLevel()
 
 CTitleLevel::~CTitleLevel()
 {
+}
+
+void CTitleLevel::ChangeLevelState(TitleLevelState _state)
+{
+	m_State = _state;
+	switch (_state)
+	{
+	case TitleLevelState::AnyKeyPress:
+
+		break;
+	case TitleLevelState::Select:
+
+		break;
+	default:
+		break;
+	}
 }
