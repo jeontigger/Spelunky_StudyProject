@@ -14,6 +14,7 @@ private:
     CGameObject* m_MainCamera;
 
     vector<CGameObject*> m_vecAnyKeyObj;
+    vector<CGameObject*> m_vecSelectObj;
 
 public:
     virtual void tick() override;
@@ -28,5 +29,6 @@ private:
 
 private:
     void AnyKeyObjectsInit();
+    void SelectObjectInit();
 };
 

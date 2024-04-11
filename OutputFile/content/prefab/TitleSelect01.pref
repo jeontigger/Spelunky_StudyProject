@@ -1,0 +1,29 @@
+TitleSelect01
+0
+-702 0 100
+512 1080 1
+0 0 0
+1
+1
+0 0 0
+1 1 1
+0
+0
+3
+1
+anim\TitleSelect01.anim
+1
+0.5 1 0 0 0 0 0.5 1 0.0625
+1
+texture\title\main_fore1.png
+0
+texture\title\main_fore1.png
+9
+1
+RectMesh
+1
+1
+Std2DMtrl
+1
+15
+0

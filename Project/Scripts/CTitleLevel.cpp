@@ -16,6 +16,14 @@
 #include "CBlink.h"
 #include "CParticleOnce.h"
 
+CTitleLevel::CTitleLevel()
+	:m_State(TitleLevelState::AnyKeyPress)
+{
+}
+
+CTitleLevel::~CTitleLevel()
+{
+}
 
 void CTitleLevel::tick()
 {
@@ -35,16 +43,7 @@ void CTitleLevel::tick()
 
 void CTitleLevel::begin()
 {
-	CLevel::begin();
 
-	CCollisionMgr::GetInst()->LayerCheck(CameraLayer, BackgroundLayer);
-	
-	CRenderMgr::GetInst()->SetDebugPosition(false);
-}
-
-CTitleLevel::CTitleLevel()
-	:m_State(TitleLevelState::AnyKeyPress)
-{
 	m_arrLayer[1]->SetName(L"Background");
 	m_arrLayer[5]->SetName(L"Light");
 
@@ -82,11 +81,14 @@ CTitleLevel::CTitleLevel()
 	AddObject(m_MainCamera, CameraLayer);
 
 	AnyKeyObjectsInit();
+
+	CLevel::begin();
+
+	CCollisionMgr::GetInst()->LayerCheck(CameraLayer, BackgroundLayer);
+	
+	CRenderMgr::GetInst()->SetDebugPosition(false);
 }
 
-CTitleLevel::~CTitleLevel()
-{
-}
 
 void CTitleLevel::ChangeLevelState(TitleLevelState _state)
 {
@@ -94,13 +96,19 @@ void CTitleLevel::ChangeLevelState(TitleLevelState _state)
 	switch (_state)
 	{
 	case TitleLevelState::AnyKeyPress:
-
+	{
+		AnyKeyObjectsInit();
+		for (int i = 0; i < m_vecSelectObj.size(); i++) {
+			GamePlayStatic::DestroyGameObject(m_vecSelectObj[i]);
+		}
 		break;
+	}
 	case TitleLevelState::Select:
 	{
 		for (int i = 0; i < m_vecAnyKeyObj.size(); i++) {
 			GamePlayStatic::DestroyGameObject(m_vecAnyKeyObj[i]);
 		}
+		SelectObjectInit();
 		break;
 	}
 	default:
@@ -131,4 +139,37 @@ void CTitleLevel::AnyKeyObjectsInit()
 	obj->ParticleSystem()->SetParticleTex(TexParticleSmallAtlas);
 	AddObject(obj, BackgroundLayer);
 	m_vecAnyKeyObj.push_back(obj);
+}
+
+void CTitleLevel::SelectObjectInit()
+{
+	CGameObject* obj = CAssetMgr::GetInst()->Load<CPrefab>(TitleSelect01, TitleSelect01)->Instantiate();
+	obj->Animator2D()->Play(AnimTitleSelect01);
+	AddObject(obj, BackgroundLayer);
+	m_vecSelectObj.push_back(obj);
+
+	obj = CAssetMgr::GetInst()->Load<CPrefab>(TitleSelect02, TitleSelect02)->Instantiate();
+	obj->Animator2D()->Play(AnimTitleSelect02);
+	AddObject(obj, BackgroundLayer);
+	m_vecSelectObj.push_back(obj);
+
+	obj = CAssetMgr::GetInst()->Load<CPrefab>(TitleSelect03, TitleSelect03)->Instantiate();
+	obj->Animator2D()->Play(AnimTitleSelect03);
+	AddObject(obj, BackgroundLayer);
+	m_vecSelectObj.push_back(obj);
+
+	obj = CAssetMgr::GetInst()->Load<CPrefab>(TitleSelectDoor1, TitleSelectDoor1)->Instantiate();
+	obj->Animator2D()->Play(AnimTitleSelectDoor1);
+	AddObject(obj, BackgroundLayer);
+	m_vecSelectObj.push_back(obj);
+
+	obj = CAssetMgr::GetInst()->Load<CPrefab>(TitleSelectDoor2, TitleSelectDoor2)->Instantiate();
+	obj->Animator2D()->Play(AnimTitleSelectDoor2);
+	AddObject(obj, BackgroundLayer);
+	m_vecSelectObj.push_back(obj);
+
+	obj = CAssetMgr::GetInst()->Load<CPrefab>(TitleSelectFloor, TitleSelectFloor)->Instantiate();
+	obj->Animator2D()->Play(AnimTitleSelectFloor);
+	AddObject(obj, BackgroundLayer);
+	m_vecSelectObj.push_back(obj);
 }
