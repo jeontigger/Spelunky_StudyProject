@@ -721,7 +721,7 @@ void CStage::PauseMenuControl()
 		if (KEY_TAP(DOWN)) {
 			m_iCursorIdx++;
 		}
-
+		m_iCursorIdx += (UINT)MENUTYPE::END;
 		m_iCursorIdx %= (UINT)MENUTYPE::END;
 
 		if (KEY_TAP(ENTER)) {
