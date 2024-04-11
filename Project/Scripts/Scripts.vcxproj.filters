@@ -446,5 +446,8 @@
     <Filter Include="02. Scripts\Utils">
       <UniqueIdentifier>{b522e95d-26d8-4a8a-a977-c935e6b6dba0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. Scripts\Pause">
+      <UniqueIdentifier>{b8c49b91-d6af-445e-bb10-74663af1feb5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

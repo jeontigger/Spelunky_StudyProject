@@ -1,0 +1,30 @@
+PauseRock
+0
+-159.5 9029 5
+772 200 1
+0 0 0
+1
+1
+0 0 0
+1 1 1
+0
+0
+3
+1
+anim\PauseRock.anim
+1
+1 1 0 0 0 0 1 1 0.0625
+1
+texture\atlas\PauseRock.png
+0
+texture\atlas\PauseRock.png
+9
+1
+RectMesh
+1
+1
+Std2DMtrl
+1
+15
+1
+CUI

@@ -169,7 +169,7 @@ void CLevel::ChangeState(LEVEL_STATE _NextState)
 		CTimeMgr::GetInst()->LockDeltaTime(false);
 
 		// 레벨 카메라 모드
-		CRenderMgr::GetInst()->ActiveEditorMode(false);
+		//CRenderMgr::GetInst()->ActiveEditorMode(false);
 
 		// None, Stop -> Play
 		if (LEVEL_STATE::STOP == m_State || LEVEL_STATE::NONE == m_State)
@@ -194,6 +194,6 @@ void CLevel::ChangeState(LEVEL_STATE _NextState)
 		CTimeMgr::GetInst()->LockDeltaTime(true);
 
 		// 에디터 카메라 모드
-		CRenderMgr::GetInst()->ActiveEditorMode(true);
+		//CRenderMgr::GetInst()->ActiveEditorMode(true);
 	}
 }

@@ -17,6 +17,20 @@ enum class StageState {
     END,
 };
 
+#define PauseCursorSpace 40
+#define PauseBoardHide -300
+#define PauseBoardOpen 540
+
+enum class PAUSEMENU {
+    ROCK,
+    HEADER,
+    CURSOR,
+    BOARD,
+    END,
+};
+
+constexpr int MenuOffsets[(UINT)PAUSEMENU::END] = { -250, -130, -100, 0 };
+
 class CStage :
     public CLevel
 {
@@ -24,6 +38,9 @@ private:
     CGameObject* m_Player;
     CGameObject* m_MainCamera;
     CGameObject* m_UICamera;
+
+    vector<CGameObject*> m_vecPauseMenu;
+    int m_iCursorIdx;
 
     // 시각화용
 private:
@@ -73,4 +90,7 @@ private:
 private:
     void PrintChangeState(const wchar_t* _content);
     void PathVisualization();
+
+    void PauseMenuInit();
+    void PauseMenuControl();
 };

@@ -4,6 +4,10 @@
 #define StrMonsterHitColliderName L"HitCollider"
 #define StrMonsterDetectColliderName L"DetectCollider"
 
+#define PauseMenuCursorPrefKey L"prefab\\PauseCursor.pref"
+#define PauseMenuBoardPrefKey L"prefab\\PauseMenuBoard.pref"
+#define PauseHeaderPrefKey L"prefab\\PauseHeader.pref"
+#define PauseRockPrefKey L"prefab\\PauseRock.pref"
 #define TitleCursor L"prefab\\TitleCursor.pref"
 #define TitleSelect01 L"prefab\\TitleSelect01.pref"
 #define TitleSelect02 L"prefab\\TitleSelect02.pref"
@@ -79,6 +83,10 @@
 #define AnimHUDTime L"anim\\HUDTime.anim"
 #define AnimHUDStage L"anim\\HUDStage.anim"
 
+#define AnimPauseCursor L"anim\\PauseCursor.anim"
+#define AnimPauseMenuBoard L"anim\\PauseMenuBoard.anim"
+#define AnimPauseHeader L"anim\\PauseHeader.anim"
+#define AnimPauseRock L"anim\\PauseRock.anim"
 #define AnimTitleAnyKey L"anim\\TitleAnyKey.anim"
 #define AnimTitleBackground L"anim\\TitleBackground.anim"
 #define AnimTitleGirl L"anim\\TitleGirl.anim"

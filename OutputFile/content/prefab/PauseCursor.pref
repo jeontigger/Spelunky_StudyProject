@@ -1,0 +1,30 @@
+PauseCursor
+0
+0.499939 9014 5
+512 128 1
+0 0 0
+1
+1
+0 0 0
+1 1 1
+0
+0
+3
+1
+anim\PauseMenuCursor.anim
+1
+0.333333 0.1 0.3325 0.5 0 0 0.333333 0.1 0.0625
+1
+texture\atlas\menu_basic.png
+0
+texture\atlas\menu_basic.png
+9
+1
+RectMesh
+1
+1
+Std2DMtrl
+1
+15
+1
+CUI

@@ -14,23 +14,25 @@ void CUI::SetScreenPos(Vec2 _vPos)
 
 void CUI::begin()
 {
+
+}
+
+void CUI::finaltick()
+{
 	GetOwner()->MeshRender()->setRenderActive(true);
-	CStage* stage =(CStage*)CLevelMgr::GetInst()->GetCurrentLevel();
+
+	CStage* stage = (CStage*)CLevelMgr::GetInst()->GetCurrentLevel();
 	CGameObject* camera = stage->GetUICamera();
 	Vec3 vPos = camera->Transform()->GetRelativePos();
 	Vec2 vResolution = CDevice::GetInst()->GetRenderResolution();
 
-	vPos.x -= vResolution.x/2.f * camera->Camera()->GetScale();
-	vPos.y += vResolution.y/2.f * camera->Camera()->GetScale();
+	vPos.x -= vResolution.x / 2.f * camera->Camera()->GetScale();
+	vPos.y += vResolution.y / 2.f * camera->Camera()->GetScale();
 	vPos.x += m_vScreenPos.x;
 	vPos.y -= m_vScreenPos.y;
 	vPos.z = UIZ;
 
 	GetOwner()->Transform()->SetRelativePos(vPos);
-}
-
-void CUI::tick()
-{
 }
 
 CUI::CUI()

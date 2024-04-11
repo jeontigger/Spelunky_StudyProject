@@ -19,6 +19,7 @@
 #include "CCameraMovement.h"
 #include "CStagePack.h"
 #include "CTile.h"
+#include "CUI.h"
 
 bool test = true;
 
@@ -118,10 +119,10 @@ CStage::CStage()
 		m_Player->Transform()->SetRelativePos(Vec3(TileBlockScaleX / 2.f, -TileBlockScaleY / 2.f - TileScaleY, PlayerZ));
 		AddObject(m_Player, PlayerLayer);
 
-		prefab = CAssetMgr::GetInst()->Load<CPrefab>(SnakePrefKey, SnakePrefKey);
-		obj = prefab->Instantiate();
-		obj->Transform()->SetRelativePos(Vec3(TileBlockScaleX / 2.f - TileScaleX, -TileBlockScaleY / 2.f - TileScaleY, MonsterZ));
-		AddObject(obj, MonsterLayer);
+		//prefab = CAssetMgr::GetInst()->Load<CPrefab>(SnakePrefKey, SnakePrefKey);
+		//obj = prefab->Instantiate();
+		//obj->Transform()->SetRelativePos(Vec3(TileBlockScaleX / 2.f - TileScaleX, -TileBlockScaleY / 2.f - TileScaleY, MonsterZ));
+		//AddObject(obj, MonsterLayer);
 
 		prefab = CAssetMgr::GetInst()->Load<CPrefab>(RockPrefKey, RockPrefKey);
 		obj = prefab->Instantiate();
@@ -137,9 +138,9 @@ CStage::CStage()
 		obj = prefab->Instantiate();
 		obj->Transform()->SetRelativePos(Vec3(TileBlockScaleX / 2.f, -TileBlockScaleY / 2.f - TileScaleY* 2, TileZ+10));
 		obj->ParticleSystem()->SetParticleTex(TexParticleSmallAtlas);
-
 		AddObject(obj, PlayerLayer);
 
+		//PauseMenuInit();
 	}
 	CTileMgr::GetInst()->Init();
 }
@@ -498,6 +499,15 @@ void CStage::finaltick()
 
 	CTileMgr::GetInst()->tick();
 
+	if (KEY_TAP(ESC)) {
+		if (m_State == LEVEL_STATE::PAUSE) {
+			CLevelMgr::GetInst()->GetCurrentLevel()->ChangeState(LEVEL_STATE::PLAY);
+		}
+		else if(m_State == LEVEL_STATE::PLAY){
+			CLevelMgr::GetInst()->GetCurrentLevel()->ChangeState(LEVEL_STATE::PAUSE);
+		}
+	}
+
 
 	if (KEY_TAP(Y)) {
 		Vec2 mousepos = CKeyMgr::GetInst()->GetMousePos();
@@ -506,6 +516,9 @@ void CStage::finaltick()
 		int a = 0;
 
 	}
+
+	PauseMenuControl();
+
 	if (test)
 		return;
 
@@ -595,7 +608,7 @@ void CStage::begin()
 		m_arrTileBlocks[0][0].TileInstancing(0, 0);
 		m_MainCamera->GetScript<CCameraMovement>()->SetTarget(m_Player);
 	}
-
+	PauseMenuInit();
 }
 
 void CStage::PrintChangeState(const wchar_t* _content)
@@ -630,4 +643,74 @@ void CStage::PathVisualization()
 		i++;
 	}
 	
+}
+
+void CStage::PauseMenuInit()
+{
+	CGameObject* obj;
+	m_vecPauseMenu.resize((UINT)PAUSEMENU::END);
+
+	// 돌 생성
+	obj = CAssetMgr::GetInst()->Load<CPrefab>(PauseRockPrefKey, PauseRockPrefKey)->Instantiate();
+	obj->Animator2D()->Play(AnimPauseRock);
+	obj->GetScript<CUI>()->SetScreenPos(Vec2(960, PauseBoardHide + MenuOffsets[0]));
+	AddObject(obj, UILayer);
+	m_vecPauseMenu[(UINT)PAUSEMENU::ROCK] = obj;
+
+	// 현수막 생성
+	obj = CAssetMgr::GetInst()->Load<CPrefab>(PauseHeaderPrefKey, PauseHeaderPrefKey)->Instantiate();
+	obj->Animator2D()->Play(AnimPauseHeader);
+	obj->GetScript<CUI>()->SetScreenPos(Vec2(960, PauseBoardHide + MenuOffsets[1]));
+	AddObject(obj, UILayer);
+	m_vecPauseMenu[(UINT)PAUSEMENU::HEADER] = obj;
+
+	// 커서 생성
+	obj = CAssetMgr::GetInst()->Load<CPrefab>(PauseMenuCursorPrefKey, PauseMenuCursorPrefKey)->Instantiate();
+	obj->Animator2D()->Play(AnimPauseCursor);
+	obj->GetScript<CUI>()->SetScreenPos(Vec2(960, PauseBoardHide + MenuOffsets[2]));
+	AddObject(obj, UILayer);
+	m_vecPauseMenu[(UINT)PAUSEMENU::CURSOR] = obj;
+
+	// 메뉴 보드 생성
+	obj = CAssetMgr::GetInst()->Load<CPrefab>(PauseMenuBoardPrefKey, PauseMenuBoardPrefKey)->Instantiate();
+	obj->Animator2D()->Play(AnimPauseMenuBoard);
+	obj->GetScript<CUI>()->SetScreenPos(Vec2(960, PauseBoardHide));
+	AddObject(obj, UILayer);
+	m_vecPauseMenu[(UINT)PAUSEMENU::BOARD] = obj;
+
+}
+
+void CStage::PauseMenuControl()
+{
+	for (int i = 0; i < m_vecPauseMenu.size(); i++) {
+
+		Vec2 vPos = m_vecPauseMenu[i]->GetScript<CUI>()->GetScreenPos();
+		Vec2 vTarget = vPos;
+
+		int movepos;
+		// TODO : Pause상태라면
+		if (m_State == LEVEL_STATE::PAUSE) {
+			movepos = PauseBoardOpen;
+		}
+		else {
+			movepos = PauseBoardHide;
+		}
+
+		if (i == (UINT)PAUSEMENU::CURSOR) {
+			vTarget.y = movepos + MenuOffsets[i] + PauseCursorSpace * m_iCursorIdx;
+		}
+		else {
+			vTarget.y = movepos + MenuOffsets[i];
+		}
+
+		Vec2 vDir = vTarget - vPos;
+		float fDistance = vDir.Length();
+		vDir.Normalize();
+
+		vPos += vDir * 2000.f * DT_ENGINE;
+
+		if (fDistance > 1.f) {
+			m_vecPauseMenu[i]->GetScript<CUI>()->SetScreenPos(vPos);
+		}
+	}
 }

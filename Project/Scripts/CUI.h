@@ -9,10 +9,12 @@ private:
 
 public:
     void SetScreenPos(Vec2 _vPos);
+    Vec2 GetScreenPos() { return Vec2(m_vScreenPos.x, m_vScreenPos.y); }
 
 public:
     virtual void begin() override;
-    virtual void tick() override;
+    virtual void tick() override {}
+    virtual void finaltick() override;
 
     virtual void SaveToFile(FILE* _File) {}
     virtual void SaveToFile(ofstream& _File) {}

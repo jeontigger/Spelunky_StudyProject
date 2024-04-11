@@ -206,10 +206,15 @@ void CTitleLevel::CursorMove()
 			vTarget = Vec3(CursorHidePosX, vPos.y, vPos.z);
 		}
 		Vec3 vDir = vTarget - vPos;
+		float distance = vDir.Length();
 		vDir.Normalize();
 
-		vPos += vDir * 300.f * DT;
-		m_arrCursors[i]->Transform()->SetRelativePos(vPos);
+		if (distance > 1.f) {
+			vPos += vDir * 300.f * DT;
+			m_arrCursors[i]->Transform()->SetRelativePos(vPos);
+		}
+		
+		
 	}
 }
 
