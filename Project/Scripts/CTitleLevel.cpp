@@ -40,6 +40,7 @@ void CTitleLevel::tick()
 		}
 
 		CursorMove();
+		CursorControl();
 	}
 }
 
@@ -185,7 +186,7 @@ void CTitleLevel::SelectObjectInit()
 		obj->Animator2D()->Play(AnimTitleCursor);
 		Vec3 vPos = obj->Transform()->GetRelativePos();
 		vPos.x = CursorHidePosX;
-		vPos.y = CursorStartPosY + i * CursorYSpaceSize;
+		vPos.y = CursorStartPosY - i * CursorYSpaceSize;
 		obj->Transform()->SetRelativePos(vPos);
 		AddObject(obj, BackgroundLayer);
 		m_vecSelectObj.push_back(obj);
@@ -209,4 +210,18 @@ void CTitleLevel::CursorMove()
 		vPos += vDir * 300.f * DT;
 		m_arrCursors[i]->Transform()->SetRelativePos(vPos);
 	}
+}
+
+void CTitleLevel::CursorControl()
+{
+
+	if (KEY_TAP(DOWN)) {
+		m_iMenuCursor++;
+	}
+
+	if (KEY_TAP(UP)) {
+		m_iMenuCursor--;
+	}
+
+	m_iMenuCursor %= (UINT)TitleMenu::END;
 }

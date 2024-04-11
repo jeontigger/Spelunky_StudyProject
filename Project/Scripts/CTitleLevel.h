@@ -45,5 +45,6 @@ private:
     void AnyKeyObjectsInit();
     void SelectObjectInit();
     void CursorMove();
+    void CursorControl();
 };
 
