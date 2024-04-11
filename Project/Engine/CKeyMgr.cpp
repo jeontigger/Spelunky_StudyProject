@@ -54,6 +54,7 @@ void CKeyMgr::init()
 
 void CKeyMgr::tick()
 {	 
+	m_bAnyKey = false;
 	if (nullptr == GetFocus())
 	{
 		for (size_t i = 0; i < m_vecKeyData.size(); ++i)
@@ -88,6 +89,7 @@ void CKeyMgr::tick()
 				{
 					// 이전에는 눌려있지 않았다 ==> 막 눌림 상태
 					m_vecKeyData[i].eState = TAP;
+					m_bAnyKey = true;
 				}
 
 				m_vecKeyData[i].bPressed = true;

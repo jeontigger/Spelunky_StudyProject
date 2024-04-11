@@ -4,6 +4,7 @@
 #include <Engine\CRenderMgr.h>
 #include <Engine\CLayer.h>
 #include <Engine\CCollisionMgr.h>
+#include <Engine/CKeyMgr.h>
 
 #include <Engine\CGameObject.h>
 #include <Engine\CTransform.h>
@@ -19,6 +20,10 @@
 void CTitleLevel::tick()
 {
 	CLevel::tick();
+
+	if (CKeyMgr::GetInst()->AnyKeyPressed()) {
+		int a = 0;
+	}
 }
 
 void CTitleLevel::begin()

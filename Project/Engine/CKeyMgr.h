@@ -50,10 +50,14 @@ private:
 
 	Vec2				m_vMouseDrag;
 
+	bool m_bAnyKey;
+
 public:
 	KEY_STATE GetKeyState(KEY _Key) { return m_vecKeyData[_Key].eState; }
 	Vec2 GetMousePos();
 	Vec2 GetMouseDrag() { return m_vMouseDrag; }
+
+	bool AnyKeyPressed() { return m_bAnyKey; }
 
 public:
 	void init();
