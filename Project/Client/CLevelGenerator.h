@@ -1,11 +1,16 @@
 #pragma once
 
-constexpr int StageCnt = 4;
+enum class LevelType {
+	TITLE,
+	STAGE1,
+	END,
+};
+
 class CLevelGenerator
 {
 private:
 	static class CLevel* m_pTempLevel;
-	static class CLevel* m_arrStages[StageCnt];
+	static class CLevel* m_arrStages[(UINT)LevelType::END];
 
 public:
 	static UINT32 GetSeed();
@@ -19,5 +24,7 @@ public:
 	static void DestroyStages();
 	static void Destroy();
 
+
+	static void ChangeLevelToPlay();
 };
 

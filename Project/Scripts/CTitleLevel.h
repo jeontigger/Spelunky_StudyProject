@@ -30,6 +30,11 @@ private:
     int m_iMenuCursor;
     CGameObject* m_arrCursors[(UINT)TitleMenu::END];    
 
+    void (*ChangeLevel)(void);
+
+public:
+    void SetLevelChangeFunc(void (*func)(void)) { ChangeLevel = func; }
+
 public:
     virtual void tick() override;
     virtual void begin() override;
@@ -46,5 +51,6 @@ private:
     void SelectObjectInit();
     void CursorMove();
     void CursorControl();
+    void MenuSelect();
 };
 

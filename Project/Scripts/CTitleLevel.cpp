@@ -41,6 +41,7 @@ void CTitleLevel::tick()
 
 		CursorMove();
 		CursorControl();
+		MenuSelect();
 	}
 }
 
@@ -224,4 +225,23 @@ void CTitleLevel::CursorControl()
 	}
 
 	m_iMenuCursor %= (UINT)TitleMenu::END;
+}
+
+void CTitleLevel::MenuSelect()
+{
+	if (KEY_TAP(ENTER)) {
+		switch ((TitleMenu)m_iMenuCursor)
+		{
+		case TitleMenu::GameStart:
+			ChangeLevel();
+			break;
+		case TitleMenu::Quit:
+			PostQuitMessage(0);
+			break;
+		case TitleMenu::END:
+			break;
+		default:
+			break;
+		}
+	}
 }

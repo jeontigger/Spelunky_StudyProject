@@ -14,7 +14,7 @@
 #include <Scripts/CRandomMgr.h>
 
 CLevel* CLevelGenerator::m_pTempLevel = nullptr;
-CLevel* CLevelGenerator::m_arrStages[StageCnt] = {};
+CLevel* CLevelGenerator::m_arrStages[(UINT)LevelType::END] = {};
 
 UINT32 CLevelGenerator::GetSeed()
 {
@@ -65,19 +65,20 @@ void CLevelGenerator::TitleLevel()
 {
 	CTitleLevel* title = new CTitleLevel;
 	m_arrStages[0] = title;
-
+	title->SetLevelChangeFunc(& ChangeLevelToPlay);
 }
 
 #include <Scripts/CUI.h>
 void CLevelGenerator::MakeStages()
 {
 	TitleLevel();
-	/*CStage* stage = new CStage;
+
+	CStage* stage = new CStage;
 
 	CStagePack* sp = CStagePackMgr::GetInst()->GetStagePack(StagePackList::Dwelling);
 	stage->SetStagePack(sp);
 
-	m_arrStages[0] = stage;
+	m_arrStages[(UINT)LevelType::STAGE1] = stage;
 
 	UINT32 seed = CRandomMgr::GetInst()->GetSeed();
 
@@ -127,7 +128,7 @@ void CLevelGenerator::MakeStages()
 	obj = prefab->Instantiate();
 	stage->AddObject(obj, UILayer);
 	obj->GetScript<CUI>()->SetScreenPos(Vec2((int)resolution.x - 120, 80));
-	obj->Animator2D()->Play(AnimHUDStage);*/
+	obj->Animator2D()->Play(AnimHUDStage);
 		
 }
 
@@ -143,7 +144,7 @@ void CLevelGenerator::LoadTempLevel()
 
 void CLevelGenerator::DestroyStages()
 {
-	for (int i = 0; i < StageCnt; i++) {
+	for (int i = 0; i < (int)LevelType::END; i++) {
 		if (m_arrStages[i])
 			delete m_arrStages[i];
 	}
@@ -154,8 +155,13 @@ void CLevelGenerator::Destroy()
 	if (m_pTempLevel)
 		delete m_pTempLevel;
 
-	for (int i = 0; i < StageCnt; i++) {
+	for (int i = 0; i < (int)LevelType::END; i++) {
 		if (m_arrStages[i])
 			delete m_arrStages[i];
 	}
+}
+
+void CLevelGenerator::ChangeLevelToPlay()
+{
+	CLevelMgr::GetInst()->ChangeLevel(m_arrStages[1], LEVEL_STATE::PLAY);
 }

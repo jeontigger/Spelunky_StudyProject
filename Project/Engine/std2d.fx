@@ -54,7 +54,12 @@ float4 PS_Std2D(VS_OUT _in) : SV_Target
         }
         else
         {
-            vColor = g_anim2d_tex.Sample(g_sam_0, vUV);
+            vColor = g_anim2d_tex.Sample(g_sam_1, vUV);
+        }
+        if (vColor.a < 0.1f)
+        {
+            // ÇÈ¼¿ ½¦ÀÌ´õ¸¦ Áß°£¿¡ Æó±âÃ³¸®
+            discard; //clip(-1);            
         }
     }
     else
