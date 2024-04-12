@@ -173,8 +173,6 @@ void CPlayerScript::begin()
 	GetOwner()->AddChild(obj);
 	GamePlayStatic::SpawnGameObject(obj, PlayerHitLayer);
 
-	m_ButtomCollider->SetName("PlayerGroundCollider");
-
 	StateMachine()->AddBlackboardData(BBJumpDelay, BB_DATA::FLOAT, &m_fJumpDelayTimer);
 
 	auto prefab = CAssetMgr::GetInst()->Load<CPrefab>(WhipPrefKey, WhipPrefKey);
@@ -183,8 +181,6 @@ void CPlayerScript::begin()
 	GetOwner()->AddChild(obj);
 	m_Whip = obj->GetScript<CWhip>();
 	GamePlayStatic::SpawnGameObject(obj, PlayerAttackLayer);
-
-
 }
 
 void CPlayerScript::tick()

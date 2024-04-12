@@ -5,11 +5,6 @@
 class CFieldObject :
     public CScript
 {
-protected:
-    class CDetectCollider* m_ButtomCollider;
-    class CDetectCollider* m_BackCollider;
-    class CDetectCollider* m_FrontCollider;
-    class CDetectCollider* m_TopCollider;
 
 private:
     bool isPlayer;
@@ -31,7 +26,7 @@ protected:
     Vec2 m_vVelocity;
 
 protected:
-    bool m_bGround;
+    int m_bGround;
     bool m_bLeftBump;
     int m_bRightBump;
     int m_iTileCnt;

@@ -590,7 +590,8 @@ namespace DirectX
 
             Vector3 Pos() const { return Vector3(_41, _42, _43); }
             Vector3 Pos(Matrix& result) const { return Vector3(result._41, result._42, result._43); }
-            Vector3 Scale() { return Vector3(_11, _22, _33); }
+            Vector3 Scale() const { return Vector3(_11, _22, _33); }
+            Vector3 Scale(Matrix& result) const { return Vector3(result._11, result._22, result._33); }
 
             // Matrix operations
             bool Decompose(Vector3& scale, Quaternion& rotation, Vector3& translation);

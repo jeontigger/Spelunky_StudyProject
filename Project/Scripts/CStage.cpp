@@ -21,7 +21,7 @@
 #include "CTile.h"
 #include "CUI.h"
 
-bool test = false;
+bool test = true;
 
 CStage::CStage()
 	: m_state(StageState::NONE)

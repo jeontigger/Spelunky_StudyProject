@@ -26,7 +26,6 @@ void CItem::PutDown()
 	SetVelocity(Vec2(0, 0));
 	m_PlayerScript = nullptr;
 
-	SetGround(true);
 }
 
 void CItem::tick()
@@ -43,6 +42,8 @@ void CItem::tick()
 
 void CItem::BeginOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCollider2D* _OtherCollider)
 {
+	CFieldObject::BeginOverlap(_Collider, _OtherObj, _OtherCollider);
+
 	auto script = _OtherObj->GetScript<CFieldObject>();
 	if (script) {
 		if (GetVelocity().Length() > 10.f) {

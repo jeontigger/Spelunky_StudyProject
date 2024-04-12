@@ -70,20 +70,12 @@ void CCharacterScript::TurnRight()
 
 void CCharacterScript::MoveFront()
 {
-	if (!m_FrontCollider->DetectTile()) {
-		m_bMoveFront = true;
-		if (IsLookRight()) {
-			SetVelocity(Vec2(GetSpeed(), GetVelocity().y));
-		}
-		else {
-			SetVelocity(Vec2(-GetSpeed(), GetVelocity().y));
-		}
+	if (IsLookRight()) {
+		m_vVelocity.x = m_tInfo.Speed;
 	}
+	else {
+		m_vVelocity.x = -m_tInfo.Speed;
+	}
+
 }
 
-void CCharacterScript::MoveBack()
-{
-	if (!m_BackCollider->DetectTile()) {
-		m_bMoveBack = true;
-	}
-}

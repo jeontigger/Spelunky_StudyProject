@@ -84,37 +84,6 @@ void CFieldObject::begin()
 
 	Vec2 ColliderCenterPos = Collider2D()->GetRelativePos();
 	Vec2 ColliderScale = Collider2D()->GetRelativeScale();
-
-	float ownerZ = Transform()->GetRelativePos().z;
-
-	m_ButtomCollider = new CGroundCollider;
-	CGameObject* obj = new CGameObject;
-	obj->AddComponent(m_ButtomCollider);
-	m_ButtomCollider->Set(GetOwner(), Vec3(ColliderCenterPos.x, ColliderCenterPos.y - ColliderScale.y / 2.f - 1.f, ownerZ), Vec3(ColliderScale.x * 0.95, 1, 1));
-	m_ButtomCollider->SetName("GroundCollider");
-	GetOwner()->AddChild(obj);
-	GamePlayStatic::SpawnGameObject(obj, DetectColliderLayer);
-
-	m_BackCollider = new CWallCollider;
-	obj = new CGameObject;
-	obj->AddComponent(m_BackCollider);
-	m_BackCollider->Set(GetOwner(), Vec3(ColliderCenterPos.x - ColliderScale.x / 2.f - 1.f, ColliderCenterPos.y, ownerZ), Vec3(0, ColliderScale.y * 0.9, 1));
-	GetOwner()->AddChild(obj);
-	GamePlayStatic::SpawnGameObject(obj, DetectColliderLayer);
-
-	m_FrontCollider = new CWallCollider;
-	obj = new CGameObject;
-	obj->AddComponent(m_FrontCollider);
-	m_FrontCollider->Set(GetOwner(), Vec3(ColliderCenterPos.x + ColliderScale.x / 2.f + 1.f, ColliderCenterPos.y, ownerZ), Vec3(0, ColliderScale.y * 0.9, 1));
-	GetOwner()->AddChild(obj);
-	GamePlayStatic::SpawnGameObject(obj, DetectColliderLayer);
-
-	m_TopCollider = new CCeilCollider;
-	obj = new CGameObject;
-	obj->AddComponent(m_TopCollider);
-	m_TopCollider->Set(GetOwner(), Vec3(ColliderCenterPos.x, ColliderCenterPos.y + ColliderScale.y / 2.f + 1.f, ownerZ), Vec3(ColliderScale.x * 0.95, 1, 1));
-	GetOwner()->AddChild(obj);
-	GamePlayStatic::SpawnGameObject(obj, DetectColliderLayer);
 }
 
 void CFieldObject::skill(Vec2 _force)
@@ -139,13 +108,116 @@ void CFieldObject::BeginOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, 
 			}
 		}
 	}
+
+	auto tile = _OtherObj->GetScript<CTile>();
+	if (tile) {
+		
+		// 위에서 떨어지는 거라면
+		Vec3 vObjPos = Transform()->GetRelativePos();
+		Vec3 vel = vObjPos - m_vPrevPos;
+		Vec3 vObjColPos = Transform()->GetRelativePos() + Vec3(Collider2D()->GetOffsetPos().x, Collider2D()->GetOffsetPos().y, 0) * Transform()->GetRelativeScale();
+		Vec3 vObjColScale = _Collider->GetColliderWorldMat().Scale();
+
+		Vec3 vTilePos = _OtherCollider->GetColliderWorldMat().Pos();
+		Vec3 vTileScale = _OtherCollider->GetColliderWorldMat().Scale();
+			// 위로 올려주기
+		if ((vObjColPos.y - vObjColScale.y / 2.f > vTilePos.y + vTileScale.y / 4.f)) {
+			if (vel.y <= 0) {
+				// 컬라이더 위치
+				Vec3 vColPos = vObjColPos;
+				vColPos.y = vTilePos.y + (vTileScale.y + vObjColScale.y) / 2.f;
+
+				// 캐릭터와 컬라이더 위치 차이 계산 후 캐릭터 위치 조정
+				Vec3 vPos = vColPos - Vec3(_Collider->GetOffsetPos().x, _Collider->GetOffsetPos().y, 0) * Transform()->GetRelativeScale();
+				
+				Transform()->SetRelativePos(vPos);
+
+				m_bGround++;
+			}
+		}
+		// 옆면 충돌
+		else {
+			// 오브젝트가 왼쪽이라면
+			if (vObjColPos.x < vTilePos.x) {
+				Vec3 vColPos = vObjColPos;
+
+				vColPos.x = vTilePos.x - (vTileScale.x + vObjColScale.x) / 2.f;
+				// 캐릭터와 컬라이더 위치 차이 계산 후 캐릭터 위치 조정
+				Vec3 vPos = vColPos - Vec3(_Collider->GetOffsetPos().x, _Collider->GetOffsetPos().y, 0) * Transform()->GetRelativeScale();
+				Transform()->SetRelativePos(vPos);
+			}
+			else {
+				Vec3 vColPos = vObjColPos;
+				vColPos.x = vTilePos.x + (vTileScale.x + abs(vObjColScale.x)) / 2.f;
+				// 캐릭터와 컬라이더 위치 차이 계산 후 캐릭터 위치 조정
+				Vec3 vPos = vColPos - Vec3(_Collider->GetOffsetPos().x, _Collider->GetOffsetPos().y, 0) * Transform()->GetRelativeScale();
+				Transform()->SetRelativePos(vPos);
+			}
+		}
+	}
 }
 
+#include "CPlayerScript.h"
 void CFieldObject::Overlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCollider2D* _OtherCollider) {
+	auto tile = _OtherObj->GetScript<CTile>();
+	if (tile) {
 
+		Vec3 vObjPos = Transform()->GetRelativePos();
+		Vec3 vel = vObjPos - m_vPrevPos;
+
+		Vec3 vObjColPos = Transform()->GetRelativePos() + Vec3(Collider2D()->GetOffsetPos().x, Collider2D()->GetOffsetPos().y, 0) * Transform()->GetRelativeScale();
+		Vec3 vObjColScale = _Collider->GetColliderWorldMat().Scale();
+		Vec3 vTilePos = _OtherCollider->GetColliderWorldMat().Pos();
+		Vec3 vTileScale = _OtherCollider->GetColliderWorldMat().Scale();
+		// 위에서 떨어진다면
+		if ((vObjColPos.y - vObjColScale.y / 2.f > vTilePos.y + vTileScale.y / 4.f)) {
+			if (vel.y <= 0) {
+				Vec3 vColPos = vObjColPos;
+				vColPos.y = vTilePos.y + (vTileScale.y + vObjColScale.y) / 2.f;
+
+				// 캐릭터와 컬라이더 위치 차이 계산 후 캐릭터 위치 조정
+				Vec3 vPos = vColPos - Vec3(_Collider->GetOffsetPos().x, _Collider->GetOffsetPos().y, 0) * Transform()->GetRelativeScale();
+				Transform()->SetRelativePos(vPos);
+			}
+		}
+		// 머리 박는거면
+		
+		// 옆에서 부딪힌다면
+		else{
+			// 오브젝트가 왼쪽이라면
+			if (vObjColPos.x < vTilePos.x) {
+				Vec3 vColPos = vObjColPos;
+
+				vColPos.x = vTilePos.x - (vTileScale.x + vObjColScale.x) / 2.f;
+				// 캐릭터와 컬라이더 위치 차이 계산 후 캐릭터 위치 조정
+				Vec3 vPos = vColPos - Vec3(_Collider->GetOffsetPos().x, _Collider->GetOffsetPos().y, 0) * Transform()->GetRelativeScale();
+				Transform()->SetRelativePos(vPos);
+			}
+			else {
+				Vec3 vColPos = vObjColPos;
+				vColPos.x = vTilePos.x + (vTileScale.x + abs(vObjColScale.x)) / 2.f;
+				// 캐릭터와 컬라이더 위치 차이 계산 후 캐릭터 위치 조정
+				Vec3 vPos = vColPos - Vec3(_Collider->GetOffsetPos().x, _Collider->GetOffsetPos().y, 0) * Transform()->GetRelativeScale();
+				Transform()->SetRelativePos(vPos);
+			}
+		}
+
+
+
+
+	}
 }
 
 
 void CFieldObject::EndOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCollider2D* _OtherCollider) {
+	auto tile = _OtherObj->GetScript<CTile>();
+	if (tile) {
+		Vec3 vObjPos = Transform()->GetRelativePos();
+		Vec3 vel = vObjPos - m_vPrevPos;
 
+		Vec3 vObjColPos = _Collider->GetColliderWorldMat().Pos();
+		Vec3 vObjColScale = _Collider->GetColliderWorldMat().Scale();
+		Vec3 vTilePos = _OtherCollider->GetColliderWorldMat().Pos();
+		Vec3 vTileScale = _OtherCollider->GetColliderWorldMat().Scale();
+	}
 }

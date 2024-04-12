@@ -31,7 +31,6 @@ public:
 	void TurnLeft();
 	void TurnRight();
 	void MoveFront();
-	void MoveBack();
 	bool IsMoving() {
 		return m_bMoveFront || m_bMoveBack;
 	}
