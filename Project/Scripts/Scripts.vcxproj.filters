@@ -166,7 +166,6 @@
     <ClInclude Include="CBlink.h">
       <Filter>02. Scripts\Utils</Filter>
     </ClInclude>
-    <ClInclude Include="resource.h" />
     <ClInclude Include="CExitDoor.h">
       <Filter>02. Scripts\Tile</Filter>
     </ClInclude>
@@ -456,8 +455,5 @@
     <Filter Include="02. Scripts\Pause">
       <UniqueIdentifier>{b8c49b91-d6af-445e-bb10-74663af1feb5}</UniqueIdentifier>
     </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="Scripts.rc" />
   </ItemGroup>
 </Project>

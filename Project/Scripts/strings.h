@@ -39,6 +39,7 @@
 #define ParticleSoilPrefKey L"prefab\\ParticleSoil.pref"
 #define ParticleTreePrefKey L"prefab\\ParticleTree.pref"
 #define ParticleFirePrefKey L"prefab\\ParticleFire.pref"
+#define ButtonIconPrefKey L"prefab\\ButtonIcon.pref"
 
 #define BBOwnerKey L"Owner"
 #define BBJumpDelay L"JumpDelay"
@@ -82,6 +83,7 @@
 #define AnimHUDScore L"anim\\HUDScore.anim"
 #define AnimHUDTime L"anim\\HUDTime.anim"
 #define AnimHUDStage L"anim\\HUDStage.anim"
+#define AnimButtonIcon L"anim\\ButtonIcon.anim"
 
 #define AnimPauseCursor L"anim\\PauseMenuCursor.anim"
 #define AnimPauseMenuBoard L"anim\\PauseMenuBoard.anim"

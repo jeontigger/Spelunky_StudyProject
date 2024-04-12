@@ -7,6 +7,7 @@
 #include "CRandomMgr.h"
 #include "CStagePackMgr.h"
 #include "CTileMgr.h"
+#include "CExitDoor.h"
 
 CTileBlock::CTileBlock()
 	: m_Type(TileBlockType::NONE)
@@ -110,6 +111,8 @@ void CTileBlock::TileInstancing(int _row, int _col)
 			
 				if (m_Type == TileBlockType::Exit || m_Type == TileBlockType::Exit_Drop) {
 					tiletype = TileType::ExitDoor;
+					tile->AddComponent(new CExitDoor);
+
 				}
 				else {
 					tiletype = TileType::Door;

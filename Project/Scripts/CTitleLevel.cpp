@@ -213,8 +213,6 @@ void CTitleLevel::CursorMove()
 			vPos += vDir * 300.f * DT;
 			m_arrCursors[i]->Transform()->SetRelativePos(vPos);
 		}
-		
-		
 	}
 }
 
