@@ -1,6 +1,8 @@
 #include "pch.h"
 #include "CTile.h"
 
+#include "CTileMgr.h"
+
 int CTile::TileCount = 0;
 CTile::CTile()
 	:CFieldObject((UINT)SCRIPT_TYPE::TILE)
@@ -53,7 +55,24 @@ void CTile::tick()
 	}
 
 	prev = m_type;
-	TileCount;
+
+	//if (m_type != TileType::Soil) return;
+	//Vec2 Idx = CTileMgr::GetInst()->PosToIdx(GetOwner()->Transform()->GetRelativePos());
+	//for (int i = 0; i < (UINT)TileDir::END; i++) {
+	//	int nRow = Idx.x + nrow[i];
+	//	int nCol = Idx.y + ncol[i];
+	//	if(0 <= nRow && nRow < STAGETILEROW * TILEBLOCKSIZEY && 0 <= nCol && nCol < STAGETILECOL * TILEBLOCKSIZEX)
+	//	{
+	//		auto tile = CTileMgr::GetInst()->GetTile(Vec2(nCol, nRow));
+	//		if (tile) {
+	//			m_arrSurroundTiles[i]->Collider2D()->Activate(false);
+	//		}
+	//		else {
+	//			m_arrSurroundTiles[i]->Collider2D()->Activate(true);
+	//		}
+	//		
+	//	}
+	//}
 }
 
 void CTile::begin()
@@ -61,36 +80,36 @@ void CTile::begin()
 	//SetTileType(TileType::Blank);
 
 	CGameObject* obj;
-	obj = m_arrSurroundTiles[(UINT)TileDir::TOP] = CAssetMgr::GetInst()->Load<CPrefab>(TileUp1PrefKey, TileUp1PrefKey)->Instantiate();
-	obj->Animator2D()->Play(AnimTileUp1);
-	GetOwner()->AddChild(obj);
-	GamePlayStatic::SpawnGameObject(obj, TileAroundLayer);
+	//obj = m_arrSurroundTiles[(UINT)TileDir::TOP] = CAssetMgr::GetInst()->Load<CPrefab>(TileUp1PrefKey, TileUp1PrefKey)->Instantiate();
+	//obj->Animator2D()->Play(AnimTileUp1);
+	//GetOwner()->AddChild(obj);
+	//GamePlayStatic::SpawnGameObject(obj, TileAroundLayer);
 
-	obj = m_arrSurroundTiles[(UINT)TileDir::RIGHT] = CAssetMgr::GetInst()->Load<CPrefab>(TileSideRight1PrefKey, TileSideRight1PrefKey)->Instantiate();
-	obj->Animator2D()->Play(AnimTileSideRight1);
-	GetOwner()->AddChild(obj);
-	GamePlayStatic::SpawnGameObject(obj, TileAroundLayer);
+	//obj = m_arrSurroundTiles[(UINT)TileDir::RIGHT] = CAssetMgr::GetInst()->Load<CPrefab>(TileSideRight1PrefKey, TileSideRight1PrefKey)->Instantiate();
+	//obj->Animator2D()->Play(AnimTileSideRight1);
+	//GetOwner()->AddChild(obj);
+	//GamePlayStatic::SpawnGameObject(obj, TileAroundLayer);
 
-	obj = m_arrSurroundTiles[(UINT)TileDir::LEFT] = CAssetMgr::GetInst()->Load<CPrefab>(TileSideRight1PrefKey, TileSideRight1PrefKey)->Instantiate();
-	obj->Animator2D()->Play(AnimTileSideRight1);
-	Vec3 rot = obj->Transform()->GetRelativeRotation();
-	rot.y = XM_PI;
-	obj->Transform()->SetRelativeRotation(rot);
-	Vec3 pos = obj->Transform()->GetRelativePos();
-	pos.x = -64.f;
-	obj->Transform()->SetRelativePos(pos);
-	GetOwner()->AddChild(obj);
-	GamePlayStatic::SpawnGameObject(obj, TileAroundLayer);
+	//obj = m_arrSurroundTiles[(UINT)TileDir::LEFT] = CAssetMgr::GetInst()->Load<CPrefab>(TileSideRight1PrefKey, TileSideRight1PrefKey)->Instantiate();
+	//obj->Animator2D()->Play(AnimTileSideRight1);
+	//Vec3 rot = obj->Transform()->GetRelativeRotation();
+	//rot.y = XM_PI;
+	//obj->Transform()->SetRelativeRotation(rot);
+	//Vec3 pos = obj->Transform()->GetRelativePos();
+	//pos.x = -64.f;
+	//obj->Transform()->SetRelativePos(pos);
+	//GetOwner()->AddChild(obj);
+	//GamePlayStatic::SpawnGameObject(obj, TileAroundLayer);
 
-	obj = m_arrSurroundTiles[(UINT)TileDir::BOTTOM] = CAssetMgr::GetInst()->Load<CPrefab>(TileBottom1PrefKey, TileBottom1PrefKey)->Instantiate();
-	obj->Animator2D()->Play(AnimTileBottom1);
-	GetOwner()->AddChild(obj);
-	GamePlayStatic::SpawnGameObject(obj, TileAroundLayer);
+	//obj = m_arrSurroundTiles[(UINT)TileDir::BOTTOM] = CAssetMgr::GetInst()->Load<CPrefab>(TileBottom1PrefKey, TileBottom1PrefKey)->Instantiate();
+	//obj->Animator2D()->Play(AnimTileBottom1);
+	//GetOwner()->AddChild(obj);
+	//GamePlayStatic::SpawnGameObject(obj, TileAroundLayer);
 
-	for (int i = 0; i < (UINT)TileDir::END; i++) {
-		if (m_type != TileType::Soil)
-			m_arrSurroundTiles[i]->Collider2D()->Activate(false);
-	}
+	//for (int i = 0; i < (UINT)TileDir::END; i++) {
+	//	if (m_type != TileType::Soil)
+	//		m_arrSurroundTiles[i]->Collider2D()->Activate(false);
+	//}
 
 }
 

@@ -50,12 +50,17 @@ void CTileMgr::SetTile(CGameObject* tile, int _blockRow, int _blockCol, int _til
 
 CTile* CTileMgr::GetTile(Vec2 _idx)
 {
-	int blockRow = _idx.y / STAGETILEROW;
-	int blockCol = _idx.x / STAGETILECOL;
+	int blockRow = _idx.y / TILEBLOCKSIZEY;
+	int blockCol = _idx.x / TILEBLOCKSIZEX;
 	int tileRow = (int)_idx.y % TILEBLOCKSIZEY;
 	int tileCol = (int)_idx.x % TILEBLOCKSIZEX;
-
-	return m_arrTiles[blockRow][blockCol][tileRow][tileCol]->GetScript<CTile>();
+	if (m_arrTiles[blockRow][blockCol][tileRow][tileCol] != nullptr) {
+		return m_arrTiles[blockRow][blockCol][tileRow][tileCol]->GetScript<CTile>();
+	}
+	else {
+		return nullptr;
+	}
+	
 }
 
 CTile* CTileMgr::GetTile(int _blockRow, int _blockCol, int _tileRow, int _tileCol)
@@ -110,6 +115,8 @@ void CTileMgr::tick()
 			CollisionWithTile(layer);
 		}
 	}
+
+
 }
 
 #include <Engine/CLevelMgr.h>

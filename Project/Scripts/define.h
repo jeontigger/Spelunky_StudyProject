@@ -96,3 +96,5 @@ enum class TileDir {
 	LEFT,
 	END,
 };
+extern int nrow[];
+extern int ncol[];

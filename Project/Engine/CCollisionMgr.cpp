@@ -30,7 +30,10 @@ void CCollisionMgr::tick()
 				continue;
 
 			// iRow 레이어와 iCol 레이어는 서로 충돌검사를 진행한다.
+			CChronoMgr::GetInst()->Start();
 			CollisionBtwLayer(iRow, iCol);
+			auto time = CChronoMgr::GetInst()->End();
+			int a = 0;
 		}
 	}
 }

@@ -69,7 +69,11 @@ void CEngine::progress()
 	// FMOD Update
 	CSound::g_pFMOD->update();
 	// Level Update	
+
+	CChronoMgr::GetInst()->Start();
 	CLevelMgr::GetInst()->tick();
+	auto time = CChronoMgr::GetInst()->End();
+
 	CTimeMgr::GetInst()->render();
 	CFontMgr::GetInst()->render();
 

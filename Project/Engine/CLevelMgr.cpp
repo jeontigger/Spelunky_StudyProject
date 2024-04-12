@@ -49,12 +49,19 @@ void CLevelMgr::tick()
 	{
 		m_CurLevel->tick();
 	}
-
+	CChronoMgr::GetInst()->Start();
 	m_CurLevel->finaltick();
+	auto time = CChronoMgr::GetInst()->End();
+	CChronoMgr::GetInst()->Start();
+
 	// 충돌 처리
 	CCollisionMgr::GetInst()->tick();
+	time = CChronoMgr::GetInst()->End();
+	CChronoMgr::GetInst()->Start();
 	// Render
 	CRenderMgr::GetInst()->tick();
+	time = CChronoMgr::GetInst()->End();
+	CChronoMgr::GetInst()->Start();
 	
 }
 
