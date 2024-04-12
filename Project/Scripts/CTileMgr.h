@@ -17,6 +17,11 @@ class CTileMgr :
     public CSingleton<CTileMgr>
 {
 private:
+    static vector<Vec2> m_SoilUps;
+    static vector<Vec2> m_SoilSides;
+    static vector<Vec2> m_SoilBottoms;
+
+private:
     UINT m_LayerCheck;
     map<UINT_PTR, bool>		m_mapPrevInfo;
 

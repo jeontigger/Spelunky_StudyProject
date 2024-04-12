@@ -61,9 +61,6 @@
     <ClInclude Include="zAxis.h">
       <Filter>00. Default</Filter>
     </ClInclude>
-    <ClInclude Include="CTileBoundary.h">
-      <Filter>02. Scripts\Tile\Boundary</Filter>
-    </ClInclude>
     <ClInclude Include="CStateMgr.h">
       <Filter>01. CodeGenMgr</Filter>
     </ClInclude>
@@ -219,9 +216,6 @@
     <ClCompile Include="CCameraMovement.cpp">
       <Filter>02. Scripts\Camera</Filter>
     </ClCompile>
-    <ClCompile Include="CTileBoundary.cpp">
-      <Filter>02. Scripts\Tile\Boundary</Filter>
-    </ClCompile>
     <ClCompile Include="CStateMgr.cpp">
       <Filter>01. CodeGenMgr</Filter>
     </ClCompile>
@@ -370,9 +364,6 @@
     </Filter>
     <Filter Include="02. Scripts\Camera">
       <UniqueIdentifier>{e0a622e9-1f8e-474d-b595-2e0aa49ca460}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. Scripts\Tile\Boundary">
-      <UniqueIdentifier>{3e904ac0-05ae-46e2-84a6-dd0dae688986}</UniqueIdentifier>
     </Filter>
     <Filter Include="01. CodeGenMgr">
       <UniqueIdentifier>{b42de7fc-e585-40cf-9c65-79e91e2b59d4}</UniqueIdentifier>

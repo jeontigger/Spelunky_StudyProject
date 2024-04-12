@@ -203,7 +203,6 @@ call CodeGen.exe</Command>
     <ClInclude Include="CStateMgr.h" />
     <ClInclude Include="CTile.h" />
     <ClInclude Include="CTileBlock.h" />
-    <ClInclude Include="CTileBoundary.h" />
     <ClInclude Include="CTileChunk.h" />
     <ClInclude Include="CTileMgr.h" />
     <ClInclude Include="CTitleLevel.h" />
@@ -261,7 +260,6 @@ call CodeGen.exe</Command>
     <ClCompile Include="CStateMgr.cpp" />
     <ClCompile Include="CTile.cpp" />
     <ClCompile Include="CTileBlock.cpp" />
-    <ClCompile Include="CTileBoundary.cpp" />
     <ClCompile Include="CTileChunk.cpp" />
     <ClCompile Include="CTileMgr.cpp" />
     <ClCompile Include="CTitleLevel.cpp" />

@@ -6,7 +6,6 @@
 #include "CMonsterScript.h"
 #include "CTile.h"
 #include "CCameraMovement.h"
-#include "CTileBoundary.h"
 #include "CSnakeScript.h"
 #include "CDetectCollider.h"
 #include "CMonsterHitCollider.h"
@@ -32,7 +31,6 @@ void CScriptMgr::GetScriptInfo(vector<wstring>& _vec)
 	_vec.push_back(L"CMonsterScript");
 	_vec.push_back(L"CTile");
 	_vec.push_back(L"CCameraMovement");
-	_vec.push_back(L"CTileBoundary");
 	_vec.push_back(L"CSnakeScript");
 	_vec.push_back(L"CDetectCollider");
 	_vec.push_back(L"CMonsterHitCollider");
@@ -64,8 +62,6 @@ CScript * CScriptMgr::GetScript(const wstring& _strScriptName)
 		return new CTile;
 	if (L"CCameraMovement" == _strScriptName)
 		return new CCameraMovement;
-	if (L"CTileBoundary" == _strScriptName)
-		return new CTileBoundary;
 	if (L"CSnakeScript" == _strScriptName)
 		return new CSnakeScript;
 	if (L"CDetectCollider" == _strScriptName)
@@ -121,9 +117,6 @@ CScript * CScriptMgr::GetScript(UINT _iScriptType)
 		break;
 	case (UINT)SCRIPT_TYPE::CAMERAMOVEMENT:
 		return new CCameraMovement;
-		break;
-	case (UINT)SCRIPT_TYPE::TILEBOUNDARY:
-		return new CTileBoundary;
 		break;
 	case (UINT)SCRIPT_TYPE::SNAKESCRIPT:
 		return new CSnakeScript;
@@ -202,10 +195,6 @@ const wchar_t * CScriptMgr::GetScriptName(CScript * _pScript)
 
 	case SCRIPT_TYPE::CAMERAMOVEMENT:
 		return L"CCameraMovement";
-		break;
-
-	case SCRIPT_TYPE::TILEBOUNDARY:
-		return L"CTileBoundary";
 		break;
 
 	case SCRIPT_TYPE::SNAKESCRIPT:

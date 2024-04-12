@@ -59,6 +59,8 @@ void CTile::tick()
 void CTile::begin()
 {
 	//SetTileType(TileType::Blank);
+
+
 }
 
 #include "CFieldObject.h"

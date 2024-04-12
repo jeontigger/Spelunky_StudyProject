@@ -3,7 +3,6 @@ CMissileScript
 CMonsterScript
 CTile
 CCameraMovement
-CTileBoundary
 CSnakeScript
 CDetectCollider
 CMonsterHitCollider
