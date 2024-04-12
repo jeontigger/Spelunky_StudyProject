@@ -44,5 +44,6 @@ public:
     ~CParticleSystem();
 
     friend class ParticleUI;
+    friend class CParticleOnce;
 };
 
