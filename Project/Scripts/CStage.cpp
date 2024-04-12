@@ -21,7 +21,7 @@
 #include "CTile.h"
 #include "CUI.h"
 
-bool test = true;
+bool test = false;
 
 CStage::CStage()
 	: m_state(StageState::NONE)
@@ -482,7 +482,7 @@ void CStage::PlayerSetting()
 	vPos.z = PlayerZ;
 	m_Player->Transform()->SetRelativePos(vPos);
 	GamePlayStatic::SpawnGameObject(m_Player, PlayerLayer);
-
+	vPos.z = 0.f;
 	m_MainCamera->Transform()->SetRelativePos(vPos);
 	m_MainCamera->Camera()->SetScale(CameraNormalScale);
 	m_MainCamera->GetScript<CCameraMovement>()->SetTarget(m_Player);
