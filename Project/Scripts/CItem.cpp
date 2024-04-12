@@ -25,6 +25,8 @@ void CItem::PutDown()
 	GetOwner()->Transform()->SetRelativePos(pos);
 	SetVelocity(Vec2(0, 0));
 	m_PlayerScript = nullptr;
+
+	SetGround(true);
 }
 
 void CItem::tick()
