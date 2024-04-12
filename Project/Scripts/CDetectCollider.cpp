@@ -36,6 +36,7 @@ CDetectCollider::~CDetectCollider()
 void CDetectCollider::BeginOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCollider2D* _OtherCollider)
 {
 	auto tile = _OtherObj->GetScript<CTile>();
+	
 	if (tile) {
 		TileType type = tile->GetTileType();
 		if (type == TileType::Door || type == TileType::ExitDoor || type == TileType::Ladder || type == TileType::Spike) return;
@@ -43,6 +44,10 @@ void CDetectCollider::BeginOverlap(CCollider2D* _Collider, CGameObject* _OtherOb
 	}
 	else if (_OtherObj->GetScript<CPlayerScript>()) {
 		m_iPlayerCnt++;
+	}
+
+	if (_OtherObj->GetName() == OutlineWallName) {
+		m_iTileCnt++;
 	}
 }
 
@@ -56,5 +61,8 @@ void CDetectCollider::EndOverlap(CCollider2D* _Collider, CGameObject* _OtherObj,
 	}
 	else if (_OtherObj->GetScript<CPlayerScript>()) {
 		m_iPlayerCnt--;
+	}
+	if (_OtherObj->GetName() == OutlineWallName) {
+		m_iTileCnt--;
 	}
 }

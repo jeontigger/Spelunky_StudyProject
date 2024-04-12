@@ -31,6 +31,7 @@
 #define ItemLayer 11
 #define PlayerAttackLayer 12
 #define AnimationPlaylayer 13
+#define OutlinerLayer 14
 #define UILayer 31
 
 #define RandomAccuracy 100

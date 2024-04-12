@@ -19,12 +19,14 @@ void CWallCollider::BeginOverlap(CCollider2D* _Collider, CGameObject* _OtherObj,
 	CDetectCollider::BeginOverlap(_Collider, _OtherObj, _OtherCollider);
 
 	auto script = _OtherObj->GetScript<CTile>();
-	if (script) {
-		TileType type = script->GetTileType();
-		if (type == TileType::Ladder || type == TileType::LadderHalf || type == TileType::Half)
-			m_iTileCnt--;
+	if (script || _OtherObj->GetName() == OutlineWallName) {
+		if (script) {
+			TileType type = script->GetTileType();
+			if (type == TileType::Ladder || type == TileType::LadderHalf || type == TileType::Half)
+				m_iTileCnt--;
 
-		if (type == TileType::Door || type == TileType::ExitDoor || type == TileType::Ladder || type == TileType::LadderHalf || type == TileType::Half|| type == TileType::Spike) return;
+			if (type == TileType::Door || type == TileType::ExitDoor || type == TileType::Ladder || type == TileType::LadderHalf || type == TileType::Half || type == TileType::Spike) return;
+		}
 		Vec3 OwnerPos = m_parent->Transform()->GetRelativePos();
 		Vec2 OwnerScale = m_parent->Collider2D()->GetRelativeScale();
 		Vec3 TilePos = _OtherObj->Transform()->GetRelativePos();

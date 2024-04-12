@@ -25,4 +25,11 @@ void CCeilCollider::BeginOverlap(CCollider2D* _Collider, CGameObject* _OtherObj,
 		vel.y = -(abs(vel.y));
 		script->SetVelocity(vel);
 	}
+
+	if (_OtherObj->GetName() == OutlineWallName) {
+		CFieldObject* script = m_parent->GetScript<CFieldObject>();
+		Vec2 vel = script->GetVelocity();
+		vel.y = -(abs(vel.y));
+		script->SetVelocity(vel);
+	}
 }

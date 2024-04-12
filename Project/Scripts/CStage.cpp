@@ -114,6 +114,12 @@ CStage::CStage()
 		Ptr<CPrefab> prefab;
 		CGameObject* obj;
 
+		prefab = CAssetMgr::GetInst()->Load<CPrefab>(OutlineWallKey, OutlineWallKey);
+
+		obj = prefab->Instantiate();
+		obj->SetName(OutlineWallName);
+		obj->Transform()->SetRelativePos(Vec3(TileBlockScaleX / 2.f, -TileBlockScaleY / 2.f - TileScaleY, OutlineWallZ));
+		AddObject(obj, OutlinerLayer);
 
 		//prefab = CAssetMgr::GetInst()->Load<CPrefab>(SnakePrefKey, SnakePrefKey);
 		//obj = prefab->Instantiate();
@@ -420,35 +426,39 @@ void CStage::TileInstancing()
 	int maxcount = 6;
 	for (int j = 0; j < maxcount; j++) {
 		CGameObject* object = prefab->Instantiate();
+		object->SetName(OutlineWallName);
 		Vec3 scale = object->Transform()->GetRelativeScale();
 		object->Transform()->SetRelativePos(Vec3(TileBlockScaleX * STAGETILECOL + TileScaleX, -(0.25f + j) * scale.y, OutlineWallZ));
-		GamePlayStatic::SpawnGameObject(object, TileLayer);
+		GamePlayStatic::SpawnGameObject(object, OutlinerLayer);
 	}
 	for (int j = 0; j < maxcount; j++) {
 		CGameObject* object = prefab->Instantiate();
+		object->SetName(OutlineWallName);
 		Vec3 scale = object->Transform()->GetRelativeScale();
 		object->Transform()->SetRelativePos(Vec3(-TileScaleX, -(0.25f + j) * scale.y, OutlineWallZ));
-		GamePlayStatic::SpawnGameObject(object, TileLayer);
+		GamePlayStatic::SpawnGameObject(object, OutlinerLayer);
 	}
 
 	for (int j = 0; j < maxcount+1; j++) {
 		CGameObject* object = prefab->Instantiate();
+		object->SetName(OutlineWallName);
 		Vec3 scale = object->Transform()->GetRelativeScale();
 		Vec3 rotation = object->Transform()->GetRelativeRotation();
 		object->Transform()->SetRelativePos(Vec3((0.25f + j) * scale.y, TileScaleY, OutlineWallZ));
 		rotation.z = XM_PI/2;
 		object->Transform()->SetRelativeRotation(rotation);
-		GamePlayStatic::SpawnGameObject(object, TileLayer);
+		GamePlayStatic::SpawnGameObject(object, OutlinerLayer);
 	}
 
 	for (int j = 0; j < maxcount+1; j++) {
 		CGameObject* object = prefab->Instantiate();
+		object->SetName(OutlineWallName);
 		Vec3 scale = object->Transform()->GetRelativeScale();
 		Vec3 rotation = object->Transform()->GetRelativeRotation();
 		object->Transform()->SetRelativePos(Vec3((0.25f + j) * scale.y, -(TileBlockScaleY * STAGETILEROW + TileScaleY), OutlineWallZ));
 		rotation.z = XM_PI / 2;
 		object->Transform()->SetRelativeRotation(rotation);
-		GamePlayStatic::SpawnGameObject(object, TileLayer);
+		GamePlayStatic::SpawnGameObject(object, OutlinerLayer);
 	}
 }
 
@@ -588,9 +598,11 @@ void CStage::begin()
 	CCollisionMgr::GetInst()->LayerCheck(PlayerLayer, ItemLayer);
 	CCollisionMgr::GetInst()->LayerCheck(PlayerLayer, MonsterHitLayer);
 	CCollisionMgr::GetInst()->LayerCheck(PlayerLayer, DetectColliderLayer);
+	CCollisionMgr::GetInst()->LayerCheck(OutlinerLayer, DetectColliderLayer);
 	CCollisionMgr::GetInst()->LayerCheck(MonsterHitLayer, DetectColliderLayer);
 	CCollisionMgr::GetInst()->LayerCheck(MonsterLayer, PlayerHitLayer);
 	CCollisionMgr::GetInst()->LayerCheck(MonsterLayer, CameraLayer);
+	CCollisionMgr::GetInst()->LayerCheck(OutlinerLayer, CameraLayer);
 	CCollisionMgr::GetInst()->LayerCheck(ItemLayer, CameraLayer);
 	CCollisionMgr::GetInst()->LayerCheck(ItemLayer, MonsterLayer);
 	CCollisionMgr::GetInst()->LayerCheck(7, 6);
