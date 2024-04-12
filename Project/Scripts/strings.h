@@ -65,6 +65,7 @@
 #define AnimPlayerThrow L"anim\\PlayerThrow.anim"
 #define AnimPlayerAttack L"anim\\PlayerAttack.anim"
 #define AnimPlayerLadder L"anim\\PlayerLadder.anim"
+#define AnimPlayerExit L"anim\\PlayerExit.anim"
 
 #define AnimWhip L"anim\\Whip.anim"
 #define AnimBombBlack L"anim\\BombBlack.anim"

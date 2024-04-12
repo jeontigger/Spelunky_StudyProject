@@ -5,6 +5,9 @@ class CExitDoor :
 {
 private:
     CGameObject* m_KeyTex;
+    CGameObject* m_Player;
+
+
 
 public:
     virtual void begin() override;

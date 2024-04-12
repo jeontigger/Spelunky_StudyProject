@@ -22,6 +22,14 @@ CLevelMgr::~CLevelMgr()
 {
 	//if (nullptr != m_CurLevel)
 	//	delete m_CurLevel;
+	if (nullptr != m_StartLevel) {
+		delete m_StartLevel;
+	}
+}
+
+void CLevelMgr::ChangeToStartLevel(float _delay)
+{
+	ChangeLevel(m_StartLevel, LEVEL_STATE::PLAY, _delay);
 }
 
 void CLevelMgr::init()
@@ -50,24 +58,26 @@ void CLevelMgr::tick()
 	
 }
 
-void CLevelMgr::ChangeLevel(CLevel* _NextLevel, LEVEL_STATE _NextLevelStartState)
+void CLevelMgr::ChangeLevel(CLevel* _NextLevel, LEVEL_STATE _NextLevelStartState, float _Delay)
 {
 	tTask task = {};
 
 	task.Type = TASK_TYPE::CHANGE_LEVEL;
 	task.Param_1 = (DWORD_PTR)_NextLevel;	
 	task.Param_2 = (DWORD_PTR)_NextLevelStartState;
+	task.Param_3 = _Delay;
 
 	CTaskMgr::GetInst()->AddTask(task);	
 }
 
-void CLevelMgr::ChangeLevelState(LEVEL_STATE _State)
+void CLevelMgr::ChangeLevelState(LEVEL_STATE _State, float _Delay)
 {
 	tTask task = {};
 
 	task.Type = TASK_TYPE::CHANGE_LEVELSTATE;
 	task.Param_1 = (DWORD_PTR)m_CurLevel;
 	task.Param_2 = (DWORD_PTR)_State;
+	task.Param_3 = _Delay;
 
 	CTaskMgr::GetInst()->AddTask(task);
 }

@@ -28,20 +28,20 @@ void CTaskMgr::tick()
 
 	for (size_t i = 0; i < m_vecTask.size(); ++i)
 	{
+		float delay = m_vecTask[i].Param_3;
+
+		if (delay > 0) {
+			delay -= DT;
+			m_vecTask[i].Param_3 = delay;
+			m_vecDelayTask.push_back(m_vecTask[i]);
+			continue;
+		}
 		switch (m_vecTask[i].Type)
 		{
 		case TASK_TYPE::CREATE_OBJECT:
 		{
 			int LayerIdx = (int)m_vecTask[i].Param_1;
 			CGameObject* Object = (CGameObject*)m_vecTask[i].Param_2;
-			float delay = (float)m_vecTask[i].Param_3;
-
-			if (delay > 0) {
-				delay -= DT;
-				m_vecTask[i].Param_3 = (DWORD_PTR)delay;
-				m_vecDelayTask.push_back(m_vecTask[i]);
-				continue;
-			}
 
 			CLevel* pCurLevel = CLevelMgr::GetInst()->GetCurrentLevel();
 			pCurLevel->AddObject(Object, LayerIdx, true);
@@ -116,6 +116,7 @@ void CTaskMgr::tick()
 
 		case TASK_TYPE::CHANGE_LEVEL:
 		{
+
 			CLevel* pNextLevel = (CLevel*)m_vecTask[i].Param_1;
 			LEVEL_STATE State = (LEVEL_STATE)m_vecTask[i].Param_2;
 			CRenderMgr::GetInst()->ClearCamera();

@@ -32,7 +32,7 @@ struct tTask
 	TASK_TYPE Type;
 	UINT_PTR  Param_1;
 	UINT_PTR  Param_2;
-	UINT_PTR  Param_3;
+	float  Param_3;
 };
 
 

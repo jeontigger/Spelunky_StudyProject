@@ -22,10 +22,28 @@ void CExitDoor::begin()
 	GamePlayStatic::SpawnGameObject(m_KeyTex, TileLayer);
 
 	m_KeyTex->Collider2D()->Activate(false);
+
+	
 }
+
+#include <Engine/CLevelMgr.h>
+#include <Engine/CLevel.h>
+#include "CTitleLevel.h"
 
 void CExitDoor::tick()
 {
+	if (m_KeyTex->Collider2D()->IsActivate()) {
+		if (KEY_TAP(A)) {
+			auto player = CLevelMgr::GetInst()->GetCurrentLevel()->FindObjectByName(StrPlayerName);
+			player->Animator2D()->Play(AnimPlayerExit);
+
+			Vec3 vPos = player->Transform()->GetRelativePos();
+			vPos.x = Transform()->GetRelativePos().x;
+			player->Transform()->SetRelativePos(vPos);
+			CLevelMgr::GetInst()->SetStartLevel(new CTitleLevel);
+			CLevelMgr::GetInst()->ChangeToStartLevel(3.f);
+		}
+	}
 }
 
 #include "CPlayerScript.h"
