@@ -32,6 +32,7 @@
 #define PlayerAttackLayer 12
 #define AnimationPlaylayer 13
 #define OutlinerLayer 14
+#define TileAroundLayer 15
 #define UILayer 31
 
 #define RandomAccuracy 100
@@ -88,10 +89,10 @@ enum class BlockTileType
 
 extern string StagePackListString[(int)StagePackList::END];
 
-enum class BoundaryTile {
+enum class TileDir {
 	TOP,
 	RIGHT,
-	BUTTOM,
+	BOTTOM,
 	LEFT,
 	END,
 };

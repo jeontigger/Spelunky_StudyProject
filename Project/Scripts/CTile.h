@@ -23,15 +23,12 @@ class CTile :
 private:
     static int TileCount;
     TileType m_type;
-    TileType m_arrSurroundTiles[(int)BoundaryTile::END];
+    CGameObject* m_arrSurroundTiles[(UINT)TileDir::END];
 
 public:
     void Instancing(TileType type, int row, int col);
     void SetTileType(TileType type);
     TileType GetTileType() { return m_type; }
-
-    void SetSurroundTileType(BoundaryTile _dir, TileType _type) { m_arrSurroundTiles[(int)_dir] = _type; }
-    TileType GetSurroundTileType(BoundaryTile _dir) { return m_arrSurroundTiles[(int)_dir]; }
 
 public:
     virtual void BeginOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCollider2D* _OtherCollider) override;

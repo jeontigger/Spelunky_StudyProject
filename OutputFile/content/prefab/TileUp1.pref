@@ -1,0 +1,29 @@
+TileUp1
+0
+0 64 -1
+128 128 1
+0 0 0
+1
+1
+0 0 0
+1 1 1
+0
+0
+3
+1
+anim\TileUp1.anim
+1
+0.0833333 0.0833333 0.416667 0.5 0 0 0.0833333 0.0833333 0.0625
+1
+texture\atlas\floor_cave.png
+0
+texture\atlas\floor_cave.png
+9
+1
+RectMesh
+1
+1
+Std2DMtrl
+1
+15
+0

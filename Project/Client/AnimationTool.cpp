@@ -48,8 +48,8 @@ void AnimationTool::MakeFrms()
     m_Frms.resize(m_vecLeftTops.size());
     for (size_t i = 0; i < m_Frms.size(); i++)
     {
-        m_Frms[i].vSlice = Vec2(m_GridSize.x / m_ImgSize.x, m_GridSize.y / m_ImgSize.y);
-        m_Frms[i].vLeftTop = Vec2(m_vecLeftTops[i].x / m_ImgSize.x, m_vecLeftTops[i].y / m_ImgSize.y);
+        m_Frms[i].vSlice = Vec2(m_RealGridSize.x / m_RealImgSize.x, m_RealGridSize.y/ m_RealImgSize.y);
+        m_Frms[i].vLeftTop = Vec2(m_vecLeftTops[i].x / m_RealImgSize.x, m_vecLeftTops[i].y / m_RealImgSize.y);
         m_Frms[i].vOffset = Vec2(0, 0);
         m_Frms[i].vBackground = m_Frms[i].vSlice;
         m_Frms[i].Duration = 1.f / m_iFPS;
@@ -203,6 +203,7 @@ void AnimationTool::render_update()
     ImVec4 border_col = ImGui::GetStyleColorVec4(ImGuiCol_Border);
     int width = 800;
     int height = (float)m_Atlas.Get()->GetHeight() / m_Atlas.Get()->GetWidth() * width;
+    m_RealImgSize = ImVec2(m_Atlas.Get()->GetWidth(), m_Atlas.Get()->GetHeight());
     m_ImgSize = { (float)width, (float)height };
 
 
@@ -212,6 +213,8 @@ void AnimationTool::render_update()
     m_GridSize = m_ImgSize;
     m_GridSize.x /= m_vecGridCount[0];
     m_GridSize.y /= m_vecGridCount[1];
+
+    m_RealGridSize = ImVec2(m_RealImgSize.x / m_vecGridCount[0], m_RealImgSize.y / m_vecGridCount[1]);
 
     ButtonTitle("FPS");
     ImGui::InputInt("##fps", &m_iFPS);
@@ -232,8 +235,8 @@ void AnimationTool::render_update()
         ImVec2 mousePos = ImGui::GetMousePos();
         ImVec2 uv = (mousePos - imagePos) / m_ImgSize;
         mousepos = { uv.x, 1 + uv.y };
-        gridIdx[0] = ((int)(mousepos[0] * m_vecGridCount[0]) % (int)m_GridSize[0]) * m_GridSize[0];
-        gridIdx[1] = ((int)(mousepos[1] * m_vecGridCount[1]) % (int)m_GridSize[1]) * m_GridSize[1];
+        gridIdx[0] = ((int)(mousepos[0] * m_vecGridCount[0]) % (int)m_GridSize[0]) * m_RealGridSize.x;
+        gridIdx[1] = ((int)(mousepos[1] * m_vecGridCount[1]) % (int)m_GridSize[1]) * m_RealGridSize.y;
         m_vecLeftTops.emplace_back(gridIdx[0], gridIdx[1]);
 
         MakeFrms();
@@ -244,21 +247,21 @@ void AnimationTool::render_update()
     ImU32 gridColor = IM_COL32(255, 255, 255, 255);  // 그리드 색상 설정
 
     // 세로선 그리기
-    for (int i = 0; i <= width; i += m_GridSize.x)
+    for (int i = 0; i <= m_vecGridCount[0]; i ++)
     {
         draw_list->AddLine(
-            ImVec2(imagePos.x + i, imagePos.y),
-            ImVec2(imagePos.x + i, imagePos.y + height),
+            ImVec2(imagePos.x + i * m_GridSize.x, imagePos.y),
+            ImVec2(imagePos.x + i * m_GridSize.x, imagePos.y + height),
             gridColor
         );
     }
 
     // 가로선 그리기
-    for (int i = 0; i <= height; i += m_GridSize.y)
+    for (int i = 0; i <= m_vecGridCount[1]; i ++)
     {
         draw_list->AddLine(
-            ImVec2(imagePos.x, imagePos.y + i),
-            ImVec2(imagePos.x + width, imagePos.y + i),
+            ImVec2(imagePos.x, imagePos.y + i * m_GridSize.y),
+            ImVec2(imagePos.x + width, imagePos.y + i * m_GridSize.y),
             gridColor
         );
     }
@@ -288,7 +291,7 @@ void AnimationTool::render_update()
         ButtonTitle(str.c_str());
         str = "##" + str;
 
-        int lt[2] = { (float)m_vecLeftTops[i].x * m_Atlas->GetWidth() / 800, (float)m_vecLeftTops[i].y * m_Atlas->GetHeight() / 800 };
+        int lt[2] = { (float)m_vecLeftTops[i].x, (float)m_vecLeftTops[i].y };
         ImGui::InputInt2(str.c_str(), lt);
 
         ImGui::SameLine();

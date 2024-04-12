@@ -12,7 +12,9 @@ private:
     vector<tAnimFrm> m_Frms;
 
     ImVec2 m_GridSize;
+    ImVec2 m_RealGridSize;
     ImVec2 m_ImgSize;
+    ImVec2 m_RealImgSize;
     Ptr<CTexture> m_Atlas;
     class CGameObject* m_obj;
 

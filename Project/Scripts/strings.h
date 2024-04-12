@@ -41,6 +41,11 @@
 #define ParticleFirePrefKey L"prefab\\ParticleFire.pref"
 #define ButtonIconPrefKey L"prefab\\ButtonIcon.pref"
 
+#define TileUp1PrefKey L"prefab\\TileUp1.pref"
+#define TileSideRight1PrefKey L"prefab\\TileSideRight1.pref"
+#define TileBottom1PrefKey L"prefab\\TileDown1.pref"
+
+////////////////////////////////////////////////////////////////
 #define BBOwnerKey L"Owner"
 #define BBJumpDelay L"JumpDelay"
 
@@ -53,6 +58,7 @@
 
 #define OutlineWallName L"OutlineWall"
 
+/////////////////////////////////////////////////
 #define AnimPlayerIdle L"anim\\PlayerIdle.anim"
 #define AnimPlayerHandleIdle L"anim\\PlayerHandleIdle.anim"
 #define AnimPlayerJumpUp L"anim\\PlayerJumpUp.anim"
@@ -101,6 +107,11 @@
 #define AnimTitleSelectDoor2 L"anim\\TitleSelectDoor2.anim"
 #define AnimTitleSelectFloor L"anim\\TitleSelectFloor.anim"
 
+#define AnimTileUp1 L"anim\\TileUp1.anim"
+#define AnimTileSideRight1 L"anim\\TileSide1.anim"
+#define AnimTileBottom1 L"anim\\TileDown1.anim"
+
+//////////////////////////////////////////////////////////
 #define StatePlayerIdle L"CPlayerIdleState"
 #define StatePlayerDown L"CPlayerDownState"
 #define StatePlayerJumpUp L"CPlayerJumpUpState"

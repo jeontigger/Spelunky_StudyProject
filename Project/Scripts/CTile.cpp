@@ -13,9 +13,6 @@ CTile::CTile(const CTile& tile)
 	, m_type(tile.m_type)
 {
 	AddScriptParam(SCRIPT_PARAM::INT, "Type", &m_type);
-	for (int i = 0; i < (int)BoundaryTile::END; i++) {
-		m_arrSurroundTiles[i] = tile.m_arrSurroundTiles[i];
-	}
 }
 
 CTile::~CTile()
@@ -32,6 +29,9 @@ void CTile::Instancing(TileType type, int row, int col)
 	}
 	GetOwner()->Transform()->SetRelativePos(pos);
 	TileCount++;
+
+
+
 }
 
 void CTile::SetTileType(TileType type)
@@ -60,6 +60,37 @@ void CTile::begin()
 {
 	//SetTileType(TileType::Blank);
 
+	CGameObject* obj;
+	obj = m_arrSurroundTiles[(UINT)TileDir::TOP] = CAssetMgr::GetInst()->Load<CPrefab>(TileUp1PrefKey, TileUp1PrefKey)->Instantiate();
+	obj->Animator2D()->Play(AnimTileUp1);
+	GetOwner()->AddChild(obj);
+	GamePlayStatic::SpawnGameObject(obj, TileAroundLayer);
+
+	obj = m_arrSurroundTiles[(UINT)TileDir::RIGHT] = CAssetMgr::GetInst()->Load<CPrefab>(TileSideRight1PrefKey, TileSideRight1PrefKey)->Instantiate();
+	obj->Animator2D()->Play(AnimTileSideRight1);
+	GetOwner()->AddChild(obj);
+	GamePlayStatic::SpawnGameObject(obj, TileAroundLayer);
+
+	obj = m_arrSurroundTiles[(UINT)TileDir::LEFT] = CAssetMgr::GetInst()->Load<CPrefab>(TileSideRight1PrefKey, TileSideRight1PrefKey)->Instantiate();
+	obj->Animator2D()->Play(AnimTileSideRight1);
+	Vec3 rot = obj->Transform()->GetRelativeRotation();
+	rot.y = XM_PI;
+	obj->Transform()->SetRelativeRotation(rot);
+	Vec3 pos = obj->Transform()->GetRelativePos();
+	pos.x = -64.f;
+	obj->Transform()->SetRelativePos(pos);
+	GetOwner()->AddChild(obj);
+	GamePlayStatic::SpawnGameObject(obj, TileAroundLayer);
+
+	obj = m_arrSurroundTiles[(UINT)TileDir::BOTTOM] = CAssetMgr::GetInst()->Load<CPrefab>(TileBottom1PrefKey, TileBottom1PrefKey)->Instantiate();
+	obj->Animator2D()->Play(AnimTileBottom1);
+	GetOwner()->AddChild(obj);
+	GamePlayStatic::SpawnGameObject(obj, TileAroundLayer);
+
+	for (int i = 0; i < (UINT)TileDir::END; i++) {
+		if (m_type != TileType::Soil)
+			m_arrSurroundTiles[i]->Collider2D()->Activate(false);
+	}
 
 }
 

@@ -21,7 +21,7 @@
 #include "CTile.h"
 #include "CUI.h"
 
-bool test = false;
+bool test = true;
 
 CStage::CStage()
 	: m_state(StageState::NONE)
@@ -604,6 +604,7 @@ void CStage::begin()
 	CCollisionMgr::GetInst()->LayerCheck(MonsterLayer, CameraLayer);
 	CCollisionMgr::GetInst()->LayerCheck(OutlinerLayer, CameraLayer);
 	CCollisionMgr::GetInst()->LayerCheck(ItemLayer, CameraLayer);
+	CCollisionMgr::GetInst()->LayerCheck(TileAroundLayer, CameraLayer);
 	CCollisionMgr::GetInst()->LayerCheck(ItemLayer, MonsterLayer);
 	CCollisionMgr::GetInst()->LayerCheck(7, 6);
 
