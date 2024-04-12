@@ -107,7 +107,13 @@ void CTileBlock::TileInstancing(int _row, int _col)
 				break;
 			case BlockTileType::ChunkDoor:
 			{
-				tiletype = TileType::Door;
+			
+				if (m_Type == TileBlockType::Exit || m_Type == TileBlockType::Exit_Drop) {
+					tiletype = TileType::ExitDoor;
+				}
+				else {
+					tiletype = TileType::Door;
+				}
 				script->SetTileType(tiletype);
 				tile->Transform()->SetRelativePos(Vec3(_col * TileBlockScaleX + (0.5f + col) * TileScaleX, -_row * TileBlockScaleY - (1.f + row) * TileScaleY, TileZ));
 				tile->Transform()->SetRelativeScale(Vec3(TileScaleX * 3, TileScaleY * 2, 1));
@@ -128,7 +134,7 @@ void CTileBlock::TileInstancing(int _row, int _col)
 			if (tiletype == TileType::Blank) {
 				delete tile;
 			}
-			else if(tiletype != TileType::Door){
+			else if(tiletype != TileType::Door && tiletype != TileType::ExitDoor){
 				script->SetTileType(tiletype);
 				tile->Transform()->SetRelativePos(Vec3(_col * TileBlockScaleX + (0.5f + col) * TileScaleX, -_row * TileBlockScaleY - (0.5f + row) * TileScaleY, TileZ));
 				CTileMgr::GetInst()->SetTile(tile, _row, _col, row, col);
@@ -180,7 +186,7 @@ void CTileBlock::ItemGenerating(int _row, int _col)
 					Ptr<CPrefab> prefab = CAssetMgr::GetInst()->Load<CPrefab>(RockPrefKey, RockPrefKey);
 					auto obj = prefab->Instantiate();
 					Vec3 pos = CTileMgr::GetInst()->IdxToPos(_row, _col, row, col);
-					pos.z = ItemZ;
+					pos.z = PlayerZ;
 					obj->Transform()->SetRelativePos(pos);
 					GamePlayStatic::SpawnGameObject(obj, ItemLayer);
 				}

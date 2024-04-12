@@ -20,3 +20,4 @@ CAnimationLoop
 CBombExplosion
 CParticleOnce
 CBlink
+CExitDoor

@@ -24,7 +24,7 @@ void CWallCollider::BeginOverlap(CCollider2D* _Collider, CGameObject* _OtherObj,
 		if (type == TileType::Ladder || type == TileType::LadderHalf || type == TileType::Half)
 			m_iTileCnt--;
 
-		if (type == TileType::Door || type == TileType::Ladder || type == TileType::LadderHalf || type == TileType::Half|| type == TileType::Spike) return;
+		if (type == TileType::Door || type == TileType::ExitDoor || type == TileType::Ladder || type == TileType::LadderHalf || type == TileType::Half|| type == TileType::Spike) return;
 		Vec3 OwnerPos = m_parent->Transform()->GetRelativePos();
 		Vec2 OwnerScale = m_parent->Collider2D()->GetRelativeScale();
 		Vec3 TilePos = _OtherObj->Transform()->GetRelativePos();

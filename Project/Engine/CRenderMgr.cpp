@@ -90,7 +90,6 @@ void CRenderMgr::render_debug()
 		case DEBUG_SHAPE::CROSS:
 			m_pDebugObj->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"CrossMesh"));
 			break;
-
 		case DEBUG_SHAPE::CUBE:
 			m_pDebugObj->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"CubeMesh"));
 			break;

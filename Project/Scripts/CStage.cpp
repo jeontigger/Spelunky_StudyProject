@@ -114,10 +114,6 @@ CStage::CStage()
 		Ptr<CPrefab> prefab;
 		CGameObject* obj;
 
-		prefab = CAssetMgr::GetInst()->Load<CPrefab>(PlayerPrefKey, PlayerPrefKey);
-		m_Player = prefab->Instantiate();
-		m_Player->Transform()->SetRelativePos(Vec3(TileBlockScaleX / 2.f, -TileBlockScaleY / 2.f - TileScaleY, PlayerZ));
-		AddObject(m_Player, PlayerLayer);
 
 		//prefab = CAssetMgr::GetInst()->Load<CPrefab>(SnakePrefKey, SnakePrefKey);
 		//obj = prefab->Instantiate();
@@ -126,8 +122,13 @@ CStage::CStage()
 
 		prefab = CAssetMgr::GetInst()->Load<CPrefab>(RockPrefKey, RockPrefKey);
 		obj = prefab->Instantiate();
-		obj->Transform()->SetRelativePos(Vec3(TileBlockScaleX / 2.f, -TileBlockScaleY / 2.f - TileScaleY, PlayerZ));
+		obj->Transform()->SetRelativePos(Vec3(TileBlockScaleX / 2.f, -TileBlockScaleY / 2.f - TileScaleY, ItemZ));
 		AddObject(obj, ItemLayer);
+
+		prefab = CAssetMgr::GetInst()->Load<CPrefab>(PlayerPrefKey, PlayerPrefKey);
+		m_Player = prefab->Instantiate();
+		m_Player->Transform()->SetRelativePos(Vec3(TileBlockScaleX / 2.f, -TileBlockScaleY / 2.f - TileScaleY, PlayerZ));
+		AddObject(m_Player, PlayerLayer);
 
 		m_MainCamera->Camera()->SetScale(CameraNormalScale);
 
@@ -604,8 +605,8 @@ void CStage::begin()
 	CTileMgr::GetInst()->CheckLayer(PlayerLayer);
 
 	if (test) {
-		m_arrTileBlocks[0][0].SetBlockType(TileBlockType::Entrance);
-		m_arrTileBlocks[0][0] = m_SP->GetBlock(TileBlockType::Entrance, 1);
+		m_arrTileBlocks[0][0].SetBlockType(TileBlockType::Exit);
+		m_arrTileBlocks[0][0] = m_SP->GetBlock(TileBlockType::Exit, 0);
 		m_arrTileBlocks[0][0].TileInstancing(0, 0);
 		m_MainCamera->GetScript<CCameraMovement>()->SetTarget(m_Player);
 	}

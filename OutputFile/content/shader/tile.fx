@@ -73,7 +73,7 @@ float4 PS_Tile(VS_OUT _in) : SV_Target
             float2 adjustedUV = FramePosition * FrameSize + _in.vUV * FrameSize;
             vColor = FloorTex.Sample(g_sam_1, adjustedUV);
         }
-        else if (Type == 9)
+        else if (Type == 9 || Type == 10)
         {
             FrameSize = float2(1.f / 4, 1.f / 6);
             FramePosition = float2(0, 3.5);

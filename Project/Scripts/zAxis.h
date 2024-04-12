@@ -9,6 +9,6 @@
 #define WhipBackZ 1
 #define PlayerZ 100
 #define WhipFrontZ -1
-#define HandleZ 90
+#define HandleZ 40
 
 #define UIZ 5

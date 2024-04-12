@@ -13,6 +13,7 @@ enum class TileType {
 	Movable,
 	Spike,
     Door,
+    ExitDoor,
     END,
 }; 
 

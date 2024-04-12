@@ -23,6 +23,7 @@
 #include "CBombExplosion.h"
 #include "CParticleOnce.h"
 #include "CBlink.h"
+#include "CExitDoor.h"
 
 void CScriptMgr::GetScriptInfo(vector<wstring>& _vec)
 {
@@ -48,6 +49,7 @@ void CScriptMgr::GetScriptInfo(vector<wstring>& _vec)
 	_vec.push_back(L"CBombExplosion");
 	_vec.push_back(L"CParticleOnce");
 	_vec.push_back(L"CBlink");
+	_vec.push_back(L"CExitDoor");
 }
 
 CScript * CScriptMgr::GetScript(const wstring& _strScriptName)
@@ -96,6 +98,8 @@ CScript * CScriptMgr::GetScript(const wstring& _strScriptName)
 		return new CParticleOnce;
 	if (L"CBlink" == _strScriptName)
 		return new CBlink;
+	if (L"CExitDoor" == _strScriptName)
+		return new CExitDoor;
 	return nullptr;
 }
 
@@ -168,6 +172,9 @@ CScript * CScriptMgr::GetScript(UINT _iScriptType)
 		break;
 	case (UINT)SCRIPT_TYPE::BLINK:
 		return new CBlink;
+		break;
+	case (UINT)SCRIPT_TYPE::EXITDOOR:
+		return new CExitDoor;
 		break;
 	}
 	return nullptr;
@@ -263,6 +270,10 @@ const wchar_t * CScriptMgr::GetScriptName(CScript * _pScript)
 
 	case SCRIPT_TYPE::BLINK:
 		return L"CBlink";
+		break;
+
+	case SCRIPT_TYPE::EXITDOOR:
+		return L"CExitDoor";
 		break;
 
 	}

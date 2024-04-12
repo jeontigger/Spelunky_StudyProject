@@ -171,6 +171,7 @@ call CodeGen.exe</Command>
     <ClInclude Include="CBackgroundScript.h" />
     <ClInclude Include="CCeilCollider.h" />
     <ClInclude Include="CCharacterScript.h" />
+    <ClInclude Include="CExitDoor.h" />
     <ClInclude Include="CFieldObject.h" />
     <ClInclude Include="CGroundCollider.h" />
     <ClInclude Include="CItem.h" />
@@ -215,6 +216,7 @@ call CodeGen.exe</Command>
     <ClInclude Include="math.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="CPlayerIdleState.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="strings.h" />
     <ClInclude Include="struct.h" />
     <ClInclude Include="zAxis.h" />
@@ -228,6 +230,7 @@ call CodeGen.exe</Command>
     <ClCompile Include="CBackgroundScript.cpp" />
     <ClCompile Include="CCeilCollider.cpp" />
     <ClCompile Include="CCharacterScript.cpp" />
+    <ClCompile Include="CExitDoor.cpp" />
     <ClCompile Include="CFieldObject.cpp" />
     <ClCompile Include="CGroundCollider.cpp" />
     <ClCompile Include="CItem.cpp" />
@@ -275,6 +278,9 @@ call CodeGen.exe</Command>
     </ClCompile>
     <ClCompile Include="CPlayerIdleState.cpp" />
     <ClCompile Include="Scripts.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Scripts.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

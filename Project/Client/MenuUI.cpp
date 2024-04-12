@@ -169,7 +169,7 @@ void MenuUI::Level()
             CRandomMgr::GetInst()->init();
             CLevelGenerator::DestroyStages();
             CLevelGenerator::MakeStages();
-            CLevel* level = (CLevel*)CLevelGenerator::GetLevel(0);
+            CLevel* level = (CLevel*)CLevelGenerator::GetLevel(1);
             CLevelMgr::GetInst()->ChangeLevel(level, LEVEL_STATE::PLAY);
 
             UI* outliner = UIMGR->FindUI(UIOutlinerName);
@@ -182,7 +182,7 @@ void MenuUI::Level()
         UINT seed = CRandomMgr::GetInst()->GetSeed();
         CRandomMgr::GetInst()->SetSeed(seed);
         CLevelGenerator::MakeStages();
-        CLevel* level = (CLevel*)CLevelGenerator::GetLevel(0);
+        CLevel* level = (CLevel*)CLevelGenerator::GetLevel(1);
         CLevelMgr::GetInst()->ChangeLevel(level, LEVEL_STATE::PLAY);
     }
     if (KEY_TAP(F4)) {
@@ -226,7 +226,7 @@ void MenuUI::Level()
                 CRandomMgr::GetInst()->init();
                 CLevelGenerator::DestroyStages();
                 CLevelGenerator::MakeStages();
-                CLevel* level = (CLevel*)CLevelGenerator::GetLevel(0);
+                CLevel* level = (CLevel*)CLevelGenerator::GetLevel(1);
                 CLevelMgr::GetInst()->ChangeLevel(level, LEVEL_STATE::PLAY);
                 PlayOnce = true;
 
@@ -242,7 +242,7 @@ void MenuUI::Level()
             UINT seed = CRandomMgr::GetInst()->GetSeed();
             CRandomMgr::GetInst()->SetSeed(seed);
             CLevelGenerator::MakeStages();
-            CLevel* level = (CLevel*)CLevelGenerator::GetLevel(0);
+            CLevel* level = (CLevel*)CLevelGenerator::GetLevel(1);
             CLevelMgr::GetInst()->ChangeLevel(level, LEVEL_STATE::PLAY);
         }
 

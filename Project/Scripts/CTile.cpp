@@ -62,7 +62,17 @@ void CTile::begin()
 }
 
 #include "CFieldObject.h"
+#include "CPlayerScript.h"
+
 void CTile::BeginOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCollider2D* _OtherCollider) {
+	CFieldObject::BeginOverlap(_Collider, _OtherObj, _OtherCollider);
+
+	if (m_type == TileType::ExitDoor) {
+		auto player = _OtherObj->GetScript<CPlayerScript>();
+		if (player) {
+			
+		}
+	}
 }
 
 void CTile::EndOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCollider2D* _OtherCollider) {
@@ -102,7 +112,10 @@ Vec2 CTile::TypeToPos(TileType type)
 
 	case TileType::Door:
 		return Vec2(7, 0);
-		break;
+		break;	
+	case TileType::ExitDoor:
+		return Vec2(7, 0);
+			break;
 	case TileType::END:
 		break;
 	default:
