@@ -44,7 +44,8 @@ public:
     void Stop() { m_vVelocity.x = 0.f; }
     inline bool IsMove() { return m_fGravity != 0.f; }
 
-    inline void SetGround(bool _b) { m_bGround = _b; }
+    inline void SetGround(bool _b) { _b? m_bGround++ : m_bGround--; }
+    inline void ClearGround() { m_bGround = 0; }
     inline bool IsGrounded() { 
         return m_bGround > 0; }
 

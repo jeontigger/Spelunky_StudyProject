@@ -84,7 +84,7 @@ void CGroundCollider::EndOverlap(CCollider2D* _Collider, CGameObject* _OtherObj,
 
 		if (velY >= -0.2f) {
 			if (!DetectTile()) {
-				m_parent->GetScript<CFieldObject>()->SetGround(false);
+				m_parent->GetScript<CFieldObject>()->ClearGround();
 			}
 		}
 	}

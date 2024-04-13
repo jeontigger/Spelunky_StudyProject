@@ -39,6 +39,8 @@ void CFieldObject::AddGravity()
 
 void CFieldObject::tick()
 {
+	m_iTileCnt = 0;
+
 	m_vPrevPos = m_vPos;
 
 	m_vPos = Transform()->GetRelativePos();
@@ -84,11 +86,13 @@ void CFieldObject::begin()
 
 	Vec2 ColliderCenterPos = Collider2D()->GetRelativePos();
 	Vec2 ColliderScale = Collider2D()->GetRelativeScale();
+
+	AddScriptParam(SCRIPT_PARAM::INT, "ground", &m_bGround);
 }
 
 void CFieldObject::skill(Vec2 _force)
 {
-	SetGround(false);
+	ClearGround();
 	SetVelocity(_force);
 }
 
@@ -122,7 +126,13 @@ void CFieldObject::BeginOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, 
 		Vec3 vTilePos = _OtherCollider->GetColliderWorldMat().Pos();
 		Vec3 vTileScale = _OtherCollider->GetColliderWorldMat().Scale();
 			// 위로 올려주기
-		if ((vObjColPos.y - vObjColScale.y / 2.f > vTilePos.y + vTileScale.y / 4.f)) {
+		if ((vObjColPos.y - vObjColScale.y / 2.f > vTilePos.y + vTileScale.y / 4.f)) {			
+			// 옆에서 미끄러지는거라면
+			if ((abs(vObjColPos.x - (vTilePos.x + (vTileScale.x + vObjColScale.x) / 2.f)) < 0.1f)
+				|| (abs(vObjColPos.x - (vTilePos.x - (vTileScale.x + vObjColScale.x) / 2.f)) < 0.1f)) {
+				return;
+			}
+			// 윗면에 섬
 			if (vel.y <= 0) {
 				// 컬라이더 위치
 				Vec3 vColPos = vObjColPos;
@@ -139,7 +149,11 @@ void CFieldObject::BeginOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, 
 		// 머리 박는거면
 		else if (vObjColPos.y + vObjColScale.y / 2.f < vTilePos.y - vTileScale.y / 4.f) {
 			if (type == TileType::Half || type == TileType::LadderHalf) return;
-
+			// 옆에서 미끄러지는거라면
+			if ((abs(vObjColPos.x - (vTilePos.x + (vTileScale.x + vObjColScale.x) / 2.f)) < 0.1f)
+				|| (abs(vObjColPos.x - (vTilePos.x - (vTileScale.x + vObjColScale.x) / 2.f)) < 0.1f)) {
+				return;
+			}
 			if (vel.y >= 0) {
 				vel.y = -abs(vel.y);
 				SetVelocity(Vec2(vel.x, vel.y));
@@ -189,6 +203,12 @@ void CFieldObject::Overlap(CCollider2D* _Collider, CGameObject* _OtherObj, CColl
 		Vec3 vTileScale = _OtherCollider->GetColliderWorldMat().Scale();
 		// 위에서 떨어진다면
 		if ((vObjColPos.y - vObjColScale.y / 2.f > vTilePos.y + vTileScale.y / 4.f)) {
+			// 옆에서 미끄러지는거라면
+			if ((abs(vObjColPos.x - (vTilePos.x + (vTileScale.x + vObjColScale.x) / 2.f)) < 0.1f)
+				|| (abs(vObjColPos.x - (vTilePos.x - (vTileScale.x + vObjColScale.x) / 2.f)) < 0.1f)) {
+				return;
+			}
+			// 윗면을 밟음
 			if (vel.y <= 0) {
 				Vec3 vColPos = vObjColPos;
 				vColPos.y = vTilePos.y + (vTileScale.y + vObjColScale.y) / 2.f;
@@ -196,11 +216,17 @@ void CFieldObject::Overlap(CCollider2D* _Collider, CGameObject* _OtherObj, CColl
 				// 캐릭터와 컬라이더 위치 차이 계산 후 캐릭터 위치 조정
 				Vec3 vPos = vColPos - Vec3(_Collider->GetOffsetPos().x, _Collider->GetOffsetPos().y, 0) * Transform()->GetRelativeScale();
 				Transform()->SetRelativePos(vPos);
+				m_iTileCnt++;
 			}
 		}
 		// 머리 박는거면
 		else if (vObjColPos.y + vObjColScale.y / 2.f < vTilePos.y - vTileScale.y / 4.f) {
 			if (type == TileType::Half || type == TileType::LadderHalf) return;
+			// 옆에서 미끄러지는거라면
+			if ((abs(vObjColPos.x - (vTilePos.x + (vTileScale.x + vObjColScale.x) / 2.f)) < 0.1f)
+				|| (abs(vObjColPos.x - (vTilePos.x - (vTileScale.x + vObjColScale.x) / 2.f)) < 0.1f)) {
+				return;
+			}
 			if (vel.y >= 0) {
 				Vec3 vColPos = vObjColPos;
 				vColPos.y = vTilePos.y - (vTileScale.y + vObjColPos.y) / 2.f;
@@ -235,6 +261,9 @@ void CFieldObject::Overlap(CCollider2D* _Collider, CGameObject* _OtherObj, CColl
 void CFieldObject::EndOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCollider2D* _OtherCollider) {
 	auto tile = _OtherObj->GetScript<CTile>();
 	if (tile) {
+		TileType type = tile->GetTileType();
+		if (type == TileType::Door || type == TileType::Ladder || type == TileType::ExitDoor || type == TileType::Spike || type == TileType::Half || type == TileType::LadderHalf) return;
+
 		Vec3 vObjPos = Transform()->GetRelativePos();
 		Vec3 vel = vObjPos - m_vPrevPos;
 
@@ -242,5 +271,18 @@ void CFieldObject::EndOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, CC
 		Vec3 vObjColScale = _Collider->GetColliderWorldMat().Scale();
 		Vec3 vTilePos = _OtherCollider->GetColliderWorldMat().Pos();
 		Vec3 vTileScale = _OtherCollider->GetColliderWorldMat().Scale();
+		
+		// 위에서 떨어진다면
+		if ((vObjColPos.y - vObjColScale.y / 2.f > vTilePos.y + vTileScale.y / 4.f)) {
+			// 옆에서 미끄러지는거라면
+			if ((abs(vObjColPos.x - (vTilePos.x + (vTileScale.x + vObjColScale.x) / 2.f)) < 0.1f)
+				|| (abs(vObjColPos.x - (vTilePos.x - (vTileScale.x + vObjColScale.x) / 2.f)) < 0.1f)) {
+				return;
+			}
+			// 윗면을 밟음
+			if (vel.y <= 0) {
+				SetGround(false);
+			}
+		}
 	}
 }
