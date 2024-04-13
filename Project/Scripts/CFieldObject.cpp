@@ -128,8 +128,9 @@ void CFieldObject::BeginOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, 
 			// 위로 올려주기
 		if ((vObjColPos.y - vObjColScale.y / 2.f > vTilePos.y + vTileScale.y / 4.f)) {			
 			// 옆에서 미끄러지는거라면
-			if ((abs(vObjColPos.x - (vTilePos.x + (vTileScale.x + vObjColScale.x) / 2.f)) < 0.1f)
-				|| (abs(vObjColPos.x - (vTilePos.x - (vTileScale.x + vObjColScale.x) / 2.f)) < 0.1f)) {
+			float right_x = abs(vObjColPos.x - vTilePos.x - (vTileScale.x + abs(vObjColScale.x)) / 2.f);
+			float left_x = abs(vTilePos.x - vObjColPos.x - (vTileScale.x + vObjColScale.x) / 2.f);
+			if (right_x < 5.0f || left_x < 5.0f) {
 				return;
 			}
 			// 윗면에 섬
@@ -150,15 +151,16 @@ void CFieldObject::BeginOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, 
 		else if (vObjColPos.y + vObjColScale.y / 2.f < vTilePos.y - vTileScale.y / 4.f) {
 			if (type == TileType::Half || type == TileType::LadderHalf) return;
 			// 옆에서 미끄러지는거라면
-			if ((abs(vObjColPos.x - (vTilePos.x + (vTileScale.x + vObjColScale.x) / 2.f)) < 0.1f)
-				|| (abs(vObjColPos.x - (vTilePos.x - (vTileScale.x + vObjColScale.x) / 2.f)) < 0.1f)) {
+			float right_x = abs(vObjColPos.x - vTilePos.x - (vTileScale.x + abs(vObjColScale.x)) / 2.f);
+			float left_x = abs(vTilePos.x - vObjColPos.x - (vTileScale.x + vObjColScale.x) / 2.f);
+			if (right_x < 5.0f || left_x < 5.0f) {
 				return;
 			}
 			if (vel.y >= 0) {
 				vel.y = -abs(vel.y);
 				SetVelocity(Vec2(vel.x, vel.y));
 				Vec3 vColPos = vObjColPos;
-				vColPos.y = vTilePos.y - (vTileScale.y + vObjColScale.y) / 2.f;
+				vColPos.y = vTilePos.y - (vTileScale.y + abs(vObjColScale.y)) / 2.f;
 				Vec3 vPos = vColPos + Vec3(_Collider->GetOffsetPos().x, _Collider->GetOffsetPos().y, 0) * Transform()->GetRelativeScale();
 				Transform()->SetRelativePos(vPos);
 			}
@@ -204,8 +206,9 @@ void CFieldObject::Overlap(CCollider2D* _Collider, CGameObject* _OtherObj, CColl
 		// 위에서 떨어진다면
 		if ((vObjColPos.y - vObjColScale.y / 2.f > vTilePos.y + vTileScale.y / 4.f)) {
 			// 옆에서 미끄러지는거라면
-			if ((abs(vObjColPos.x - (vTilePos.x + (vTileScale.x + vObjColScale.x) / 2.f)) < 0.1f)
-				|| (abs(vObjColPos.x - (vTilePos.x - (vTileScale.x + vObjColScale.x) / 2.f)) < 0.1f)) {
+			float right_x = abs(vObjColPos.x - vTilePos.x - (vTileScale.x + abs(vObjColScale.x)) / 2.f);
+			float left_x = abs(vTilePos.x - vObjColPos.x - (vTileScale.x + vObjColScale.x) / 2.f);
+			if (right_x < 5.0f || left_x < 5.0f) {
 				return;
 			}
 			// 윗면을 밟음
@@ -223,8 +226,9 @@ void CFieldObject::Overlap(CCollider2D* _Collider, CGameObject* _OtherObj, CColl
 		else if (vObjColPos.y + vObjColScale.y / 2.f < vTilePos.y - vTileScale.y / 4.f) {
 			if (type == TileType::Half || type == TileType::LadderHalf) return;
 			// 옆에서 미끄러지는거라면
-			if ((abs(vObjColPos.x - (vTilePos.x + (vTileScale.x + vObjColScale.x) / 2.f)) < 0.1f)
-				|| (abs(vObjColPos.x - (vTilePos.x - (vTileScale.x + vObjColScale.x) / 2.f)) < 0.1f)) {
+			float right_x = abs(vObjColPos.x - vTilePos.x - (vTileScale.x + abs(vObjColScale.x)) / 2.f);
+			float left_x = abs(vTilePos.x - vObjColPos.x - (vTileScale.x + vObjColScale.x) / 2.f);
+			if (right_x < 5.0f || left_x < 5.0f) {
 				return;
 			}
 			if (vel.y >= 0) {
@@ -262,7 +266,7 @@ void CFieldObject::EndOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, CC
 	auto tile = _OtherObj->GetScript<CTile>();
 	if (tile) {
 		TileType type = tile->GetTileType();
-		if (type == TileType::Door || type == TileType::Ladder || type == TileType::ExitDoor || type == TileType::Spike || type == TileType::Half || type == TileType::LadderHalf) return;
+		if (type == TileType::Door || type == TileType::Ladder || type == TileType::ExitDoor || type == TileType::Spike) return;
 
 		Vec3 vObjPos = Transform()->GetRelativePos();
 		Vec3 vel = vObjPos - m_vPrevPos;
@@ -275,8 +279,9 @@ void CFieldObject::EndOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, CC
 		// 위에서 떨어진다면
 		if ((vObjColPos.y - vObjColScale.y / 2.f > vTilePos.y + vTileScale.y / 4.f)) {
 			// 옆에서 미끄러지는거라면
-			if ((abs(vObjColPos.x - (vTilePos.x + (vTileScale.x + vObjColScale.x) / 2.f)) < 0.1f)
-				|| (abs(vObjColPos.x - (vTilePos.x - (vTileScale.x + vObjColScale.x) / 2.f)) < 0.1f)) {
+			float right_x = abs(vObjColPos.x - vTilePos.x - (vTileScale.x + abs(vObjColScale.x)) / 2.f);
+			float left_x = abs(vTilePos.x - vObjColPos.x - (vTileScale.x + vObjColScale.x) / 2.f);
+			if (right_x < 5.0f || left_x < 5.0f) {
 				return;
 			}
 			// 윗면을 밟음
