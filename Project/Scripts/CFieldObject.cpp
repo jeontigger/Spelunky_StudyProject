@@ -201,10 +201,6 @@ void CFieldObject::Overlap(CCollider2D* _Collider, CGameObject* _OtherObj, CColl
 				Transform()->SetRelativePos(vPos);
 			}
 		}
-
-
-
-
 	}
 }
 
