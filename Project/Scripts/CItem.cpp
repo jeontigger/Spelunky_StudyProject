@@ -59,6 +59,9 @@ void CItem::BeginOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCollid
 	auto tile = _OtherObj->GetScript<CTile>();
 	if (tile) {
 
+		TileType type = tile->GetTileType();
+		if (type == TileType::Door || type == TileType::Ladder || type == TileType::ExitDoor || type == TileType::Spike) return;
+
 		Vec3 vObjPos = Transform()->GetRelativePos();
 		Vec3 vel = vObjPos - m_vPrevPos;
 		Vec3 vObjColPos = Transform()->GetRelativePos() + Vec3(Collider2D()->GetOffsetPos().x, Collider2D()->GetOffsetPos().y, 0) * Transform()->GetRelativeScale();
@@ -90,6 +93,7 @@ void CItem::BeginOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCollid
 		}
 		// 머리 박는거면
 		else if (vObjColPos.y + vObjColScale.y / 2.f < vTilePos.y - vTileScale.y / 4.f) {
+			if (type == TileType::Half || type == TileType::LadderHalf) return;
 			if (vel.y >= 0) {
 				vel.y = -abs(vel.y);
 				SetVelocity(Vec2(vel.x, vel.y));
@@ -101,6 +105,7 @@ void CItem::BeginOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCollid
 		}
 		// 옆에서 부딪힌다면
 		else {
+			if (type == TileType::Half || type == TileType::LadderHalf) return;
 			// 오브젝트가 왼쪽이라면
 			if (vObjColPos.x < vTilePos.x) {
 				vel.x = -abs(vel.x);

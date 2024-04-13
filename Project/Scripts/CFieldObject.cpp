@@ -111,7 +111,8 @@ void CFieldObject::BeginOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, 
 
 	auto tile = _OtherObj->GetScript<CTile>();
 	if (tile) {
-		
+		TileType type = tile->GetTileType();
+		if (type == TileType::Door || type == TileType::Ladder || type == TileType::ExitDoor || type == TileType::Spike) return;
 		// 위에서 떨어지는 거라면
 		Vec3 vObjPos = Transform()->GetRelativePos();
 		Vec3 vel = vObjPos - m_vPrevPos;
@@ -137,6 +138,8 @@ void CFieldObject::BeginOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, 
 		}		
 		// 머리 박는거면
 		else if (vObjColPos.y + vObjColScale.y / 2.f < vTilePos.y - vTileScale.y / 4.f) {
+			if (type == TileType::Half || type == TileType::LadderHalf) return;
+
 			if (vel.y >= 0) {
 				vel.y = -abs(vel.y);
 				SetVelocity(Vec2(vel.x, vel.y));
@@ -148,6 +151,8 @@ void CFieldObject::BeginOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, 
 		}
 		// 옆면 충돌
 		else {
+			if (type == TileType::Half || type == TileType::LadderHalf) return;
+
 			// 오브젝트가 왼쪽이라면
 			if (vObjColPos.x < vTilePos.x) {
 				Vec3 vColPos = vObjColPos;
@@ -172,6 +177,8 @@ void CFieldObject::BeginOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, 
 void CFieldObject::Overlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCollider2D* _OtherCollider) {
 	auto tile = _OtherObj->GetScript<CTile>();
 	if (tile) {
+		TileType type = tile->GetTileType();
+		if (type == TileType::Door || type == TileType::Ladder || type == TileType::ExitDoor || type == TileType::Spike) return;
 
 		Vec3 vObjPos = Transform()->GetRelativePos();
 		Vec3 vel = vObjPos - m_vPrevPos;
@@ -193,6 +200,7 @@ void CFieldObject::Overlap(CCollider2D* _Collider, CGameObject* _OtherObj, CColl
 		}
 		// 머리 박는거면
 		else if (vObjColPos.y + vObjColScale.y / 2.f < vTilePos.y - vTileScale.y / 4.f) {
+			if (type == TileType::Half || type == TileType::LadderHalf) return;
 			if (vel.y >= 0) {
 				Vec3 vColPos = vObjColPos;
 				vColPos.y = vTilePos.y - (vTileScale.y + vObjColPos.y) / 2.f;
@@ -202,6 +210,7 @@ void CFieldObject::Overlap(CCollider2D* _Collider, CGameObject* _OtherObj, CColl
 		}
 		// 옆에서 부딪힌다면
 		else{
+			if (type == TileType::Half || type == TileType::LadderHalf) return;
 			// 오브젝트가 왼쪽이라면
 			if (vObjColPos.x < vTilePos.x) {
 				Vec3 vColPos = vObjColPos;
