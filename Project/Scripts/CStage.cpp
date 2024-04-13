@@ -616,6 +616,7 @@ void CStage::begin()
 	CTileMgr::GetInst()->CheckLayer(DetectColliderLayer);
 	CTileMgr::GetInst()->CheckLayer(ItemLayer);
 	CTileMgr::GetInst()->CheckLayer(PlayerLayer);
+	CTileMgr::GetInst()->CheckLayer(MonsterLayer);
 
 	if (test) {
 		m_arrTileBlocks[0][0].SetBlockType(TileBlockType::Exit);
