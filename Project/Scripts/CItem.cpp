@@ -89,7 +89,16 @@ void CItem::BeginOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCollid
 			}
 		}
 		// 머리 박는거면
-
+		else if (vObjColPos.y + vObjColScale.y / 2.f < vTilePos.y - vTileScale.y / 4.f) {
+			if (vel.y >= 0) {
+				vel.y = -abs(vel.y);
+				SetVelocity(Vec2(vel.x, vel.y));
+				Vec3 vColPos = vObjColPos;
+				vColPos.y = vTilePos.y - (vTileScale.y + vObjColScale.y) / 2.f;
+				Vec3 vPos = vColPos + Vec3(_Collider->GetOffsetPos().x, _Collider->GetOffsetPos().y, 0) * Transform()->GetRelativeScale();
+				Transform()->SetRelativePos(vPos);
+			}
+		}
 		// 옆에서 부딪힌다면
 		else {
 			// 오브젝트가 왼쪽이라면
@@ -99,7 +108,7 @@ void CItem::BeginOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCollid
 			else {
 				vel.x = abs(vel.x);
 			}
-			SetVelocity(Vec2(vel.x, vel.y));
+			SetVelocity(Vec2(vel.x * 0.7, vel.y));
 		}
 	}
 }
