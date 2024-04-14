@@ -12,10 +12,10 @@ enum class TitleMenu {
     END,
 };
 
-#define CursorHidePosX -580
+#define CursorHidePosX -620
 #define CursorSelectPosX -422
 #define CursorStartPosY 0
-#define CursorYSpaceSize 60
+#define CursorYSpaceSize 80
 class CTitleLevel :
     public CLevel
 {
@@ -31,6 +31,11 @@ private:
     CGameObject* m_arrCursors[(UINT)TitleMenu::END];    
 
     void (*ChangeLevel)(void);
+
+private:
+    wstring m_strStart;
+    wstring m_strMenuStart;
+    wstring m_strMenuQuit;
 
 public:
     void SetLevelChangeFunc(void (*func)(void)) { ChangeLevel = func; }
@@ -52,5 +57,6 @@ private:
     void CursorMove();
     void CursorControl();
     void MenuSelect();
+    void MenuStringPrint();
 };
 

@@ -42,6 +42,6 @@ public:
 
 public:
     void init();
-    void DrawFont(const wchar_t* _str, const Font& _data, float _time);
+    void DrawFont(const wchar_t* _str, const Font& _data, float _time = 0);
 };
 

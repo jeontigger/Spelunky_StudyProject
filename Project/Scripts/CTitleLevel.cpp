@@ -5,6 +5,7 @@
 #include <Engine\CLayer.h>
 #include <Engine\CCollisionMgr.h>
 #include <Engine/CKeyMgr.h>
+#include <Engine/CFontMgr.h>
 
 #include <Engine\CGameObject.h>
 #include <Engine\CTransform.h>
@@ -19,6 +20,9 @@
 CTitleLevel::CTitleLevel()
 	:m_State(TitleLevelState::AnyKeyPress)
 {
+	m_strStart = L": 시작";
+	m_strMenuStart = L"게임 시작";
+	m_strMenuQuit = L"끝내기";
 }
 
 CTitleLevel::~CTitleLevel()
@@ -33,6 +37,14 @@ void CTitleLevel::tick()
 		if (CKeyMgr::GetInst()->AnyKeyPressed()) {
 			ChangeLevelState(TitleLevelState::Select);
 		}
+		if (m_vecAnyKeyObj[2]->GetScript<CBlink>()->IsOn()) {
+			Font data = {};
+			data._fPosX = 1040.f;
+			data._fPosY = 675.f;
+			data._fFontSize = 32;
+			data._Color = FONT_RGBA(255, 255, 255, 255);
+			CFontMgr::GetInst()->DrawFont(m_strStart.c_str(), data);
+		}
 	}
 	else if(m_State==TitleLevelState::Select){
 		if (KEY_TAP(ESC)) {
@@ -42,7 +54,9 @@ void CTitleLevel::tick()
 		CursorMove();
 		CursorControl();
 		MenuSelect();
+		MenuStringPrint();
 	}
+
 }
 
 void CTitleLevel::begin()
@@ -247,4 +261,17 @@ void CTitleLevel::MenuSelect()
 			break;
 		}
 	}
+}
+
+void CTitleLevel::MenuStringPrint()
+{
+	
+	Font data = {};
+	data._fPosX = 700;
+	data._fPosY = 420;
+	data._fFontSize = 32;
+	data._Color = FONT_RGBA(255, 255, 255, 255);
+	CFontMgr::GetInst()->DrawFont(m_strMenuStart.c_str(), data);
+	data._fPosY += CursorYSpaceSize - 7;
+	CFontMgr::GetInst()->DrawFont(m_strMenuQuit.c_str(), data);
 }

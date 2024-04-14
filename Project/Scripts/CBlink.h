@@ -12,6 +12,7 @@ private:
 public:
     void Set(float _on, float _off) { m_fOnTime = _on, m_fOffTime = _off; }
     void Set(float _time) { m_fOnTime = _time; m_fOffTime = _time; }
+    bool IsOn() { return Collider2D()->IsActivate(); }
 
 public:
     virtual void begin() override;
