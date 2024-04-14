@@ -801,6 +801,4 @@ void CStage::UIText()
 	data._fPosY = 60.f;
 	m_strStage = L"1-1";
 	CFontMgr::GetInst()->DrawFont(m_strStage.c_str(), data);
-
-
 }

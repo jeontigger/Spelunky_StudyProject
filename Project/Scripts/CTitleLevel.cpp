@@ -107,6 +107,9 @@ void CTitleLevel::begin()
 	CRenderMgr::GetInst()->SetDebugPosition(false);
 
 	m_iMenuCursor = 0;
+
+	CAssetMgr::GetInst()->Load<CSound>(SndBGM_Title_Intro, SndBGM_Title_Intro)->Play(1, 1, false);
+	CAssetMgr::GetInst()->Load<CSound>(Sndtorch01, Sndtorch01)->Play(0, 1, false);
 }
 
 

@@ -126,3 +126,12 @@
 
 #define StateEndSymbol "STATE_END"
 
+//////////////////////////////////////////////////////
+
+#define SndBGM_Title_Intro L"sound\\BGM_Title_Intro.ogg"
+#define SndBGM_Title_Loop L"sound\\BGM_Title_Loop.ogg"
+
+#define SndBGM_1_Adventure L"sound\\BGM_1_Adventure.ogg"
+
+
+#define Sndtorch01 L"sound\\torch01.wav"
