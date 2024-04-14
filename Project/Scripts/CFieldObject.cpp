@@ -32,8 +32,8 @@ void CFieldObject::AddGravity()
 	else {
 		if(m_bUseGravity)
 			m_vVelocity.y -= m_fGravity * m_fMass *DT;
-		m_bGround = 0;
 	}
+
 
 }
 
@@ -130,7 +130,7 @@ void CFieldObject::BeginOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, 
 			// ¿·¿¡¼­ ¹Ì²ô·¯Áö´Â°Å¶ó¸é
 			float right_x = abs(vObjColPos.x - vTilePos.x - (vTileScale.x + abs(vObjColScale.x)) / 2.f);
 			float left_x = abs(vTilePos.x - vObjColPos.x - (vTileScale.x + vObjColScale.x) / 2.f);
-			if (right_x < 5.0f || left_x < 5.0f) {
+			if ((right_x < 5.0f || left_x < 5.0f)&& abs(vel.y) >8.f) {
 				return;
 			}
 			// À­¸é¿¡ ¼¶
@@ -281,7 +281,7 @@ void CFieldObject::EndOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, CC
 			// ¿·¿¡¼­ ¹Ì²ô·¯Áö´Â°Å¶ó¸é
 			float right_x = abs(vObjColPos.x - vTilePos.x - (vTileScale.x + abs(vObjColScale.x)) / 2.f);
 			float left_x = abs(vTilePos.x - vObjColPos.x - (vTileScale.x + vObjColScale.x) / 2.f);
-			if (right_x < 5.0f || left_x < 5.0f) {
+			if ((right_x < 5.0f || left_x < 5.0f) && vel.y != 0) {
 				return;
 			}
 			// À­¸éÀ» ¹âÀ½

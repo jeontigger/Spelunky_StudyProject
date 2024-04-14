@@ -23,7 +23,6 @@ public:
     virtual void tick() override;
     virtual void begin() override;
 
-
     virtual void BeginOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCollider2D* _OtherCollider);
 
 public:
