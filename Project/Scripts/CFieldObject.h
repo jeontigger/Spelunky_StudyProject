@@ -30,6 +30,7 @@ protected:
     bool m_bLeftBump;
     int m_bRightBump;
     int m_iTileCnt;
+    bool m_bJump;
 
 public:
     inline void SetMass(UINT _mass) { m_fMass = _mass; }
@@ -45,9 +46,9 @@ public:
     inline bool IsMove() { return m_fGravity != 0.f; }
 
     inline void SetGround(bool _b) { _b? m_bGround++ : m_bGround--; }
-    inline void ClearGround() { m_bGround = 0; }
+    inline void ClearGround() { m_bGround = 0; m_bJump = true; }
     inline bool IsGrounded() { 
-        return (m_bGround > 0) || (m_iTileCnt > 0);
+        return !m_bJump && ((m_bGround > 0) ||  (m_iTileCnt > 0));
     }
 
     inline void SetLeftBump(bool _b) { _b ? m_bLeftBump = true : m_bLeftBump = false; }

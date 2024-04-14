@@ -75,6 +75,7 @@ void CFieldObject::tick()
 	Transform()->SetRelativePos(m_vPos);
 
 	m_iTileCnt = 0;
+	m_bJump = false;
 }
 
 #include "CGroundCollider.h"
@@ -286,9 +287,12 @@ void CFieldObject::EndOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, CC
 				return;
 			}
 			// ¿≠∏È¿ª π‚¿Ω
-			if (vel.y <= 1.f) {
+			if (IsGrounded()) {
 				if (m_iTileCnt == 0) {
 					SetGround(false);
+				}
+				else {
+					m_bGround--;
 				}
 			}
 		}

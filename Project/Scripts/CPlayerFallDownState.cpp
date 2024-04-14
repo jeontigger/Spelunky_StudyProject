@@ -8,6 +8,7 @@ void CPlayerFallDownState::Enter()
 	m_Player = (CGameObject*)GetBlackboardData(BBOwnerKey);
 	m_Script = m_Player->GetScript<CPlayerScript>();
 	m_Player->Animator2D()->Play(AnimPlayerJumpFall);
+	m_Script->ClearGround();
 }
 
 void CPlayerFallDownState::finaltick()
