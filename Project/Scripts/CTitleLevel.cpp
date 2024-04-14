@@ -108,8 +108,15 @@ void CTitleLevel::begin()
 
 	m_iMenuCursor = 0;
 
-	CAssetMgr::GetInst()->Load<CSound>(SndBGM_Title_Intro, SndBGM_Title_Intro)->Play(1, 1, false);
-	CAssetMgr::GetInst()->Load<CSound>(Sndtorch01, Sndtorch01)->Play(0, 1, false);
+	Ptr<CSound> sound = CAssetMgr::GetInst()->Load<CSound>(SndBGM_Title_Intro, SndBGM_Title_Intro);
+	sound->Play(1, 1, false);
+	m_vecAnyKeySnd.push_back(sound);
+
+	sound = CAssetMgr::GetInst()->Load<CSound>(Sndtorch01, Sndtorch01);
+	sound->Play(0, 1, false);
+	m_vecAnyKeySnd.push_back(sound);
+
+	m_sndCursorMove = CAssetMgr::GetInst()->Load<CSound>(Sndspeartrap_02, Sndspeartrap_02);
 }
 
 
@@ -133,6 +140,11 @@ void CTitleLevel::ChangeLevelState(TitleLevelState _state)
 		}
 		SelectObjectInit();
 		m_iMenuCursor = 0;
+
+		for (int i = 0; i < m_vecAnyKeySnd.size(); i++) {
+			m_vecAnyKeySnd[i]->Stop();
+		}
+		CAssetMgr::GetInst()->Load<CSound>(Sndtitle_select, Sndtitle_select)->Play(1, 1, false);
 		break;
 	}
 	default:
@@ -227,7 +239,7 @@ void CTitleLevel::CursorMove()
 		vDir.Normalize();
 
 		if (distance > 1.f) {
-			vPos += vDir * 300.f * DT;
+			vPos += vDir * 1000.f * DT;
 			m_arrCursors[i]->Transform()->SetRelativePos(vPos);
 		}
 	}
@@ -238,12 +250,13 @@ void CTitleLevel::CursorControl()
 
 	if (KEY_TAP(DOWN)) {
 		m_iMenuCursor++;
+		m_sndCursorMove->Play(1);
 	}
 
 	if (KEY_TAP(UP)) {
 		m_iMenuCursor--;
+		m_sndCursorMove->Play(1);
 	}
-
 	m_iMenuCursor %= (UINT)TitleMenu::END;
 }
 
@@ -252,6 +265,8 @@ void CTitleLevel::MenuSelect()
 	if (KEY_TAP(ENTER)) {
 		switch ((TitleMenu)m_iMenuCursor)
 		{
+			// 지금 동작 안하긴 함 - 레벨 전환하는 와중에 사운드 플레이 할 수 있는 기반을 마련하던가 레벨 전환을 늦추던가?
+			CAssetMgr::GetInst()->Load<CSound>(Sndmm_selection, Sndmm_selection)->Play(1);
 		case TitleMenu::GameStart:
 			ChangeLevel();
 			break;
@@ -274,4 +289,8 @@ void CTitleLevel::MenuStringPrint()
 	data._fFontSize = 32;
 	data._Color = FONT_RGBA(255, 255, 255, 255);
 	CFontMgr::GetInst()->DrawFont(m_strMenuStart.c_str(), data);
+
+
+	data._fPosY = 487;
+	CFontMgr::GetInst()->DrawFont(m_strMenuQuit.c_str(), data);
 }

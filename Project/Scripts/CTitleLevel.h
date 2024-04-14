@@ -13,7 +13,7 @@ enum class TitleMenu {
 };
 
 #define CursorHidePosX -620
-#define CursorSelectPosX -422
+#define CursorSelectPosX -382
 #define CursorStartPosY 0
 #define CursorYSpaceSize 80
 class CTitleLevel :
@@ -26,6 +26,9 @@ private:
 
     vector<CGameObject*> m_vecAnyKeyObj;
     vector<CGameObject*> m_vecSelectObj;
+    vector<Ptr<CSound>> m_vecAnyKeySnd;
+    vector<Ptr<CSound>> m_vecSelectedObj;
+    Ptr<CSound> m_sndCursorMove;
 
     int m_iMenuCursor;
     CGameObject* m_arrCursors[(UINT)TitleMenu::END];    

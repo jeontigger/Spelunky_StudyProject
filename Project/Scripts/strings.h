@@ -135,3 +135,6 @@
 
 
 #define Sndtorch01 L"sound\\torch01.wav"
+#define Sndtitle_select L"sound\\title_select.wav"
+#define Sndspeartrap_02 L"sound\\speartrap_02.wav"
+#define Sndmm_selection L"sound\\mm_selection.wav"
