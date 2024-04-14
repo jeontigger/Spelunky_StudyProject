@@ -63,6 +63,13 @@ private:
 
     CTileBlock m_arrTileBlocks[STAGETILEROW][STAGETILECOL];
 
+private:
+    wstring m_strHeartCnt;
+    wstring m_strBombCnt;
+    wstring m_strRopeCnt;
+    wstring m_strScore;
+    wstring m_strTime;
+    wstring m_strStage;
 
 public:
     void SetStagePack(CStagePack* _sp) { m_SP = _sp; };
@@ -100,4 +107,5 @@ private:
 
     void PauseMenuInit();
     void PauseMenuControl();
+    void UIText();
 };

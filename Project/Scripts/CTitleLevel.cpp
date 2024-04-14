@@ -265,13 +265,10 @@ void CTitleLevel::MenuSelect()
 
 void CTitleLevel::MenuStringPrint()
 {
-	
 	Font data = {};
 	data._fPosX = 700;
 	data._fPosY = 420;
 	data._fFontSize = 32;
 	data._Color = FONT_RGBA(255, 255, 255, 255);
 	CFontMgr::GetInst()->DrawFont(m_strMenuStart.c_str(), data);
-	data._fPosY += CursorYSpaceSize - 7;
-	CFontMgr::GetInst()->DrawFont(m_strMenuQuit.c_str(), data);
 }

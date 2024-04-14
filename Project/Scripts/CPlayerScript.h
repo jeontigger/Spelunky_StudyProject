@@ -27,6 +27,14 @@ private:
     Vec2 m_UpForce;
     Vec2 m_DownForce;
 
+private:
+    int m_iBombCnt;
+    int m_iRopeCnt;
+
+public:
+    int GetBombCnt() { return m_iBombCnt; }
+    int GetRopeCnt() { return m_iRopeCnt; }
+
 public:
     CWhip* GetWhip() { return m_Whip; }
 

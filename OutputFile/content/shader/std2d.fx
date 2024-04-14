@@ -62,9 +62,9 @@ float4 PS_Std2D(VS_OUT _in) : SV_Target
             discard; //clip(-1);            
         }
         
-        float sum = vColor.r + vColor.g + vColor.b;
-        if (sum < 0.2f)
-            discard;
+        //float sum = vColor.r + vColor.g + vColor.b;
+        //if (sum < 0.2f)
+        //    discard;
 
     }
     else

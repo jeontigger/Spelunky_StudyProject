@@ -43,6 +43,9 @@ void CPlayerScript::PutDown()
 #include "CBomb.h"
 void CPlayerScript::Bomb()
 {
+	if (GetBombCnt() <= 0) return;
+
+	m_iBombCnt--;
 	auto prefab = CAssetMgr::GetInst()->Load<CPrefab>(BombPrefKey, BombPrefKey);
 	auto obj = prefab->Instantiate();
 	auto bomb = obj->GetScript<CBomb>();
@@ -181,6 +184,9 @@ void CPlayerScript::begin()
 	GetOwner()->AddChild(obj);
 	m_Whip = obj->GetScript<CWhip>();
 	GamePlayStatic::SpawnGameObject(obj, PlayerAttackLayer);
+
+	m_iBombCnt = 4;
+	m_iRopeCnt = 4;
 }
 
 void CPlayerScript::tick()

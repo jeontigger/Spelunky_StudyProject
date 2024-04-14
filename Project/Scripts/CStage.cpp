@@ -530,7 +530,7 @@ void CStage::finaltick()
 	}
 
 	PauseMenuControl();
-
+	UIText();
 	if (test)
 		return;
 
@@ -581,7 +581,9 @@ void CStage::finaltick()
 			ChangeState(StageState::PLAYER_SETTING);
 		}
 	}
-
+	else if (m_state == StageState::PLAYER_SETTING) {
+		UIText();
+	}
 }
 
 #include "CTileMgr.h"
@@ -758,4 +760,46 @@ void CStage::PauseMenuControl()
 			}
 		}
 	}
+}
+
+#include "CPlayerScript.h"
+void CStage::UIText()
+{
+	Font data = {};
+	data._fFontSize = 16;
+	data._Color = FONT_RGBA(255, 255, 255, 255);
+
+	auto script = m_Player->GetScript<CPlayerScript>();
+
+	data._fPosX = 40.f;
+	data._fPosY = 40.f;
+	m_strHeartCnt = to_wstring(script->GetHealth());
+	CFontMgr::GetInst()->DrawFont(m_strHeartCnt.c_str(), data);
+
+	data._fPosX = 80.f;
+	data._fPosY = 40.f;
+	m_strBombCnt = to_wstring(script->GetBombCnt());
+	CFontMgr::GetInst()->DrawFont(m_strBombCnt.c_str(), data);
+
+	data._fPosX = 120.f;
+	data._fPosY = 40.f;
+	m_strRopeCnt = to_wstring(script->GetRopeCnt());
+	CFontMgr::GetInst()->DrawFont(m_strRopeCnt.c_str(), data);
+
+	data._fPosX = 160.f;
+	data._fPosY = 40.f;
+	m_strScore = L"30";
+	CFontMgr::GetInst()->DrawFont(m_strScore.c_str(), data);
+
+	data._fPosX = 200.f;
+	data._fPosY = 40.f;
+	m_strTime = L"00";
+	CFontMgr::GetInst()->DrawFont(m_strTime.c_str(), data);
+
+	data._fPosX = 300.f;
+	data._fPosY = 40.f;
+	m_strStage = L"1-1";
+	CFontMgr::GetInst()->DrawFont(m_strStage.c_str(), data);
+
+
 }
