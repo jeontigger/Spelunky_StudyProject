@@ -116,9 +116,14 @@ void CFieldObject::BeginOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, 
 	}
 
 	auto tile = _OtherObj->GetScript<CTile>();
-	if (tile) {
-		TileType type = tile->GetTileType();
-		if (type == TileType::Door || type == TileType::Ladder || type == TileType::ExitDoor || type == TileType::Spike) return;
+	bool outline = _OtherObj->GetName() == OutlineWallName;
+	if (tile|| outline) {
+		TileType type;
+		if (tile) {
+			 type= tile->GetTileType();
+			if (type == TileType::Door || type == TileType::Ladder || type == TileType::ExitDoor || type == TileType::Spike) return;
+		}
+		
 		// 위에서 떨어지는 거라면
 		Vec3 vObjPos = Transform()->GetRelativePos();
 		Vec3 vel = vObjPos - m_vPrevPos;
@@ -151,7 +156,8 @@ void CFieldObject::BeginOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, 
 		}		
 		// 머리 박는거면
 		else if (vObjColPos.y + vObjColScale.y / 2.f < vTilePos.y - vTileScale.y / 4.f) {
-			if (type == TileType::Half || type == TileType::LadderHalf) return;
+			if(tile)
+				if (type == TileType::Half || type == TileType::LadderHalf) return;
 			// 옆에서 미끄러지는거라면
 			float right_x = abs(vObjColPos.x - vTilePos.x - (vTileScale.x + abs(vObjColScale.x)) / 2.f);
 			float left_x = abs(vTilePos.x - vObjColPos.x - (vTileScale.x + vObjColScale.x) / 2.f);
@@ -169,7 +175,8 @@ void CFieldObject::BeginOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, 
 		}
 		// 옆면 충돌
 		else {
-			if (type == TileType::Half || type == TileType::LadderHalf) return;
+			if(tile)
+				if (type == TileType::Half || type == TileType::LadderHalf) return;
 
 			// 오브젝트가 왼쪽이라면
 			if (vObjColPos.x < vTilePos.x) {
@@ -194,10 +201,13 @@ void CFieldObject::BeginOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, 
 #include "CPlayerScript.h"
 void CFieldObject::Overlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCollider2D* _OtherCollider) {
 	auto tile = _OtherObj->GetScript<CTile>();
-	if (tile) {
-		TileType type = tile->GetTileType();
-		if (type == TileType::Door || type == TileType::Ladder || type == TileType::ExitDoor || type == TileType::Spike) return;
-
+	bool outline = _OtherObj->GetName() == OutlineWallName;
+	if (tile || outline) {
+		TileType type;
+		if (tile) {
+			type = tile->GetTileType();
+			if (type == TileType::Door || type == TileType::Ladder || type == TileType::ExitDoor || type == TileType::Spike) return;
+		}
 		Vec3 vObjPos = Transform()->GetRelativePos();
 		Vec3 vel = vObjPos - m_vPrevPos;
 
@@ -226,7 +236,8 @@ void CFieldObject::Overlap(CCollider2D* _Collider, CGameObject* _OtherObj, CColl
 		}
 		// 머리 박는거면
 		else if (vObjColPos.y + vObjColScale.y / 2.f < vTilePos.y - vTileScale.y / 4.f) {
-			if (type == TileType::Half || type == TileType::LadderHalf) return;
+			if(tile)
+				if (type == TileType::Half || type == TileType::LadderHalf) return;
 			// 옆에서 미끄러지는거라면
 			float right_x = abs(vObjColPos.x - vTilePos.x - (vTileScale.x + abs(vObjColScale.x)) / 2.f);
 			float left_x = abs(vTilePos.x - vObjColPos.x - (vTileScale.x + vObjColScale.x) / 2.f);
@@ -242,7 +253,8 @@ void CFieldObject::Overlap(CCollider2D* _Collider, CGameObject* _OtherObj, CColl
 		}
 		// 옆에서 부딪힌다면
 		else{
-			if (type == TileType::Half || type == TileType::LadderHalf) return;
+			if(tile)
+				if (type == TileType::Half || type == TileType::LadderHalf) return;
 			// 오브젝트가 왼쪽이라면
 			if (vObjColPos.x < vTilePos.x) {
 				Vec3 vColPos = vObjColPos;
@@ -266,9 +278,13 @@ void CFieldObject::Overlap(CCollider2D* _Collider, CGameObject* _OtherObj, CColl
 
 void CFieldObject::EndOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCollider2D* _OtherCollider) {
 	auto tile = _OtherObj->GetScript<CTile>();
-	if (tile) {
-		TileType type = tile->GetTileType();
-		if (type == TileType::Door || type == TileType::Ladder || type == TileType::ExitDoor || type == TileType::Spike) return;
+	bool outline = _OtherObj->GetName() == OutlineWallName;
+	if (tile || outline) {
+		TileType type;
+		if (tile) {
+			TileType type = tile->GetTileType();
+			if (type == TileType::Door || type == TileType::Ladder || type == TileType::ExitDoor || type == TileType::Spike) return;
+		}
 
 		Vec3 vObjPos = Transform()->GetRelativePos();
 		Vec3 vel = vObjPos - m_vPrevPos;

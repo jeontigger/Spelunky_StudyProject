@@ -62,6 +62,9 @@ void CCameraMovement::tick()
 
 	// ¹«ºù
 	CameraMoving();
+
+	m_bCameraWallBlocked = false;
+	m_bCameraPlatformBlocked = false;
 }
 
 #include "CFieldObject.h"
@@ -72,12 +75,34 @@ void CCameraMovement::BeginOverlap(CCollider2D* _Collider, CGameObject* _OtherOb
 	if (render) {
 		render->setRenderActive(true);
 	}
+
+	if (_OtherObj->GetName() == CameraColliderWallName) {
+		auto pos = Transform()->GetRelativePos();
+		if (pos.x <= _OtherObj->Transform()->GetRelativePos().x) {
+			pos.x = _OtherObj->Transform()->GetRelativePos().x - (Collider2D()->GetRelativeScale().x + _OtherObj->Collider2D()->GetRelativeScale().x) / 2.f;
+		}
+		else {
+			pos.x = _OtherObj->Transform()->GetRelativePos().x + (Collider2D()->GetRelativeScale().x + _OtherObj->Collider2D()->GetRelativeScale().x) / 2.f;
+		}
+		Transform()->SetRelativePos(pos);
+		m_bCameraWallBlocked = true;
+	}
+
+	if (_OtherObj->GetName() == CameraColliderPlatformName) {
+		auto pos = Transform()->GetRelativePos();
+		if (pos.y <= _OtherObj->Transform()->GetRelativePos().y) {
+			pos.y = _OtherObj->Transform()->GetRelativePos().y - (Collider2D()->GetRelativeScale().y + _OtherObj->Collider2D()->GetRelativeScale().y) / 2.f - 1.f;
+		}
+		else {
+			pos.y = _OtherObj->Transform()->GetRelativePos().y + (Collider2D()->GetRelativeScale().y + _OtherObj->Collider2D()->GetRelativeScale().y) / 2.f + 1.f;
+		}
+		Transform()->SetRelativePos(pos);
+		m_bCameraPlatformBlocked = true;
+	}
 }
 
 void CCameraMovement::Overlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCollider2D* _OtherCollider)
 {
-	m_bCameraWallBlocked = false;
-	m_bCameraPlatformBlocked = false;
 	if (_OtherObj->GetName() == CameraColliderWallName) {
 		auto pos = Transform()->GetRelativePos();
 		if (pos.x <= _OtherObj->Transform()->GetRelativePos().x) {
@@ -123,11 +148,14 @@ void CCameraMovement::TargetTracking()
 
 		Vec3 Dir = TargetPos - vPos;
 		if (m_bCameraWallBlocked) {
-			TargetPos.x = 0;
+			TargetPos.x = vPos.x;
+		}
+		else {
+			int a = 0;
 		}
 
 		if (m_bCameraPlatformBlocked) {
-			TargetPos.y = 0;
+			TargetPos.y = vPos.y;
 		}
 		if (Vec3::Distance(vPos, TargetPos) < 3.f) {
 			return;

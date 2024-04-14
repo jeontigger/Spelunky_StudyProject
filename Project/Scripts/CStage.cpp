@@ -89,12 +89,12 @@ CStage::CStage()
 	pObj->AddComponent(new CTransform);
 	pObj->AddComponent(new CCollider2D);
 
-	pObj->Transform()->SetRelativePos(Vec3(TileBlockScaleX * STAGETILECOL + TileScaleX * 3 , - TileBlockScaleY * STAGETILEROW / 2.f, 0.f));
+	pObj->Transform()->SetRelativePos(Vec3(TileBlockScaleX * STAGETILECOL + TileScaleX * 5 , - TileBlockScaleY * STAGETILEROW / 2.f, 0.f));
 	pObj->Transform()->SetRelativeScale(Vec3(TileScaleX * 2, TileBlockScaleY * 4, 1.f));
 	AddObject(pObj, L"CameraCollider");
 
 	pObj = pObj->Clone();
-	pObj->Transform()->SetRelativePos(Vec3(-TileScaleX * 3, -TileBlockScaleY * STAGETILEROW / 2.f, 0.f));
+	pObj->Transform()->SetRelativePos(Vec3(-TileScaleX * 5, -TileBlockScaleY * STAGETILEROW / 2.f, 0.f));
 	AddObject(pObj, L"CameraCollider");
 
 	pObj = new CGameObject;
@@ -102,12 +102,12 @@ CStage::CStage()
 	pObj->AddComponent(new CTransform);
 	pObj->AddComponent(new CCollider2D);
 
-	pObj->Transform()->SetRelativePos(Vec3(TileBlockScaleX * STAGETILECOL / 2.f, TileScaleY * 3, 0.f));
+	pObj->Transform()->SetRelativePos(Vec3(TileBlockScaleX * STAGETILECOL / 2.f, TileScaleY * 5, 0.f));
 	pObj->Transform()->SetRelativeScale(Vec3(TileBlockScaleX * 4, TileScaleY * 2, 1.f));
 	AddObject(pObj, L"CameraCollider");
 
 	pObj = pObj->Clone();
-	pObj->Transform()->SetRelativePos(Vec3(TileBlockScaleX * STAGETILECOL / 2.f, -(TileBlockScaleY * STAGETILEROW + TileScaleY * 3), 0.f));
+	pObj->Transform()->SetRelativePos(Vec3(TileBlockScaleX * STAGETILECOL / 2.f, -(TileBlockScaleY * STAGETILEROW + TileScaleY * 5), 0.f));
 	AddObject(pObj, L"CameraCollider");
 
 	if (test) {
@@ -453,14 +453,14 @@ void CStage::TileInstancing()
 		CGameObject* object = prefab->Instantiate();
 		object->SetName(OutlineWallName);
 		Vec3 scale = object->Transform()->GetRelativeScale();
-		object->Transform()->SetRelativePos(Vec3(TileBlockScaleX * STAGETILECOL + TileScaleX, -(0.25f + j) * scale.y, OutlineWallZ));
+		object->Transform()->SetRelativePos(Vec3(TileBlockScaleX * STAGETILECOL + TileScaleX * 2, -(0.25f + j) * scale.y, OutlineWallZ));
 		GamePlayStatic::SpawnGameObject(object, OutlinerLayer);
 	}
 	for (int j = 0; j < maxcount; j++) {
 		CGameObject* object = prefab->Instantiate();
 		object->SetName(OutlineWallName);
 		Vec3 scale = object->Transform()->GetRelativeScale();
-		object->Transform()->SetRelativePos(Vec3(-TileScaleX, -(0.25f + j) * scale.y, OutlineWallZ));
+		object->Transform()->SetRelativePos(Vec3(-TileScaleX * 2, -(0.25f + j) * scale.y, OutlineWallZ));
 		GamePlayStatic::SpawnGameObject(object, OutlinerLayer);
 	}
 
@@ -469,7 +469,7 @@ void CStage::TileInstancing()
 		object->SetName(OutlineWallName);
 		Vec3 scale = object->Transform()->GetRelativeScale();
 		Vec3 rotation = object->Transform()->GetRelativeRotation();
-		object->Transform()->SetRelativePos(Vec3((0.25f + j) * scale.y, TileScaleY, OutlineWallZ));
+		object->Transform()->SetRelativePos(Vec3((0.25f + j) * scale.y, TileScaleY * 2, OutlineWallZ));
 		rotation.z = XM_PI/2;
 		object->Transform()->SetRelativeRotation(rotation);
 		GamePlayStatic::SpawnGameObject(object, OutlinerLayer);
@@ -480,7 +480,7 @@ void CStage::TileInstancing()
 		object->SetName(OutlineWallName);
 		Vec3 scale = object->Transform()->GetRelativeScale();
 		Vec3 rotation = object->Transform()->GetRelativeRotation();
-		object->Transform()->SetRelativePos(Vec3((0.25f + j) * scale.y, -(TileBlockScaleY * STAGETILEROW + TileScaleY), OutlineWallZ));
+		object->Transform()->SetRelativePos(Vec3((0.25f + j) * scale.y, -(TileBlockScaleY * STAGETILEROW + TileScaleY * 2), OutlineWallZ));
 		rotation.z = XM_PI / 2;
 		object->Transform()->SetRelativeRotation(rotation);
 		GamePlayStatic::SpawnGameObject(object, OutlinerLayer);
@@ -632,14 +632,17 @@ void CStage::begin()
 	CCollisionMgr::GetInst()->LayerCheck(PlayerLayer, ItemLayer);
 	CCollisionMgr::GetInst()->LayerCheck(PlayerLayer, MonsterHitLayer);
 	CCollisionMgr::GetInst()->LayerCheck(PlayerLayer, DetectColliderLayer);
+	CCollisionMgr::GetInst()->LayerCheck(PlayerLayer, OutlinerLayer);
 	CCollisionMgr::GetInst()->LayerCheck(OutlinerLayer, DetectColliderLayer);
 	CCollisionMgr::GetInst()->LayerCheck(MonsterHitLayer, DetectColliderLayer);
 	CCollisionMgr::GetInst()->LayerCheck(MonsterLayer, PlayerHitLayer);
 	CCollisionMgr::GetInst()->LayerCheck(MonsterLayer, CameraLayer);
+	CCollisionMgr::GetInst()->LayerCheck(MonsterLayer, OutlinerLayer);
 	CCollisionMgr::GetInst()->LayerCheck(OutlinerLayer, CameraLayer);
 	CCollisionMgr::GetInst()->LayerCheck(ItemLayer, CameraLayer);
 	CCollisionMgr::GetInst()->LayerCheck(TileAroundLayer, CameraLayer);
 	CCollisionMgr::GetInst()->LayerCheck(ItemLayer, MonsterLayer);
+	CCollisionMgr::GetInst()->LayerCheck(ItemLayer, OutlinerLayer);
 	CCollisionMgr::GetInst()->LayerCheck(7, 6);
 
 	CCollisionMgr::GetInst()->LayerCheck(PlayerAttackLayer, MonsterLayer);
