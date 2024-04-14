@@ -11,7 +11,7 @@
 
 CCameraMovement::CCameraMovement()
 	: CScript((UINT)SCRIPT_TYPE::CAMERAMOVEMENT)
-	, m_fSpeed(700)
+	, m_fSpeed(7)
 {
 	
 }
@@ -135,7 +135,7 @@ void CCameraMovement::TargetTracking()
 
 		Dir.Normalize();
 
-		vPos += Dir * m_fSpeed * DT;
+		vPos += Dir * m_fSpeed * (Vec3::Distance(vPos, TargetPos) / 1.f) * DT;
 
 		Transform()->SetRelativePos(vPos);
 	}
@@ -144,6 +144,7 @@ void CCameraMovement::TargetTracking()
 		m_vTargetPos.z = vPos.z;
 
 		Vec3 Dir = m_vTargetPos - vPos;
+		float distance = Dir.Length();
 		if (m_bCameraWallBlocked) {
 			m_vTargetPos.x = 0;
 		}
@@ -157,7 +158,7 @@ void CCameraMovement::TargetTracking()
 
 		Dir.Normalize();
 
-		vPos += Dir * m_fSpeed * DT;
+		vPos += Dir * m_fSpeed * (distance / 1.f) * DT;
 
 		Transform()->SetRelativePos(vPos);
 	}
