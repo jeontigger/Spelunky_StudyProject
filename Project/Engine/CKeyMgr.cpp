@@ -31,11 +31,18 @@ CKeyMgr::~CKeyMgr()
 }
 
 #include "CDevice.h"
+#include "CLevelMgr.h"
+#include "CLevel.h"
+#include "CGameObject.h"
+#include "CTransform.h"
 
 Vec2 CKeyMgr::GetMousePos()
 {
 	auto resolution = CDevice::GetInst()->GetRenderResolution();
-	return Vec2(m_vMousePos.x - resolution.x / 2.f, -(m_vMousePos.y - resolution.y / 2.f));
+	CGameObject* obj = CLevelMgr::GetInst()->GetCurrentLevel()->FindObjectByName(L"MainCamera");
+	Vec3 vPos = obj->Transform()->GetRelativePos();
+
+	return Vec2(m_vMousePos.x + vPos.x - resolution.x / 2.f, -(m_vMousePos.y) + vPos.y + resolution.y / 2.f);
 }
 
 void CKeyMgr::init()

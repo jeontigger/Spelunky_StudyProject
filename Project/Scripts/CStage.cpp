@@ -529,6 +529,7 @@ void CStage::tick()
 }
 
 #include <Engine/CFontMgr.h>
+#include "CPlayerScript.h"
 void CStage::finaltick()
 {
 	CLevel::finaltick();
@@ -549,14 +550,16 @@ void CStage::finaltick()
 	if (KEY_TAP(Y)) {
 		Vec2 mousepos = CKeyMgr::GetInst()->GetMousePos();
 		m_Player->Transform()->SetRelativePos(Vec3(mousepos.x, mousepos.y, PlayerZ));
-
+		m_Player->GetScript<CPlayerScript>()->ClearGround();
+		m_Player->GetScript<CPlayerScript>()->SetVelocity(Vec2());
 		int a = 0;
 
 	}
 
 	PauseMenuControl();
-	UIText(); 
-	Sndtick();
+	if (test) {
+		UIText(); 
+	}
 	if (test)
 		return;
 
@@ -605,10 +608,13 @@ void CStage::finaltick()
 	else if (m_state == StageState::ITEM_GENERATING) {
 		if (KEY_TAP(RBTN)) {
 			ChangeState(StageState::PLAYER_SETTING);
+			m_pCurSnd = m_vecBGMs[0];
+			m_pCurSnd->Play(1);
 		}
 	}
 	else if (m_state == StageState::PLAYER_SETTING) {
 		UIText();
+		Sndtick();
 	}
 }
 
@@ -654,8 +660,6 @@ void CStage::begin()
 	}
 	PauseMenuInit();
 
-	m_pCurSnd = m_vecBGMs[0];
-	m_pCurSnd->Play(1);
 
 }
 

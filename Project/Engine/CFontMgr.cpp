@@ -50,8 +50,8 @@ void CFontMgr::init()
 	{
 		assert(NULL);
 	}
-
-	if (FAILED(m_pFW1Factory->CreateFontWrapper(DEVICE, L"Arial", &m_pFontWrapper)))
+	
+	if (FAILED(m_pFW1Factory->CreateFontWrapper(DEVICE, L"³ª´®½ºÄù¾î ³×¿À Regular", &m_pFontWrapper)))
 	{
 		assert(NULL);
 	}

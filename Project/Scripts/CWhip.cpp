@@ -6,6 +6,7 @@
 CWhip::CWhip()
 	: CScript((UINT)SCRIPT_TYPE::WHIP)
 {
+	m_pSound = CAssetMgr::GetInst()->Load<CSound>(Sndwhip02a, Sndwhip02a);
 }
 
 CWhip::~CWhip()
@@ -16,6 +17,7 @@ void CWhip::Attack()
 {
 	Collider2D()->Activate(true);
 	Animator2D()->Play(AnimWhip, false);
+	m_pSound->Play(1);
 
 	Transform()->SetRelativePos(Vec3(-60, 48, WhipBackZ));
 	Collider2D()->SetOffsetScale(Vec2(0.8f, 0.8f));

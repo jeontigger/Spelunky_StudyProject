@@ -141,8 +141,8 @@ void CTileMgr::CollisionWithTile(int _layer)
 				if (0 <= nrow && nrow < TILEBLOCKSIZEY * STAGETILEROW && 0 <= ncol && ncol < TILEBLOCKSIZEX * STAGETILECOL) {
 					auto left = objects[i]->Collider2D();
 					auto right = GetTileCollider(Vec2(ncol, nrow));
-					if (!left) continue;
-					if (!right) continue;
+					if (!left|| left->GetOwner()->IsDead()) continue;
+					if (!right|| right->GetOwner()->IsDead()) continue;
 
 					TileCollisionID ID = {};
 					ID.LeftID = left->GetID();

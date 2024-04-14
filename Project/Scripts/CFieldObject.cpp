@@ -39,7 +39,6 @@ void CFieldObject::AddGravity()
 
 void CFieldObject::tick()
 {
-	m_iTileCnt = 0;
 
 	m_vPrevPos = m_vPos;
 
@@ -74,6 +73,8 @@ void CFieldObject::tick()
 		}
 	}
 	Transform()->SetRelativePos(m_vPos);
+
+	m_iTileCnt = 0;
 }
 
 #include "CGroundCollider.h"
@@ -208,7 +209,7 @@ void CFieldObject::Overlap(CCollider2D* _Collider, CGameObject* _OtherObj, CColl
 			// ¿·¿¡¼­ ¹Ì²ô·¯Áö´Â°Å¶ó¸é
 			float right_x = abs(vObjColPos.x - vTilePos.x - (vTileScale.x + abs(vObjColScale.x)) / 2.f);
 			float left_x = abs(vTilePos.x - vObjColPos.x - (vTileScale.x + vObjColScale.x) / 2.f);
-			if (right_x < 5.0f || left_x < 5.0f) {
+			if ((right_x < 5.0f || left_x < 5.0f) && abs(vel.y) > 8.f) {
 				return;
 			}
 			// À­¸éÀ» ¹âÀ½
@@ -228,7 +229,7 @@ void CFieldObject::Overlap(CCollider2D* _Collider, CGameObject* _OtherObj, CColl
 			// ¿·¿¡¼­ ¹Ì²ô·¯Áö´Â°Å¶ó¸é
 			float right_x = abs(vObjColPos.x - vTilePos.x - (vTileScale.x + abs(vObjColScale.x)) / 2.f);
 			float left_x = abs(vTilePos.x - vObjColPos.x - (vTileScale.x + vObjColScale.x) / 2.f);
-			if (right_x < 5.0f || left_x < 5.0f) {
+			if ((right_x < 5.0f || left_x < 5.0f) && abs(vel.y) > 8.f) {
 				return;
 			}
 			if (vel.y >= 0) {
@@ -281,12 +282,14 @@ void CFieldObject::EndOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, CC
 			// ¿·¿¡¼­ ¹Ì²ô·¯Áö´Â°Å¶ó¸é
 			float right_x = abs(vObjColPos.x - vTilePos.x - (vTileScale.x + abs(vObjColScale.x)) / 2.f);
 			float left_x = abs(vTilePos.x - vObjColPos.x - (vTileScale.x + vObjColScale.x) / 2.f);
-			if ((right_x < 5.0f || left_x < 5.0f) && vel.y != 0) {
+			if ((right_x < 5.0f || left_x < 5.0f) && abs(vel.y) > 8.f) {
 				return;
 			}
 			// À­¸éÀ» ¹âÀ½
-			if (vel.y <= 0) {
-				SetGround(false);
+			if (vel.y <= 1.f) {
+				if (m_iTileCnt == 0) {
+					SetGround(false);
+				}
 			}
 		}
 	}

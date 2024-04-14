@@ -160,3 +160,5 @@
 #define Sndtitle_select L"sound\\title_select.wav"
 #define Sndspeartrap_02 L"sound\\speartrap_02.wav"
 #define Sndmm_selection L"sound\\mm_selection.wav"
+#define Sndwhip02a L"sound\\whip02a.wav"
+#define Sndexplosion_d02 L"sound\\explosion_d02.wav"

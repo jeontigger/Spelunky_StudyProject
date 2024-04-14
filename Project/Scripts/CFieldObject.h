@@ -47,7 +47,8 @@ public:
     inline void SetGround(bool _b) { _b? m_bGround++ : m_bGround--; }
     inline void ClearGround() { m_bGround = 0; }
     inline bool IsGrounded() { 
-        return m_bGround > 0|| m_iTileCnt > 0; }
+        return (m_bGround > 0) || (m_iTileCnt > 0);
+    }
 
     inline void SetLeftBump(bool _b) { _b ? m_bLeftBump = true : m_bLeftBump = false; }
     inline bool IsLeftBump() { return m_bLeftBump > 0; }

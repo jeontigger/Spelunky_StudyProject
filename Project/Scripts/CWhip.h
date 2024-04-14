@@ -6,6 +6,8 @@ class CWhip :
 public:
     void Attack();
 
+    Ptr<CSound> m_pSound;
+
 public:
     virtual void tick() override;
     virtual void begin() override;

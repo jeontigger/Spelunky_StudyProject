@@ -4,6 +4,8 @@ class CBomb :
     public CItem
 {
 private:
+    Ptr<CSound> m_pExplosionSnd;
+private:
     float m_fBombTimer;
     float m_fScaleTimer;
     float m_fScaleTime;

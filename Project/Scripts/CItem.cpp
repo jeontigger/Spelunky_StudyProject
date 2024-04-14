@@ -25,7 +25,8 @@ void CItem::PutDown()
 	GetOwner()->Transform()->SetRelativePos(pos);
 	SetVelocity(Vec2(0, 0));
 	m_PlayerScript = nullptr;
-
+	m_bGround = 0;
+	m_vPrevPos = pos;
 }
 
 void CItem::tick()
@@ -64,6 +65,9 @@ void CItem::BeginOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCollid
 
 		Vec3 vObjPos = Transform()->GetRelativePos();
 		Vec3 vel = vObjPos - m_vPrevPos;
+		if (m_vPrevPos == Vec3()) {
+			return;
+		}
 		Vec3 vObjColPos = Transform()->GetRelativePos() + Vec3(Collider2D()->GetOffsetPos().x, Collider2D()->GetOffsetPos().y, 0) * Transform()->GetRelativeScale();
 		Vec3 vObjColScale = _Collider->GetColliderWorldMat().Scale();
 
@@ -116,6 +120,8 @@ void CItem::BeginOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCollid
 			SetVelocity(Vec2(vel.x * 0.7, vel.y));
 		}
 	}
+
+	m_vPrevPos = Transform()->GetRelativePos();
 }
 
 void CItem::Overlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCollider2D* _OtherCollider)

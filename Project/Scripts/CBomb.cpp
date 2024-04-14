@@ -37,6 +37,8 @@ void CBomb::Bomb()
 	obj->Collider2D()->SetColliderType(COLLIDER2D_TYPE::CIRCLE);
 	obj->AddComponent(new CBombExplosion);
 	GamePlayStatic::SpawnGameObject(obj, ItemLayer);
+
+	CAssetMgr::GetInst()->Load<CSound>(Sndexplosion_d02, Sndexplosion_d02)->Play(1);
 }
 
 void CBomb::tick()

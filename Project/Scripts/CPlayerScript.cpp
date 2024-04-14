@@ -63,7 +63,8 @@ void CPlayerScript::Bomb()
 
 	GamePlayStatic::SpawnGameObject(obj, ItemLayer);
 	if (StateMachine()->GetFSM()->GetCurState()->GetStateType() == (UINT)STATE_TYPE::PLAYERDOWNSTATE) {
-		return;
+		obj->GetScript<CItem>()->SetPlayerScript(this);
+		obj->GetScript<CItem>()->PutDown();
 	}
 
 	Vec2 force;
@@ -72,6 +73,7 @@ void CPlayerScript::Bomb()
 	}
 	else if (KEY_PRESSED(InputKey.LookDown)) {
 		force = m_DownForce;
+
 	}
 	else {
 		force = m_FrontForce;
