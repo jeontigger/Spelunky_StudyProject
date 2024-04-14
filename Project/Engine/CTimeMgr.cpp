@@ -60,7 +60,7 @@ void CTimeMgr::tick()
 		data._fFontSize = 16;
 		data._fPosX = 10.f;
 		data._fPosY = 30.f;
-		CFontMgr::GetInst()->DrawFont(m_szText, data, 1.f);
+		//CFontMgr::GetInst()->DrawFont(m_szText, data, 1.f);
 	}
 
 	++m_iCall;	

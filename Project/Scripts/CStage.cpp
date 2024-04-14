@@ -89,12 +89,12 @@ CStage::CStage()
 	pObj->AddComponent(new CTransform);
 	pObj->AddComponent(new CCollider2D);
 
-	pObj->Transform()->SetRelativePos(Vec3(TileBlockScaleX * STAGETILECOL + TileScaleX * 5 , - TileBlockScaleY * STAGETILEROW / 2.f, 0.f));
+	pObj->Transform()->SetRelativePos(Vec3(TileBlockScaleX * STAGETILECOL + TileScaleX * 7 , - TileBlockScaleY * STAGETILEROW / 2.f, 0.f));
 	pObj->Transform()->SetRelativeScale(Vec3(TileScaleX * 2, TileBlockScaleY * 4, 1.f));
 	AddObject(pObj, L"CameraCollider");
 
 	pObj = pObj->Clone();
-	pObj->Transform()->SetRelativePos(Vec3(-TileScaleX * 5, -TileBlockScaleY * STAGETILEROW / 2.f, 0.f));
+	pObj->Transform()->SetRelativePos(Vec3(-TileScaleX * 7, -TileBlockScaleY * STAGETILEROW / 2.f, 0.f));
 	AddObject(pObj, L"CameraCollider");
 
 	pObj = new CGameObject;
@@ -102,12 +102,12 @@ CStage::CStage()
 	pObj->AddComponent(new CTransform);
 	pObj->AddComponent(new CCollider2D);
 
-	pObj->Transform()->SetRelativePos(Vec3(TileBlockScaleX * STAGETILECOL / 2.f, TileScaleY * 5, 0.f));
+	pObj->Transform()->SetRelativePos(Vec3(TileBlockScaleX * STAGETILECOL / 2.f, TileScaleY * 7, 0.f));
 	pObj->Transform()->SetRelativeScale(Vec3(TileBlockScaleX * 4, TileScaleY * 2, 1.f));
 	AddObject(pObj, L"CameraCollider");
 
 	pObj = pObj->Clone();
-	pObj->Transform()->SetRelativePos(Vec3(TileBlockScaleX * STAGETILECOL / 2.f, -(TileBlockScaleY * STAGETILEROW + TileScaleY * 5), 0.f));
+	pObj->Transform()->SetRelativePos(Vec3(TileBlockScaleX * STAGETILECOL / 2.f, -(TileBlockScaleY * STAGETILEROW + TileScaleY * 7), 0.f));
 	AddObject(pObj, L"CameraCollider");
 
 	if (test) {
@@ -118,7 +118,7 @@ CStage::CStage()
 
 		obj = prefab->Instantiate();
 		obj->SetName(OutlineWallName);
-		obj->Transform()->SetRelativePos(Vec3(TileBlockScaleX / 2.f, -TileBlockScaleY / 2.f - TileScaleY, OutlineWallZ));
+		obj->Transform()->SetRelativePos(Vec3(TileBlockScaleX / 2.f, -TileBlockScaleY / 2.f - TileScaleY * 2, OutlineWallZ));
 		AddObject(obj, OutlinerLayer);
 
 		//prefab = CAssetMgr::GetInst()->Load<CPrefab>(SnakePrefKey, SnakePrefKey);
@@ -520,7 +520,9 @@ void CStage::PlayerSetting()
 	vPos.z = 0.f;
 	m_MainCamera->Transform()->SetRelativePos(vPos);
 	m_MainCamera->Camera()->SetScale(CameraNormalScale);
+	m_MainCamera->Collider2D()->SetOffsetScale(CameraViewNormal);
 	m_MainCamera->GetScript<CCameraMovement>()->SetTarget(m_Player);
+
 }
 
 void CStage::tick()
@@ -670,7 +672,7 @@ void CStage::PrintChangeState(const wchar_t* _content)
 {
 	Font data = {};
 	data._fPosX = 30.f;
-	data._fPosY = 50.f;
+	data._fPosY = 80.f;
 	data._fFontSize = 32;
 	data._Color = FONT_RGBA(255, 30, 30, 255);
 	CFontMgr::GetInst()->DrawFont(_content, data, 1.f);

@@ -193,7 +193,7 @@ void CPlayerScript::begin()
 
 void CPlayerScript::tick()
 {
-	CCharacterScript::tick();
+		CCharacterScript::tick();
 	*(float*)StateMachine()->GetBlackboardData(BBJumpDelay) -= DT;
 
 	if (!m_HitCollider->Collider2D()->IsActivate()) {

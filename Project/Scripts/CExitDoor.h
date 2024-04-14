@@ -7,7 +7,7 @@ private:
     CGameObject* m_KeyTex;
     CGameObject* m_Player;
 
-
+    wstring m_strExitButton;
 
 public:
     virtual void begin() override;

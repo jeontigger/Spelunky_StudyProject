@@ -133,11 +133,11 @@ void CFieldObject::BeginOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, 
 		Vec3 vTilePos = _OtherCollider->GetColliderWorldMat().Pos();
 		Vec3 vTileScale = _OtherCollider->GetColliderWorldMat().Scale();
 			// 위로 올려주기
-		if ((vObjColPos.y - vObjColScale.y / 2.f > vTilePos.y + vTileScale.y / 4.f)) {			
+		if (((vObjColPos.y ) > (vTilePos.y + vTileScale.y / 4.f))) {
 			// 옆에서 미끄러지는거라면
 			float right_x = abs(vObjColPos.x - vTilePos.x - (vTileScale.x + abs(vObjColScale.x)) / 2.f);
 			float left_x = abs(vTilePos.x - vObjColPos.x - (vTileScale.x + vObjColScale.x) / 2.f);
-			if ((right_x < 5.0f || left_x < 5.0f)&& abs(vel.y) >8.f) {
+			if ((right_x < 5.0f || left_x < 5.0f)&& abs(vel.y) >3.f) {
 				return;
 			}
 			// 윗면에 섬
@@ -262,6 +262,7 @@ void CFieldObject::Overlap(CCollider2D* _Collider, CGameObject* _OtherObj, CColl
 				vColPos.x = vTilePos.x - (vTileScale.x + vObjColScale.x) / 2.f;
 				// 캐릭터와 컬라이더 위치 차이 계산 후 캐릭터 위치 조정
 				Vec3 vPos = vColPos - Vec3(_Collider->GetOffsetPos().x, _Collider->GetOffsetPos().y, 0) * Transform()->GetRelativeScale();
+				vPos.x--;
 				Transform()->SetRelativePos(vPos);
 			}
 			else {

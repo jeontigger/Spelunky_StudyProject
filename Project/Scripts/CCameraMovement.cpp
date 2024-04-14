@@ -198,16 +198,16 @@ void CCameraMovement::CameraMoving()
 		auto pos = Transform()->GetRelativePos();
 		m_vPrevPos = pos;
 		if (KEY_PRESSED(KEY::W)) {
-			pos.y += m_fSpeed * DT;
+			pos.y += m_fSpeed * 500.f * DT;
 		}
 		if (KEY_PRESSED(KEY::D)) {
-			pos.x += m_fSpeed * DT;
+			pos.x += m_fSpeed * 500.f * DT;
 		}
 		if (KEY_PRESSED(KEY::A)) {
-			pos.x -= m_fSpeed * DT;
+			pos.x -= m_fSpeed * 500.f * DT;
 		}
 		if (KEY_PRESSED(KEY::S)) {
-			pos.y -= m_fSpeed * DT;
+			pos.y -= m_fSpeed * 500.f * DT;
 		}
 		m_vMoveDir = pos - m_vPrevPos;
 		m_vMoveDir.Normalize();
@@ -221,22 +221,22 @@ void CCameraMovement::CameraMoving()
 
 		if (KEY_PRESSED(KEY::W))
 		{
-			vPos += DT * m_fSpeed * vFront;
+			vPos += DT * m_fSpeed * 1000.f * vFront;
 		}
 
 		if (KEY_PRESSED(KEY::S))
 		{
-			vPos += DT * m_fSpeed * -vFront;
+			vPos += DT * m_fSpeed * 1000.f * -vFront;
 		}
 
 		if (KEY_PRESSED(KEY::A))
 		{
-			vPos += DT * m_fSpeed * -vRight;
+			vPos += DT * m_fSpeed * 1000.f * -vRight;
 		}
 
 		if (KEY_PRESSED(KEY::D))
 		{
-			vPos += DT * m_fSpeed * vRight;
+			vPos += DT * m_fSpeed * 1000.f * vRight;
 		}
 
 		Transform()->SetRelativePos(vPos);
