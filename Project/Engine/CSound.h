@@ -27,6 +27,7 @@ public:
 public:
 	// _iRoopCount : 0 (무한반복),  _fVolume : 0 ~ 1(Volume), _bOverlap : 소리 중첩 가능여부
 	int Play(int _iRoopCount, float _fVolume = 1.f, bool _bOverlap = false);
+	void IsPlaying(bool* _b) { m_listChannel.front()->isPlaying(_b); }
 	void Stop();
 
 	// 0 ~ 1

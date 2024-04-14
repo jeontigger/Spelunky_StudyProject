@@ -42,6 +42,9 @@ class CStage :
     public CLevel
 {
 private:
+    vector<Ptr<CSound>> m_vecBGMs;
+    Ptr<CSound> m_pCurSnd;
+private:
     CGameObject* m_Player;
     CGameObject* m_MainCamera;
     CGameObject* m_UICamera;
@@ -108,4 +111,6 @@ private:
     void PauseMenuInit();
     void PauseMenuControl();
     void UIText();
+
+    void Sndtick();
 };

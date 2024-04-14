@@ -150,6 +150,31 @@ CStage::CStage()
 		//PauseMenuInit();
 	}
 	CTileMgr::GetInst()->Init();
+
+	// sound
+	m_vecBGMs.push_back(CAssetMgr::GetInst()->Load<CSound>(SndBGM_1_Adventure, SndBGM_1_Adventure));
+	m_vecBGMs.push_back(CAssetMgr::GetInst()->Load<CSound>(SndBGM_1_1HP_A, SndBGM_1_1HP_A));
+	m_vecBGMs.push_back(CAssetMgr::GetInst()->Load<CSound>(SndBGM_1_1HP_B, SndBGM_1_1HP_B));
+	m_vecBGMs.push_back(CAssetMgr::GetInst()->Load<CSound>(SndBGM_1_Add_A, SndBGM_1_Add_A));
+	m_vecBGMs.push_back(CAssetMgr::GetInst()->Load<CSound>(SndBGM_1_Add_B, SndBGM_1_Add_B));
+	m_vecBGMs.push_back(CAssetMgr::GetInst()->Load<CSound>(SndBGM_1_Brushu, SndBGM_1_Brushu));
+	m_vecBGMs.push_back(CAssetMgr::GetInst()->Load<CSound>(SndBGM_1_Chef, SndBGM_1_Chef));
+	m_vecBGMs.push_back(CAssetMgr::GetInst()->Load<CSound>(SndBGM_1_Delp_2, SndBGM_1_Delp_2));
+	m_vecBGMs.push_back(CAssetMgr::GetInst()->Load<CSound>(SndBGM_1_Delp_4, SndBGM_1_Delp_4));
+	m_vecBGMs.push_back(CAssetMgr::GetInst()->Load<CSound>(SndBGM_1_Gob_tran, SndBGM_1_Gob_tran));
+	m_vecBGMs.push_back(CAssetMgr::GetInst()->Load<CSound>(SndBGM_1_Goblet, SndBGM_1_Goblet));
+	m_vecBGMs.push_back(CAssetMgr::GetInst()->Load<CSound>(SndBGM_1_Idle, SndBGM_1_Idle));
+	m_vecBGMs.push_back(CAssetMgr::GetInst()->Load<CSound>(SndBGM_1_Leadup_A, SndBGM_1_Leadup_A));
+	m_vecBGMs.push_back(CAssetMgr::GetInst()->Load<CSound>(SndBGM_1_Leadup_B, SndBGM_1_Leadup_B));
+	m_vecBGMs.push_back(CAssetMgr::GetInst()->Load<CSound>(SndBGM_1_Meppa, SndBGM_1_Meppa));
+	m_vecBGMs.push_back(CAssetMgr::GetInst()->Load<CSound>(SndBGM_1_Ongaky, SndBGM_1_Ongaky));
+	m_vecBGMs.push_back(CAssetMgr::GetInst()->Load<CSound>(SndBGM_1_Ongrest, SndBGM_1_Ongrest));
+	m_vecBGMs.push_back(CAssetMgr::GetInst()->Load<CSound>(SndBGM_1_Sekatt, SndBGM_1_Sekatt));
+	m_vecBGMs.push_back(CAssetMgr::GetInst()->Load<CSound>(SndBGM_1_Shu_A, SndBGM_1_Shu_A));
+	m_vecBGMs.push_back(CAssetMgr::GetInst()->Load<CSound>(SndBGM_1_Shu_B, SndBGM_1_Shu_B));
+	m_vecBGMs.push_back(CAssetMgr::GetInst()->Load<CSound>(SndBGM_1_Shu_C, SndBGM_1_Shu_C));
+	m_vecBGMs.push_back(CAssetMgr::GetInst()->Load<CSound>(SndBGM_1_Yuzu, SndBGM_1_Yuzu));
+	m_vecBGMs.push_back(CAssetMgr::GetInst()->Load<CSound>(SndBGM_1_Yuzu_tem, SndBGM_1_Yuzu_tem));
 }
 
 CStage::~CStage()
@@ -530,7 +555,8 @@ void CStage::finaltick()
 	}
 
 	PauseMenuControl();
-	UIText();
+	UIText(); 
+	Sndtick();
 	if (test)
 		return;
 
@@ -627,6 +653,10 @@ void CStage::begin()
 		m_MainCamera->GetScript<CCameraMovement>()->SetTarget(m_Player);
 	}
 	PauseMenuInit();
+
+	m_pCurSnd = m_vecBGMs[0];
+	m_pCurSnd->Play(1);
+
 }
 
 void CStage::PrintChangeState(const wchar_t* _content)
@@ -801,4 +831,15 @@ void CStage::UIText()
 	data._fPosY = 60.f;
 	m_strStage = L"1-1";
 	CFontMgr::GetInst()->DrawFont(m_strStage.c_str(), data);
+}
+
+void CStage::Sndtick()
+{
+	if (!m_pCurSnd->IsPlaying()) {
+		// 0번 사운드는 시작할 때 만
+		int idx = GETRANDOM(m_vecBGMs.size()-1) + 1;
+
+		m_pCurSnd = m_vecBGMs[idx];
+		m_pCurSnd->Play(1);
+	}
 }
