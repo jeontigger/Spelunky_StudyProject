@@ -28,12 +28,7 @@ void PhysicsTest::begin()
 void PhysicsTest::tick()
 {
 	CLevel::tick();
-	float timeStep = 1.0f / 60.0f;
 
-	int32 velocityIterations = 6;
-	int32 positionIterations = 2;
-
-	m_world->Step(timeStep, velocityIterations, positionIterations);
 	b2Vec2 position = m_body->GetPosition();
 	m_obj->Transform()->SetRelativePos(Vec3(position.x, position.y, m_obj->Transform()->GetRelativePos().z));
 	float angle = m_body->GetAngle();
@@ -46,13 +41,11 @@ void PhysicsTest::tick()
 
 PhysicsTest::PhysicsTest()
 {
-	b2Vec2 gravity(0.f, -9.81f);
-	m_world = std::make_unique<b2World>(gravity);
 
 	b2BodyDef groundBodyDef;
 	groundBodyDef.position.Set(0.f, -10.f);
 
-	b2Body* groundBody = m_world->CreateBody(&groundBodyDef);
+	b2Body* groundBody = CCollisionMgr::GetInst()->CreateBody(&groundBodyDef);
 
 	b2PolygonShape groundBox;
 	groundBox.SetAsBox(50.f, 10.f);
@@ -61,7 +54,7 @@ PhysicsTest::PhysicsTest()
 	b2BodyDef bodyDef;
 	bodyDef.type = b2_dynamicBody;
 	bodyDef.position.Set(0.0f, 400.0f);
-	m_body = m_world->CreateBody(&bodyDef);
+	m_body = CCollisionMgr::GetInst()->CreateBody(&bodyDef);
 
 	b2PolygonShape dynamicBox;
 	dynamicBox.SetAsBox(1.0f, 1.0f);

@@ -71,7 +71,7 @@ typedef Vector2 Vec2;
 typedef Vector3 Vec3;
 typedef Vector4 Vec4;
 
-
+#include <Box2D/box2d.h>
 
 
 // 엔진 헤더 참조

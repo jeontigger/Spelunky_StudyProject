@@ -19,6 +19,12 @@ class CCollisionMgr
 {
 	SINGLE(CCollisionMgr);
 private:
+	std::unique_ptr<class b2World> m_World;
+
+public:
+	b2Body* CreateBody(b2BodyDef* _bodydef) { return m_World->CreateBody(_bodydef); }
+
+private:
 	UINT					m_matrix[LAYER_MAX];
 	map<UINT_PTR, bool>		m_mapPrevInfo;		// 이전 프레임에 두 충돌체의 충돌여부
 

@@ -5,7 +5,6 @@ class PhysicsTest :
     public CLevel
 {
 private:
-    std::unique_ptr<class b2World> m_world;
     CGameObject* m_MainCamera;
     CGameObject* m_obj;
 

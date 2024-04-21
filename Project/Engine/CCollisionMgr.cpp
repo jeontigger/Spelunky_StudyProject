@@ -11,7 +11,8 @@
 CCollisionMgr::CCollisionMgr()
 	: m_matrix{}
 {
-
+	b2Vec2 gravity(0.f, -9.81f);
+	m_World = std::make_unique<b2World>(gravity);
 }
 
 CCollisionMgr::~CCollisionMgr()
@@ -35,7 +36,13 @@ void CCollisionMgr::tick()
 			auto time = CChronoMgr::GetInst()->End();
 			int a = 0;
 		}
-	}
+	}	
+	float timeStep = 1.0f / 60.0f;
+
+	int32 velocityIterations = 6;
+	int32 positionIterations = 2;
+
+	m_World->Step(timeStep, velocityIterations, positionIterations);
 }
 
 void CCollisionMgr::CollisionBtwLayer(UINT _left, UINT _right)
