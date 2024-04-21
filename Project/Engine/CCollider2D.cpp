@@ -93,6 +93,11 @@ void CCollider2D::finaltick()
 		m_matColWorld *= matObjWorld;
 	}	
 
+	if (m_Body && Transform()) {
+		auto position = m_Body->GetPosition();
+		Transform()->SetOnlyRelativePos(Vec3(position.x, position.y, Transform()->GetRelativePos().z));
+	}
+
 	// 충돌중이면 Red, 충돌하고 있지 않으면 Green
 	if (CRenderMgr::GetInst()->IsDebugPosition() == false)
 		return;

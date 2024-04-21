@@ -20,7 +20,8 @@ public:
     virtual void UpdateData() override;
 
 public:
-    void SetRelativePos(Vec3 _Pos) {m_vRelativePos = _Pos;}
+    void SetRelativePos(Vec3 _Pos);
+    void SetOnlyRelativePos(Vec3 _Pos) {m_vRelativePos = _Pos;}
     void SetRelativeScale(Vec3 _Scale) {m_vRelativeScale = _Scale;}
     void SetRelativeRotation(Vec3 _Rotation) { m_vRelativeRotation = _Rotation; }
 

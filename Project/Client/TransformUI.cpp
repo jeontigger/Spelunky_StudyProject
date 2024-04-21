@@ -27,12 +27,14 @@ void TransformUI::render_update()
 	Vec3 vRot = GetTargetObject()->Transform()->GetRelativeRotation();
 	vRot.ToDegree();
 
-	ImGui::Text("Position"); ImGui::SameLine();  ImGui::DragFloat3("##Relative Position", vPos);		
+	ImGui::Text("Position"); ImGui::SameLine(); 
+	if (ImGui::DragFloat3("##Relative Position", vPos)) {
+		GetTargetObject()->Transform()->SetRelativePos(vPos);
+	}
 	ImGui::Text("Scale   "); ImGui::SameLine(); ImGui::DragFloat3("##Relative Scale", vScale);
 	ImGui::Text("Rotation"); ImGui::SameLine(); ImGui::DragFloat3("##Relative Rotation", vRot);
 
 	vRot.ToRadian();
-	GetTargetObject()->Transform()->SetRelativePos(vPos);
 	GetTargetObject()->Transform()->SetRelativeScale(vScale);
 	GetTargetObject()->Transform()->SetRelativeRotation(vRot);
 

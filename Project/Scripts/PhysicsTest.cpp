@@ -30,12 +30,11 @@ void PhysicsTest::tick()
 	CLevel::tick();
 
 	b2Vec2 position = m_body->GetPosition();
-	m_obj->Transform()->SetRelativePos(Vec3(position.x, position.y, m_obj->Transform()->GetRelativePos().z));
+	//m_obj->Transform()->SetRelativePos(Vec3(position.x, position.y, m_obj->Transform()->GetRelativePos().z));
 	/*if (m_file.is_open()) {
 		m_file << position.x << " " << position.y << " " << angle << endl;
 	}*/
 
-	m_body->GetContactList();
 }
 
 PhysicsTest::PhysicsTest()

@@ -3,7 +3,7 @@
 
 #include "CDevice.h"
 #include "CConstBuffer.h"
-
+#include "CCollider2D.h"
 
 
 CTransform::CTransform()
@@ -88,6 +88,17 @@ void CTransform::UpdateData()
 	CConstBuffer* pCB = CDevice::GetInst()->GetConstBuffer(CB_TYPE::TRANSFORM);
 	pCB->SetData(&g_Transform);
 	pCB->UpdateData();
+}
+
+void CTransform::SetRelativePos(Vec3 _Pos)
+{ 
+	if (Collider2D()&& Collider2D()->GetBody()) {
+		Collider2D()->GetBody()->SetTransform(b2Vec2(_Pos.x, _Pos.y), 0);
+		Collider2D()->GetBody()->SetAwake(true);
+	}
+	else { 
+		m_vRelativePos = _Pos;
+	}
 }
 
 Vec3 CTransform::GetWorldScale()
