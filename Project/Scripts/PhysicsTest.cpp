@@ -29,7 +29,7 @@ void PhysicsTest::tick()
 {
 	CLevel::tick();
 
-	b2Vec2 position = m_body->GetPosition();
+	//b2Vec2 position = m_body->GetPosition();
 	//m_obj->Transform()->SetRelativePos(Vec3(position.x, position.y, m_obj->Transform()->GetRelativePos().z));
 	/*if (m_file.is_open()) {
 		m_file << position.x << " " << position.y << " " << angle << endl;
@@ -89,9 +89,7 @@ PhysicsTest::PhysicsTest()
 	// Backgruond Object 생성
 	m_obj = CAssetMgr::GetInst()->Load<CPrefab>(TitleBackgroundPrefKey, TitleBackgroundPrefKey)->Instantiate();
 	m_obj->Animator2D()->Play(AnimTitleBackground);
-	m_obj->Collider2D()->BodyInit(true);
-	m_body = m_obj->Collider2D()->GetBody();
-
+	m_obj->Transform()->SetRelativePos(Vec3(0, 1000, 0));
 	AddObject(m_obj, BackgroundLayer);
 
 	// 전역 광원 추가

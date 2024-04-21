@@ -20,6 +20,7 @@ public:
 
 private:
     b2Body* m_Body;
+    b2Fixture* m_Fixture;
 
 public:
     void BodyInit(bool _isDynamic);
@@ -38,7 +39,7 @@ private:
 public:
     void SetAbsolute(bool _bAbsol) { m_bAbsolute = _bAbsol; }
     void SetOffsetPos(Vec2 _vOffset) { m_vOffsetPos = Vec3(_vOffset.x, _vOffset.y, 0.f); }
-    void SetOffsetScale(Vec2 _vOffsetScale) { m_vOffsetScale = Vec3(_vOffsetScale.x, _vOffsetScale.y, 1.f); }
+    void SetOffsetScale(Vec2 _vOffsetScale);
     void SetColliderType(COLLIDER2D_TYPE _Type) { m_Type = _Type; }
     void SetRadius(float _radius) { m_fRadius = _radius; }
     float GetRadius() { return m_fRadius; }

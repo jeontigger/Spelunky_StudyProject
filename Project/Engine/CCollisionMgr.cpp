@@ -222,9 +222,6 @@ bool CCollisionMgr::CollisionBtwCollider(CCollider2D* _pLeft, CCollider2D* _pRig
 	return true;
 }
 
-
-
-
 void CCollisionMgr::LayerCheck(UINT _left, UINT _right)
 {
 	UINT iRow = (UINT)_left;

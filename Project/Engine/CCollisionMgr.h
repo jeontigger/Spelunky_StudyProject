@@ -23,6 +23,7 @@ private:
 
 public:
 	b2Body* CreateBody(b2BodyDef* _bodydef) { return m_World->CreateBody(_bodydef); }
+	void DestroyBody(b2Body* _body) { if (!_body)return; m_World->DestroyBody(_body); }
 
 private:
 	UINT					m_matrix[LAYER_MAX];

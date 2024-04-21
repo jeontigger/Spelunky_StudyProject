@@ -16,6 +16,7 @@ CCollider2D::CCollider2D()
 	, m_bActive(true)
 	, m_fRadius(1.f)
 {
+	BodyInit(true);
 }
 
 CCollider2D::CCollider2D(const CCollider2D& _OriginCollider2D)
@@ -28,10 +29,12 @@ CCollider2D::CCollider2D(const CCollider2D& _OriginCollider2D)
 	, m_bActive(true)
 	, m_fRadius(1.f)
 {
+	BodyInit(true);
 }
 
 CCollider2D::~CCollider2D()
 {
+	//CCollisionMgr::GetInst()->DestroyBody(m_Body);
 }
 
 void CCollider2D::BodyInit(bool _isDynamic)
@@ -39,6 +42,7 @@ void CCollider2D::BodyInit(bool _isDynamic)
 	b2BodyDef bodyDef;
 	bodyDef.type = b2_dynamicBody;
 	bodyDef.position.Set(0.0f, 400.0f);
+	CCollisionMgr::GetInst()->DestroyBody(m_Body);
 	m_Body = CCollisionMgr::GetInst()->CreateBody(&bodyDef);
 
 	if (_isDynamic) {
@@ -50,10 +54,42 @@ void CCollider2D::BodyInit(bool _isDynamic)
 		fixtureDef.density = 1.0f;
 		fixtureDef.friction = 0.3f;
 
-		m_Body->CreateFixture(&fixtureDef);
+		m_Fixture = m_Body->CreateFixture(&fixtureDef);
+		
 	}
 	else {
 
+	}
+}
+
+void CCollider2D::SetOffsetScale(Vec2 _vOffsetScale)
+{
+	Vec3 ownerScale = Transform()->GetRelativeScale();
+	if (m_Body) {
+		b2FixtureDef fixtureDef;
+		fixtureDef.density = m_Fixture->GetDensity();
+		fixtureDef.friction = m_Fixture->GetFriction();
+
+		b2PolygonShape shape;
+		if (m_bAbsolute) {
+			shape.SetAsBox(_vOffsetScale.x * ownerScale.x, _vOffsetScale.y * ownerScale.y);
+		}
+		else {
+			shape.SetAsBox(_vOffsetScale.x, _vOffsetScale.y);
+		}
+		
+		fixtureDef.shape = &shape;
+		if(m_Fixture)
+		{
+			m_Body->DestroyFixture(m_Fixture);
+		}
+
+		//m_Fixture = m_Body->CreateFixture(&fixtureDef);
+		//m_Body->SetAwake(true);
+	}
+	else
+	{
+		m_vOffsetScale = Vec3(_vOffsetScale.x, _vOffsetScale.y, 1.f);
 	}
 }
 
