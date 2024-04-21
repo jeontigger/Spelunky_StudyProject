@@ -4,6 +4,7 @@
 CExitDoor::CExitDoor()
 	: CScript((UINT)SCRIPT_TYPE::EXITDOOR)
 {
+	m_strExitButton = L"A";
 }
 
 CExitDoor::~CExitDoor()
@@ -29,6 +30,7 @@ void CExitDoor::begin()
 #include <Engine/CLevelMgr.h>
 #include <Engine/CLevel.h>
 #include "CTitleLevel.h"
+#include <Engine\CFontMgr.h>
 
 void CExitDoor::tick()
 {
@@ -43,6 +45,13 @@ void CExitDoor::tick()
 			CLevelMgr::GetInst()->SetStartLevel(new CTitleLevel);
 			CLevelMgr::GetInst()->ChangeToStartLevel(3.f);
 		}
+
+		Font data = {};
+		data._fPosX = GetOwner()->Transform()->GetRelativePos().x;
+		data._fPosY = GetOwner()->Transform()->GetRelativePos().y;
+		data._fFontSize = 32;
+		data._Color = FONT_RGBA(255, 255, 255, 255);
+		CFontMgr::GetInst()->DrawFont(m_strExitButton.c_str(), data);
 	}
 }
 

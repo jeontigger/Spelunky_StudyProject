@@ -38,12 +38,12 @@ void CTitleLevel::tick()
 			ChangeLevelState(TitleLevelState::Select);
 		}
 		if (m_vecAnyKeyObj[2]->GetScript<CBlink>()->IsOn()) {
-			Font data = {};
+			/*Font data = {};
 			data._fPosX = 1040.f;
 			data._fPosY = 675.f;
 			data._fFontSize = 32;
 			data._Color = FONT_RGBA(255, 255, 255, 255);
-			CFontMgr::GetInst()->DrawFont(m_strStart.c_str(), data);
+			CFontMgr::GetInst()->DrawFont(m_strStart.c_str(), data);*/
 		}
 	}
 	else if(m_State==TitleLevelState::Select){
