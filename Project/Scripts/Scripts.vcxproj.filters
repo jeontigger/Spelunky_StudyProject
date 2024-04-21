@@ -166,6 +166,7 @@
     <ClInclude Include="CExitDoor.h">
       <Filter>02. Scripts\Tile</Filter>
     </ClInclude>
+    <ClInclude Include="PhysicsTest.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -318,6 +319,7 @@
     <ClCompile Include="CExitDoor.cpp">
       <Filter>02. Scripts\Tile</Filter>
     </ClCompile>
+    <ClCompile Include="PhysicsTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="00. Default">
@@ -445,6 +447,9 @@
     </Filter>
     <Filter Include="02. Scripts\Pause">
       <UniqueIdentifier>{b8c49b91-d6af-445e-bb10-74663af1feb5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Test">
+      <UniqueIdentifier>{8cbe66f9-d465-470e-abfa-96521614e438}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -3,6 +3,7 @@
 enum class LevelType {
 	TITLE,
 	STAGE1,
+	TestLevel,
 	END,
 };
 
@@ -26,5 +27,8 @@ public:
 
 
 	static void ChangeLevelToPlay();
+
+private:
+	static void TestLevel();
 };
 

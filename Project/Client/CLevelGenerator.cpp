@@ -13,6 +13,8 @@
 #include <Scripts/CStagePackMgr.h>
 #include <Scripts/CRandomMgr.h>
 
+#include	<Scripts/PhysicsTest.h>
+
 CLevel* CLevelGenerator::m_pTempLevel = nullptr;
 CLevel* CLevelGenerator::m_arrStages[(UINT)LevelType::END] = {};
 
@@ -72,6 +74,8 @@ void CLevelGenerator::TitleLevel()
 void CLevelGenerator::MakeStages()
 {
 	TitleLevel();
+
+	TestLevel();
 
 	CStage* stage = new CStage;
 
@@ -164,4 +168,11 @@ void CLevelGenerator::Destroy()
 void CLevelGenerator::ChangeLevelToPlay()
 {
 	CLevelMgr::GetInst()->ChangeLevel(m_arrStages[1], LEVEL_STATE::PLAY);
+}
+
+void CLevelGenerator::TestLevel()
+{
+	PhysicsTest* testworld = new PhysicsTest;
+
+	m_arrStages[2] = testworld;
 }

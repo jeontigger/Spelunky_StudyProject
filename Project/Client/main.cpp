@@ -25,6 +25,11 @@
 #pragma comment(lib, "Scripts\\Scripts.lib")
 #endif
 
+#ifdef _DEBUG
+#pragma comment(lib, "Box2D\\box2d.lib")
+#endif // _DEBUG
+
+
 
 #include "imgui.h"
 #include "imgui_impl_win32.h"
