@@ -19,6 +19,13 @@ public:
     bool IsActivate() { return m_bActive; }
 
 private:
+    b2Body* m_Body;
+
+public:
+    void BodyInit(bool _isDynamic);
+    b2Body* GetBody() { return m_Body; }
+
+private:
     Vec3            m_vOffsetPos;
     Vec3            m_vOffsetScale;
     int             m_CollisionCount;   // 다른 충돌체와 충돌중인 횟수

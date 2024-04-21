@@ -2,6 +2,7 @@
 #include "CCollider2D.h"
 
 #include "CRenderMgr.h"
+#include "CCollisionMgr.h"
 
 #include "CTransform.h"
 #include "CScript.h"
@@ -31,6 +32,29 @@ CCollider2D::CCollider2D(const CCollider2D& _OriginCollider2D)
 
 CCollider2D::~CCollider2D()
 {
+}
+
+void CCollider2D::BodyInit(bool _isDynamic)
+{
+	b2BodyDef bodyDef;
+	bodyDef.type = b2_dynamicBody;
+	bodyDef.position.Set(0.0f, 400.0f);
+	m_Body = CCollisionMgr::GetInst()->CreateBody(&bodyDef);
+
+	if (_isDynamic) {
+		b2PolygonShape dynamicBox;
+		dynamicBox.SetAsBox(1.0f, 1.0f);
+
+		b2FixtureDef fixtureDef;
+		fixtureDef.shape = &dynamicBox;
+		fixtureDef.density = 1.0f;
+		fixtureDef.friction = 0.3f;
+
+		m_Body->CreateFixture(&fixtureDef);
+	}
+	else {
+
+	}
 }
 
 Vec2 CCollider2D::GetRelativePos()

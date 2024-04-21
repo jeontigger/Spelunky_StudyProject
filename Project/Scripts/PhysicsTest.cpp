@@ -31,7 +31,6 @@ void PhysicsTest::tick()
 
 	b2Vec2 position = m_body->GetPosition();
 	m_obj->Transform()->SetRelativePos(Vec3(position.x, position.y, m_obj->Transform()->GetRelativePos().z));
-	float angle = m_body->GetAngle();
 	/*if (m_file.is_open()) {
 		m_file << position.x << " " << position.y << " " << angle << endl;
 	}*/
@@ -51,20 +50,20 @@ PhysicsTest::PhysicsTest()
 	groundBox.SetAsBox(50.f, 10.f);
 	groundBody->CreateFixture(&groundBox, 0.0f);
 
-	b2BodyDef bodyDef;
-	bodyDef.type = b2_dynamicBody;
-	bodyDef.position.Set(0.0f, 400.0f);
-	m_body = CCollisionMgr::GetInst()->CreateBody(&bodyDef);
+	//b2BodyDef bodyDef;
+	//bodyDef.type = b2_dynamicBody;
+	//bodyDef.position.Set(0.0f, 400.0f);
+	//m_body = CCollisionMgr::GetInst()->CreateBody(&bodyDef);
 
-	b2PolygonShape dynamicBox;
-	dynamicBox.SetAsBox(1.0f, 1.0f);
+	//b2PolygonShape dynamicBox;
+	//dynamicBox.SetAsBox(1.0f, 1.0f);
 
-	b2FixtureDef fixtureDef;
-	fixtureDef.shape = &dynamicBox;
-	fixtureDef.density = 1.0f;
-	fixtureDef.friction = 0.3f;
+	//b2FixtureDef fixtureDef;
+	//fixtureDef.shape = &dynamicBox;
+	//fixtureDef.density = 1.0f;
+	//fixtureDef.friction = 0.3f;
 
-	m_body->CreateFixture(&fixtureDef);
+	//m_body->CreateFixture(&fixtureDef);
 
 	//Main Camera Object 积己
 	m_MainCamera = new CGameObject;
@@ -91,6 +90,9 @@ PhysicsTest::PhysicsTest()
 	// Backgruond Object 积己
 	m_obj = CAssetMgr::GetInst()->Load<CPrefab>(TitleBackgroundPrefKey, TitleBackgroundPrefKey)->Instantiate();
 	m_obj->Animator2D()->Play(AnimTitleBackground);
+	m_obj->Collider2D()->BodyInit(true);
+	m_body = m_obj->Collider2D()->GetBody();
+
 	AddObject(m_obj, BackgroundLayer);
 
 	// 傈开 堡盔 眠啊
