@@ -7,7 +7,7 @@ class CPlayerIdleState :
 private:
     CGameObject* m_Player;
     class CPlayerScript* m_PlayerScript;
-
+    class CMovement* m_Movement;
 public:
     virtual void finaltick();
     virtual void Enter();

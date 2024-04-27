@@ -31,4 +31,6 @@ void SortExtention(const string& path, const string& extention);
 
 void MakeStrHeader(const string& path, const string& symbol, const vector<string>& vec);
 
+void MakeStateHeader(const string& path, const string& symbol, const vector<wstring>& vec);
+
 void MakeStrHeaderFX();

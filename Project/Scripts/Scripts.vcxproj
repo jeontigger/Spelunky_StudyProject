@@ -223,6 +223,7 @@ call CodeGen.exe</Command>
     <ClInclude Include="strMtrl.h" />
     <ClInclude Include="strPref.h" />
     <ClInclude Include="strSnd.h" />
+    <ClInclude Include="strState.h" />
     <ClInclude Include="strTex.h" />
     <ClInclude Include="strTxt.h" />
     <ClInclude Include="struct.h" />

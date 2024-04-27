@@ -339,19 +339,56 @@ void SortExtention(const string& path, const string& extention)
 	return;
 }
 
+void MakeStateHeader(const string& path, const string& symbol, const vector<wstring>& vec) {
+	vector<string> v1, v2;
+	for (int i = 0; i < vec.size(); i++) {
+		string str(vec[i].begin(), vec[i].end());
+		v2.push_back(str);
+		str = str.substr(1, str.length() - 6);
+		v1.push_back(str);
+	}
+
+	wstring solPath = CPathMgr::GetSolutionPath();
+	string Path = string(solPath.begin(), solPath.end()) + path;
+
+	fstream fout;
+
+	fout.open(Path, ofstream::out | ofstream::trunc);
+	if (!fout.is_open()) return;
+
+	fout << "#pragma once" << endl << endl;
+	for (int i = 0; i < v1.size(); i++) {
+		std::string path = v1[i];
+		std::string filename = path.substr(path.find_last_of('\\') + 1);
+		std::string basename = filename.substr(0, filename.find_last_of('.'));
+
+		fout << "#define ";
+		fout << symbol;
+		fout << basename;
+		fout << " L\"";
+		for (int j = 0; j < v2[i].size(); j++) {
+			if (v2[i][j] == '\\') {
+				fout << "\\\\";
+			}
+			else {
+				fout << v2[i][j];
+			}
+		}
+		fout << "\"";
+		fout << endl;
+	}
+}
+
 void MakeStrHeader(const string& path, const string& symbol, const vector<string>& vec)
 {
 	wstring solPath = CPathMgr::GetSolutionPath();
 	string Path = string(solPath.begin(), solPath.end()) + path;
 
-	cout << Path << endl;
 	fstream fout;
 
-
-	//cout << "is open ?";
 	fout.open(Path, ofstream::out | ofstream::trunc);
 	if (!fout.is_open()) return;
-	//cout << " is open " << endl;
+
 	fout << "#pragma once" << endl << endl;
 	for (int i = 0; i < vec.size(); i++) {
 		std::string path = vec[i];

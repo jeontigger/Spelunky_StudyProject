@@ -16,5 +16,6 @@ using std::ofstream;
 #include "strMtrl.h"
 #include "strPref.h"
 #include "strSnd.h"
+#include "strState.h"
 #include "strTex.h"
 #include "strTxt.h"

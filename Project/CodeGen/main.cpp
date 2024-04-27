@@ -23,6 +23,7 @@ int main()
 	MakeStrHeader("Project\\Scripts\\strPref.h", "PREF", g_vecPrefNames);
 	MakeStrHeader("Project\\Scripts\\strAnim.h", "ANIM", g_vecAnimNames);
 	MakeStrHeader("Project\\Scripts\\strTxt.h", "TXT", g_vecTxtNames);
+	MakeStateHeader("Project\\Scripts\\strState.h", "State", g_vecStateNames);
 
 	return 0;
 }

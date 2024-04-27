@@ -20,21 +20,28 @@ void CPlayerIdleState::finaltick()
 {
 	PlayerKey input = m_PlayerScript->GetInputKeys();
 
-	if (KEY_TAP(LEFT)) {
+	if (KEY_TAP(input.MoveLeft)) {
 		ChangeState(StatePlayerWalk);
 	}
 
-	m_Player->GetScript<CMovement>()->SetVelocityX(0.f);
+	if (KEY_TAP(input.MoveRight)) {
+		ChangeState(StatePlayerWalk);
+	}
+
+	m_Movement->SetVelocityX(0.f);
 }
 
 void CPlayerIdleState::Enter()
 {
 	m_Player = (CGameObject*)GetBlackboardData(BBOwnerKey);
 	m_PlayerScript = m_Player->GetScript<CPlayerScript>();
+	m_Movement = m_Player->GetScript<CMovement>();
+
+	m_Player->Animator2D()->Play(AnimPlayerIdle);
+
 	if (m_PlayerScript->IsHandling()) {
 		m_Player->Animator2D()->Play(AnimPlayerHandleIdle);
 	}
 	else {
-		m_Player->Animator2D()->Play(AnimPlayerIdle);
 	}
 }
