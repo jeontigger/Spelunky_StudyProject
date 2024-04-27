@@ -61,6 +61,7 @@ public:
     bool IsGround() { return m_bGround; }
 
 public:
+    virtual void begin() override;
     virtual void tick() override;
 
 public:

@@ -6,6 +6,7 @@
 int CTile::TileCount = 0;
 CTile::CTile()
 	:CFieldObject((UINT)SCRIPT_TYPE::TILE)
+	, m_PermitRange(2.f)
 {
 	AddScriptParam(SCRIPT_PARAM::INT, "Type", &m_type);
 }
@@ -13,6 +14,7 @@ CTile::CTile()
 CTile::CTile(const CTile& tile)
 	:CFieldObject((UINT)SCRIPT_TYPE::TILE)
 	, m_type(tile.m_type)
+	, m_PermitRange(2.f)
 {
 	AddScriptParam(SCRIPT_PARAM::INT, "Type", &m_type);
 }
@@ -289,7 +291,7 @@ Vec2 CTile::TypeToPos(TileType type)
 void CTile::UpCollision(CGameObject* _Obj, float _PlatformTop, float _ObjColScaleY)
 {
 	float NewY = _PlatformTop + _ObjColScaleY / 2.f;
-	NewY -= _Obj->Collider2D()->GetOffsetPos().y ;
+	NewY -= _Obj->Collider2D()->GetRelativePos().y ;
 
 	Vec3 ObjPos = _Obj->Transform()->GetRelativePos();
 	ObjPos.y = NewY;
@@ -308,7 +310,7 @@ void CTile::UpCollision(CGameObject* _Obj, float _PlatformTop, float _ObjColScal
 void CTile::DownCollision(CGameObject* _Obj, float _PlatformBottom, float _ObjColScaleY)
 {
 	float NewY = _PlatformBottom - _ObjColScaleY / 2.f;
-	NewY -= _Obj->Collider2D()->GetOffsetPos().y;
+	NewY -= _Obj->Collider2D()->GetRelativePos().y;
 
 	Vec3 ObjPos = _Obj->Transform()->GetRelativePos();
 	ObjPos.y = NewY;
@@ -319,7 +321,7 @@ void CTile::DownCollision(CGameObject* _Obj, float _PlatformBottom, float _ObjCo
 void CTile::LeftCollision(CGameObject* _Obj, float _PlatformLeft, float _ObjColScaleX)
 {
 	float NewX = _PlatformLeft - _ObjColScaleX / 2.f;
-	NewX -= _Obj->Collider2D()->GetOffsetPos().x;
+	NewX -= _Obj->Collider2D()->GetRelativePos().x;
 
 	Vec3 ObjPos = _Obj->Transform()->GetRelativePos();
 	ObjPos.x = NewX;
@@ -330,7 +332,7 @@ void CTile::LeftCollision(CGameObject* _Obj, float _PlatformLeft, float _ObjColS
 void CTile::RightCollision(CGameObject* _Obj, float _PlatformRight, float _ObjColScaleX)
 {
 	float NewX = _PlatformRight + _ObjColScaleX / 2.f;
-	NewX -= _Obj->Collider2D()->GetOffsetPos().x;
+	NewX -= _Obj->Collider2D()->GetRelativePos().x;
 
 	Vec3 ObjPos = _Obj->Transform()->GetRelativePos();
 	ObjPos.x = NewX;

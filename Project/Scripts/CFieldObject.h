@@ -14,6 +14,8 @@ public:
 
 protected:
     vector<CGameObject*> m_Ground;
+    int m_iGroundCnt;
+
     bool m_bLeftBump;
     int m_bRightBump;
     int m_iTileCnt;

@@ -383,32 +383,11 @@
     <Filter Include="02. Scripts\Character\Monster\Snake">
       <UniqueIdentifier>{7679c3a2-ce57-4748-9ed4-6dd2ae9ccc3f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="08. States">
-      <UniqueIdentifier>{853ddb1c-247f-4a83-80b1-4b974435b9b2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="08. States\Player">
-      <UniqueIdentifier>{c17df28e-cd3a-4a14-91a6-ca74a97e7b62}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="08. States\Player\Idle">
-      <UniqueIdentifier>{b570fd3a-d764-40a5-9c1b-bc8df6624c69}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="08. States\Snake">
-      <UniqueIdentifier>{68f17c6a-fbe5-4fba-9328-8b2f992271bc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="08. States\Snake\Idle">
-      <UniqueIdentifier>{c3fd625a-1d44-48a7-bae2-8c8cd229a425}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="08. States\Snake\Attack">
-      <UniqueIdentifier>{47b8a106-ae2d-4ce3-8af0-9cf84b77d91c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02. Scripts\Collider">
       <UniqueIdentifier>{d195d166-5886-4ee6-a166-72ae83fd314e}</UniqueIdentifier>
     </Filter>
     <Filter Include="05. Manager\TileMgr">
       <UniqueIdentifier>{9cb3cc12-1066-4be0-b7ed-d5aa45568602}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="08. States\Player\Down">
-      <UniqueIdentifier>{d41939b6-6d07-4a89-8524-adc7c2a13a24}</UniqueIdentifier>
     </Filter>
     <Filter Include="06. FieldObject\Item">
       <UniqueIdentifier>{afcfde6f-5319-4750-89f2-8c10fdc50bc3}</UniqueIdentifier>
@@ -418,6 +397,36 @@
     </Filter>
     <Filter Include="02. Scripts\Item">
       <UniqueIdentifier>{c4152dec-389d-4835-9aa7-b5322c21f9fb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Scripts\Character\Player">
+      <UniqueIdentifier>{23bd4049-2595-4317-82ab-087f85fc0a83}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Scripts\UI">
+      <UniqueIdentifier>{248b6c3b-4a20-4e98-909c-45e0608a8603}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Scripts\Once">
+      <UniqueIdentifier>{2defef04-9b8a-498b-8f4e-650411ced52e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Level\Title">
+      <UniqueIdentifier>{00d62efc-cad4-479e-8cd3-2a643b250454}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Scripts\Utils">
+      <UniqueIdentifier>{b522e95d-26d8-4a8a-a977-c935e6b6dba0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Scripts\Pause">
+      <UniqueIdentifier>{b8c49b91-d6af-445e-bb10-74663af1feb5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="08. States">
+      <UniqueIdentifier>{853ddb1c-247f-4a83-80b1-4b974435b9b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="08. States\Player">
+      <UniqueIdentifier>{c17df28e-cd3a-4a14-91a6-ca74a97e7b62}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="08. States\Player\Idle">
+      <UniqueIdentifier>{b570fd3a-d764-40a5-9c1b-bc8df6624c69}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="08. States\Player\Down">
+      <UniqueIdentifier>{d41939b6-6d07-4a89-8524-adc7c2a13a24}</UniqueIdentifier>
     </Filter>
     <Filter Include="08. States\Player\Walk">
       <UniqueIdentifier>{ee1cde0a-4c5c-4f91-b5d9-e1f6085450f5}</UniqueIdentifier>
@@ -431,26 +440,17 @@
     <Filter Include="08. States\Player\Attack">
       <UniqueIdentifier>{ef225b8d-b0ec-425b-96f4-58a50fcb1840}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. Scripts\Character\Player">
-      <UniqueIdentifier>{23bd4049-2595-4317-82ab-087f85fc0a83}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. Scripts\UI">
-      <UniqueIdentifier>{248b6c3b-4a20-4e98-909c-45e0608a8603}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. Scripts\Once">
-      <UniqueIdentifier>{2defef04-9b8a-498b-8f4e-650411ced52e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="08. States\Player\Ladder">
       <UniqueIdentifier>{4df4e6bc-d3e7-40af-ae08-cd1388eae237}</UniqueIdentifier>
     </Filter>
-    <Filter Include="04. Level\Title">
-      <UniqueIdentifier>{00d62efc-cad4-479e-8cd3-2a643b250454}</UniqueIdentifier>
+    <Filter Include="08. States\Snake">
+      <UniqueIdentifier>{68f17c6a-fbe5-4fba-9328-8b2f992271bc}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. Scripts\Utils">
-      <UniqueIdentifier>{b522e95d-26d8-4a8a-a977-c935e6b6dba0}</UniqueIdentifier>
+    <Filter Include="08. States\Snake\Idle">
+      <UniqueIdentifier>{c3fd625a-1d44-48a7-bae2-8c8cd229a425}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. Scripts\Pause">
-      <UniqueIdentifier>{b8c49b91-d6af-445e-bb10-74663af1feb5}</UniqueIdentifier>
+    <Filter Include="08. States\Snake\Attack">
+      <UniqueIdentifier>{47b8a106-ae2d-4ce3-8af0-9cf84b77d91c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

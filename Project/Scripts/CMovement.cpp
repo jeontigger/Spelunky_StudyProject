@@ -19,6 +19,10 @@ CMovement::~CMovement()
 }
 
 
+void CMovement::begin()
+{
+}
+
 void CMovement::tick()
 {
 	// ------------------------------

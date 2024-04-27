@@ -44,7 +44,7 @@ void CFieldObject::SubOverlapGround(CGameObject* _pObejct)
 
 void CFieldObject::tick()
 {
-
+	m_iGroundCnt = m_Ground.size();
 }
 
 #include "CGroundCollider.h"
@@ -57,6 +57,8 @@ void CFieldObject::begin()
 
 	Vec2 ColliderCenterPos = Collider2D()->GetRelativePos();
 	Vec2 ColliderScale = Collider2D()->GetRelativeScale();
+
+	AddScriptParam(SCRIPT_PARAM::INT, "Ground", &m_iGroundCnt);
 
 }
 

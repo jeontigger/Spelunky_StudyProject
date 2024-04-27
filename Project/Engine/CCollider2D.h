@@ -39,7 +39,7 @@ public:
     float GetRadius() { return m_fRadius; }
 
     bool IsAbsolute() { return m_bAbsolute; }
-    Vec2 GetOffsetPos();
+    Vec2 GetOffsetPos() { return Vec2(m_vOffsetPos.x, m_vOffsetPos.y); }
     Vec2 GetOffsetScale() { return Vec2(m_vOffsetScale.x, m_vOffsetScale.y); }
     Vec2 GetFinalScale();
     Vec3 GetPrevFinalPos() { return m_PrevFinalPos; }
