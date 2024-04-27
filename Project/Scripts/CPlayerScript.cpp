@@ -81,7 +81,7 @@ void CPlayerScript::Bomb()
 	if (!IsLookRight())
 		force.x = -force.x;
 
-	force += GetVelocity();
+	//force += GetVelocity();
 	bomb->skill(force);
 
 }
@@ -110,7 +110,7 @@ void CPlayerScript::Skill()
 	if (!IsLookRight())
 		force.x = -force.x;
 
-	force += GetVelocity();
+	//force += GetVelocity();
 	m_HandleItem->skill(force);
 	m_HandleItem->OutPlayerScript();
 	m_HandleItem = nullptr;

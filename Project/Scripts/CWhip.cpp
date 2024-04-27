@@ -80,10 +80,10 @@ void CWhip::BeginOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCollid
 	auto script = _OtherObj->GetScript<CFieldObject>();
 	if (script) {
 		if (GetOwner()->GetParent()->GetScript<CPlayerScript>()->IsLookRight()) {
-			script->AddVelocity(Vec2(3.f, 3.f));
+			//script->AddVelocity(Vec2(3.f, 3.f));
 		}
 		else if (!GetOwner()->GetParent()->GetScript<CPlayerScript>()->IsLookRight()) {
-			script->AddVelocity(Vec2(-3.f, 3.f));
+			//script->AddVelocity(Vec2(-3.f, 3.f));
 		}
 
 		auto monster = _OtherObj->GetScript<CCharacterScript>();

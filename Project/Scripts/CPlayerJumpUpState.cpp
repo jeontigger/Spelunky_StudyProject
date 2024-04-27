@@ -31,7 +31,7 @@ void CPlayerJumpUpState::Enter()
 	*(float*)GetBlackboardData(BBJumpDelay) = m_fJumpDelayTime;
 
 	// 점프 추진력 추가
-	m_Script->SetVelocity(Vec2(0.f, m_fJumpInitSpeed));
+	//m_Script->SetVelocity(Vec2(0.f, m_fJumpInitSpeed));
 
 	m_fJumpTimer = m_fJumpMaxTime;
 }
@@ -39,7 +39,7 @@ void CPlayerJumpUpState::Enter()
 void CPlayerJumpUpState::finaltick()
 {
 	if (m_fJumpTimer > 0) {
-		m_Script->AddVelocity(Vec2(0.f, m_fJumpWeightSpeed * DT));
+		//m_Script->AddVelocity(Vec2(0.f, m_fJumpWeightSpeed * DT));
 	}
 	else {
 		ChangeState(StatePlayerFallDown);

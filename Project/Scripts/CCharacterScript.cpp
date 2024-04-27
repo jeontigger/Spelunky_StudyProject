@@ -71,10 +71,10 @@ void CCharacterScript::TurnRight()
 void CCharacterScript::MoveFront()
 {
 	if (IsLookRight()) {
-		m_vVelocity.x = m_tInfo.Speed;
+		//m_vVelocity.x = m_tInfo.Speed;
 	}
 	else {
-		m_vVelocity.x = -m_tInfo.Speed;
+		//m_vVelocity.x = -m_tInfo.Speed;
 	}
 
 }

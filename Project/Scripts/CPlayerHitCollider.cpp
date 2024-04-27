@@ -36,10 +36,10 @@ void CPlayerHitCollider::BeginOverlap(CCollider2D* _Collider, CGameObject* _Othe
 		Vec3 colscale = colmat.Scale();
 		// 오브젝트가 오른쪽
 		if (OwnerPos.x - TilePos.x > 0) {
-			playerScript->AddVelocity(Vec2(50.f, 3.f));
+			//playerScript->AddVelocity(Vec2(50.f, 3.f));
 		}
 		else {
-			playerScript->AddVelocity(Vec2(-5.f, 3.f));
+			//playerScript->AddVelocity(Vec2(-5.f, 3.f));
 		}
 		playerScript->Hit(script->GetDamage());
 

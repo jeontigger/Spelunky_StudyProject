@@ -3,6 +3,14 @@
 
 CMovement::CMovement()
 	:CScript((UINT)SCRIPT_TYPE::MOVEMENT)
+	, m_vGravityForce(Vec3(0.f, -981.f, 0.f))
+	, m_fMass(1.f)
+	, m_fInitSpeed(0.f)
+	, m_fMaxSpeed_Ground(100.f)
+	, m_fMaxSpeed_InAir(1000.f)
+	, m_fFrictionScale(0.f)
+	, m_bUseGravity(true)
+	, m_bGround(false)
 {
 }
 
@@ -101,21 +109,21 @@ void CMovement::CalDir()
 
 	if (Dir.x > 0)
 	{
-		m_Dir |= RIGHT;
+		m_Dir |= (UINT)MoveDir::RIGHT;
 	}
 
 	if (Dir.x < 0)
 	{
-		m_Dir |= LEFT;
+		m_Dir |= (UINT)MoveDir::LEFT;
 	}
 
 	if (Dir.y > 0)
 	{
-		m_Dir |= UP;
+		m_Dir |= (UINT)MoveDir::UP;
 	}
 
 	if (Dir.y < 0)
 	{
-		m_Dir |= DOWN;
+		m_Dir |= (UINT)MoveDir::DOWN;
 	}
 }

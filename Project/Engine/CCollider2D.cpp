@@ -33,6 +33,22 @@ CCollider2D::~CCollider2D()
 {
 }
 
+Vec2 CCollider2D::GetOffsetPos()
+{
+	Vec2 vOffsetPos;
+
+	if (m_bAbsolute) {
+		vOffsetPos.x = m_vOffsetPos.x;
+		vOffsetPos.x = m_vOffsetPos.x;
+	}
+	else {
+		vOffsetPos.x = m_vOffsetPos.x * Transform()->GetRelativeScale().x;
+		vOffsetPos.y = m_vOffsetPos.y * Transform()->GetRelativeScale().y;
+	}
+	
+	return vOffsetPos;
+}
+
 Vec2 CCollider2D::GetFinalScale()
 {
 	Vec3 vScale;

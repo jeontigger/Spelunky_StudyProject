@@ -65,10 +65,10 @@ void CPlayerLadderState::Enter()
 	vPlayerPos.x = vLadderPos.x;
 	vPlayerPos.y += 1.f;
 	m_Player->Transform()->SetRelativePos(vPlayerPos);
-	m_Script->UseGravity(false);
+	//m_Script->UseGravity(false);
 
-	m_Script->UseVelocityX(false);
-	m_Script->UseVelocityY(false);
+	//m_Script->UseVelocityX(false);
+	//m_Script->UseVelocityY(false);
 		
 
 	if (KEY_PRESSED(m_Script->GetInputKeys().MoveLeft)) {
@@ -81,7 +81,7 @@ void CPlayerLadderState::Enter()
 
 void CPlayerLadderState::Exit()
 {
-	m_Script->UseGravity(true);
-	m_Script->UseVelocityX(true);
-	m_Script->UseVelocityY(true);
+	//m_Script->UseGravity(true);
+	//m_Script->UseVelocityX(true);
+	//m_Script->UseVelocityY(true);
 }

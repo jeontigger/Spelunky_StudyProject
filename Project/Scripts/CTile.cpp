@@ -289,7 +289,7 @@ Vec2 CTile::TypeToPos(TileType type)
 void CTile::UpCollision(CGameObject* _Obj, float _PlatformTop, float _ObjColScaleY)
 {
 	float NewY = _PlatformTop + _ObjColScaleY / 2.f;
-	NewY -= _Obj->Collider2D()->GetOffsetPos().y;
+	NewY -= _Obj->Collider2D()->GetOffsetPos().y ;
 
 	Vec3 ObjPos = _Obj->Transform()->GetRelativePos();
 	ObjPos.y = NewY;

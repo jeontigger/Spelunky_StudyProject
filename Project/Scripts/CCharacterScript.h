@@ -26,7 +26,7 @@ protected:
 	bool m_bMoveBack;
 
 public:
-	void Stop() { CFieldObject::Stop(); m_bMoveFront = false; m_bMoveBack = false; }
+	void Stop() { m_bMoveFront = false; m_bMoveBack = false; }
 	bool IsLookRight();
 	void TurnLeft();
 	void TurnRight();

@@ -38,10 +38,10 @@ void CWallCollider::BeginOverlap(CCollider2D* _Collider, CGameObject* _OtherObj,
 
 		auto itemScript = m_parent->GetScript<CItem>();
 		if (itemScript) {
-			Vec2 velocity = itemScript->GetVelocity();
-			velocity.x *= -0.5f;
+			//Vec2 velocity = itemScript->GetVelocity();
+			//velocity.x *= -0.5f;
 
-			itemScript->SetVelocity(velocity);
+			//itemScript->SetVelocity(velocity);
 
 			return;
 		}
@@ -57,10 +57,10 @@ void CWallCollider::BeginOverlap(CCollider2D* _Collider, CGameObject* _OtherObj,
 		}
 		m_parent->Transform()->SetRelativePos(OwnerPos);
 		auto objScript = m_parent->GetScript<CFieldObject>();
-		objScript->Stop();
-		Vec2 vel = objScript->GetVelocity();
-		vel.x *= 0.f;
-		objScript->SetVelocity(vel);
+		//objScript->Stop();
+		//Vec2 vel = objScript->GetVelocity();
+		//vel.x *= 0.f;
+		//objScript->SetVelocity(vel);
 	}
 }
 

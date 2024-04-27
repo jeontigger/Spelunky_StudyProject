@@ -36,7 +36,7 @@ void CSnakeAttackState::Enter()
 	m_vOriginOffsetScale = m_pOwner->Collider2D()->GetOffsetScale();
 	m_pOwner->Collider2D()->SetOffsetScale(Vec2(m_vOriginOffsetScale.x * 1.5f, m_vOriginOffsetScale.y));
 
-	m_pOwner->GetScript<CFieldObject>()->Stop();
+	//m_pOwner->GetScript<CFieldObject>()->Stop();
 }
 
 void CSnakeAttackState::Exit()

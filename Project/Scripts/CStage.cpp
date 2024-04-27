@@ -550,7 +550,7 @@ void CStage::finaltick()
 	if (KEY_TAP(Y)) {
 		Vec2 mousepos = CKeyMgr::GetInst()->GetMousePos();
 		m_Player->Transform()->SetRelativePos(Vec3(mousepos.x, mousepos.y, PlayerZ));
-		m_Player->GetScript<CPlayerScript>()->SetVelocity(Vec2());
+		//m_Player->GetScript<CPlayerScript>()->SetVelocity(Vec2());
 		int a = 0;
 
 	}
