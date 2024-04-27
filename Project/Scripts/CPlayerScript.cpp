@@ -123,6 +123,20 @@ void CPlayerScript::Attack()
 	m_Whip->Attack();
 }
 
+void CPlayerScript::TurnRight()
+{
+	Vec3 vRotation = Transform()->GetRelativeRotation();
+	vRotation.y = 0;
+	Transform()->SetRelativeRotation(vRotation);
+}
+
+void CPlayerScript::TurnLeft()
+{
+	Vec3 vRotation = Transform()->GetRelativeRotation();
+	vRotation.y = XM_PI;
+	Transform()->SetRelativeRotation(vRotation);
+}
+
 void CPlayerScript::CloudSpawn()
 {
 	CGameObject* obj = CParticleOnce::Instantiate(ParticleCloudPrefKey, TexParticleSmallAtlas);

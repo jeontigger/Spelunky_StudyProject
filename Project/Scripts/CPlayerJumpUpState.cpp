@@ -42,18 +42,27 @@ void CPlayerJumpUpState::finaltick()
 	m_Movement->SetVelocityX(0);
 
 	auto input = m_Script->GetInputKeys();
+	MovePriority priority = m_Script->GetMovePriority();
 
 	if (m_fJumpTimer > 0) {
 		if (KEY_PRESSED(input.Jump)) {
 			m_Movement->AddForce(Vec3(0, m_fJumpWeightSpeed, 0));
 		}
 	}
-	else {
-		ChangeState(StatePlayerFallDown);
+	if(m_Script->IsGrounded() && (m_fJumpTimer != m_fJumpMaxTime)){
+		if (priority == MovePriority::Left && (KEY_TAP(input.MoveLeft) || KEY_PRESSED(input.MoveLeft))) {
+			ChangeState(StatePlayerWalkLeft);
+		}
+		else if (priority == MovePriority::Right && (KEY_TAP(input.MoveRight) || KEY_PRESSED(input.MoveRight))) {
+			ChangeState(StatePlayerWalkRight);
+		}
+		else {
+			ChangeState(StatePlayerIdle);
+		}
+		m_Script->CloudSpawn();
 	}
 
 	// ÁÂ¿ì ¿òÁ÷ÀÓ
-	MovePriority priority = m_Script->GetMovePriority();
 	if (priority == MovePriority::Left && (KEY_TAP(input.MoveLeft) || KEY_PRESSED(input.MoveLeft))) {
 		m_Movement->SetVelocityX(-m_Script->GetSpeed());
 	}

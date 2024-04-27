@@ -21,7 +21,6 @@
 #define PREFPauseMenuBoard L"prefab\\PauseMenuBoard.pref"
 #define PREFPauseRock L"prefab\\PauseRock.pref"
 #define PREFPlayer L"prefab\\Player.pref"
-#define PREFPlayer1 L"prefab\\Player1.pref"
 #define PREFRock L"prefab\\Rock.pref"
 #define PREFSnake L"prefab\\Snake.pref"
 #define PREFTest L"prefab\\Test.pref"

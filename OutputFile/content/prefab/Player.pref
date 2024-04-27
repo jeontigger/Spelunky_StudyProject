@@ -1,8 +1,8 @@
 Player
 0
-760 260 100
+0 0 0
 128 128 1
-0 -3.14159 0
+0 0 0
 1
 1
 0 -0.1 0
@@ -153,5 +153,6 @@ RectMesh
 Std2DMtrl
 1
 15
-1
+2
 CPlayerScript
+CMovement

@@ -20,7 +20,7 @@
 #define TitleBackgroundPrefKey L"prefab\\TitleBackground.pref"
 #define TitleGirlPrefKey L"prefab\\TitleGirl.pref"
 #define TilePrefKey L"prefab\\Tile.pref"
-#define PlayerPrefKey L"prefab\\Player1.pref"
+#define PlayerPrefKey L"prefab\\Player.pref"
 #define WhipPrefKey L"prefab\\Whip.pref"
 #define BombPrefKey L"prefab\\Bomb.pref"
 #define RopePrefKey L"prefab\\Rope.pref"

@@ -18,8 +18,8 @@ CPlayerIdleState::~CPlayerIdleState()
 
 void CPlayerIdleState::finaltick()
 {
-	PlayerKey input = m_PlayerScript->GetInputKeys();
-	MovePriority priority = m_PlayerScript->GetMovePriority();
+	PlayerKey input = m_Script->GetInputKeys();
+	MovePriority priority = m_Script->GetMovePriority();
 
 	// 좌우 움직임
 	if (priority == MovePriority::Left && (KEY_TAP(input.MoveLeft) || KEY_PRESSED(input.MoveLeft))) {
@@ -29,12 +29,20 @@ void CPlayerIdleState::finaltick()
 		ChangeState(StatePlayerWalkRight);
 	}
 
-	if (KEY_TAP(input.Jump)) {
-		ChangeState(StatePlayerJumpUp);
+	// 점프
+	if (KEY_TAP(input.Jump)|| KEY_PRESSED(input.Jump)) {
+		if(m_Script->CanJump())
+			ChangeState(StatePlayerJumpUp);
 	}
 
-	if (!m_PlayerScript->IsGrounded()) {
+	// 낙하
+	if (!m_Script->IsGrounded()) {
 		ChangeState(StatePlayerFallDown);
+	}
+
+	// 수구리기
+	if (KEY_TAP(input.LookDown) || KEY_PRESSED(input.LookDown)) {
+		ChangeState(StatePlayerDown);
 	}
 
 	m_Movement->SetVelocityX(0.f);
@@ -43,12 +51,12 @@ void CPlayerIdleState::finaltick()
 void CPlayerIdleState::Enter()
 {
 	m_Player = (CGameObject*)GetBlackboardData(BBOwnerKey);
-	m_PlayerScript = m_Player->GetScript<CPlayerScript>();
+	m_Script = m_Player->GetScript<CPlayerScript>();
 	m_Movement = m_Player->GetScript<CMovement>();
 
 	m_Player->Animator2D()->Play(AnimPlayerIdle);
 
-	if (m_PlayerScript->IsHandling()) {
+	if (m_Script->IsHandling()) {
 		m_Player->Animator2D()->Play(AnimPlayerHandleIdle);
 	}
 	else {

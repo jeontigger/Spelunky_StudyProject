@@ -18,6 +18,7 @@ private:
 private:
     class CGameObject* m_Player;
     class CPlayerScript* m_Script;
+    class CMovement* m_Movement;
 
     float m_fCameraDown;
     float m_fCameraDownTimer;

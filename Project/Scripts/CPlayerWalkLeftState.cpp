@@ -21,15 +21,15 @@ void CPlayerWalkLeftState::Enter()
 	m_Movement = m_Player->GetScript<CMovement>();
 
 	m_Player->Animator2D()->Play(AnimPlayerWalk);
-	Vec3 vRotation = m_Player->Transform()->GetRelativeRotation();
-	vRotation.y = XM_PI;
-	m_Player->Transform()->SetRelativeRotation(vRotation);
+	m_Script->TurnLeft();
 }
 
 void CPlayerWalkLeftState::finaltick()
 {
-	if (KEY_RELEASED(m_Script->GetInputKeys().MoveLeft)) {
-		if (KEY_PRESSED(m_Script->GetInputKeys().MoveRight)) {
+	auto input = m_Script->GetInputKeys();
+
+	if (KEY_RELEASED(input.MoveLeft)) {
+		if (KEY_PRESSED(input.MoveRight)) {
 			ChangeState(StatePlayerWalkRight);
 		}
 		else {
@@ -37,12 +37,19 @@ void CPlayerWalkLeftState::finaltick()
 		}
 	}
 
-	if (KEY_TAP(m_Script->GetInputKeys().MoveRight)) {
+	if (KEY_TAP(input.MoveRight)) {
 		ChangeState(StatePlayerWalkRight);
 	}
 
-	if (KEY_TAP(m_Script->GetInputKeys().Jump)) {
-		ChangeState(StatePlayerJumpUp);
+	// ³«ÇÏ
+	if (!m_Script->IsGrounded()) {
+		ChangeState(StatePlayerFallDown);
+	}
+
+	// Á¡ÇÁ
+	if (KEY_TAP(input.Jump) || KEY_PRESSED(input.Jump)) {
+		if (m_Script->CanJump())
+			ChangeState(StatePlayerJumpUp);
 	}
 
 	m_Player->GetScript<CMovement>()->SetVelocityX(-m_Script->GetSpeed());
