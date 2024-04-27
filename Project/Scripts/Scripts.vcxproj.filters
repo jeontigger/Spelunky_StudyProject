@@ -169,6 +169,30 @@
     <ClInclude Include="CMovement.h">
       <Filter>02. Scripts\Character</Filter>
     </ClInclude>
+    <ClInclude Include="strAnim.h">
+      <Filter>00. Default\Gen</Filter>
+    </ClInclude>
+    <ClInclude Include="strFx.h">
+      <Filter>00. Default\Gen</Filter>
+    </ClInclude>
+    <ClInclude Include="strLevel.h">
+      <Filter>00. Default\Gen</Filter>
+    </ClInclude>
+    <ClInclude Include="strMtrl.h">
+      <Filter>00. Default\Gen</Filter>
+    </ClInclude>
+    <ClInclude Include="strPref.h">
+      <Filter>00. Default\Gen</Filter>
+    </ClInclude>
+    <ClInclude Include="strSnd.h">
+      <Filter>00. Default\Gen</Filter>
+    </ClInclude>
+    <ClInclude Include="strTex.h">
+      <Filter>00. Default\Gen</Filter>
+    </ClInclude>
+    <ClInclude Include="strTxt.h">
+      <Filter>00. Default\Gen</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -451,6 +475,9 @@
     </Filter>
     <Filter Include="08. States\Snake\Attack">
       <UniqueIdentifier>{47b8a106-ae2d-4ce3-8af0-9cf84b77d91c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00. Default\Gen">
+      <UniqueIdentifier>{cd8f5fd0-384e-4b5d-95c5-98cef8848a4c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

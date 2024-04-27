@@ -216,7 +216,15 @@ call CodeGen.exe</Command>
     <ClInclude Include="math.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="CPlayerIdleState.h" />
+    <ClInclude Include="strAnim.h" />
+    <ClInclude Include="strFx.h" />
     <ClInclude Include="strings.h" />
+    <ClInclude Include="strLevel.h" />
+    <ClInclude Include="strMtrl.h" />
+    <ClInclude Include="strPref.h" />
+    <ClInclude Include="strSnd.h" />
+    <ClInclude Include="strTex.h" />
+    <ClInclude Include="strTxt.h" />
     <ClInclude Include="struct.h" />
     <ClInclude Include="zAxis.h" />
   </ItemGroup>
