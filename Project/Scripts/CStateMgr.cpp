@@ -9,10 +9,11 @@
 #include "CSnakeAttackState.h"
 #include "CPlayerJumpUpState.h"
 #include "CPlayerFallDownState.h"
-#include "CPlayerWalkState.h"
+#include "CPlayerWalkLeftState.h"
 #include "CPlayerThrowState.h"
 #include "CPlayerAttackState.h"
 #include "CPlayerLadderState.h"
+#include "CPlayerWalkRightState.h"
 
 void CStateMgr::GetStateInfo(vector<wstring>& _vec)
 {
@@ -24,10 +25,11 @@ void CStateMgr::GetStateInfo(vector<wstring>& _vec)
 	_vec.push_back(L"CSnakeAttackState");
 	_vec.push_back(L"CPlayerJumpUpState");
 	_vec.push_back(L"CPlayerFallDownState");
-	_vec.push_back(L"CPlayerWalkState");
+	_vec.push_back(L"CPlayerWalkLeftState");
 	_vec.push_back(L"CPlayerThrowState");
 	_vec.push_back(L"CPlayerAttackState");
 	_vec.push_back(L"CPlayerLadderState");
+	_vec.push_back(L"CPlayerWalkRightState");
 }
 
 CState * CStateMgr::GetState(const wstring& _strStateName)
@@ -48,14 +50,16 @@ CState * CStateMgr::GetState(const wstring& _strStateName)
 		return new CPlayerJumpUpState;
 	if (L"CPlayerFallDownState" == _strStateName)
 		return new CPlayerFallDownState;
-	if (L"CPlayerWalkState" == _strStateName)
-		return new CPlayerWalkState;
+	if (L"CPlayerWalkLeftState" == _strStateName)
+		return new CPlayerWalkLeftState;
 	if (L"CPlayerThrowState" == _strStateName)
 		return new CPlayerThrowState;
 	if (L"CPlayerAttackState" == _strStateName)
 		return new CPlayerAttackState;
 	if (L"CPlayerLadderState" == _strStateName)
 		return new CPlayerLadderState;
+	if (L"CPlayerWalkRightState" == _strStateName)
+		return new CPlayerWalkRightState;
 	return nullptr;
 }
 
@@ -87,8 +91,8 @@ CState * CStateMgr::GetState(UINT _iStateType)
 	case (UINT)STATE_TYPE::PLAYERFALLDOWNSTATE:
 		return new CPlayerFallDownState;
 		break;
-	case (UINT)STATE_TYPE::PLAYERWALKSTATE:
-		return new CPlayerWalkState;
+	case (UINT)STATE_TYPE::PLAYERWALKLEFTSTATE:
+		return new CPlayerWalkLeftState;
 		break;
 	case (UINT)STATE_TYPE::PLAYERTHROWSTATE:
 		return new CPlayerThrowState;
@@ -98,6 +102,9 @@ CState * CStateMgr::GetState(UINT _iStateType)
 		break;
 	case (UINT)STATE_TYPE::PLAYERLADDERSTATE:
 		return new CPlayerLadderState;
+		break;
+	case (UINT)STATE_TYPE::PLAYERWALKRIGHTSTATE:
+		return new CPlayerWalkRightState;
 		break;
 	}
 	return nullptr;
@@ -139,8 +146,8 @@ const wchar_t * CStateMgr::GetStateName(CState * _pState)
 		return L"CPlayerFallDownState";
 		break;
 
-	case STATE_TYPE::PLAYERWALKSTATE:
-		return L"CPlayerWalkState";
+	case STATE_TYPE::PLAYERWALKLEFTSTATE:
+		return L"CPlayerWalkLeftState";
 		break;
 
 	case STATE_TYPE::PLAYERTHROWSTATE:
@@ -153,6 +160,10 @@ const wchar_t * CStateMgr::GetStateName(CState * _pState)
 
 	case STATE_TYPE::PLAYERLADDERSTATE:
 		return L"CPlayerLadderState";
+		break;
+
+	case STATE_TYPE::PLAYERWALKRIGHTSTATE:
+		return L"CPlayerWalkRightState";
 		break;
 
 	}

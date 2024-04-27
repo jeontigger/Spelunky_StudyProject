@@ -21,7 +21,7 @@ void CPlayerAttackState::finaltick()
 	{
 		if (m_Script->IsGrounded()) {
 			if (m_Script->IsMoving()) {
-				ChangeState(StatePlayerWalk);
+				ChangeState(StatePlayerWalkLeft);
 			}
 			else {
 				ChangeState(StatePlayerIdle);

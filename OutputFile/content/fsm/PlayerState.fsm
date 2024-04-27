@@ -1,5 +1,5 @@
 fsm\PlayerState.fsm
-9
+10
 CPlayerAttackState
 CPlayerDownState
 CPlayerFallDownState
@@ -8,4 +8,5 @@ CPlayerJumpUpState
 CPlayerLadderState
 CPlayerStartState
 CPlayerThrowState
-CPlayerWalkState
+CPlayerWalkLeftState
+CPlayerWalkRightState

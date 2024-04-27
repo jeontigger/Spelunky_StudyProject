@@ -13,6 +13,9 @@ int main()
 	MakeScriptMgrHeader();
 	MakeScriptMgrCPP();
 
+	MakeStateMgrHeader();
+	MakeStateMgrCPP();
+
 	GetAllContents();
 
 	MakeStrHeader("Project\\Scripts\\strLevel.h", "LEVEL", g_vecLevelNames);

@@ -20,7 +20,7 @@ void CPlayerThrowState::finaltick()
 			ChangeState(StatePlayerFallDown);
 		}
 		if (m_Script->IsMoving()) {
-			ChangeState(StatePlayerWalk);
+			ChangeState(StatePlayerWalkLeft);
 		}
 		else {
 			ChangeState(StatePlayerIdle);

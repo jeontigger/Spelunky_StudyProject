@@ -190,7 +190,8 @@ call CodeGen.exe</Command>
     <ClInclude Include="CPlayerStartState.h" />
     <ClInclude Include="CPlayerDownState.h" />
     <ClInclude Include="CPlayerThrowState.h" />
-    <ClInclude Include="CPlayerWalkState.h" />
+    <ClInclude Include="CPlayerWalkLeftState.h" />
+    <ClInclude Include="CPlayerWalkRightState.h" />
     <ClInclude Include="CRandomMgr.h" />
     <ClInclude Include="CRock.h" />
     <ClInclude Include="CScriptMgr.h" />
@@ -257,7 +258,8 @@ call CodeGen.exe</Command>
     <ClCompile Include="CPlayerStartState.cpp" />
     <ClCompile Include="CPlayerDownState.cpp" />
     <ClCompile Include="CPlayerThrowState.cpp" />
-    <ClCompile Include="CPlayerWalkState.cpp" />
+    <ClCompile Include="CPlayerWalkLeftState.cpp" />
+    <ClCompile Include="CPlayerWalkRightState.cpp" />
     <ClCompile Include="CRandomMgr.cpp" />
     <ClCompile Include="CRock.cpp" />
     <ClCompile Include="CScriptMgr.cpp" />

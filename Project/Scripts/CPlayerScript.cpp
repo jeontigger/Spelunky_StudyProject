@@ -17,7 +17,7 @@ CPlayerScript::CPlayerScript()
 	, m_FrontForce(6.f, 5.f)
 	, m_DownForce(6.f, -2.f)
 {
-	SetSpeed(6.f);
+	SetSpeed(900.f);
 	SetHealth(50);
 }
 

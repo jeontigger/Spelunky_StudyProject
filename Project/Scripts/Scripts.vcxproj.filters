@@ -124,7 +124,7 @@
     <ClInclude Include="CPlayerFallDownState.h">
       <Filter>08. States\Player\Jump</Filter>
     </ClInclude>
-    <ClInclude Include="CPlayerWalkState.h">
+    <ClInclude Include="CPlayerWalkLeftState.h">
       <Filter>08. States\Player\Walk</Filter>
     </ClInclude>
     <ClInclude Include="CPlayerThrowState.h">
@@ -195,6 +195,9 @@
     </ClInclude>
     <ClInclude Include="strState.h">
       <Filter>00. Default\Gen</Filter>
+    </ClInclude>
+    <ClInclude Include="CPlayerWalkRightState.h">
+      <Filter>08. States\Player\Walk</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -306,7 +309,7 @@
     <ClCompile Include="CPlayerFallDownState.cpp">
       <Filter>08. States\Player\Jump</Filter>
     </ClCompile>
-    <ClCompile Include="CPlayerWalkState.cpp">
+    <ClCompile Include="CPlayerWalkLeftState.cpp">
       <Filter>08. States\Player\Walk</Filter>
     </ClCompile>
     <ClCompile Include="CPlayerThrowState.cpp">
@@ -350,6 +353,9 @@
     </ClCompile>
     <ClCompile Include="CMovement.cpp">
       <Filter>02. Scripts\Character</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlayerWalkRightState.cpp">
+      <Filter>08. States\Player\Walk</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

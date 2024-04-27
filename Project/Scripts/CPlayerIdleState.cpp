@@ -21,11 +21,11 @@ void CPlayerIdleState::finaltick()
 	PlayerKey input = m_PlayerScript->GetInputKeys();
 
 	if (KEY_TAP(input.MoveLeft)) {
-		ChangeState(StatePlayerWalk);
+		ChangeState(StatePlayerWalkLeft);
 	}
 
 	if (KEY_TAP(input.MoveRight)) {
-		ChangeState(StatePlayerWalk);
+		ChangeState(StatePlayerWalkRight);
 	}
 
 	m_Movement->SetVelocityX(0.f);

@@ -116,7 +116,6 @@
 #define StatePlayerDown L"CPlayerDownState"
 #define StatePlayerJumpUp L"CPlayerJumpUpState"
 #define StatePlayerFallDown L"CPlayerFallDownState"
-#define StatePlayerWalk L"CPlayerWalkState"
 #define StatePlayerThrow L"CPlayerThrowState"
 #define StatePlayerAttack L"CPlayerAttackState"
 #define StatePlayerLadder L"CPlayerLadderState"
