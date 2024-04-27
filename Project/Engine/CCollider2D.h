@@ -21,6 +21,8 @@ public:
 private:
     Vec3            m_vOffsetPos;
     Vec3            m_vOffsetScale;
+    Vec3    m_PrevFinalPos;
+    Vec3    m_FinalPos; // 충돌체의 최종 위치 ( Object Position + Collider offset )
     int             m_CollisionCount;   // 다른 충돌체와 충돌중인 횟수
     float m_fRadius;
     bool            m_bAbsolute;
@@ -39,6 +41,9 @@ public:
     bool IsAbsolute() { return m_bAbsolute; }
     Vec2 GetOffsetPos() { return Vec2(m_vOffsetPos.x, m_vOffsetPos.y); }
     Vec2 GetOffsetScale() { return Vec2(m_vOffsetScale.x, m_vOffsetScale.y); }
+    Vec2 GetFinalScale();
+    Vec3 GetPrevFinalPos() { return m_PrevFinalPos; }
+    Vec3 GetFinalPos() { return m_FinalPos; }
 
     Vec2 GetRelativePos();
     Vec2 GetRelativeScale();

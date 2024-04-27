@@ -33,6 +33,18 @@ CCollider2D::~CCollider2D()
 {
 }
 
+Vec2 CCollider2D::GetFinalScale()
+{
+	Vec3 vScale;
+	if (m_bAbsolute) {
+		vScale = m_vOffsetScale;
+	}
+	else {
+		vScale = Transform()->GetWorldScale()* m_vOffsetScale;
+	}
+	return Vec2(vScale.x, vScale.y);
+}
+
 Vec2 CCollider2D::GetRelativePos()
 {
 	Vec3 ownerScale = Transform()->GetRelativeScale();
@@ -47,6 +59,13 @@ Vec2 CCollider2D::GetRelativeScale()
 
 void CCollider2D::finaltick()
 {
+	if (!m_bActive) return;
+
+	// 최종 위치값을 계산
+	Vec3 vObjPos = Transform()->GetRelativePos();
+	m_PrevFinalPos = m_FinalPos;
+	m_FinalPos = vObjPos + m_vOffsetPos;
+
 	// 충돌체의 로컬 행렬 계산
 	m_matColWorld = XMMatrixScaling(m_vOffsetScale.x, m_vOffsetScale.y, m_vOffsetScale.z);
 	m_matColWorld *= XMMatrixTranslation(m_vOffsetPos.x, m_vOffsetPos.y, m_vOffsetPos.z);
