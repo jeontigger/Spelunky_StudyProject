@@ -32,7 +32,6 @@ void CPlayerJumpUpState::Enter()
 
 	// 점프 추진력 추가
 	m_Script->SetVelocity(Vec2(0.f, m_fJumpInitSpeed));
-	m_Script->ClearGround();
 
 	m_fJumpTimer = m_fJumpMaxTime;
 }

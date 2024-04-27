@@ -25,7 +25,6 @@ void CItem::PutDown()
 	GetOwner()->Transform()->SetRelativePos(pos);
 	SetVelocity(Vec2(0, 0));
 	m_PlayerScript = nullptr;
-	m_bGround = 0;
 	m_vPrevPos = pos;
 }
 
@@ -90,7 +89,6 @@ void CItem::BeginOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCollid
 
 					Transform()->SetRelativePos(vPos);
 
-					m_bGround++;
 				}
 				
 			}

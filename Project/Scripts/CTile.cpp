@@ -46,6 +46,7 @@ void CTile::SetTileType(TileType type)
 	GetOwner()->DMtrlSetScalar(INT_2, (int)pos.y);
 }
 
+
 void CTile::tick()
 {
 	static TileType prev = m_type;
@@ -114,20 +115,130 @@ void CTile::begin()
 }
 
 #include "CFieldObject.h"
-#include "CPlayerScript.h"
+#include "CMovement.h"
 
 void CTile::BeginOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCollider2D* _OtherCollider) {
-	CFieldObject::BeginOverlap(_Collider, _OtherObj, _OtherCollider);
 
-	if (m_type == TileType::ExitDoor) {
-		auto player = _OtherObj->GetScript<CPlayerScript>();
-		if (player) {
-			
+	auto fieldobjScript = _OtherObj->GetScript<CFieldObject>();
+	auto movementScript = _OtherObj->GetScript<CMovement>();
+
+	if (!fieldobjScript || !movementScript) return;
+
+	// Platform 
+	Vec3 TileColPos;
+	Vec2 TileColScale;
+	Vec2 TileLT, TileRB;
+	TileColPos = _Collider->GetFinalPos();
+	TileColScale = _Collider->GetFinalScale();
+
+	TileLT = Vec2(TileColPos.x - TileColScale.x / 2.f, TileColPos.y + TileColScale.y / 2.f);
+	TileRB = Vec2(TileColPos.x + TileColScale.x / 2.f, TileColPos.y - TileColScale.y / 2.f);
+
+	// Object
+	Vec3 ObjColPos;
+	Vec3 ObjPrevPos;
+	Vec2 ObjColScale;
+
+	// Object Collider의 PrevPos
+	ObjPrevPos = _OtherObj->Collider2D()->GetPrevFinalPos();
+	ObjColPos = _OtherCollider->GetFinalPos();
+	ObjColScale = _OtherCollider->GetFinalScale();
+
+	MovementDir ObjDir = movementScript->GetDir();
+
+	// 위에서 아래로 충돌
+	if ((ObjDir & (MovementDir)MoveDir::DOWN) && TileLT.y < ObjPrevPos.y - ObjColScale.y / 2.f)
+	{
+		UpCollision(_OtherObj, TileLT.y, ObjColScale.y);
+	}
+	// 아래서 위로 충돌
+	else if ((ObjDir & (MovementDir)MoveDir::UP) && TileRB.y >= ObjPrevPos.y + ObjColScale.y / 2.f)
+	{
+		DownCollision(_OtherObj, TileRB.y, ObjColScale.y);
+	}
+	else
+	{
+		// 허용 범위안에서 플랫폼을 넘어갈 때
+		if ((TileLT.y - m_PermitRange < ObjPrevPos.y - ObjColScale.y / 2.f) && (TileLT.y + m_PermitRange > ObjPrevPos.y - ObjColScale.y / 2.f))
+		{
+			UpCollision(_OtherObj, TileLT.y, ObjColScale.y);
+		}
+		else
+		{
+			// Left 충돌
+			if ((ObjDir & (MovementDir)MoveDir::RIGHT) && TileLT.x >= ObjPrevPos.x + ObjColScale.x / 2.f)
+			{
+				LeftCollision(_OtherObj, TileLT.x, ObjColScale.x);
+			}
+			// Right 충돌
+			else if ((ObjDir & (MovementDir)MoveDir::LEFT) && TileRB.x <= ObjPrevPos.x - ObjColScale.x / 2.f)
+			{
+				RightCollision(_OtherObj, TileRB.x, ObjColScale.x);
+			}
 		}
 	}
+
 }
 
+void CTile::Overlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCollider2D* _OtherCollider)
+{
+	auto fieldobjScript = _OtherObj->GetScript<CFieldObject>();
+	auto movementScript = _OtherObj->GetScript<CMovement>();
+
+	if (!fieldobjScript || !movementScript) return;
+
+	// Platform 
+	Vec3 TileColPos;
+	Vec2 TileColScale;
+	Vec2 TileLT, TileRB;
+	TileColPos = _Collider->GetFinalPos();
+	TileColScale = _Collider->GetFinalScale();
+
+	TileLT = Vec2(TileColPos.x - TileColScale.x / 2.f, TileColPos.y + TileColScale.y / 2.f);
+	TileRB = Vec2(TileColPos.x + TileColScale.x / 2.f, TileColPos.y - TileColScale.y / 2.f);
+
+	// Object
+	Vec3 ObjColPos;
+	Vec3 ObjPrevPos;
+	Vec2 ObjColScale;
+
+	// Object Collider의 PrevPos
+	ObjPrevPos = _OtherObj->Collider2D()->GetPrevFinalPos();
+	ObjColPos = _OtherCollider->GetFinalPos();
+	ObjColScale = _OtherCollider->GetFinalScale();
+
+	MovementDir ObjDir = movementScript->GetDir();
+
+	// 아래서 위 충돌
+	if ((ObjDir & (MovementDir)MoveDir::UP) && TileRB.y >= ObjPrevPos.y + ObjColScale.y / 2.f)
+	{
+		DownCollision(_OtherObj, TileRB.y, ObjColScale.y);
+	}
+
+	// Left 충돌
+	if ((ObjDir & (MovementDir)MoveDir::RIGHT) && TileLT.x >= ObjPrevPos.x + ObjColScale.x / 2.f)
+	{
+		LeftCollision(_OtherObj, TileLT.x, ObjColScale.x);
+	}
+	// Right 충돌
+	else if ((ObjDir & (MovementDir)MoveDir::LEFT) && TileRB.x <= ObjPrevPos.x - ObjColScale.x / 2.f)
+	{
+		RightCollision(_OtherObj, TileRB.x, ObjColScale.x);
+	}
+}
 void CTile::EndOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCollider2D* _OtherCollider) {
+
+	auto fieldobjScript = _OtherObj->GetScript<CFieldObject>();
+	auto movementScript = _OtherObj->GetScript<CMovement>();
+
+	if (!fieldobjScript || !movementScript) return;
+
+	fieldobjScript->SubOverlapGround(GetOwner());
+
+	if (!fieldobjScript->IsGrounded())
+	{
+		movementScript->SetGround(false);
+	}
 }
 
 Vec2 CTile::TypeToPos(TileType type)
@@ -173,4 +284,56 @@ Vec2 CTile::TypeToPos(TileType type)
 	default:
 		break;
 	}
+}
+
+void CTile::UpCollision(CGameObject* _Obj, float _PlatformTop, float _ObjColScaleY)
+{
+	float NewY = _PlatformTop + _ObjColScaleY / 2.f;
+	NewY -= _Obj->Collider2D()->GetOffsetPos().y;
+
+	Vec3 ObjPos = _Obj->Transform()->GetRelativePos();
+	ObjPos.y = NewY;
+
+	_Obj->Transform()->SetRelativePos(ObjPos);
+
+	CFieldObject* FieldObjectScript = _Obj->GetScript<CFieldObject>();
+	FieldObjectScript->AddOverlapGround(GetOwner());
+
+	if (FieldObjectScript->IsGrounded())
+	{
+		_Obj->GetScript<CMovement>()->SetGround(true);
+	}
+}
+
+void CTile::DownCollision(CGameObject* _Obj, float _PlatformBottom, float _ObjColScaleY)
+{
+	float NewY = _PlatformBottom - _ObjColScaleY / 2.f;
+	NewY -= _Obj->Collider2D()->GetOffsetPos().y;
+
+	Vec3 ObjPos = _Obj->Transform()->GetRelativePos();
+	ObjPos.y = NewY;
+
+	_Obj->Transform()->SetRelativePos(ObjPos);
+}
+
+void CTile::LeftCollision(CGameObject* _Obj, float _PlatformLeft, float _ObjColScaleX)
+{
+	float NewX = _PlatformLeft - _ObjColScaleX / 2.f;
+	NewX -= _Obj->Collider2D()->GetOffsetPos().x;
+
+	Vec3 ObjPos = _Obj->Transform()->GetRelativePos();
+	ObjPos.x = NewX;
+
+	_Obj->Transform()->SetRelativePos(ObjPos);
+}
+
+void CTile::RightCollision(CGameObject* _Obj, float _PlatformRight, float _ObjColScaleX)
+{
+	float NewX = _PlatformRight + _ObjColScaleX / 2.f;
+	NewX -= _Obj->Collider2D()->GetOffsetPos().x;
+
+	Vec3 ObjPos = _Obj->Transform()->GetRelativePos();
+	ObjPos.x = NewX;
+
+	_Obj->Transform()->SetRelativePos(ObjPos);
 }

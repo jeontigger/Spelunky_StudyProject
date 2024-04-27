@@ -79,7 +79,6 @@ void CWhip::BeginOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCollid
 {
 	auto script = _OtherObj->GetScript<CFieldObject>();
 	if (script) {
-		script->ClearGround();
 		if (GetOwner()->GetParent()->GetScript<CPlayerScript>()->IsLookRight()) {
 			script->AddVelocity(Vec2(3.f, 3.f));
 		}

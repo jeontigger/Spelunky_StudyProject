@@ -41,7 +41,6 @@ void CPlayerHitCollider::BeginOverlap(CCollider2D* _Collider, CGameObject* _Othe
 		else {
 			playerScript->AddVelocity(Vec2(-5.f, 3.f));
 		}
-		playerScript->ClearGround();
 		playerScript->Hit(script->GetDamage());
 
 	}

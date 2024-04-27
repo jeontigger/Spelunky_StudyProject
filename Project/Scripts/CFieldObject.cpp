@@ -9,7 +9,6 @@ CFieldObject::CFieldObject(UINT type)
 	, m_bUseGravity(true)
 	, m_fMass(1.f)
 	, isPlayer(false)
-	, m_bGround(false)
 	, m_fAirFriction(3.f)
 	, m_fGroundFriction(8.f)
 	, m_bUseVelocityX(true)
@@ -35,6 +34,28 @@ void CFieldObject::AddGravity()
 	}
 
 
+}
+
+void CFieldObject::AddOverlapGround(CGameObject* _pObejct)
+{
+	m_Ground.push_back(_pObejct);
+}
+
+void CFieldObject::SubOverlapGround(CGameObject* _pObejct)
+{
+	auto iter = m_Ground.begin();
+
+	for (; iter != m_Ground.end();)
+	{
+		if (*iter == _pObejct)
+		{
+			iter = m_Ground.erase(iter);
+		}
+		else
+		{
+			++iter;
+		}
+	}
 }
 
 void CFieldObject::tick()
@@ -89,228 +110,23 @@ void CFieldObject::begin()
 	Vec2 ColliderCenterPos = Collider2D()->GetRelativePos();
 	Vec2 ColliderScale = Collider2D()->GetRelativeScale();
 
-	AddScriptParam(SCRIPT_PARAM::INT, "ground", &m_bGround);
 }
 
 void CFieldObject::skill(Vec2 _force)
 {
-	ClearGround();
 	SetVelocity(_force);
 }
 
-#include "CTile.h"
-#include "CCharacterScript.h"
-#include "CItem.h"
-
 void CFieldObject::BeginOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCollider2D* _OtherCollider)
 {
-	auto owner = GetOwner()->GetScript<CItem>();
-	auto script = _OtherObj->GetScript<CFieldObject>();
-	if (script && owner) {
-		if (GetVelocity().Length() > 20.f) {
-			auto character = _OtherObj->GetScript<CCharacterScript>();
-			if (character) {
-				character->Hit(1);
-			}
-		}
-	}
-
-	auto tile = _OtherObj->GetScript<CTile>();
-	bool outline = _OtherObj->GetName() == OutlineWallName;
-	if (tile|| outline) {
-		TileType type;
-		if (tile) {
-			 type= tile->GetTileType();
-			if (type == TileType::Door || type == TileType::Ladder || type == TileType::ExitDoor || type == TileType::Spike) return;
-		}
-		
-		// 위에서 떨어지는 거라면
-		Vec3 vObjPos = Transform()->GetRelativePos();
-		Vec3 vel = vObjPos - m_vPrevPos;
-		Vec3 vObjColPos = Transform()->GetRelativePos() + Vec3(Collider2D()->GetOffsetPos().x, Collider2D()->GetOffsetPos().y, 0) * Transform()->GetRelativeScale();
-		Vec3 vObjColScale = _Collider->GetColliderWorldMat().Scale();
-
-		Vec3 vTilePos = _OtherCollider->GetColliderWorldMat().Pos();
-		Vec3 vTileScale = _OtherCollider->GetColliderWorldMat().Scale();
-			// 위로 올려주기
-		if ((vObjColPos.y - vObjColScale.y / 2.f > vTilePos.y + vTileScale.y / 4.f)) {			
-			// 옆에서 미끄러지는거라면
-			float right_x = abs(vObjColPos.x - vTilePos.x - (vTileScale.x + abs(vObjColScale.x)) / 2.f);
-			float left_x = abs(vTilePos.x - vObjColPos.x - (vTileScale.x + vObjColScale.x) / 2.f);
-			if ((right_x < 5.0f || left_x < 5.0f)&& abs(vel.y) >8.f) {
-				return;
-			}
-			// 윗면에 섬
-			if (vel.y <= 0) {
-				// 컬라이더 위치
-				Vec3 vColPos = vObjColPos;
-				vColPos.y = vTilePos.y + (vTileScale.y + vObjColScale.y) / 2.f;
-
-				// 캐릭터와 컬라이더 위치 차이 계산 후 캐릭터 위치 조정
-				Vec3 vPos = vColPos - Vec3(_Collider->GetOffsetPos().x, _Collider->GetOffsetPos().y, 0) * Transform()->GetRelativeScale();
-				
-				Transform()->SetRelativePos(vPos);
-
-				m_bGround++;
-			}
-		}		
-		// 머리 박는거면
-		else if (vObjColPos.y + vObjColScale.y / 2.f < vTilePos.y - vTileScale.y / 4.f) {
-			if(tile)
-				if (type == TileType::Half || type == TileType::LadderHalf) return;
-			// 옆에서 미끄러지는거라면
-			float right_x = abs(vObjColPos.x - vTilePos.x - (vTileScale.x + abs(vObjColScale.x)) / 2.f);
-			float left_x = abs(vTilePos.x - vObjColPos.x - (vTileScale.x + vObjColScale.x) / 2.f);
-			if (right_x < 5.0f || left_x < 5.0f) {
-				return;
-			}
-			if (vel.y >= 0) {
-				vel.y = -abs(vel.y);
-				SetVelocity(Vec2(vel.x, vel.y));
-				Vec3 vColPos = vObjColPos;
-				vColPos.y = vTilePos.y - (vTileScale.y + abs(vObjColScale.y)) / 2.f;
-				Vec3 vPos = vColPos + Vec3(_Collider->GetOffsetPos().x, _Collider->GetOffsetPos().y, 0) * Transform()->GetRelativeScale();
-				Transform()->SetRelativePos(vPos);
-			}
-		}
-		// 옆면 충돌
-		else {
-			if(tile)
-				if (type == TileType::Half || type == TileType::LadderHalf) return;
-
-			// 오브젝트가 왼쪽이라면
-			if (vObjColPos.x < vTilePos.x) {
-				Vec3 vColPos = vObjColPos;
-
-				vColPos.x = vTilePos.x - (vTileScale.x + vObjColScale.x) / 2.f;
-				// 캐릭터와 컬라이더 위치 차이 계산 후 캐릭터 위치 조정
-				Vec3 vPos = vColPos - Vec3(_Collider->GetOffsetPos().x, _Collider->GetOffsetPos().y, 0) * Transform()->GetRelativeScale();
-				Transform()->SetRelativePos(vPos);
-			}
-			else {
-				Vec3 vColPos = vObjColPos;
-				vColPos.x = vTilePos.x + (vTileScale.x + abs(vObjColScale.x)) / 2.f;
-				// 캐릭터와 컬라이더 위치 차이 계산 후 캐릭터 위치 조정
-				Vec3 vPos = vColPos - Vec3(_Collider->GetOffsetPos().x, _Collider->GetOffsetPos().y, 0) * Transform()->GetRelativeScale();
-				Transform()->SetRelativePos(vPos);
-			}
-		}
-	}
+	
 }
 
-#include "CPlayerScript.h"
 void CFieldObject::Overlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCollider2D* _OtherCollider) {
-	auto tile = _OtherObj->GetScript<CTile>();
-	bool outline = _OtherObj->GetName() == OutlineWallName;
-	if (tile || outline) {
-		TileType type;
-		if (tile) {
-			type = tile->GetTileType();
-			if (type == TileType::Door || type == TileType::Ladder || type == TileType::ExitDoor || type == TileType::Spike) return;
-		}
-		Vec3 vObjPos = Transform()->GetRelativePos();
-		Vec3 vel = vObjPos - m_vPrevPos;
-
-		Vec3 vObjColPos = Transform()->GetRelativePos() + Vec3(Collider2D()->GetOffsetPos().x, Collider2D()->GetOffsetPos().y, 0) * Transform()->GetRelativeScale();
-		Vec3 vObjColScale = _Collider->GetColliderWorldMat().Scale();
-		Vec3 vTilePos = _OtherCollider->GetColliderWorldMat().Pos();
-		Vec3 vTileScale = _OtherCollider->GetColliderWorldMat().Scale();
-		// 위에서 떨어진다면
-		if ((vObjColPos.y - vObjColScale.y / 2.f > vTilePos.y + vTileScale.y / 4.f)) {
-			// 옆에서 미끄러지는거라면
-			float right_x = abs(vObjColPos.x - vTilePos.x - (vTileScale.x + abs(vObjColScale.x)) / 2.f);
-			float left_x = abs(vTilePos.x - vObjColPos.x - (vTileScale.x + vObjColScale.x) / 2.f);
-			if ((right_x < 5.0f || left_x < 5.0f) && abs(vel.y) > 8.f) {
-				return;
-			}
-			// 윗면을 밟음
-			if (vel.y <= 0) {
-				Vec3 vColPos = vObjColPos;
-				vColPos.y = vTilePos.y + (vTileScale.y + vObjColScale.y) / 2.f;
-
-				// 캐릭터와 컬라이더 위치 차이 계산 후 캐릭터 위치 조정
-				Vec3 vPos = vColPos - Vec3(_Collider->GetOffsetPos().x, _Collider->GetOffsetPos().y, 0) * Transform()->GetRelativeScale();
-				Transform()->SetRelativePos(vPos);
-				m_iTileCnt++;
-			}
-		}
-		// 머리 박는거면
-		else if (vObjColPos.y + vObjColScale.y / 2.f < vTilePos.y - vTileScale.y / 4.f) {
-			if(tile)
-				if (type == TileType::Half || type == TileType::LadderHalf) return;
-			// 옆에서 미끄러지는거라면
-			float right_x = abs(vObjColPos.x - vTilePos.x - (vTileScale.x + abs(vObjColScale.x)) / 2.f);
-			float left_x = abs(vTilePos.x - vObjColPos.x - (vTileScale.x + vObjColScale.x) / 2.f);
-			if ((right_x < 5.0f || left_x < 5.0f) && abs(vel.y) > 8.f) {
-				return;
-			}
-			if (vel.y >= 0) {
-				Vec3 vColPos = vObjColPos;
-				vColPos.y = vTilePos.y - (vTileScale.y + vObjColPos.y) / 2.f;
-				Vec3 vPos = vColPos - Vec3(_Collider->GetOffsetPos().x, _Collider->GetOffsetPos().y, 0) * Transform()->GetRelativeScale();
-				Transform()->SetRelativePos(vPos);
-			}
-		}
-		// 옆에서 부딪힌다면
-		else{
-			if(tile)
-				if (type == TileType::Half || type == TileType::LadderHalf) return;
-			// 오브젝트가 왼쪽이라면
-			if (vObjColPos.x < vTilePos.x) {
-				Vec3 vColPos = vObjColPos;
-
-				vColPos.x = vTilePos.x - (vTileScale.x + vObjColScale.x) / 2.f;
-				// 캐릭터와 컬라이더 위치 차이 계산 후 캐릭터 위치 조정
-				Vec3 vPos = vColPos - Vec3(_Collider->GetOffsetPos().x, _Collider->GetOffsetPos().y, 0) * Transform()->GetRelativeScale();
-				Transform()->SetRelativePos(vPos);
-			}
-			else {
-				Vec3 vColPos = vObjColPos;
-				vColPos.x = vTilePos.x + (vTileScale.x + abs(vObjColScale.x)) / 2.f;
-				// 캐릭터와 컬라이더 위치 차이 계산 후 캐릭터 위치 조정
-				Vec3 vPos = vColPos - Vec3(_Collider->GetOffsetPos().x, _Collider->GetOffsetPos().y, 0) * Transform()->GetRelativeScale();
-				Transform()->SetRelativePos(vPos);
-			}
-		}
-	}
+	
 }
 
 
 void CFieldObject::EndOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCollider2D* _OtherCollider) {
-	auto tile = _OtherObj->GetScript<CTile>();
-	bool outline = _OtherObj->GetName() == OutlineWallName;
-	if (tile || outline) {
-		TileType type;
-		if (tile) {
-			TileType type = tile->GetTileType();
-			if (type == TileType::Door || type == TileType::Ladder || type == TileType::ExitDoor || type == TileType::Spike) return;
-		}
-
-		Vec3 vObjPos = Transform()->GetRelativePos();
-		Vec3 vel = vObjPos - m_vPrevPos;
-
-		Vec3 vObjColPos = _Collider->GetColliderWorldMat().Pos();
-		Vec3 vObjColScale = _Collider->GetColliderWorldMat().Scale();
-		Vec3 vTilePos = _OtherCollider->GetColliderWorldMat().Pos();
-		Vec3 vTileScale = _OtherCollider->GetColliderWorldMat().Scale();
-		
-		// 위에서 떨어진다면
-		if ((vObjColPos.y - vObjColScale.y / 2.f > vTilePos.y + vTileScale.y / 4.f)) {
-			// 옆에서 미끄러지는거라면
-			float right_x = abs(vObjColPos.x - vTilePos.x - (vTileScale.x + abs(vObjColScale.x)) / 2.f);
-			float left_x = abs(vTilePos.x - vObjColPos.x - (vTileScale.x + vObjColScale.x) / 2.f);
-			if ((right_x < 5.0f || left_x < 5.0f) && abs(vel.y) > 8.f) {
-				return;
-			}
-			// 윗면을 밟음
-			if (IsGrounded()) {
-				if (m_iTileCnt == 0) {
-					SetGround(false);
-				}
-				else {
-					m_bGround--;
-				}
-			}
-		}
-	}
+	
 }

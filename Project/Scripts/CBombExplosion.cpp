@@ -63,7 +63,6 @@ void CBombExplosion::BeginOverlap(CCollider2D* _Collider, CGameObject* _OtherObj
 		vDir.Normalize();
 
 		Vec2 Force = vDir * m_fForce *  (_Collider->GetRadius() - distance);
-		script->ClearGround();
 		script->AddVelocity(Force);
 	}
 }
