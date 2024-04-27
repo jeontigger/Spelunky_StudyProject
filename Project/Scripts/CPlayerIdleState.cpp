@@ -19,13 +19,22 @@ CPlayerIdleState::~CPlayerIdleState()
 void CPlayerIdleState::finaltick()
 {
 	PlayerKey input = m_PlayerScript->GetInputKeys();
+	MovePriority priority = m_PlayerScript->GetMovePriority();
 
-	if (KEY_TAP(input.MoveLeft)) {
+	// ÁÂ¿ì ¿òÁ÷ÀÓ
+	if (priority == MovePriority::Left && (KEY_TAP(input.MoveLeft) || KEY_PRESSED(input.MoveLeft))) {
 		ChangeState(StatePlayerWalkLeft);
 	}
-
-	if (KEY_TAP(input.MoveRight)) {
+	else if (priority == MovePriority::Right && (KEY_TAP(input.MoveRight) || KEY_PRESSED(input.MoveRight))) {
 		ChangeState(StatePlayerWalkRight);
+	}
+
+	if (KEY_TAP(input.Jump)) {
+		ChangeState(StatePlayerJumpUp);
+	}
+
+	if (!m_PlayerScript->IsGrounded()) {
+		ChangeState(StatePlayerFallDown);
 	}
 
 	m_Movement->SetVelocityX(0.f);

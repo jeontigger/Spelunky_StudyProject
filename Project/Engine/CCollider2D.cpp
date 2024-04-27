@@ -35,11 +35,8 @@ CCollider2D::~CCollider2D()
 
 Vec2 CCollider2D::GetFinalScale()
 {
-	Vec3 vScale;
-	if (m_bAbsolute) {
-		vScale = m_vOffsetScale;
-	}
-	else {
+	Vec3 vScale = m_vOffsetScale;
+	if (!m_bAbsolute) {
 		vScale = Transform()->GetWorldScale()* m_vOffsetScale;
 	}
 	return Vec2(vScale.x, vScale.y);

@@ -194,6 +194,25 @@ void CPlayerScript::begin()
 void CPlayerScript::tick()
 {
 	CCharacterScript::tick();
+
+	if (KEY_NONE(GetInputKeys().MoveLeft) && KEY_NONE(GetInputKeys().MoveRight)) {
+		m_MovePriority = MovePriority::None;
+	}
+
+	if (KEY_TAP(GetInputKeys().MoveLeft)) {
+		m_MovePriority = MovePriority::Left;
+	}
+	if (KEY_TAP(GetInputKeys().MoveRight)) {
+		m_MovePriority = MovePriority::Right;
+	}
+
+	if (KEY_RELEASED(GetInputKeys().MoveLeft) && KEY_PRESSED(GetInputKeys().MoveRight)) {
+		m_MovePriority = MovePriority::Right;
+	}
+	if (KEY_RELEASED(GetInputKeys().MoveRight) && KEY_PRESSED(GetInputKeys().MoveLeft)) {
+		m_MovePriority = MovePriority::Left;
+	}
+
 	*(float*)StateMachine()->GetBlackboardData(BBJumpDelay) -= DT;
 
 	if (!m_HitCollider->Collider2D()->IsActivate()) {

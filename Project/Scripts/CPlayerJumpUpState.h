@@ -8,6 +8,7 @@ class CPlayerJumpUpState
 private:
 	class CGameObject* m_Player;
 	class CPlayerScript* m_Script;
+	class CMovement* m_Movement;
 
 private:
 	float m_fJumpInitSpeed;

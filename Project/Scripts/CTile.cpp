@@ -151,7 +151,21 @@ void CTile::BeginOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCollid
 	// 위에서 아래로 충돌
 	if ((ObjDir & (MovementDir)MoveDir::DOWN) && TileLT.y < ObjPrevPos.y - ObjColScale.y / 2.f)
 	{
-		UpCollision(_OtherObj, TileLT.y, ObjColScale.y);
+		if ((abs(TileLT.x - (ObjPrevPos.x + ObjColScale.x / 2.f)) < 1.f) || (abs(TileRB.x - (ObjPrevPos.x - ObjColScale.x / 2.f)) < 1.f)) {
+			// Left 충돌
+			if ( TileLT.x >= ObjPrevPos.x + ObjColScale.x / 2.f)
+			{
+				LeftCollision(_OtherObj, TileLT.x, ObjColScale.x);
+			}
+			// Right 충돌
+			else if ((ObjDir & (MovementDir)MoveDir::LEFT) && TileRB.x <= ObjPrevPos.x - ObjColScale.x / 2.f)
+			{
+				RightCollision(_OtherObj, TileRB.x, ObjColScale.x);
+			}
+		}
+		else {
+			UpCollision(_OtherObj, TileLT.y, ObjColScale.y);
+		}
 	}
 	// 아래서 위로 충돌
 	else if ((ObjDir & (MovementDir)MoveDir::UP) && TileRB.y >= ObjPrevPos.y + ObjColScale.y / 2.f)

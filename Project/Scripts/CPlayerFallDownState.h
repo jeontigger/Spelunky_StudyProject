@@ -6,6 +6,7 @@ class CPlayerFallDownState :
 private:
     class CGameObject* m_Player;
     class CPlayerScript* m_Script;
+    class CMovement* m_Movement;
 
 public:
     virtual void Enter() override;

@@ -41,6 +41,10 @@ void CPlayerWalkLeftState::finaltick()
 		ChangeState(StatePlayerWalkRight);
 	}
 
+	if (KEY_TAP(m_Script->GetInputKeys().Jump)) {
+		ChangeState(StatePlayerJumpUp);
+	}
+
 	m_Player->GetScript<CMovement>()->SetVelocityX(-m_Script->GetSpeed());
 }
 

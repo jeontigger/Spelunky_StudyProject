@@ -2,6 +2,13 @@
 
 #include "CCharacterScript.h"
 
+enum class MovePriority {
+    None,
+    Left,
+    Right,
+    END,
+};
+
 class CPlayerScript :
     public CCharacterScript
 {
@@ -19,6 +26,7 @@ private:
     class CWhip* m_Whip;
 
     PlayerKey InputKey;
+    MovePriority m_MovePriority;
 
     Vec3 m_vPrevPos;
     Vec3 m_vCurPos;
@@ -48,6 +56,7 @@ public:
 
 public:
     bool IsMoving();
+    MovePriority GetMovePriority() { return m_MovePriority; }
     bool IsHandling();
     Vec3 GetItemSocketPos();
     bool DetectLadder();

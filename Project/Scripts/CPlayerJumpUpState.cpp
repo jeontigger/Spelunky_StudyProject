@@ -3,13 +3,14 @@
 
 #include <Engine/CGameObject.h>
 #include "CPlayerScript.h"
+#include "CMovement.h"
 
 CPlayerJumpUpState::CPlayerJumpUpState()
 	: CState((UINT)STATE_TYPE::PLAYERJUMPUPSTATE)
 	, m_fJumpDelayTime(0.5f)
-	, m_fJumpInitSpeed(8.7f)
-	, m_fJumpMaxTime(0.3f)
-	, m_fJumpWeightSpeed(4.5f)
+	, m_fJumpInitSpeed(800.7f)
+	, m_fJumpMaxTime(.3f)
+	, m_fJumpWeightSpeed(800.5f)
 {
 }
 
@@ -22,6 +23,7 @@ void CPlayerJumpUpState::Enter()
 	// 멤버변수 갱신
 	m_Player = (CGameObject*)GetBlackboardData(BBOwnerKey);
 	m_Script = m_Player->GetScript<CPlayerScript>();
+	m_Movement = m_Player->GetScript<CMovement>();
 
 	// 애니메이션 출력
 	m_Player->Animator2D()->Play(AnimPlayerJumpUp, false);
@@ -31,49 +33,36 @@ void CPlayerJumpUpState::Enter()
 	*(float*)GetBlackboardData(BBJumpDelay) = m_fJumpDelayTime;
 
 	// 점프 추진력 추가
-	//m_Script->SetVelocity(Vec2(0.f, m_fJumpInitSpeed));
+	m_Movement->SetVelocityY(m_fJumpInitSpeed);
 
-	m_fJumpTimer = m_fJumpMaxTime;
 }
 
 void CPlayerJumpUpState::finaltick()
 {
+	m_Movement->SetVelocityX(0);
+
+	auto input = m_Script->GetInputKeys();
+
 	if (m_fJumpTimer > 0) {
-		//m_Script->AddVelocity(Vec2(0.f, m_fJumpWeightSpeed * DT));
+		if (KEY_PRESSED(input.Jump)) {
+			m_Movement->AddForce(Vec3(0, m_fJumpWeightSpeed, 0));
+		}
 	}
 	else {
 		ChangeState(StatePlayerFallDown);
 	}
 
-	if (KEY_TAP(m_Script->GetInputKeys().Bomb)) {
-		m_Script->Bomb();
+	// 좌우 움직임
+	MovePriority priority = m_Script->GetMovePriority();
+	if (priority == MovePriority::Left && (KEY_TAP(input.MoveLeft) || KEY_PRESSED(input.MoveLeft))) {
+		m_Movement->SetVelocityX(-m_Script->GetSpeed());
 	}
-
-	// 사다리 타기
-	if (KEY_PRESSED(m_Script->GetInputKeys().LookUp)) {
-		if (m_Script->DetectLadder())
-			ChangeState(StatePlayerLadder);
+	else if (priority == MovePriority::Right && (KEY_TAP(input.MoveRight) || KEY_PRESSED(input.MoveRight))) {
+		m_Movement->SetVelocityX(m_Script->GetSpeed());
 	}
+	
 
-	// 공격
-	if (KEY_TAP(m_Script->GetInputKeys().Attack)) {
-		// 채찍
-		if (!m_Script->IsHandling()) {
-			ChangeState(StatePlayerAttack);
-		}
-		// 던지기
-		else {
-			ChangeState(StatePlayerThrow);
-		}
-	}
-
-
-	if (m_Script->IsGrounded()) {
-		ChangeState(StatePlayerIdle);
-		m_Script->CloudSpawn();
-	}
-
-	PlayerMoveDefault;
+	m_fJumpTimer -= DT;
 }
 
 void CPlayerJumpUpState::Exit()

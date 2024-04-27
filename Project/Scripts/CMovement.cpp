@@ -3,7 +3,7 @@
 
 CMovement::CMovement()
 	:CScript((UINT)SCRIPT_TYPE::MOVEMENT)
-	, m_vGravityForce(Vec3(0.f, -981.f, 0.f))
+	, m_vGravityForce(Vec3(0.f, -981.f * 3.f, 0.f))
 	, m_fMass(1.f)
 	, m_fInitSpeed(0.f)
 	, m_fMaxSpeed_Ground(100.f)
