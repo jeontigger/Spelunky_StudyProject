@@ -20,3 +20,4 @@ CBombExplosion
 CParticleOnce
 CBlink
 CExitDoor
+CMovement

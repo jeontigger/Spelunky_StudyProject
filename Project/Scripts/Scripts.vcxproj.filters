@@ -166,6 +166,9 @@
     <ClInclude Include="CExitDoor.h">
       <Filter>02. Scripts\Tile</Filter>
     </ClInclude>
+    <ClInclude Include="CMovement.h">
+      <Filter>02. Scripts\Character</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -317,6 +320,9 @@
     </ClCompile>
     <ClCompile Include="CExitDoor.cpp">
       <Filter>02. Scripts\Tile</Filter>
+    </ClCompile>
+    <ClCompile Include="CMovement.cpp">
+      <Filter>02. Scripts\Character</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

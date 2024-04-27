@@ -76,6 +76,9 @@ void CTransform::finaltick()
 			m_arrWorldDir[i].Normalize();
 		}
 	}
+
+	m_vPrevWorldPos = m_vCurWorldPos;
+	m_vCurWorldPos = GetWorldPos();
 }
 
 void CTransform::UpdateData()
