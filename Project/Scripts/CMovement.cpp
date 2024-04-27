@@ -23,7 +23,7 @@ void CMovement::begin()
 {
 }
 
-void CMovement::tick()
+void CMovement::finaltick()
 {
 	// ------------------------------
 	// 0. 가속도 계산
@@ -100,7 +100,6 @@ void CMovement::tick()
 	// - 이동하고자 하는 매 순간 힘을 가하는 방식
 	m_vForce = Vec3();
 }
-
 
 void CMovement::CalDir()
 {
