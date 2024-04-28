@@ -78,17 +78,3 @@ void CFieldObject::begin()
 void CFieldObject::skill(Vec2 _force)
 {
 }
-
-void CFieldObject::BeginOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCollider2D* _OtherCollider)
-{
-	
-}
-
-void CFieldObject::Overlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCollider2D* _OtherCollider) {
-	
-}
-
-
-void CFieldObject::EndOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCollider2D* _OtherCollider) {
-	
-}

@@ -8,7 +8,7 @@
 CSnakeScript::CSnakeScript()
 	: CCharacterScript((UINT)SCRIPT_TYPE::SNAKESCRIPT)
 {
-	SetSpeed(2.f);
+	SetSpeed(200.f);
 	SetHealth(1);
 	SetDamage(1);
 }
@@ -84,11 +84,4 @@ void CSnakeScript::tick()
 	else {
 		CCharacterScript::tick();
 	}
-}
-
-#include "CPlayerScript.h"
-
-void CSnakeScript::BeginOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCollider2D* _OtherCollider)
-{
-	CCharacterScript::BeginOverlap(_Collider, _OtherObj, _OtherCollider);
 }

@@ -67,15 +67,3 @@ void CCharacterScript::TurnRight()
 	rotation.y = 0;
 	Transform()->SetRelativeRotation(rotation);
 }
-
-void CCharacterScript::MoveFront()
-{
-	if (IsLookRight()) {
-		//m_vVelocity.x = m_tInfo.Speed;
-	}
-	else {
-		//m_vVelocity.x = -m_tInfo.Speed;
-	}
-
-}
-

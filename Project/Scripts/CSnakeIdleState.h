@@ -12,6 +12,7 @@ private:
 	CGameObject* m_pPlayer;
 	CGameObject* m_pOwner;
 	class CSnakeScript* m_pScript;
+	class CMovement* m_Movement;
 
 public:
 	virtual void finaltick();

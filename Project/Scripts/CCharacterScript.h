@@ -21,19 +21,10 @@ public:
 	void SetHealth(int _health) { m_tInfo.Health = _health; }
 	int GetHealth() { return m_tInfo.Health; }
 
-protected:
-	bool m_bMoveFront;
-	bool m_bMoveBack;
-
 public:
-	void Stop() { m_bMoveFront = false; m_bMoveBack = false; }
 	bool IsLookRight();
 	void TurnLeft();
 	void TurnRight();
-	void MoveFront();
-	bool IsMoving() {
-		return m_bMoveFront || m_bMoveBack;
-	}
 
 public:
 	virtual void tick() override;
