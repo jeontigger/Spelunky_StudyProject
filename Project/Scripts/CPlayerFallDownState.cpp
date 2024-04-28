@@ -29,7 +29,6 @@ void CPlayerFallDownState::finaltick()
 		else {
 			ChangeState(StatePlayerIdle);
 		}
-		m_Script->CloudSpawn();
 	}
 
 	// 좌우 움직임
@@ -42,6 +41,10 @@ void CPlayerFallDownState::finaltick()
 		m_Movement->SetVelocityX(m_Script->GetSpeed());
 	}
 
+	// 공격
+	if (KEY_TAP(input.Attack)) {
+		ChangeState(StatePlayerAttack);
+	}
 }
 
 void CPlayerFallDownState::Exit()

@@ -52,6 +52,11 @@ void CPlayerWalkLeftState::finaltick()
 			ChangeState(StatePlayerJumpUp);
 	}
 
+	// АјАн
+	if (KEY_TAP(input.Attack)) {
+		ChangeState(StatePlayerAttack);
+	}
+
 	m_Player->GetScript<CMovement>()->SetVelocityX(-m_Script->GetSpeed());
 }
 

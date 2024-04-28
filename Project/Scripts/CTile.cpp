@@ -119,6 +119,7 @@ void CTile::begin()
 }
 
 #include "CFieldObject.h"
+#include "CPlayerScript.h"
 #include "CMovement.h"
 
 void CTile::BeginOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCollider2D* _OtherCollider) {
@@ -153,26 +154,40 @@ void CTile::BeginOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCollid
 	// 위에서 아래로 충돌
 	if ((ObjDir & (MovementDir)MoveDir::DOWN) && TileLT.y < ObjPrevPos.y - ObjColScale.y / 2.f)
 	{
-		if ((abs(TileLT.x - (ObjPrevPos.x + ObjColScale.x / 2.f)) < 1.f) || (abs(TileRB.x - (ObjPrevPos.x - ObjColScale.x / 2.f)) < 1.f)) {
-			// Left 충돌
-			if ( TileLT.x >= ObjPrevPos.x + ObjColScale.x / 2.f)
-			{
-				LeftCollision(_OtherObj, TileLT.x, ObjColScale.x);
-			}
-			// Right 충돌
-			else if ((ObjDir & (MovementDir)MoveDir::LEFT) && TileRB.x <= ObjPrevPos.x - ObjColScale.x / 2.f)
-			{
-				RightCollision(_OtherObj, TileRB.x, ObjColScale.x);
-			}
+		// Left 충돌
+		if (TileLT.x >= ObjPrevPos.x + ObjColScale.x / 2.f)
+		{
+			LeftCollision(_OtherObj, TileLT.x, ObjColScale.x);
+		}
+		// Right 충돌
+		else if (TileRB.x <= ObjPrevPos.x - ObjColScale.x / 2.f)
+		{
+			RightCollision(_OtherObj, TileRB.x, ObjColScale.x);
 		}
 		else {
 			UpCollision(_OtherObj, TileLT.y, ObjColScale.y);
+
+			if (_OtherObj->GetScript<CPlayerScript>()) {
+				_OtherObj->GetScript<CPlayerScript>()->CloudSpawn();
+			}
 		}
 	}
 	// 아래서 위로 충돌
 	else if ((ObjDir & (MovementDir)MoveDir::UP) && TileRB.y >= ObjPrevPos.y + ObjColScale.y / 2.f)
 	{
-		DownCollision(_OtherObj, TileRB.y, ObjColScale.y);
+		// Left 충돌
+		if (TileLT.x >= ObjPrevPos.x + ObjColScale.x / 2.f)
+		{
+			LeftCollision(_OtherObj, TileLT.x, ObjColScale.x);
+		}
+		// Right 충돌
+		else if (TileRB.x <= ObjPrevPos.x - ObjColScale.x / 2.f)
+		{
+			RightCollision(_OtherObj, TileRB.x, ObjColScale.x);
+		}
+		else {
+			DownCollision(_OtherObj, TileRB.y, ObjColScale.y);
+		}
 	}
 	else
 	{
@@ -235,8 +250,14 @@ void CTile::Overlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCollider2D*
 	}
 
 	if (!fieldobjScript->IsOverlapGround(GetOwner())) {
+
+		// 허용 범위안에서 플랫폼을 넘어갈 때
+		if ((TileLT.y  <= ObjPrevPos.y - ObjColScale.y / 2.f) && (TileLT.y >= ObjPrevPos.y - ObjColScale.y / 2.f))
+		{
+			UpCollision(_OtherObj, TileLT.y, ObjColScale.y);
+		}
 		// Left 충돌
-		if ((ObjDir & (MovementDir)MoveDir::RIGHT) && TileLT.x >= ObjPrevPos.x + ObjColScale.x / 2.f)
+		else if ((ObjDir & (MovementDir)MoveDir::RIGHT) && TileLT.x >= ObjPrevPos.x + ObjColScale.x / 2.f)
 		{
 			LeftCollision(_OtherObj, TileLT.x, ObjColScale.x);
 		}

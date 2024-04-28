@@ -75,6 +75,11 @@ void CPlayerDownState::finaltick()
 		
 	}
 
+	// АјАн
+	if (KEY_TAP(input.Attack)) {
+		ChangeState(StatePlayerAttack);
+	}
+
 	m_fCameraDownTimer -= DT;
 }
 

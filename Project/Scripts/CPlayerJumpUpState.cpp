@@ -59,7 +59,6 @@ void CPlayerJumpUpState::finaltick()
 		else {
 			ChangeState(StatePlayerIdle);
 		}
-		m_Script->CloudSpawn();
 	}
 
 	// 좌우 움직임
@@ -72,6 +71,10 @@ void CPlayerJumpUpState::finaltick()
 		m_Movement->SetVelocityX(m_Script->GetSpeed());
 	}
 	
+	// 공격
+	if (KEY_TAP(input.Attack)) {
+		ChangeState(StatePlayerAttack);
+	}
 
 	m_fJumpTimer -= DT;
 }
