@@ -19,7 +19,6 @@ void CWhip::Attack()
 	Animator2D()->Play(AnimWhip, false);
 	m_pSound->Play(1);
 
-	Transform()->SetRelativePos(Vec3(-60, 48, WhipBackZ));
 	Collider2D()->SetOffsetScale(Vec2(0.8f, 0.8f));
 }
 

@@ -51,7 +51,7 @@ void CCharacterScript::Hit(int _damage)
 
 bool CCharacterScript::IsLookRight()
 {
-	return GetOwner()->Transform()->GetRelativeRotation().y >= 0;
+	return GetOwner()->Transform()->GetRelativeRotation().y == 0;
 }
 
 void CCharacterScript::TurnLeft()

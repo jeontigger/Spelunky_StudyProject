@@ -120,6 +120,12 @@ void CPlayerScript::Skill()
 
 void CPlayerScript::Attack()
 {
+	if (IsLookRight()) {
+		m_Whip->Transform()->SetRelativePos(Vec3(-60, 48, WhipBackZ));
+	}
+	else {
+		m_Whip->Transform()->SetRelativePos(Vec3(-60, 48, -WhipBackZ));
+	}
 	m_Whip->Attack();
 }
 

@@ -4,13 +4,12 @@
 #include <Engine/CGameObject.h>
 #include "CPlayerScript.h"
 #include "CMovement.h"
-#include "CWhip.h"
 
 CPlayerAttackState::CPlayerAttackState()
 	: CState((UINT)STATE_TYPE::PLAYERATTACKSTATE)
 	, m_Player(nullptr)
 	, m_Script(nullptr)
-	, m_Whip(nullptr)
+	, m_Movement(nullptr)
 {
 }
 
@@ -60,7 +59,6 @@ void CPlayerAttackState::Enter()
 	m_Movement = m_Player->GetScript<CMovement>();
 
 	m_Script->Attack();
-	m_Whip = m_Script->GetWhip();
 	m_Player->Animator2D()->Play(AnimPlayerAttack);
 }
 
