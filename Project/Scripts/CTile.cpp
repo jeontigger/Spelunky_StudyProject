@@ -167,6 +167,7 @@ void CTile::BeginOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCollid
 		else {
 			UpCollision(_OtherObj, TileLT.y, ObjColScale.y);
 
+			if (!IsAllCollisionType()) return;
 			if (_OtherObj->GetScript<CPlayerScript>()) {
 				_OtherObj->GetScript<CPlayerScript>()->CloudSpawn();
 			}
@@ -332,6 +333,8 @@ Vec2 CTile::TypeToPos(TileType type)
 
 void CTile::UpCollision(CGameObject* _Obj, float _PlatformTop, float _ObjColScaleY)
 {
+	if (!IsAllCollisionType()) return;
+
 	float NewY = _PlatformTop + _ObjColScaleY / 2.f;
 	NewY -= _Obj->Collider2D()->GetRelativePos().y ;
 
@@ -351,6 +354,8 @@ void CTile::UpCollision(CGameObject* _Obj, float _PlatformTop, float _ObjColScal
 
 void CTile::DownCollision(CGameObject* _Obj, float _PlatformBottom, float _ObjColScaleY)
 {
+	if (!IsAllCollisionType()) return;
+
 	float NewY = _PlatformBottom - _ObjColScaleY / 2.f;
 	NewY -= _Obj->Collider2D()->GetRelativePos().y;
 
@@ -362,6 +367,8 @@ void CTile::DownCollision(CGameObject* _Obj, float _PlatformBottom, float _ObjCo
 
 void CTile::LeftCollision(CGameObject* _Obj, float _PlatformLeft, float _ObjColScaleX)
 {
+	if (!IsSideCollisionType()) return;
+
 	float NewX = _PlatformLeft - _ObjColScaleX / 2.f;
 	NewX -= _Obj->Collider2D()->GetRelativePos().x;
 
@@ -373,6 +380,8 @@ void CTile::LeftCollision(CGameObject* _Obj, float _PlatformLeft, float _ObjColS
 
 void CTile::RightCollision(CGameObject* _Obj, float _PlatformRight, float _ObjColScaleX)
 {
+	if (!IsSideCollisionType()) return;
+
 	float NewX = _PlatformRight + _ObjColScaleX / 2.f;
 	NewX -= _Obj->Collider2D()->GetRelativePos().x;
 
@@ -380,4 +389,32 @@ void CTile::RightCollision(CGameObject* _Obj, float _PlatformRight, float _ObjCo
 	ObjPos.x = NewX;
 
 	_Obj->Transform()->SetRelativePos(ObjPos);
+}
+
+bool CTile::IsSideCollisionType()
+{
+	if (m_type == TileType::Ladder
+		|| m_type == TileType::LadderHalf
+		|| m_type == TileType::Spike
+		|| m_type == TileType::Half
+		|| m_type == TileType::Door
+		|| m_type == TileType::ExitDoor) {
+		return false;
+	}
+	else {
+		return true;
+	}
+}
+
+bool CTile::IsAllCollisionType()
+{
+	if (m_type == TileType::Ladder
+		|| m_type == TileType::Spike
+		|| m_type == TileType::Door
+		|| m_type == TileType::ExitDoor) {
+		return false;
+	}
+	else {
+		return true;
+	}
 }

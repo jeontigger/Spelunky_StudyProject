@@ -660,7 +660,7 @@ void CStage::begin()
 
 	if (test) {
 		m_arrTileBlocks[0][0].SetBlockType(TileBlockType::Normal);
-		m_arrTileBlocks[0][0] = m_SP->GetBlock(TileBlockType::Normal, 0);
+		m_arrTileBlocks[0][0] = m_SP->GetBlock(TileBlockType::Normal, 4);
 		m_arrTileBlocks[0][0].TileInstancing(0, 0);
 		m_MainCamera->GetScript<CCameraMovement>()->SetTarget(m_Player);
 	}
