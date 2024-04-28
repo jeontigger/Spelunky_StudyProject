@@ -22,6 +22,7 @@ protected:
     bool m_bJump;
 
 public:
+    bool IsOverlapGround(CGameObject* _pObject);
     void AddOverlapGround(CGameObject* _pObejct);
     void SubOverlapGround(CGameObject* _pObejct);
 

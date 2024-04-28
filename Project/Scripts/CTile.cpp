@@ -142,8 +142,8 @@ void CTile::BeginOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCollid
 	Vec2 ObjColScale;
 
 	// Object Collider의 PrevPos
-	ObjPrevPos = _OtherObj->Collider2D()->GetPrevFinalPos();
 	ObjColPos = _OtherCollider->GetFinalPos();
+	ObjPrevPos = ObjColPos - movementScript->GetVelocity() * DT;
 	ObjColScale = _OtherCollider->GetFinalScale();
 
 	MovementDir ObjDir = movementScript->GetDir();
@@ -187,7 +187,7 @@ void CTile::BeginOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCollid
 				LeftCollision(_OtherObj, TileLT.x, ObjColScale.x);
 			}
 			// Right 충돌
-			else if ((ObjDir & (MovementDir)MoveDir::LEFT) && TileRB.x <= ObjPrevPos.x - ObjColScale.x / 2.f)
+			else if ((ObjDir & (MovementDir)MoveDir::LEFT) && TileRB.x - TileColScale.x/2.f <= ObjPrevPos.x - ObjColScale.x / 2.f)
 			{
 				RightCollision(_OtherObj, TileRB.x, ObjColScale.x);
 			}
@@ -219,8 +219,9 @@ void CTile::Overlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCollider2D*
 	Vec2 ObjColScale;
 
 	// Object Collider의 PrevPos
-	ObjPrevPos = _OtherObj->Collider2D()->GetPrevFinalPos();
+	//ObjPrevPos = _OtherObj->Collider2D()->GetPrevFinalPos();
 	ObjColPos = _OtherCollider->GetFinalPos();
+	ObjPrevPos = ObjColPos - movementScript->GetVelocity() * DT;
 	ObjColScale = _OtherCollider->GetFinalScale();
 
 	MovementDir ObjDir = movementScript->GetDir();
@@ -231,15 +232,17 @@ void CTile::Overlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCollider2D*
 		DownCollision(_OtherObj, TileRB.y, ObjColScale.y);
 	}
 
-	// Left 충돌
-	if ((ObjDir & (MovementDir)MoveDir::RIGHT) && TileLT.x >= ObjPrevPos.x + ObjColScale.x / 2.f)
-	{
-		LeftCollision(_OtherObj, TileLT.x, ObjColScale.x);
-	}
-	// Right 충돌
-	else if ((ObjDir & (MovementDir)MoveDir::LEFT) && TileRB.x <= ObjPrevPos.x - ObjColScale.x / 2.f)
-	{
-		RightCollision(_OtherObj, TileRB.x, ObjColScale.x);
+	if (!fieldobjScript->IsOverlapGround(GetOwner())) {
+		// Left 충돌
+		if ((ObjDir & (MovementDir)MoveDir::RIGHT) && TileLT.x >= ObjPrevPos.x + ObjColScale.x / 2.f)
+		{
+			LeftCollision(_OtherObj, TileLT.x, ObjColScale.x);
+		}
+		// Right 충돌
+		else if ((ObjDir & (MovementDir)MoveDir::LEFT) && TileRB.x <= ObjPrevPos.x - ObjColScale.x / 2.f)
+		{
+			RightCollision(_OtherObj, TileRB.x, ObjColScale.x);
+		}
 	}
 }
 void CTile::EndOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCollider2D* _OtherCollider) {

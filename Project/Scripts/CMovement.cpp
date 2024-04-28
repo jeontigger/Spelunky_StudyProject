@@ -108,7 +108,7 @@ void CMovement::CalDir()
 	Vec3 PrevPos = Transform()->GetPrevPos();
 	Vec3 CurPos = Transform()->GetCurPos();
 
-	Vec3 Dir = CurPos - PrevPos;
+	Vec3 Dir = GetVelocity();
 
 	if (Dir.x > 0)
 	{

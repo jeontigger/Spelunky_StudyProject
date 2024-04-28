@@ -20,18 +20,30 @@ void CFieldObject::AddGravity()
 
 }
 
-void CFieldObject::AddOverlapGround(CGameObject* _pObejct)
+bool CFieldObject::IsOverlapGround(CGameObject* _pObject)
 {
-	m_Ground.push_back(_pObejct);
+	auto find = std::find(m_Ground.begin(), m_Ground.end(), _pObject);
+
+	if (find == m_Ground.end()) {
+		return false;
+	}
+	else {
+		return true;
+	}
 }
 
-void CFieldObject::SubOverlapGround(CGameObject* _pObejct)
+void CFieldObject::AddOverlapGround(CGameObject* _pObject)
+{
+	m_Ground.push_back(_pObject);
+}
+
+void CFieldObject::SubOverlapGround(CGameObject* _pObject)
 {
 	auto iter = m_Ground.begin();
 
 	for (; iter != m_Ground.end();)
 	{
-		if (*iter == _pObejct)
+		if (*iter == _pObject)
 		{
 			iter = m_Ground.erase(iter);
 		}

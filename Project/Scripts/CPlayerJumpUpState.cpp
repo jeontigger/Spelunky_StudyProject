@@ -64,9 +64,11 @@ void CPlayerJumpUpState::finaltick()
 
 	// ÁÂ¿ì ¿òÁ÷ÀÓ
 	if (priority == MovePriority::Left && (KEY_TAP(input.MoveLeft) || KEY_PRESSED(input.MoveLeft))) {
+		m_Script->TurnLeft();
 		m_Movement->SetVelocityX(-m_Script->GetSpeed());
 	}
 	else if (priority == MovePriority::Right && (KEY_TAP(input.MoveRight) || KEY_PRESSED(input.MoveRight))) {
+		m_Script->TurnRight();
 		m_Movement->SetVelocityX(m_Script->GetSpeed());
 	}
 	
