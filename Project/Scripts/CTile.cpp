@@ -354,7 +354,7 @@ void CTile::UpCollision(CGameObject* _Obj, float _PlatformTop, float _ObjColScal
 
 void CTile::DownCollision(CGameObject* _Obj, float _PlatformBottom, float _ObjColScaleY)
 {
-	if (!IsAllCollisionType()) return;
+	if (!IsDownCollisionType()) return;
 
 	float NewY = _PlatformBottom - _ObjColScaleY / 2.f;
 	NewY -= _Obj->Collider2D()->GetRelativePos().y;
@@ -363,6 +363,11 @@ void CTile::DownCollision(CGameObject* _Obj, float _PlatformBottom, float _ObjCo
 	ObjPos.y = NewY;
 
 	_Obj->Transform()->SetRelativePos(ObjPos);
+	auto movement = _Obj->GetScript<CMovement>();
+	Vec3 vVel = movement->GetVelocity();
+	vVel.y = -abs(vVel.y);
+	movement->SetVelocity(vVel);
+
 }
 
 void CTile::LeftCollision(CGameObject* _Obj, float _PlatformLeft, float _ObjColScaleX)
@@ -412,6 +417,22 @@ bool CTile::IsAllCollisionType()
 		|| m_type == TileType::Spike
 		|| m_type == TileType::Door
 		|| m_type == TileType::ExitDoor) {
+		return false;
+	}
+	else {
+		return true;
+	}
+}
+
+bool CTile::IsDownCollisionType()
+{
+	if (m_type == TileType::Half
+		|| m_type == TileType::LadderHalf
+		|| m_type == TileType::Ladder
+		|| m_type == TileType::Spike
+		|| m_type == TileType::Door
+		|| m_type == TileType::ExitDoor
+		) {
 		return false;
 	}
 	else {

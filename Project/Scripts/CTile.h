@@ -67,5 +67,6 @@ private:
 private:
     bool IsSideCollisionType();
     bool IsAllCollisionType();
+    bool IsDownCollisionType();
 };
 
