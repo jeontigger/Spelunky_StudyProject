@@ -198,7 +198,7 @@ void MeshRenderUI::render_update()
 		texCnt++;
 	}
 
-	SetSize(ImVec2(0, 120 + scalarCnt * 22 + texCnt * 150));
+	SetSize(ImVec2(0, 120 + (float)scalarCnt * 22 + (float)texCnt * 150));
 }
 
 void MeshRenderUI::MeshSelect(DWORD_PTR _ptr)

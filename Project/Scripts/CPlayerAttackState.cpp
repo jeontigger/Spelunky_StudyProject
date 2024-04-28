@@ -7,6 +7,9 @@
 
 CPlayerAttackState::CPlayerAttackState()
 	: CState((UINT)STATE_TYPE::PLAYERATTACKSTATE)
+	, m_Player(nullptr)
+	, m_Script(nullptr)
+	, m_Whip(nullptr)
 {
 }
 
@@ -31,9 +34,6 @@ void CPlayerAttackState::finaltick()
 			ChangeState(StatePlayerFallDown);
 		}
 	}
-
-	PlayerMoveDefault;
-	
 }
 
 void CPlayerAttackState::Enter()

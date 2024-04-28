@@ -62,7 +62,7 @@ CGameObject::~CGameObject()
 
 void CGameObject::begin()
 {
-	int childsize = m_vecChild.size();
+	int childsize = (int)m_vecChild.size();
 	for (UINT i = 0; i < UINT(COMPONENT_TYPE::END); ++i)
 	{
 		if (nullptr != m_arrCom[i])

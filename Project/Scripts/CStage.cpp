@@ -26,6 +26,10 @@ bool test = true;
 CStage::CStage()
 	: m_state(StageState::NONE)
 	, m_SP(nullptr)
+	, m_visited{}
+	, m_Player(nullptr)
+	, m_iExitPos(0)
+	, m_iEntrancePos(0)
 {
 	m_arrLayer[0]->SetName(L"Default");
 	m_arrLayer[1]->SetName(L"Background");
@@ -61,7 +65,7 @@ CStage::CStage()
 	m_MainCamera->Transform()->SetRelativeRotation(Vec3(0.f, 0.f, 0.f));
 	m_MainCamera->Transform()->SetRelativeScale(Vec3(1.f, 1.f, 1.f));
 
-	m_MainCamera->Collider2D()->SetOffsetScale(Vec2(TileBlockScaleX * 1.5, TileBlockScaleY + TileScaleY));
+	m_MainCamera->Collider2D()->SetOffsetScale(Vec2(TileBlockScaleX * 1.5f, (float)TileBlockScaleY + TileScaleY));
 
 	m_MainCamera->Camera()->SetProjType(PROJ_TYPE::ORTHOGRAPHIC);
 	m_MainCamera->Camera()->SetCameraPriority(0);
@@ -750,10 +754,10 @@ void CStage::PauseMenuControl()
 		}
 
 		if (i == (UINT)PAUSEMENU::CURSOR) {
-			vTarget.y = movepos + MenuOffsets[i] + PauseCursorSpace * m_iCursorIdx;
+			vTarget.y = float(movepos + MenuOffsets[i] + PauseCursorSpace * m_iCursorIdx);
 		}
 		else {
-			vTarget.y = movepos + MenuOffsets[i];
+			vTarget.y = float(movepos + MenuOffsets[i]);
 		}
 
 		Vec2 vDir = vTarget - vPos;
@@ -843,7 +847,7 @@ void CStage::Sndtick()
 {
 	if (!m_pCurSnd->IsPlaying()) {
 		// 0번 사운드는 시작할 때 만
-		int idx = GETRANDOM(m_vecBGMs.size()-1) + 1;
+		int idx = GETRANDOM((int)m_vecBGMs.size()-1) + 1;
 
 		m_pCurSnd = m_vecBGMs[idx];
 		m_pCurSnd->Play(1);

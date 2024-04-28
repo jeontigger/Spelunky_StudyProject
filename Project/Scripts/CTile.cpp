@@ -7,6 +7,7 @@ int CTile::TileCount = 0;
 CTile::CTile()
 	:CFieldObject((UINT)SCRIPT_TYPE::TILE)
 	, m_PermitRange(2.f)
+	, m_arrSurroundTiles{}
 {
 	AddScriptParam(SCRIPT_PARAM::INT, "Type", &m_type);
 }
@@ -15,6 +16,7 @@ CTile::CTile(const CTile& tile)
 	:CFieldObject((UINT)SCRIPT_TYPE::TILE)
 	, m_type(tile.m_type)
 	, m_PermitRange(2.f)
+	, m_arrSurroundTiles{}
 {
 	AddScriptParam(SCRIPT_PARAM::INT, "Type", &m_type);
 }
@@ -26,7 +28,7 @@ CTile::~CTile()
 void CTile::Instancing(TileType type, int row, int col)
 {
 	SetTileType(type);
-	Vec3 pos = Vec3(col, row, TileZ);
+	Vec3 pos = Vec3((float)col, (float)row, TileZ);
 	if (type == TileType::Door) {
 		pos.x += TileScaleX;
 		pos.y -= TileScaleY/2;
@@ -82,7 +84,7 @@ void CTile::begin()
 {
 	//SetTileType(TileType::Blank);
 
-	CGameObject* obj;
+	//CGameObject* obj;
 	//obj = m_arrSurroundTiles[(UINT)TileDir::TOP] = CAssetMgr::GetInst()->Load<CPrefab>(TileUp1PrefKey, TileUp1PrefKey)->Instantiate();
 	//obj->Animator2D()->Play(AnimTileUp1);
 	//GetOwner()->AddChild(obj);
@@ -303,6 +305,8 @@ Vec2 CTile::TypeToPos(TileType type)
 	default:
 		break;
 	}
+
+	return Vec2(0, 0);
 }
 
 void CTile::UpCollision(CGameObject* _Obj, float _PlatformTop, float _ObjColScaleY)

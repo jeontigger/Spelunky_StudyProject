@@ -3,7 +3,7 @@
 
 CBombExplosion::CBombExplosion()
 	:CScript((UINT)SCRIPT_TYPE::BOMBEXPLOSION)
-	, m_fStartScale(128 * 1.8)
+	, m_fStartScale(128 * 1.8f)
 	, m_fIncreaseSpeed(30.f)
 	, m_fForce(.1f)
 {

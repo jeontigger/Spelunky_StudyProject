@@ -15,10 +15,6 @@ public:
 protected:
     vector<CGameObject*> m_Ground;
     int m_iGroundCnt;
-
-    bool m_bLeftBump;
-    int m_bRightBump;
-    int m_iTileCnt;
     bool m_bJump;
 
 public:
@@ -27,11 +23,6 @@ public:
     void SubOverlapGround(CGameObject* _pObejct);
 
     inline bool IsGrounded() { return m_Ground.size() > 0; }
-
-    inline void SetLeftBump(bool _b) { _b ? m_bLeftBump = true : m_bLeftBump = false; }
-    inline bool IsLeftBump() { return m_bLeftBump > 0; }
-    inline void SetRightBump(bool _b) { _b ? m_bRightBump = true : m_bRightBump = false; }
-    inline bool IsRightBump() { return m_bRightBump > 0; }
 
 public:
     virtual void tick() override;

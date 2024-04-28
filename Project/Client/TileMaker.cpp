@@ -14,6 +14,8 @@ TileMaker::TileMaker()
 	, m_iTypeCursor(-1)
 	, m_iStageIdx(0)
 	, m_iBGIdx(0)
+	, m_StageName{}
+	, m_curType(BlockTileType::END)
 {
 	wstring blocktilepath = L"texture\\tilemap\\blocktile.png";
 	m_texBlockTile = ASSET_LOAD(CTexture, blocktilepath);
@@ -237,7 +239,7 @@ void TileMaker::TileBlockMenu(vector<vector<CTileBlock>>& vvec)
 	ImVec4 tint_col = ImVec4(1.0f, 1.0f, 1.0f, 1.0f); // No tint
 	ImVec4 border_col = ImGui::GetStyleColorVec4(ImGuiCol_Border);
 	int width = 280;
-	int height = (float)m_texBlockTile.Get()->GetHeight() / m_texBlockTile.Get()->GetWidth() * width;
+	int height = int((float)m_texBlockTile.Get()->GetHeight() / m_texBlockTile.Get()->GetWidth() * width);
 	ImVec2 ImgSize = { (float)width, (float)height };
 
 	ImVec2 imagePos = ImGui::GetCursorScreenPos();
@@ -258,8 +260,8 @@ void TileMaker::TileBlockMenu(vector<vector<CTileBlock>>& vvec)
 		ImVec2 mousePos = ImGui::GetMousePos();
 		ImVec2 uv = (mousePos - imagePos) / ImgSize;
 		mousepos = { uv.x, 1 + uv.y };
-		gridIdx[0] = ((int)(mousepos[0] * BLOCKTILEX) % (int)GridSize.x) * GridSize.x;
-		gridIdx[1] = ((int)(mousepos[1] * BLOCKTILEY) % (int)GridSize.y) * GridSize.y;
+		gridIdx[0] = ((int)(mousepos[0] * BLOCKTILEX) % (int)GridSize.x) * (int)GridSize.x;
+		gridIdx[1] = ((int)(mousepos[1] * BLOCKTILEY) % (int)GridSize.y) * (int)GridSize.y;
 
 		idx = math::RowColToIdx(Vec2((float)gridIdx[0] / 70, (float)gridIdx[1] / 70), Vec2(BLOCKTILEX, BLOCKTILEY));
 		m_curType = (BlockTileType)idx;
@@ -288,7 +290,7 @@ void TileMaker::SelectBackground()
 	ImVec4 tint_col = ImVec4(1.0f, 1.0f, 1.0f, 1.0f); // No tint
 	ImVec4 border_col = ImGui::GetStyleColorVec4(ImGuiCol_Border);
 	int width = 250;
-	int height = (float)m_vecBackgrounds[m_iBGIdx].Get()->GetHeight() / m_vecBackgrounds[m_iBGIdx].Get()->GetWidth() * width;
+	int height = int((float)m_vecBackgrounds[m_iBGIdx].Get()->GetHeight() / m_vecBackgrounds[m_iBGIdx].Get()->GetWidth() * width);
 	ImVec2 ImgSize = { (float)width, (float)height };
 
 	ImGui::Image(m_vecBackgrounds[m_iBGIdx]->GetSRV().Get(), ImgSize, uv_min, uv_max, tint_col, border_col);

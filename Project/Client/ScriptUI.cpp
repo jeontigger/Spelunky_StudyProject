@@ -31,7 +31,7 @@ void ScriptUI::render_update()
 
 	const vector<tScriptParam>& vecParam = m_TargetScript->GetScriptParam();
 
-	SetSize(ImVec2(0, 40 + 26 * vecParam.size()));
+	SetSize(ImVec2(0.f, 40 + 26 * (float)vecParam.size()));
 
 	for (size_t i = 0; i < vecParam.size(); ++i)
 	{

@@ -27,7 +27,7 @@ void Animator2DUI::render_update()
 	ImGui::Separator();
 	AddAnim();
 
-	SetSize(ImVec2(0, 180 + 28 * m_iAnimCnt));
+	SetSize(ImVec2(0, 180 + 28 * (float)m_iAnimCnt));
 }
 
 void Animator2DUI::Activate()
@@ -50,7 +50,7 @@ void Animator2DUI::CurAnim()
 void Animator2DUI::AnimList()
 {
 	const map<wstring, CAnim*>& list = m_target->m_mapAnim;
-	m_iAnimCnt = list.size();
+	m_iAnimCnt = (int)list.size();
 	
 	if (m_iAnimCnt > 0) {
 		ImGui::Separator();

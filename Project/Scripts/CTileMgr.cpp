@@ -50,8 +50,8 @@ void CTileMgr::SetTile(CGameObject* tile, int _blockRow, int _blockCol, int _til
 
 CTile* CTileMgr::GetTile(Vec2 _idx)
 {
-	int blockRow = _idx.y / TILEBLOCKSIZEY;
-	int blockCol = _idx.x / TILEBLOCKSIZEX;
+	int blockRow = (int)_idx.y / TILEBLOCKSIZEY;
+	int blockCol = (int)_idx.x / TILEBLOCKSIZEX;
 	int tileRow = (int)_idx.y % TILEBLOCKSIZEY;
 	int tileCol = (int)_idx.x % TILEBLOCKSIZEX;
 	if (m_arrTiles[blockRow][blockCol][tileRow][tileCol] != nullptr) {
@@ -81,8 +81,8 @@ CTile* CTileMgr::GetTile(int _blockRow, int _blockCol, int _tileRow, int _tileCo
 
 CCollider2D* CTileMgr::GetTileCollider(Vec2 _idx)
 {
-	int blockRow = _idx.y / TILEBLOCKSIZEY;
-	int blockCol = _idx.x / TILEBLOCKSIZEX;
+	int blockRow = (int)_idx.y / TILEBLOCKSIZEY;
+	int blockCol = (int)_idx.x / TILEBLOCKSIZEX;
 	int tileRow = (int)_idx.y % TILEBLOCKSIZEY;
 	int tileCol = (int)_idx.x % TILEBLOCKSIZEX;
 
@@ -136,8 +136,8 @@ void CTileMgr::CollisionWithTile(int _layer)
 		for (int row = -searchSize; row < searchSize; row++) {
 			for (int col = -searchSize; col < searchSize; col++)
 			{
-				int nrow = row + Idx.y;
-				int ncol = col + Idx.x;
+				int nrow = row + (int)Idx.y;
+				int ncol = col + (int)Idx.x;
 				if (0 <= nrow && nrow < TILEBLOCKSIZEY * STAGETILEROW && 0 <= ncol && ncol < TILEBLOCKSIZEX * STAGETILECOL) {
 					auto left = objects[i]->Collider2D();
 					auto right = GetTileCollider(Vec2(ncol, nrow));

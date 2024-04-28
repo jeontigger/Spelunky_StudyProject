@@ -5,7 +5,8 @@
 
 CFieldObject::CFieldObject(UINT type)
 	: CScript(type)
-
+	, isPlayer(false)
+	, m_bJump(false)
 {
 
 }
@@ -56,7 +57,7 @@ void CFieldObject::SubOverlapGround(CGameObject* _pObject)
 
 void CFieldObject::tick()
 {
-	m_iGroundCnt = m_Ground.size();
+	m_iGroundCnt = (int)m_Ground.size();
 }
 
 #include "CGroundCollider.h"

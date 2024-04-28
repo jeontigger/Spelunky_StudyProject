@@ -19,6 +19,10 @@
 
 CTitleLevel::CTitleLevel()
 	:m_State(TitleLevelState::AnyKeyPress)
+	, m_MainCamera(nullptr)
+	, m_iMenuCursor(0)
+	, m_arrCursors{}
+	, ChangeLevel()
 {
 	m_strStart = L": 시작";
 	m_strMenuStart = L"게임 시작";
@@ -89,7 +93,7 @@ void CTitleLevel::begin()
 	m_MainCamera->Transform()->SetRelativeRotation(Vec3(0.f, 0.f, 0.f));
 	m_MainCamera->Transform()->SetRelativeScale(Vec3(1.f, 1.f, 1.f));
 
-	m_MainCamera->Collider2D()->SetOffsetScale(Vec2(TileBlockScaleX * 1.5 + 5, TileBlockScaleY + TileScaleY));
+	m_MainCamera->Collider2D()->SetOffsetScale(Vec2(TileBlockScaleX * 1.5f + 5, (float)TileBlockScaleY + TileScaleY));
 
 	m_MainCamera->Camera()->SetProjType(PROJ_TYPE::ORTHOGRAPHIC);
 	m_MainCamera->Camera()->SetCameraPriority(0);
@@ -216,7 +220,7 @@ void CTitleLevel::SelectObjectInit()
 		obj->Animator2D()->Play(AnimTitleCursor);
 		Vec3 vPos = obj->Transform()->GetRelativePos();
 		vPos.x = CursorHidePosX;
-		vPos.y = CursorStartPosY - i * CursorYSpaceSize;
+		vPos.y = float(CursorStartPosY - i * CursorYSpaceSize);
 		obj->Transform()->SetRelativePos(vPos);
 		AddObject(obj, BackgroundLayer);
 		m_vecSelectObj.push_back(obj);

@@ -137,7 +137,7 @@ void CParticleSystem::finaltick()
 		int fSpawnCount = 5;
 
 		// 스폰 간격을 제외한 잔량을 남은 누적시간으로 설정
-		m_Time -= (1.f / m_Module.SpawnRate) * floorf(fSpawnCount);
+		m_Time -= (1.f / m_Module.SpawnRate) * floorf((float)fSpawnCount);
 				
 		tSpawnCount count = tSpawnCount{ (int)fSpawnCount, 0, 0, 0 };
 		m_SpawnCountBuffer->SetData(&count);		
@@ -190,10 +190,10 @@ void CParticleSystem::SetParticleTex(const wstring& _texName)
 
 void CParticleSystem::SetParticleScale(int _min, int _max)
 {
-	m_Module.vSpawnMinScale.x = _min;
-	m_Module.vSpawnMinScale.y = _min;
-	m_Module.vSpawnMaxScale.x = _max;
-	m_Module.vSpawnMaxScale.y = _max;
+	m_Module.vSpawnMinScale.x = (float)_min;
+	m_Module.vSpawnMinScale.y = (float)_min;
+	m_Module.vSpawnMaxScale.x = (float)_max;
+	m_Module.vSpawnMaxScale.y = (float)_max;
 }
 
 void CParticleSystem::UpdateData()

@@ -13,6 +13,6 @@ namespace math {
 	}
 
 	static int RowColToIdx(Vec2 value, Vec2 RC) {
-		return value.y * RC.y + value.x;
+		return int(value.y * RC.y + value.x);
 	}
 }

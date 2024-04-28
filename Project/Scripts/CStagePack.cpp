@@ -21,7 +21,7 @@ CStagePack::~CStagePack()
 CTileBlock CStagePack::GetRandomBlock(TileBlockType _type)
 {
 	const vector<CTileBlock> blocks = m_mapBlockList[_type];
-	int random = GETRANDOM(blocks.size());
+	int random = GETRANDOM((int)blocks.size());
 
 	return m_mapBlockList[_type][random];
 }
@@ -34,7 +34,7 @@ CTileBlock CStagePack::GetBlock(TileBlockType _type, int idx)
 CTileChunk CStagePack::GetRandomChunk(ChunkType _type)
 {
 	const vector<CTileChunk> blocks = m_mapChunkList[_type];
-	int random = GETRANDOM(blocks.size());
+	int random = GETRANDOM((int)blocks.size());
 
 	return m_mapChunkList[_type][random];
 }

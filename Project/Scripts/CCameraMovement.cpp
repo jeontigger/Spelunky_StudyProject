@@ -12,6 +12,11 @@
 CCameraMovement::CCameraMovement()
 	: CScript((UINT)SCRIPT_TYPE::CAMERAMOVEMENT)
 	, m_fSpeed(7)
+	, m_Target(nullptr)
+	, m_bCameraPlatformBlocked(false)
+	, m_bCameraWallBlocked(false)
+	, m_fShakingTimer(0.f)
+	, m_iShakingPower(0)
 {
 	
 }

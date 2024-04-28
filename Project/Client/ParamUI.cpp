@@ -52,6 +52,8 @@ bool ParamUI::Param_VEC2(Vec2* _Data, const string& _Desc)
 		_Data->y = arrFloat[1];
 		return true;
 	}
+
+	return false;
 }
 
 bool ParamUI::Param_VEC4(Vec4* _Data, const string& _Desc)
@@ -65,6 +67,7 @@ bool ParamUI::Param_VEC4(Vec4* _Data, const string& _Desc)
 	{
 		return true;
 	}
+	return false;
 }
 
 bool ParamUI::Param_TEXTURE(Ptr<CTexture>& _Texture, const string& _Desc, UI* _Inst, Delegate_1 _Func)

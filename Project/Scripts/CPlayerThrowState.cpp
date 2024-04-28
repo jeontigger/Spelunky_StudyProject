@@ -6,6 +6,8 @@
 
 CPlayerThrowState::CPlayerThrowState()
 	: CState((UINT)STATE_TYPE::PLAYERTHROWSTATE)
+	, m_Player(nullptr)
+	, m_Script(nullptr)
 {
 }
 
@@ -27,7 +29,6 @@ void CPlayerThrowState::finaltick()
 		}
 	}
 
-	PlayerMoveDefault;
 }
 
 void CPlayerThrowState::Enter()

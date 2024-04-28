@@ -7,6 +7,9 @@
 
 StateMachineUI::StateMachineUI()
 	: ComponentUI("StateMachine", UIStateMachineName, COMPONENT_TYPE::STATEMACHINE)
+	, m_StateMachine(nullptr)
+	, m_iStateCnt(0)
+	, m_iBlackboardCnt(0)
 {
 	SetSize(ImVec2(0.f, 120.f));
 	SetComponentTitle("StateMachine");
@@ -37,7 +40,7 @@ void StateMachineUI::render_update()
 	if(m_FSM.Get())
 		StateList();
 
-	SetSize(ImVec2(0, 80 + m_iStateCnt * 25 + m_iBlackboardCnt * 25));
+	SetSize(ImVec2(0, 80 + (float)m_iStateCnt * 25 + (float)m_iBlackboardCnt * 25));
 
 }
 
@@ -98,7 +101,7 @@ void StateMachineUI::SelectFSM()
 void StateMachineUI::Blackboard()
 {
 	auto boards = m_StateMachine->m_Blackboard.m_mapBBData;
-	m_iBlackboardCnt = boards.size();
+	m_iBlackboardCnt = (int)boards.size();
 	int cnt = 0;
 	for (auto iter = boards.begin(); iter != boards.end(); ++iter) {
 		auto data = *iter;
@@ -156,7 +159,7 @@ void StateMachineUI::CurState()
 void StateMachineUI::StateList()
 {
 	map<wstring, CState*>& states = m_FSM->GetStates();
-	m_iStateCnt = states.size();
+	m_iStateCnt = (int)states.size();
 	int cnt = 0;
 	for (auto iter = states.begin(); iter != states.end();++iter) {
 		string statename = ToString(iter->first);

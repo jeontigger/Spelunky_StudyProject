@@ -14,10 +14,10 @@
 
 #define TileBlockScaleVec Vec3(TileBlockScaleX, TileBlockScaleY, 1)
 
-#define DefaultGravity 30.5
+#define DefaultGravity 30.5f
 
 #define CameraViewAll Vec2(5200, 4500)
-#define CameraViewNormal Vec2(TileBlockScaleX * 1.5, TileBlockScaleY + TileScaleY)
+#define CameraViewNormal Vec2(TileBlockScaleX * 1.5f, (float)TileBlockScaleY + TileScaleY)
 
 
 #define BackgroundLayer 1
@@ -37,31 +37,6 @@
 
 #define RandomAccuracy 100
 #define GETRANDOM(bound) CRandomMgr::GetInst()->GetRandom(bound)
-
-#define PlayerMoveDefault 	if (KEY_TAP(m_Script->GetInputKeys().MoveLeft)) {\
-m_Script->TurnLeft();\
-	}\
-	if (KEY_TAP(m_Script->GetInputKeys().MoveRight)) {\
-		m_Script->TurnRight();\
-	}\
-\
-	if (KEY_RELEASED(m_Script->GetInputKeys().MoveLeft)) {\
-		if (KEY_PRESSED(m_Script->GetInputKeys().MoveRight)) {\
-			m_Script->TurnRight();\
-		}\
-	}\
-	if (KEY_RELEASED(m_Script->GetInputKeys().MoveRight)) {\
-		if (KEY_PRESSED(m_Script->GetInputKeys().MoveLeft)) {\
-			m_Script->TurnLeft();\
-		}\
-	}\
-\
-	if (m_Script->IsMoving()) {\
-		m_Script->MoveFront();\
-	}\
-	else {\
-		m_Script->Stop();\
-	}\
 
 enum class StagePackList {
     Dwelling,

@@ -37,32 +37,32 @@ void CWhip::tick()
 	if (anim->IsFinish()) return;
 
 	int idx = anim->GetIdx();
-	int positive = 1.f;
+	int positive = 1;
 	if (GetOwner()->GetParent()->GetScript<CPlayerScript>()->IsLookRight()) {
-		positive = 1.f;
+		positive = 1;
 	}
 	else {
-		positive = -1.f;
+		positive = -1;
 	}
 
 	if (idx == 0) {
-		Transform()->SetRelativePos(Vec3(-60, 48, positive * WhipBackZ));
+		Transform()->SetRelativePos(Vec3(-60.f, 48.f, (float)positive * WhipBackZ));
 		Collider2D()->SetOffsetScale(Vec2(0.8f, 0.4f));
 	}
 	else if (idx == 1) {
-		Transform()->SetRelativePos(Vec3(-60, 28, positive * WhipBackZ));
+		Transform()->SetRelativePos(Vec3(-60, 28, (float)positive * WhipBackZ));
 		Collider2D()->SetOffsetScale(Vec2(0.8f, 0.4f));
 	}
 	else if (idx == 2) {
-		Transform()->SetRelativePos(Vec3(-60, 28, positive * WhipBackZ));
+		Transform()->SetRelativePos(Vec3(-60, 28, (float)positive * WhipBackZ));
 		Collider2D()->SetOffsetScale(Vec2(0.8f, 0.4f));
 	}
 	else if (idx == 3) {
-		Transform()->SetRelativePos(Vec3(0, 20, positive * WhipBackZ));
+		Transform()->SetRelativePos(Vec3(0, 20, (float)positive * WhipBackZ));
 		Collider2D()->SetOffsetScale(Vec2(0.8f, 0.4f));
 	}
 	else if (idx == 4) {
-		Transform()->SetRelativePos(Vec3(75, -25, positive * WhipBackZ));
+		Transform()->SetRelativePos(Vec3(75, -25, (float)positive * WhipBackZ));
 		Collider2D()->SetOffsetScale(Vec2(0.8f, 0.2f));
 	}
 }

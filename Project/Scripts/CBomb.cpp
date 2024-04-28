@@ -17,6 +17,9 @@ CBomb::CBomb()
 	, m_fScaleReduceSpeed(40.f)
 	, m_fAnimationChangeStart(1.f)
 	, m_fAnimationChangeTime(0.3f)
+	, m_fAnimationChangeTimer(0.f)
+	, m_fScaleTimer(0.f)
+	, m_iAnimationCnt(0)
 {
 }
 
@@ -29,7 +32,7 @@ CBomb::~CBomb()
 void CBomb::Bomb()
 {
 	GamePlayStatic::DestroyGameObject(GetOwner());
-	((CStage*)CLevelMgr::GetInst()->GetCurrentLevel())->GetMainCamera()->GetScript<CCameraMovement>()->Shake(0.3, 20);
+	((CStage*)CLevelMgr::GetInst()->GetCurrentLevel())->GetMainCamera()->GetScript<CCameraMovement>()->Shake(0.3f, 20);
 	CGameObject* obj = CAnimationLoop::Instantiate();
 	obj->Transform()->SetRelativePos(Transform()->GetRelativePos());
 	obj->GetScript<CAnimationLoop>()->Set({ wstring(AnimBombExplosion)});
@@ -55,7 +58,7 @@ void CBomb::tick()
 
 	if (m_fScaleTimer < 0) {
 		m_fScaleTimer = m_fScaleTime;
-		GetOwner()->Transform()->SetRelativeScale(m_vOriginScale*1.2);
+		GetOwner()->Transform()->SetRelativeScale(m_vOriginScale*1.2f);
 	}
 
 	if (m_fBombTimer < 0 && !GetOwner()->IsDead()) {
