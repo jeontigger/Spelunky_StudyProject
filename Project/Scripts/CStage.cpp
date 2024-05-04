@@ -120,10 +120,10 @@ CStage::CStage()
 
 		prefab = CAssetMgr::GetInst()->Load<CPrefab>(OutlineWallKey, OutlineWallKey);
 
-		obj = prefab->Instantiate();
-		obj->SetName(OutlineWallName);
-		obj->Transform()->SetRelativePos(Vec3(TileBlockScaleX / 2.f, -TileBlockScaleY / 2.f - TileScaleY, OutlineWallZ));
-		AddObject(obj, OutlinerLayer);
+		//obj = prefab->Instantiate();
+		//obj->SetName(OutlineWallName);
+		//obj->Transform()->SetRelativePos(Vec3(TileBlockScaleX / 2.f, -TileBlockScaleY / 2.f - TileScaleY, OutlineWallZ));
+		//AddObject(obj, OutlinerLayer);
 
 		//prefab = CAssetMgr::GetInst()->Load<CPrefab>(SnakePrefKey, SnakePrefKey);
 		//obj = prefab->Instantiate();
@@ -145,11 +145,11 @@ CStage::CStage()
 		m_MainCamera->Transform()->SetRelativePos(Vec3(TileBlockScaleX / 2.f, -TileBlockScaleY / 2.f, 0.f));
 
 
-		prefab = CAssetMgr::GetInst()->Load<CPrefab>(ParticleBloodPrefKey, ParticleBloodPrefKey);
-		obj = prefab->Instantiate();
-		obj->Transform()->SetRelativePos(Vec3(TileBlockScaleX / 2.f, -TileBlockScaleY / 2.f - TileScaleY* 2, TileZ+10));
-		obj->ParticleSystem()->SetParticleTex(TexParticleSmallAtlas);
-		AddObject(obj, PlayerLayer);
+		//prefab = CAssetMgr::GetInst()->Load<CPrefab>(ParticleBloodPrefKey, ParticleBloodPrefKey);
+		//obj = prefab->Instantiate();
+		//obj->Transform()->SetRelativePos(Vec3(TileBlockScaleX / 2.f, -TileBlockScaleY / 2.f - TileScaleY* 2, TileZ+10));
+		//obj->ParticleSystem()->SetParticleTex(TexParticleSmallAtlas);
+		//AddObject(obj, PlayerLayer);
 
 		//PauseMenuInit();
 	}

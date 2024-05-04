@@ -22,6 +22,9 @@ class CTile :
 {
 private:
     float   m_PermitRange;
+    float m_fReflectScale;
+    float m_fReflectWallScale;
+    float m_fReflectReduceScale;
 
 private:
     static int TileCount;

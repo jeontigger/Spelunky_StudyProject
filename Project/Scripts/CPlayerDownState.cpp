@@ -28,14 +28,18 @@ CPlayerDownState::~CPlayerDownState()
 
 void CPlayerDownState::finaltick()
 {
+	m_Movement->SetVelocityX(0);
+
 	// 일어나기
 	if (KEY_RELEASED(m_Script->GetInputKeys().LookDown)) {
 		ChangeState(StatePlayerIdle);
+		return;
 	}
 
 	// 엎드린채로 떨어지기
 	if (!m_Script->IsGrounded()) {
 		ChangeState(StatePlayerFallDown);
+		return;
 	}
 
 	// 카메라 조절
@@ -50,6 +54,7 @@ void CPlayerDownState::finaltick()
 	if (KEY_TAP((m_Script->GetInputKeys().Jump)) || KEY_PRESSED(m_Script->GetInputKeys().Jump)) {
 		if (*(float*)GetBlackboardData(BBJumpDelay) < 0) {
 			ChangeState(StatePlayerJumpUp);
+			return;
 		}
 	}
 
@@ -72,12 +77,7 @@ void CPlayerDownState::finaltick()
 		m_Movement->SetVelocityX(m_Script->GetSpeed());
 	}
 	else {
-		
-	}
-
-	// 공격
-	if (KEY_TAP(input.Attack)) {
-		ChangeState(StatePlayerAttack);
+		m_Player->Animator2D()->Play(ANIMPlayerDownIdle);
 	}
 
 	m_fCameraDownTimer -= DT;

@@ -75,8 +75,13 @@ void CFieldObject::begin()
 
 }
 
+#include "CMovement.h"
 void CFieldObject::skill(Vec2 _force)
 {
+	auto script = GetOwner()->GetScript<CMovement>();
+	if (script) {
+		script->SetVelocity(Vec3(_force.x, _force.y, 0.f));
+	}
 }
 
 void CFieldObject::BeginOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCollider2D* _OtherCollider)

@@ -8,6 +8,9 @@ CTile::CTile()
 	:CFieldObject((UINT)SCRIPT_TYPE::TILE)
 	, m_PermitRange(2.f)
 	, m_arrSurroundTiles{}
+	, m_fReflectScale(3000.f)
+	, m_fReflectWallScale(700.f)
+	, m_fReflectReduceScale(0.7f)
 {
 	AddScriptParam(SCRIPT_PARAM::INT, "Type", &m_type);
 }
@@ -17,6 +20,8 @@ CTile::CTile(const CTile& tile)
 	, m_type(tile.m_type)
 	, m_PermitRange(2.f)
 	, m_arrSurroundTiles{}
+	, m_fReflectScale(3000.f)
+	, m_fReflectReduceScale(0.7f)
 {
 	AddScriptParam(SCRIPT_PARAM::INT, "Type", &m_type);
 }
@@ -332,6 +337,14 @@ Vec2 CTile::TypeToPos(TileType type)
 
 void CTile::UpCollision(CGameObject* _Obj, float _PlatformTop, float _ObjColScaleY)
 {
+	Vec3 vVel = _Obj->GetScript<CMovement>()->GetVelocity();
+	if (m_fReflectScale < vVel.y) {
+		vVel.y = abs(vVel.y) * m_fReflectReduceScale;
+		_Obj->GetScript<CMovement>()->SetVelocity(vVel);
+
+		return;
+	}
+
 	float NewY = _PlatformTop + _ObjColScaleY / 2.f;
 	NewY -= _Obj->Collider2D()->GetRelativePos().y ;
 
@@ -351,6 +364,12 @@ void CTile::UpCollision(CGameObject* _Obj, float _PlatformTop, float _ObjColScal
 
 void CTile::DownCollision(CGameObject* _Obj, float _PlatformBottom, float _ObjColScaleY)
 {
+	Vec3 vVel = _Obj->GetScript<CMovement>()->GetVelocity();
+
+	vVel.y = -abs(vVel.y);
+	_Obj->GetScript<CMovement>()->SetVelocity(vVel);
+
+
 	float NewY = _PlatformBottom - _ObjColScaleY / 2.f;
 	NewY -= _Obj->Collider2D()->GetRelativePos().y;
 
@@ -362,6 +381,14 @@ void CTile::DownCollision(CGameObject* _Obj, float _PlatformBottom, float _ObjCo
 
 void CTile::LeftCollision(CGameObject* _Obj, float _PlatformLeft, float _ObjColScaleX)
 {
+	Vec3 vVel = _Obj->GetScript<CMovement>()->GetVelocity();
+	if (m_fReflectWallScale < abs(vVel.x)) {
+		vVel.x = -abs(vVel.x) * m_fReflectReduceScale;
+		_Obj->GetScript<CMovement>()->SetVelocity(vVel);
+
+		return;
+	}
+
 	float NewX = _PlatformLeft - _ObjColScaleX / 2.f;
 	NewX -= _Obj->Collider2D()->GetRelativePos().x;
 
@@ -373,6 +400,14 @@ void CTile::LeftCollision(CGameObject* _Obj, float _PlatformLeft, float _ObjColS
 
 void CTile::RightCollision(CGameObject* _Obj, float _PlatformRight, float _ObjColScaleX)
 {
+	Vec3 vVel = _Obj->GetScript<CMovement>()->GetVelocity();
+	if (m_fReflectWallScale < abs(vVel.x)) {
+		vVel.x = abs(vVel.x) * m_fReflectReduceScale;
+		_Obj->GetScript<CMovement>()->SetVelocity(vVel);
+
+		return;
+	}
+
 	float NewX = _PlatformRight + _ObjColScaleX / 2.f;
 	NewX -= _Obj->Collider2D()->GetRelativePos().x;
 

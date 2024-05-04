@@ -47,7 +47,12 @@ void CPlayerIdleState::finaltick()
 
 	// АјАн
 	if (KEY_TAP(input.Attack)) {
-		ChangeState(StatePlayerAttack);
+		if (m_Script->IsHandling()) {
+			ChangeState(StatePlayerThrow);
+		}
+		else {
+			ChangeState(StatePlayerAttack);
+		}
 	}
 
 	m_Movement->SetVelocityX(0.f);

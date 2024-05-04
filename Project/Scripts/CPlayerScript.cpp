@@ -13,9 +13,9 @@ CPlayerScript::CPlayerScript()
 	, InputKey()
 	, m_fInvincibility(1.f)
 	, m_vSocketPos(25.f, -22.f, 0.f)
-	, m_UpForce(6.f, 8.f)
-	, m_FrontForce(6.f, 5.f)
-	, m_DownForce(6.f, -2.f)
+	, m_UpForce(1200.f, 1600.f)
+	, m_FrontForce(1200.f, 1000.f)
+	, m_DownForce(1200.f, -400.f)
 {
 	SetSpeed(900.f);
 	SetHealth(50);
