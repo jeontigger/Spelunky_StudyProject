@@ -180,9 +180,6 @@ void CPlayerScript::begin()
 	auto state = GetOwner()->StateMachine()->GetFSM()->GetState<CPlayerStartState>();
 	GetOwner()->StateMachine()->GetFSM()->ChangeState(CStateMgr::GetStateName(state));
 
-	AddScriptParam(SCRIPT_PARAM::INT, "MoveFront", &m_bMoveFront);
-
-
 	Vec2 ColliderCenterPos = Collider2D()->GetRelativePos();
 	Vec2 ColliderScale = Collider2D()->GetRelativeScale();
 

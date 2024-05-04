@@ -28,7 +28,6 @@ CPlayerDownState::~CPlayerDownState()
 
 void CPlayerDownState::finaltick()
 {
-	m_Movement->SetVelocityX(0);
 
 	// 일어나기
 	if (KEY_RELEASED(m_Script->GetInputKeys().LookDown)) {
@@ -77,7 +76,13 @@ void CPlayerDownState::finaltick()
 		m_Movement->SetVelocityX(m_Script->GetSpeed());
 	}
 	else {
+		m_Movement->SetVelocityX(0);
 		m_Player->Animator2D()->Play(ANIMPlayerDownIdle);
+	}
+
+	// 공격
+	if (KEY_TAP(input.Attack)) {
+		ChangeState(StatePlayerAttack);
 	}
 
 	m_fCameraDownTimer -= DT;

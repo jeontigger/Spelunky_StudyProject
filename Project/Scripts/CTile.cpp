@@ -172,6 +172,7 @@ void CTile::BeginOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCollid
 		else {
 			UpCollision(_OtherObj, TileLT.y, ObjColScale.y);
 
+			if (!IsAllCollisionType()) return;
 			if (_OtherObj->GetScript<CPlayerScript>()) {
 				_OtherObj->GetScript<CPlayerScript>()->CloudSpawn();
 			}
@@ -337,6 +338,8 @@ Vec2 CTile::TypeToPos(TileType type)
 
 void CTile::UpCollision(CGameObject* _Obj, float _PlatformTop, float _ObjColScaleY)
 {
+	if (!IsAllCollisionType()) return;
+
 	Vec3 vVel = _Obj->GetScript<CMovement>()->GetVelocity();
 	if (m_fReflectScale < vVel.y) {
 		vVel.y = abs(vVel.y) * m_fReflectReduceScale;
@@ -364,6 +367,8 @@ void CTile::UpCollision(CGameObject* _Obj, float _PlatformTop, float _ObjColScal
 
 void CTile::DownCollision(CGameObject* _Obj, float _PlatformBottom, float _ObjColScaleY)
 {
+	if (!IsDownCollisionType()) return;
+
 	Vec3 vVel = _Obj->GetScript<CMovement>()->GetVelocity();
 
 	vVel.y = -abs(vVel.y);
@@ -377,10 +382,17 @@ void CTile::DownCollision(CGameObject* _Obj, float _PlatformBottom, float _ObjCo
 	ObjPos.y = NewY;
 
 	_Obj->Transform()->SetRelativePos(ObjPos);
+	auto movement = _Obj->GetScript<CMovement>();
+	Vec3 vVel = movement->GetVelocity();
+	vVel.y = -abs(vVel.y);
+	movement->SetVelocity(vVel);
+
 }
 
 void CTile::LeftCollision(CGameObject* _Obj, float _PlatformLeft, float _ObjColScaleX)
 {
+	if (!IsSideCollisionType()) return;
+
 	Vec3 vVel = _Obj->GetScript<CMovement>()->GetVelocity();
 	if (m_fReflectWallScale < abs(vVel.x)) {
 		vVel.x = -abs(vVel.x) * m_fReflectReduceScale;
@@ -400,6 +412,8 @@ void CTile::LeftCollision(CGameObject* _Obj, float _PlatformLeft, float _ObjColS
 
 void CTile::RightCollision(CGameObject* _Obj, float _PlatformRight, float _ObjColScaleX)
 {
+	if (!IsSideCollisionType()) return;
+
 	Vec3 vVel = _Obj->GetScript<CMovement>()->GetVelocity();
 	if (m_fReflectWallScale < abs(vVel.x)) {
 		vVel.x = abs(vVel.x) * m_fReflectReduceScale;
@@ -415,4 +429,48 @@ void CTile::RightCollision(CGameObject* _Obj, float _PlatformRight, float _ObjCo
 	ObjPos.x = NewX;
 
 	_Obj->Transform()->SetRelativePos(ObjPos);
+}
+
+bool CTile::IsSideCollisionType()
+{
+	if (m_type == TileType::Ladder
+		|| m_type == TileType::LadderHalf
+		|| m_type == TileType::Spike
+		|| m_type == TileType::Half
+		|| m_type == TileType::Door
+		|| m_type == TileType::ExitDoor) {
+		return false;
+	}
+	else {
+		return true;
+	}
+}
+
+bool CTile::IsAllCollisionType()
+{
+	if (m_type == TileType::Ladder
+		|| m_type == TileType::Spike
+		|| m_type == TileType::Door
+		|| m_type == TileType::ExitDoor) {
+		return false;
+	}
+	else {
+		return true;
+	}
+}
+
+bool CTile::IsDownCollisionType()
+{
+	if (m_type == TileType::Half
+		|| m_type == TileType::LadderHalf
+		|| m_type == TileType::Ladder
+		|| m_type == TileType::Spike
+		|| m_type == TileType::Door
+		|| m_type == TileType::ExitDoor
+		) {
+		return false;
+	}
+	else {
+		return true;
+	}
 }

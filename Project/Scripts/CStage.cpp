@@ -21,7 +21,7 @@
 #include "CTile.h"
 #include "CUI.h"
 
-bool test = true;
+bool test = false;
 
 CStage::CStage()
 	: m_state(StageState::NONE)
@@ -659,8 +659,8 @@ void CStage::begin()
 	CTileMgr::GetInst()->CheckLayer(MonsterLayer);
 
 	if (test) {
-		m_arrTileBlocks[0][0].SetBlockType(TileBlockType::Exit);
-		m_arrTileBlocks[0][0] = m_SP->GetBlock(TileBlockType::Exit, 0);
+		m_arrTileBlocks[0][0].SetBlockType(TileBlockType::Normal);
+		m_arrTileBlocks[0][0] = m_SP->GetBlock(TileBlockType::Normal, 4);
 		m_arrTileBlocks[0][0].TileInstancing(0, 0);
 		m_MainCamera->GetScript<CCameraMovement>()->SetTarget(m_Player);
 	}

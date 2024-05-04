@@ -7,6 +7,7 @@
 
 #include	"CSnakeScript.h"
 #include "CSnakeAttackState.h"
+#include "CMovement.h"
 
 CSnakeIdleState::CSnakeIdleState()
 	: CState((UINT)STATE_TYPE::SNAKEIDLESTATE)
@@ -24,6 +25,8 @@ void CSnakeIdleState::finaltick()
 	m_pOwner = (CGameObject*)GetBlackboardData(BBOwnerKey);
 	m_pScript = m_pOwner->GetScript<CSnakeScript>();
 	m_pPlayer = (CGameObject*)GetBlackboardData(StrPlayerName);
+	m_Movement = m_pOwner->GetScript<CMovement>();
+
 
 	if (m_pScript->DetectPlayer()) {
 		auto state = GetFSM()->GetState<CSnakeAttackState>();
@@ -31,6 +34,8 @@ void CSnakeIdleState::finaltick()
 	}
 
 	if (m_pScript->IsGrounded()) {
+
+		// 돌아야 한다면
 		if (!m_pScript->DetectFrontTile() || m_pScript->DetectFrontWall()) {
 			if (m_fDuration < m_fAccTime) {
 				if (m_pScript->IsLookRight()) {
@@ -43,7 +48,14 @@ void CSnakeIdleState::finaltick()
 			}
 			m_fAccTime += DT;
 		}
-		m_pScript->MoveFront();
+
+		// 기본 좌우 움직임
+		if (m_pScript->IsLookRight()) {
+			m_Movement->SetVelocityX(m_pScript->GetSpeed());
+		}
+		else {
+			m_Movement->SetVelocityX(-m_pScript->GetSpeed());
+		}
 	}
 }
 

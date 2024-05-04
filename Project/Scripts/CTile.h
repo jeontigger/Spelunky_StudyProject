@@ -66,5 +66,10 @@ private:
     void DownCollision(CGameObject* _Obj, float _PlatformBottom, float _ObjColScaleY);
     void LeftCollision(CGameObject* _Obj, float _PlatformLeft, float _ObjColScaleX);
     void RightCollision(CGameObject* _Obj, float _PlatformRight, float _ObjColScaleX);
+
+private:
+    bool IsSideCollisionType();
+    bool IsAllCollisionType();
+    bool IsDownCollisionType();
 };
 

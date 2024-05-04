@@ -83,17 +83,3 @@ void CFieldObject::skill(Vec2 _force)
 		script->SetVelocity(Vec3(_force.x, _force.y, 0.f));
 	}
 }
-
-void CFieldObject::BeginOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCollider2D* _OtherCollider)
-{
-	
-}
-
-void CFieldObject::Overlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCollider2D* _OtherCollider) {
-	
-}
-
-
-void CFieldObject::EndOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCollider2D* _OtherCollider) {
-	
-}
